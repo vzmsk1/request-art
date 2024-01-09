@@ -1,8 +1,17 @@
 // -------------------------------- variables -------------------------------
 
+$font: 'Euclid Circular A';
+
 // colors
-$txtColor: #ffffff;
-$bgColor: #000000;
+$white: #ffffff;
+$black: #000000;
+$bodyColor: #1f1f22;
+$pink: #ed89fb;
+$violet: #cad2f4;
+$green: #c9fb40;
+$yellow: #fad85d;
+$darkGray: #6a6a6a;
+$main: #282828;
 
 // ---------------------------------- fonts ---------------------------------
 
@@ -12,8 +21,31 @@ $bgColor: #000000;
 // ------------------------------- base styles ------------------------------
 
 // base scss file
-@import 'base/set';
+@import 'base/base';
+
+// body
+body {
+  &.lock {
+    overflow: hidden;
+    touch-action: none;
+  }
+}
+
+// main
+main {
+  padding-top: 6.7rem;
+  @media (max-width: 48em) {
+    main {
+      padding-top: 12.6rem;
+    }
+  }
+}
 
 // --------------------------------------------------------------------------
 
+// header / footer
+@import 'components/header';
+@import 'components/footer';
+
 // sections
+@import 'sections/home';
