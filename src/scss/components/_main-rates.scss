@@ -1,0 +1,249 @@
+.main-rates {
+  // .main-rates__inner
+  &__inner {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 9rem;
+  }
+  // .main-rates__title
+  &__title {
+    color: $white;
+    font-family: 'DrukCyr';
+    font-size: 10rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%; /* 110px */
+    text-transform: uppercase;
+  }
+  // .main-rates__wrapper
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    width: 100%;
+  }
+  // .main-rates__item
+  &__item {
+    height: 18rem;
+    display: flex;
+    align-items: center;
+    border-radius: 3rem;
+  }
+}
+.rates-item {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    width: 5.1rem;
+    height: 5.1rem;
+    border-radius: 50%;
+    background: #1f1f22;
+
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &::after {
+    right: -2.5rem;
+  }
+  &::before {
+    left: -2.5rem;
+  }
+  &--bg--pink {
+    background: #ff69c2;
+  }
+  &--bg--blue {
+    background: #cad2f4;
+  }
+  &--bg--green {
+    background: $green;
+  }
+  // .rates-item__left
+  &__left {
+    padding: 3.6rem 3.6rem 3.6rem 8.6rem;
+    height: 100%;
+    width: 57.8rem;
+    display: flex;
+    align-items: center;
+    border-right: 0.3rem dashed $main;
+  }
+  // .rates-item__title
+  &__title {
+    color: #1f1f22;
+    font-size: 2.8rem;
+    font-weight: 500;
+    line-height: normal;
+  }
+  // .rates-item__right
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 20.2rem;
+    height: 100%;
+    padding-left: 9.3rem;
+  }
+  // .rates-item__price
+  &__price {
+    &-top {
+      color: #1f1f22;
+      font-size: 2rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%; /* 28px */
+
+      strong {
+        color: #1f1f22;
+        font-size: 2.8rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin: 0 0.5rem;
+        align-self: center;
+      }
+      span {
+        align-self: flex-end;
+        margin-bottom: 0.2rem;
+      }
+      sup {
+        align-self: flex-start;
+      }
+    }
+    &-bottom {
+      color: $main;
+      font-size: 2rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 140%; /* 28px */
+    }
+  }
+  // .rates-item__options
+  &__options {
+    width: 16rem;
+    color: $main;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  // .rates-item__icon
+  &__icon {
+    position: absolute;
+  }
+}
+.rates-icon {
+  &--sunny {
+    top: -5rem;
+    left: 14.3rem;
+    width: 9.7rem;
+    height: 8rem;
+    transform: rotate(-7.376deg);
+  }
+  &--shapes {
+    right: 35.6rem;
+    top: -4.3rem;
+    width: 9.2rem;
+    height: 9rem;
+    transform: rotate(-15deg);
+  }
+  &--megafon {
+    width: 8.7rem;
+    height: 7rem;
+    transform: rotate(-12.401deg);
+    right: 68.6rem;
+    bottom: -3.5rem;
+  }
+}
+
+@media (max-width: 48em) {
+  .main-rates {
+    // .main-rates__inner
+    &__inner {
+      gap: 10rem;
+    }
+    // .main-rates__item
+    &__item {
+      height: 56rem;
+      border-radius: 4rem;
+      flex-direction: column;
+    }
+  }
+  .rates-item {
+    &::before,
+    &::after {
+      width: 9rem;
+      height: 9rem;
+    }
+    &::after {
+      right: -4.5rem;
+    }
+    &::before {
+      left: -4.5rem;
+    }
+    // .rates-item__left
+    &__left {
+      padding: 4.8rem;
+      height: 13.4rem;
+      width: 100%;
+      justify-content: center;
+      border-right: 0;
+      border-bottom: 0.3rem dashed $main;
+    }
+    // .rates-item__title
+    &__title {
+      font-size: 3rem;
+    }
+    // .rates-item__right
+    &__right {
+      flex-direction: column;
+      width: 100%;
+      gap: 4rem;
+      height: auto;
+      padding-left: 0;
+      padding-top: 2.4rem;
+    }
+    // .rates-item__price
+    &__price {
+      &-top {
+        font-size: 4rem;
+
+        strong {
+          font-size: 5.6rem;
+          margin: 0 1rem;
+        }
+        span {
+          align-self: flex-end;
+          margin-bottom: 0;
+        }
+        sup {
+          align-self: flex-start;
+        }
+      }
+      &-bottom {
+        color: $main;
+        font-size: 2.8rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 140%; /* 28px */
+      }
+    }
+    // .rates-item__options
+    &__options {
+      width: 80%;
+      text-align: center;
+      font-size: 2.8rem;
+
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2.8rem;
+    }
+    // .rates-item__icon
+    &__icon {
+      display: none;
+    }
+  }
+}

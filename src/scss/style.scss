@@ -16,12 +16,12 @@ $main: #282828;
 // ---------------------------------- fonts ---------------------------------
 
 // local fonts
-@import 'base/fonts';
+@import './fonts';
 
 // ------------------------------- base styles ------------------------------
 
 // base scss file
-@import 'base/base';
+@import './set';
 
 // body
 body {
@@ -44,8 +44,10 @@ main {
 // --------------------------------------------------------------------------
 
 // header / footer
-@import 'components/header';
-@import 'components/footer';
+@import './components/_header';
 
-// sections
-@import 'sections/home';
+// --------------------------------------------------------------------------
+
+@import './dev/vzmsk1.scss';
+@import './dev/markusDM.scss';
+@import './dev/ukik0.scss';
