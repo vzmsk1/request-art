@@ -1,0 +1,165 @@
+.btn {
+  padding: 1.3rem 1rem 1.3rem 2.8rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 2.2rem;
+  border-radius: 9.5rem;
+  border: 1px solid $green;
+  transition: background-color 0.3s ease;
+  @media (any-hover: hover) {
+    &:hover {
+      background-color: $green;
+      .btn__text {
+        color: $white;
+      }
+      .btn__icon {
+        path {
+          fill: $white;
+        }
+      }
+    }
+  }
+  @media (max-width: 48em) {
+    padding: 3rem 3.6rem 3rem 6rem;
+    column-gap: 3.2rem;
+    border-radius: 19rem;
+  }
+
+  // .btn__text
+  &__text {
+    color: $green;
+    transition: color 0.3s ease;
+  }
+
+  // .btn__icon
+  &__icon {
+    flex: 0 0 2.4rem;
+    width: 2.4rem;
+    height: 2.4rem;
+    path {
+      transition: fill 0.3s ease;
+    }
+    @media (max-width: 48em) {
+      flex: 0 0 5rem;
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+}
+// <button type="button" class="btn">
+//       <span class="btn__text txt20 txt20_caps">ОСТАВИТЬ ЗАЯВКУ</span>
+//       <svg
+//         class="btn__icon"
+//         xmlns="http://www.w3.org/2000/svg"
+//         width="24"
+//         height="24"
+//         viewBox="0 0 24 24"
+//         fill="none">
+//         <path
+//           d="M6.75586 19.2442V5.11624L17.1164 12.1802L6.75586 19.2442Z"
+//           fill="#C9FB40" />
+//       </svg>
+// </button>
+
+// --------------------------------------------------------------------------
+
+.showmore-btn {
+  display: flex;
+  align-items: center;
+  column-gap: 1.6rem;
+  @media (any-hover: hover) {
+    &:hover {
+      .showmore-btn__icon {
+        circle {
+          fill: $white;
+        }
+        path {
+          fill: $pink;
+        }
+      }
+    }
+  }
+  @media (max-width: 48em) {
+    column-gap: 2.4rem;
+  }
+
+  // .showmore-btn__icon
+
+  &__icon {
+    flex: 0 0 5.2rem;
+    width: 5.2rem;
+    height: 5.2rem;
+    border-radius: 50%;
+    circle,
+    path {
+      transition: fill 0.3s ease;
+    }
+    @media (max-width: 48em) {
+      flex: 0 0 8rem;
+      width: 8rem;
+      height: 8rem;
+    }
+  }
+
+  // .showmore-btn__text
+
+  &__text {
+    color: $pink;
+  }
+}
+// <button type="button" class="showmore-btn">
+//       <svg
+//         class="showmore-btn__icon"
+//         width="52"
+//         height="52"
+//         viewBox="0 0 52 52"
+//         fill="none"
+//         xmlns="http://www.w3.org/2000/svg">
+//         <circle cx="26" cy="26" r="26" fill="#ED89FB" />
+//         <path
+//           d="M31.6912 24.995C32.1412 25.895 32.3737 26.8625 32.3737 27.875C32.3737 31.3925 29.5162 34.25 25.9987 34.25C22.4812 34.25 19.6237 31.3925 19.6237 27.875C19.6237 24.3575 22.4812 21.5 25.9987 21.5C26.0512 21.5 26.1787 21.5 26.3137 21.545C26.5687 21.6275 26.7562 21.845 26.8087 22.1075C27.1237 23.615 28.4662 24.7175 30.0112 24.7175C30.2962 24.7175 30.5737 24.68 30.8137 24.6125C31.1662 24.515 31.5262 24.68 31.6912 24.995ZM25.9987 17.75C20.8687 17.75 15.6112 22.25 14.7562 27.3725C14.6887 27.7775 14.9662 28.1675 15.3712 28.235C15.7762 28.3025 16.1662 28.025 16.2337 27.62C16.9012 23.6675 21.2137 19.25 25.9987 19.25C30.7837 19.25 35.0962 23.6675 35.7562 27.62C35.8162 27.9875 36.1387 28.25 36.4987 28.25C36.5362 28.25 36.5812 28.25 36.6262 28.2425C37.0312 28.175 37.3087 27.785 37.2412 27.38C36.3862 22.25 31.1287 17.75 25.9987 17.75Z"
+//           fill="white" />
+//       </svg>
+//       <span class="showmore-btn__text txt20 txt20_caps"
+//         >СМОТРЕТЬ ДЕТАЛЬНЕЕ</span
+//       >
+// </button>
+
+// --------------------------------------------------------------------------
+
+.link {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: $black;
+    transform-origin: center;
+    transform: scaleX(1);
+    transition: transform 0.3s ease;
+  }
+  @media (any-hover: hover) {
+    &:hover {
+      &::after {
+        transform: scaleX(0.25);
+      }
+    }
+  }
+  @media (max-width: 48em) {
+    &::after {
+      top: calc(100% + 1.2rem);
+    }
+  }
+
+  // .link__text
+
+  &__text {
+  }
+}
+// <a href="#" class="link"
+// ><span class="link__text txt20 txt20_caps">ЗАГРУЗИТЬ ЕЩЕ</span></a
+// >

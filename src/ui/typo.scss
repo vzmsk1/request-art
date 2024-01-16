@@ -1,0 +1,81 @@
+.tl1,
+.tl2,
+.tl3 {
+  font-family: DrukCyr;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.tl1 {
+  font-size: 20rem;
+  line-height: 117%;
+  @media (max-width: 48em) {
+    font-size: 11rem;
+    line-height: 110%;
+  }
+}
+
+.tl2 {
+  line-height: 110%;
+  font-size: 10rem;
+}
+
+.tl3 {
+  font-size: 6rem;
+  line-height: 110%;
+  @media (max-width: 48em) {
+    font-size: 4rem;
+    letter-spacing: 0.32rem;
+  }
+}
+
+// --------------------------------------------------------------------------
+
+.txt32 {
+  font-size: 3.2rem;
+  @media (max-width: 48em) {
+    font-size: 3rem;
+    line-height: 140%;
+  }
+}
+
+.txt20 {
+  font-family: DrukCyr;
+  font-size: 2.8rem;
+  &_caps {
+    font-size: 4rem;
+    line-height: 110%;
+    letter-spacing: 0.32rem;
+    text-transform: uppercase;
+  }
+  &_md {
+    font-weight: 500;
+  }
+  @media (min-width: 48em) {
+    font-size: 2rem;
+    line-height: 140%;
+    &_caps {
+      font-size: 2.2rem;
+      font-weight: 500;
+      line-height: 109.091%;
+      letter-spacing: 0.176rem;
+    }
+  }
+}
+
+.txt28 {
+  &_md {
+    font-size: 2.8rem;
+    font-weight: 500;
+    @media (max-width: 48em) {
+      font-size: 3.6rem;
+    }
+  }
+}
+
+.txt16 {
+  font-size: 1.6rem;
+  @media (max-width: 48em) {
+    font-size: 2.4rem;
+  }
+}

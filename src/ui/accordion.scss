@@ -1,0 +1,93 @@
+.accordion {
+  // .accordion__item
+
+  &__item {
+    border-radius: 4rem;
+    background-color: $green;
+  }
+
+  // .accordion__title
+
+  &__title {
+    padding: 3.2rem 3.2rem 3.2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    &._accordion-active {
+      .accordion__title-icon {
+        transform: rotate(-180deg);
+      }
+    }
+    @media (max-width: 48em) {
+      padding: 4rem;
+    }
+  }
+
+  // .accordion__title-icon
+
+  &__title-icon {
+    flex: 0 0 5rem;
+    width: 5rem;
+    height: 5rem;
+    transition: transform 0.3s ease;
+    @media (max-width: 48em) {
+      flex: 0 0 8rem;
+      width: 8rem;
+      height: 8rem;
+    }
+  }
+
+  // .accordion__title-txt
+
+  &__title-txt {
+  }
+
+  // .accordion__body
+
+  &__body {
+    padding: 4rem 3.2rem;
+    padding-top: 0;
+    @media (max-width: 48em) {
+      padding: 4rem;
+      padding-top: 0;
+    }
+  }
+
+  // .accordion__text
+
+  &__text {
+    font-family: EuclidCircularA;
+    max-width: 72.6rem;
+    @media (max-width: 48em) {
+      max-width: 62.2rem;
+    }
+  }
+}
+
+// <div data-accordion data-accordion-one-active class="accordion">
+//           <div class="accordion__item">
+//             <button type="button" data-accordion-item class="accordion__title">
+//               <svg
+//                 class="accordion__title-icon"
+//                 width="52"
+//                 height="52"
+//                 viewBox="0 0 52 52"
+//                 fill="none"
+//                 xmlns="http://www.w3.org/2000/svg">
+//                 <circle cx="26" cy="26" r="26" fill="#1F1F22" />
+//                 <path
+//                   d="M18.872 21L33 21L25.936 31.3605L18.872 21Z"
+//                   fill="white" />
+//               </svg>
+//               <span class="accordion__title-txt tl3">Качество</span>
+//             </button>
+//             <div class="accordion__body">
+//               <p class="accordion__text txt20">
+//                 Мы придерживаемся высочайших стандартов и регулярно обновляем
+//                 наши навыки и техники, чтобы удовлетворить все потребности и
+//                 ожидания наших клиентов.
+//               </p>
+//             </div>
+//           </div>
+//         </div>

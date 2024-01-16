@@ -2,12 +2,23 @@
 
 import '../scss/style.scss';
 
-// ---------------------------------- utils ---------------------------------
+// ---------------------------------- forms ---------------------------------
 
-// import * as utils from './utils/utils.js';
+import * as forms from './utils/forms.js';
 
-// menu
-// utils.menuInit();
+// form fields
+forms.formFieldsInit({ viewPass: false });
+
+// form submit
+forms.formSubmit();
+
+// ---------------------------------- tabs ----------------------------------
+
+import './utils/tabs.js';
+
+// -------------------------------- accordion -------------------------------
+
+import './utils/accordion.js';
 
 // ------------------------------- own scripts ------------------------------
 

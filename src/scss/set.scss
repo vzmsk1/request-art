@@ -21,8 +21,8 @@ body {
   line-height: 1.2;
   margin: 0;
   padding: 0;
-  color: #262525; // цвет по умолчанию текста по сайту
-  background-color: #ffffff;
+  color: $black; // цвет по умолчанию текста по сайту
+  background-color: $white;
 }
 
 input,

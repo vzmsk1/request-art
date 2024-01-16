@@ -1,0 +1,55 @@
+.tabs {
+  // .tabs__navigation
+
+  &__navigation {
+    display: flex;
+    column-gap: 2rem;
+  }
+
+  // .tabs__title
+
+  &__title {
+  }
+
+  // .tabs__content
+
+  &__content {
+  }
+
+  // .tabs__body
+
+  &__body {
+  }
+}
+
+.tab {
+  padding: 1.6rem 3.3rem 1.9rem 3.3rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $black;
+  border-radius: 4rem;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  &._active {
+    background-color: $green;
+  }
+  @media (max-width: 48em) {
+    padding: 1.8rem 5rem;
+  }
+}
+
+// <div data-tabs class="tabs">
+// <nav data-tabs-titles class="tabs__navigation">
+//   <button type="button" class="tabs__title txt20 txt20_caps tab _active">
+//     Таб №1
+//   </button>
+//   <button type="button" class="tabs__title txt20 txt20_caps tab">Таб №2</button>
+//   <button type="button" class="tabs__title txt20 txt20_caps tab">Таб №3</button>
+// </nav>
+// <div data-tabs-body class="tabs__content">
+//   <div class="tabs__body">Содержимое первого таба</div>
+//   <div class="tabs__body">Содержимое второго таба</div>
+//   <div class="tabs__body">Содержимое третьего таба</div>
+// </div>
+// </div>
