@@ -20,6 +20,14 @@ import './utils/tabs.js';
 
 import './utils/accordion.js';
 
+// -------------------------------- simplebar -------------------------------
+
+import './libs/simplebar.js';
+
+// --------------------------------- select ---------------------------------
+
+import './utils/select.js';
+
 // ------------------------------- own scripts ------------------------------
 
 import './dev/vzmsk1.js';

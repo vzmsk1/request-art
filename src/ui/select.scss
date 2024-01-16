@@ -1,0 +1,211 @@
+.select {
+    position: relative;
+    @media (min-width: 48em) {
+        min-width: 20.4rem;
+    }
+
+    // .select__body
+
+    &__body {
+        position: relative;
+    }
+
+    // .select__title
+
+    &__title {
+        border-radius: 4rem;
+        width: 100%;
+        background-color: $violet;
+        cursor: pointer;
+        text-align: left;
+        color: inherit;
+    }
+
+    // .select__value
+
+    &__value {
+        @extend .txt20_caps;
+        padding: 1.4rem 2.4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        height: 5.2rem;
+        width: 100%;
+        font-family: DrukCyr;
+
+        > * {
+            flex: 1 1 auto;
+        }
+
+        &::after {
+            content: '';
+            flex: 0 0 2.4rem;
+            width: 2.4rem;
+            height: 2.4rem;
+            background-image: url(./assets/images/icons/arr.svg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: transform 0.3s ease;
+            ._select-opened & {
+                transform: rotate(-180deg);
+            }
+        }
+        .select__content {
+            max-width: 31.4rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        @media (max-width: 48em) {
+            padding: 1.8rem 4rem;
+            height: 8rem;
+            &::after {
+                flex: 0 0 5rem;
+                width: 5rem;
+                height: 5rem;
+            }
+        }
+    }
+
+    // .select__content
+
+    &__content {
+        // hide / show selected value
+        // display: none;
+    }
+
+    // .select__text
+
+    &__text {
+        flex: 1 1 auto;
+    }
+
+    // .select__input
+
+    &__input {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    // .select__options
+
+    &__options {
+        position: absolute;
+        z-index: 2;
+        top: calc(100% + 0.4rem);
+        left: 0;
+        padding: 1.2rem 2.8rem 2rem 1.2rem;
+        min-width: 100%;
+        box-shadow: 0 0.8rem 2.5rem 0 rgba(99, 119, 156, 0.2);
+        border-radius: 4rem;
+        background-color: $violet;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        .dropdown_sort & {
+            background-color: $white;
+        }
+        ._select-opened & {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    // .select__scroll
+
+    &__scroll {
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        // maximum height
+        max-height: 23.4rem;
+
+        // scrollbar styles
+        &.simplebar-scrollable-y {
+            .simplebar-track.simplebar-vertical {
+                top: 5rem;
+                right: 0;
+                width: 0.4rem;
+                border-radius: 0.8rem;
+                background-color: rgba(255, 255, 255, 0.4);
+            }
+            .simplebar-scrollbar {
+                min-height: 3.2rem;
+                border-radius: 0.8rem;
+                background-color: $white;
+            }
+        }
+        @media (max-width: 48em) {
+            max-height: 40rem;
+        }
+    }
+    // .select__option
+    &__option {
+        @extend .txt20_caps;
+        width: 95%;
+        padding: 1.2rem 3rem;
+        border-radius: 4rem;
+        font-family: DrukCyr;
+        text-align: left;
+        color: inherit;
+        transition: background-color 0.3s ease;
+        &._select-selected {
+            background-color: $white;
+            .dropdown_sort & {
+                background-color: $violet;
+            }
+        }
+        &:not(:last-child) {
+            position: relative;
+            margin-bottom: 1rem;
+            &::after {
+                content: '';
+                position: absolute;
+                top: calc(100% + 0.5rem);
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background-color: rgba(204, 213, 251, 1);
+            }
+        }
+        @media (any-hover: hover) {
+            &:hover {
+                &:not(&.select__subtitle) {
+                    cursor: pointer;
+                    background-color: $white;
+                    .dropdown_sort & {
+                        background-color: $violet;
+                    }
+                }
+            }
+        }
+    }
+}
+// list
+._select-list {
+    cursor: pointer;
+}
+
+// <div class="dropdown dropdown_filters">
+// <select data-no-slide data-show-selection data-sel-scroll="234">
+//     <option value="1" selected>Пункт №1</option>
+//     <option value="2">Пункт №2</option>
+//     <option value="3">Пункт №3</option>
+//     <option value="4">Пункт №4</option>
+//     <option value="5">Пункт №5</option>
+//     <option value="6">Пункт №6</option>
+//     <option value="7">Пункт №7</option>
+// </select>
+// </div>
+
+// <div class="dropdown dropdown_sort">
+//      <select data-show-selection>
+//           <option value="1" selected>Пункт №1</option>
+//           <option value="2">Пункт №2</option>
+//           <option value="3">Пункт №3</option>
+//           <option value="4">Пункт №4</option>
+//      </select>
+// </div>
