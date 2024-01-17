@@ -6,123 +6,6 @@
     text-transform: uppercase;
 }
 
-.h1 {
-    font-family: 'DrukCyr';
-    font-size: 19.9646rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 23.387rem; /* 117.143% */
-}
-
-.h2 {
-    font-family: 'DrukCyr';
-    font-size: 10rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 110%; /* 110px */
-}
-
-.h3 {
-    font-family: 'DrukCyr';
-    font-size: 2rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 84%; /* 16.8px */
-    letter-spacing: 0.16rem;
-}
-
-.h4 {
-    font-size: 1.8rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
-.text-32 {
-    font-size: 3.2rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.text-m-28 {
-    font-size: 2.8rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
-.text-m-20 {
-    font-family: 'DrukCyr';
-    font-size: 2.0093rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 84%; /* 16.878px */
-    letter-spacing: 0.1607rem;
-}
-
-.text-20 {
-    font-size: 2rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 140%; /* 28px */
-}
-
-@media (max-width: 48em) {
-    .h1 {
-        font-size: 11rem;
-        line-height: 110%; /* 60.5px */
-    }
-
-    .h3 {
-        font-size: 4rem;
-        letter-spacing: 0.32rem;
-    }
-
-    .h4 {
-        font-size: 3.6rem;
-    }
-
-    .text-32 {
-        font-size: 3.2rem;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-    }
-
-    .text-m-28 {
-        font-size: 3.6rem;
-    }
-
-    .text-m-20 {
-        font-family: 'Druk Cyr';
-        font-size: 2.0093rem;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 84%; /* 16.878px */
-        letter-spacing: 0.1607rem;
-    }
-
-    .text-20 {
-        font-size: 2.8rem;
-        line-height: normal; /* 28px */
-    }
-
-    .text-16 {
-        font-size: 1.6rem;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-    }
-}
-
-.text-16 {
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
 .tl1 {
     font-size: 20rem;
     line-height: 117%;
@@ -157,7 +40,6 @@
 }
 
 .txt20 {
-    font-family: 'DrukCyr';
     font-size: 2.8rem;
     &_caps {
         font-size: 4rem;

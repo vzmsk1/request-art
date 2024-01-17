@@ -1,6 +1,19 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/js/components/hero-gallery.js":
+/*!*******************************************!*\
+  !*** ./src/js/components/hero-gallery.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var zoomist__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! zoomist */ "./node_modules/zoomist/src/index.js");
+
+
+/***/ }),
+
 /***/ "./src/js/dev/kie6er.js":
 /*!******************************!*\
   !*** ./src/js/dev/kie6er.js ***!
@@ -97,7 +110,12 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).ready(function () {
 /*!******************************!*\
   !*** ./src/js/dev/vzmsk1.js ***!
   \******************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_hero_gallery_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/hero-gallery.js */ "./src/js/components/hero-gallery.js");
+// ------------------------------ hero gallery ------------------------------
 
 
 
@@ -2080,6 +2098,157 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./node_modules/zoomist/src/scss/index.scss":
+/*!***********************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./node_modules/zoomist/src/scss/index.scss ***!
+  \***********************************************************************************************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// Imports
+var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.zoomist-container {
+  position: relative;
+  touch-action: none;
+  user-select: none;
+}
+
+.zoomist-wrapper {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background-color: #f4f4f4;
+}
+
+.zoomist-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: none !important;
+  max-height: none !important;
+  pointer-events: none;
+}
+
+.zoomist-slider {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 0 0 5px 0;
+}
+
+.zoomist-slider-main {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+}
+.zoomist-slider-main:hover .zoomist-slider-bar {
+  background-color: #aaa;
+}
+.zoomist-slider-main:hover .zoomist-slider-button::before {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+.zoomist-slider-main.zoomist-slider-horizontal {
+  align-items: flex-start;
+  width: 150px;
+  padding: 20px 0;
+  margin: 0 20px;
+}
+.zoomist-slider-main.zoomist-slider-horizontal .zoomist-slider-bar {
+  top: calc(50% - 1px);
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+.zoomist-slider-main.zoomist-slider-vertical {
+  align-items: flex-end;
+  height: 150px;
+  padding: 0 20px;
+  margin: 20px 0;
+}
+.zoomist-slider-main.zoomist-slider-vertical .zoomist-slider-bar {
+  top: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 100%;
+}
+
+.zoomist-slider-bar {
+  display: block;
+  position: absolute;
+  z-index: 0;
+  border-radius: 1px;
+  background-color: #ccc;
+  transition: background-color 0.3s;
+}
+
+.zoomist-slider-button {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 0 !important;
+  height: 0 !important;
+}
+.zoomist-slider-button::before {
+  position: absolute;
+  display: block;
+  content: "";
+  left: -5px;
+  top: -5px;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 0.3s;
+}
+
+.zoomist-zoomer {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  border-radius: 0 0 0 5px;
+  overflow: hidden;
+}
+
+.zoomist-in-zoomer, .zoomist-out-zoomer {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.8);
+  transition: background-color 0.3s;
+}
+.zoomist-in-zoomer:hover, .zoomist-out-zoomer:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+.zoomist-in-zoomer svg, .zoomist-out-zoomer svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  fill: #333;
+}
+
+.zoomist-zoomer-disable {
+  pointer-events: none;
+  opacity: 0.6;
+}`, "",{"version":3,"sources":["webpack://./node_modules/zoomist/src/scss/core/zoomist.sass","webpack://./node_modules/zoomist/src/scss/index.scss"],"names":[],"mappings":"AAGA;EACE,kBAAA;EACA,kBAAA;EACA,iBAAA;ACFF;;ADIA;EACE,kBAAA;EACA,UAAA;EACA,MAAA;EACA,OAAA;EACA,QAAA;EACA,SAAA;EACA,gBAAA;EACA,yBAAA;ACDF;;ADGA;EACE,kBAAA;EACA,MAAA;EACA,OAAA;EACA,0BAAA;EACA,2BAAA;EACA,oBAAA;ACAF;;ADIA;EACE,kBAAA;EACA,UAAA;EACA,MAAA;EACA,OAAA;EACA,0CAAA;EACA,wBAAA;ACDF;;ADGA;EACE,kBAAA;EACA,aAAA;EACA,2BAAA;ACAF;ADEI;EACE,sBAAA;ACAN;ADCI;EACE,uCAAA;ACCN;ADAE;EACE,uBAAA;EACA,YAAA;EACA,eAAA;EACA,cAAA;ACEJ;ADDI;EACE,oBAAA;EACA,OAAA;EACA,WAAA;EACA,WAAA;ACGN;ADFE;EACE,qBAAA;EACA,aAAA;EACA,eAAA;EACA,cAAA;ACIJ;ADHI;EACE,MAAA;EACA,qBAAA;EACA,UAAA;EACA,YAAA;ACKN;;ADHA;EACE,cAAA;EACA,kBAAA;EACA,UAAA;EACA,kBAAA;EACA,sBAAA;EACA,iCAAA;ACMF;;ADJA;EACE,cAAA;EACA,kBAAA;EACA,UAAA;EACA,mBAAA;EACA,oBAAA;ACOF;ADNE;EACE,kBAAA;EACA,cAAA;EACA,WAAA;EACA,UAAA;EACA,SAAA;EACA,WAAA;EACA,YAAA;EACA,sBAAA;EACA,kBAAA;EACA,sCAAA;EACA,2BAAA;ACQJ;;ADLA;EACE,kBAAA;EACA,UAAA;EACA,MAAA;EACA,QAAA;EACA,wBAAA;EACA,gBAAA;ACQF;;ADNA;EACE,kBAAA;EACA,WAAA;EACA,YAAA;EACA,eAAA;EACA,0CAAA;EACA,iCAAA;ACSF;ADRE;EACE,0CAAA;ACUJ;ADTE;EACE,kBAAA;EACA,QAAA;EACA,SAAA;EACA,gCAAA;EACA,WAAA;EACA,UAAA;ACWJ;;ADTA;EACE,oBAAA;EACA,YAAA;ACYF","sourcesContent":["$NAME: zoomist\r\n\r\n// core elements\r\n.#{$NAME}-container\r\n  position: relative\r\n  touch-action: none\r\n  user-select: none\r\n\r\n.#{$NAME}-wrapper\r\n  position: absolute\r\n  z-index: 1\r\n  top: 0\r\n  left: 0\r\n  right: 0\r\n  bottom: 0\r\n  overflow: hidden\r\n  background-color: #f4f4f4\r\n\r\n.#{$NAME}-image\r\n  position: absolute\r\n  top: 0\r\n  left: 0\r\n  max-width: none !important\r\n  max-height: none !important\r\n  pointer-events: none\r\n\r\n// module elements\r\n// slider\r\n.#{$NAME}-slider\r\n  position: absolute\r\n  z-index: 2\r\n  top: 0\r\n  left: 0\r\n  background-color: rgba(255, 255, 255, .8)\r\n  border-radius: 0 0 5px 0\r\n\r\n.#{$NAME}-slider-main\r\n  position: relative\r\n  display: flex\r\n  justify-content: flex-start\r\n  &:hover\r\n    .#{$NAME}-slider-bar\r\n      background-color: #aaa\r\n    .#{$NAME}-slider-button::before\r\n      box-shadow: 0 0 10px rgba(0, 0, 0, .6)\r\n  &.zoomist-slider-horizontal\r\n    align-items: flex-start\r\n    width: 150px\r\n    padding: 20px 0\r\n    margin: 0 20px\r\n    .#{$NAME}-slider-bar\r\n      top: calc( 50% - 1px )\r\n      left: 0\r\n      width: 100%\r\n      height: 2px\r\n  &.zoomist-slider-vertical\r\n    align-items: flex-end\r\n    height: 150px\r\n    padding: 0 20px\r\n    margin: 20px 0\r\n    .#{$NAME}-slider-bar\r\n      top: 0\r\n      left: calc( 50% - 1px )\r\n      width: 2px\r\n      height: 100%\r\n\r\n.#{$NAME}-slider-bar\r\n  display: block\r\n  position: absolute\r\n  z-index: 0\r\n  border-radius: 1px\r\n  background-color: #ccc\r\n  transition: background-color .3s\r\n\r\n.#{$NAME}-slider-button\r\n  display: block\r\n  position: relative\r\n  z-index: 1\r\n  width: 0 !important\r\n  height: 0 !important\r\n  &::before\r\n    position: absolute\r\n    display: block\r\n    content: ''\r\n    left: -5px\r\n    top: -5px\r\n    width: 10px\r\n    height: 10px\r\n    background-color: #fff\r\n    border-radius: 50%\r\n    box-shadow: 0 0 5px rgba(0, 0, 0, .4)\r\n    transition: box-shadow .3s\r\n\r\n// zoomer\r\n.#{$NAME}-zoomer\r\n  position: absolute\r\n  z-index: 2\r\n  top: 0\r\n  right: 0\r\n  border-radius: 0 0 0 5px\r\n  overflow: hidden\r\n\r\n.#{$NAME}-in-zoomer, .#{$NAME}-out-zoomer\r\n  position: relative\r\n  width: 50px\r\n  height: 50px\r\n  cursor: pointer\r\n  background-color: rgba(255, 255, 255, .8)\r\n  transition: background-color .3s\r\n  &:hover\r\n    background-color: rgba(255, 255, 255, .9)\r\n  svg\r\n    position: absolute\r\n    top: 50%\r\n    left: 50%\r\n    transform: translate(-50%, -50%)\r\n    width: 12px\r\n    fill: #333\r\n\r\n.#{$NAME}-zoomer-disable\r\n  pointer-events: none\r\n  opacity: .6\r\n",".zoomist-container {\n  position: relative;\n  touch-action: none;\n  user-select: none;\n}\n\n.zoomist-wrapper {\n  position: absolute;\n  z-index: 1;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  overflow: hidden;\n  background-color: #f4f4f4;\n}\n\n.zoomist-image {\n  position: absolute;\n  top: 0;\n  left: 0;\n  max-width: none !important;\n  max-height: none !important;\n  pointer-events: none;\n}\n\n.zoomist-slider {\n  position: absolute;\n  z-index: 2;\n  top: 0;\n  left: 0;\n  background-color: rgba(255, 255, 255, 0.8);\n  border-radius: 0 0 5px 0;\n}\n\n.zoomist-slider-main {\n  position: relative;\n  display: flex;\n  justify-content: flex-start;\n}\n.zoomist-slider-main:hover .zoomist-slider-bar {\n  background-color: #aaa;\n}\n.zoomist-slider-main:hover .zoomist-slider-button::before {\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);\n}\n.zoomist-slider-main.zoomist-slider-horizontal {\n  align-items: flex-start;\n  width: 150px;\n  padding: 20px 0;\n  margin: 0 20px;\n}\n.zoomist-slider-main.zoomist-slider-horizontal .zoomist-slider-bar {\n  top: calc(50% - 1px);\n  left: 0;\n  width: 100%;\n  height: 2px;\n}\n.zoomist-slider-main.zoomist-slider-vertical {\n  align-items: flex-end;\n  height: 150px;\n  padding: 0 20px;\n  margin: 20px 0;\n}\n.zoomist-slider-main.zoomist-slider-vertical .zoomist-slider-bar {\n  top: 0;\n  left: calc(50% - 1px);\n  width: 2px;\n  height: 100%;\n}\n\n.zoomist-slider-bar {\n  display: block;\n  position: absolute;\n  z-index: 0;\n  border-radius: 1px;\n  background-color: #ccc;\n  transition: background-color 0.3s;\n}\n\n.zoomist-slider-button {\n  display: block;\n  position: relative;\n  z-index: 1;\n  width: 0 !important;\n  height: 0 !important;\n}\n.zoomist-slider-button::before {\n  position: absolute;\n  display: block;\n  content: \"\";\n  left: -5px;\n  top: -5px;\n  width: 10px;\n  height: 10px;\n  background-color: #fff;\n  border-radius: 50%;\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);\n  transition: box-shadow 0.3s;\n}\n\n.zoomist-zoomer {\n  position: absolute;\n  z-index: 2;\n  top: 0;\n  right: 0;\n  border-radius: 0 0 0 5px;\n  overflow: hidden;\n}\n\n.zoomist-in-zoomer, .zoomist-out-zoomer {\n  position: relative;\n  width: 50px;\n  height: 50px;\n  cursor: pointer;\n  background-color: rgba(255, 255, 255, 0.8);\n  transition: background-color 0.3s;\n}\n.zoomist-in-zoomer:hover, .zoomist-out-zoomer:hover {\n  background-color: rgba(255, 255, 255, 0.9);\n}\n.zoomist-in-zoomer svg, .zoomist-out-zoomer svg {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 12px;\n  fill: #333;\n}\n\n.zoomist-zoomer-disable {\n  pointer-events: none;\n  opacity: 0.6;\n}"],"sourceRoot":""}]);
+// Exports
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/scss/libs/simplebar.css":
 /*!**********************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/scss/libs/simplebar.css ***!
@@ -2928,115 +3097,6 @@ main {
   text-transform: uppercase;
 }
 
-.h1 {
-  font-family: "DrukCyr";
-  font-size: 19.9646rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 23.387rem; /* 117.143% */
-}
-
-.h2 {
-  font-family: "DrukCyr";
-  font-size: 10rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 110%; /* 110px */
-}
-
-.h3 {
-  font-family: "DrukCyr";
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 84%; /* 16.8px */
-  letter-spacing: 0.16rem;
-}
-
-.h4 {
-  font-size: 1.8rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-}
-
-.text-32 {
-  font-size: 3.2rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.text-m-28 {
-  font-size: 2.8rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-}
-
-.text-m-20 {
-  font-family: "DrukCyr";
-  font-size: 2.0093rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 84%; /* 16.878px */
-  letter-spacing: 0.1607rem;
-}
-
-.text-20 {
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 140%; /* 28px */
-}
-
-@media (max-width: 48em) {
-  .h1 {
-    font-size: 11rem;
-    line-height: 110%; /* 60.5px */
-  }
-  .h3 {
-    font-size: 4rem;
-    letter-spacing: 0.32rem;
-  }
-  .h4 {
-    font-size: 3.6rem;
-  }
-  .text-32 {
-    font-size: 3.2rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-  .text-m-28 {
-    font-size: 3.6rem;
-  }
-  .text-m-20 {
-    font-family: "Druk Cyr";
-    font-size: 2.0093rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 84%; /* 16.878px */
-    letter-spacing: 0.1607rem;
-  }
-  .text-20 {
-    font-size: 2.8rem;
-    line-height: normal; /* 28px */
-  }
-  .text-16 {
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-}
-.text-16 {
-  font-size: 1.6rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
 .tl1 {
   font-size: 20rem;
   line-height: 117%;
@@ -3075,7 +3135,6 @@ main {
 }
 
 .txt20 {
-  font-family: "DrukCyr";
   font-size: 2.8rem;
 }
 .txt20_caps, .select__option, .select__value {
@@ -3129,9 +3188,18 @@ main {
   border: 1px solid #c9fb40;
   transition: background-color 0.3s ease;
 }
+.btn_black {
+  border: 1px solid #000000;
+}
+.btn_black .btn__text {
+  color: #000000;
+}
 @media (any-hover: hover) {
-  .btn:hover {
+  .btn:hover:not(.btn:hover_black) {
     background-color: #c9fb40;
+  }
+  .btn:hover.btn_black {
+    background-color: #000000;
   }
   .btn:hover .btn__text {
     color: #ffffff;
@@ -3148,6 +3216,7 @@ main {
   }
 }
 .btn__text {
+  font-family: DrukCyr;
   color: #c9fb40;
   transition: color 0.3s ease;
 }
@@ -3167,56 +3236,6 @@ main {
   }
 }
 
-.btn--big {
-  color: #1f1f22;
-  font-family: "DrukCyr";
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 84%; /* 16.878px */
-  letter-spacing: 0.1607rem;
-  text-transform: uppercase;
-  background: none;
-  display: flex;
-  align-items: center;
-  gap: 2.6rem;
-  padding: 1.6rem 1.6rem 1.9rem 3.3rem;
-  border-radius: 9.5rem;
-  border: 0.1rem solid #1f1f22;
-  transition: background 0.2s linear, color 0.2s linear;
-}
-.btn--big svg {
-  transition: fill 0.2s linear;
-  width: 1rem;
-  height: 1.4rem;
-  fill: #1f1f22;
-}
-.btn--big:hover {
-  transition: background 0.2s linear, color 0.2s linear;
-  background: #1f1f22;
-  color: #ffffff;
-}
-.btn--big:hover svg {
-  transition: fill 0.2s linear;
-  fill: #ffffff;
-}
-
-@media (max-width: 48em) {
-  .btn--big {
-    color: #1f1f22;
-    font-family: "Druk Cyr";
-    font-size: 4rem;
-    letter-spacing: 0.32rem;
-    gap: 4rem;
-    padding: 3rem 6rem;
-    border-radius: 19rem;
-    border: 0.2rem solid #1f1f22;
-  }
-  .btn--big svg {
-    width: 2rem;
-    height: 2.8rem;
-  }
-}
 .showmore-btn {
   display: flex;
   align-items: center;
@@ -3253,6 +3272,7 @@ main {
   }
 }
 .showmore-btn__text {
+  font-family: DrukCyr;
   color: #ed89fb;
 }
 
@@ -3629,39 +3649,6 @@ textarea.input {
   }
 }
 
-.social {
-  display: flex;
-  align-items: center;
-}
-.social__link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 5.2rem;
-  height: 5.2rem;
-  background-color: #282828;
-  border-radius: 50%;
-  transition: background 0.2s linear;
-}
-.social__link svg {
-  width: 2.2rem;
-  height: 2.2rem;
-}
-.social__link:hover {
-  transition: background 0.2s linear;
-  background-color: #ffffff;
-}
-
-@media (max-width: 48em) {
-  .social__link {
-    width: 8rem;
-    height: 8rem;
-  }
-  .social__link svg {
-    width: 3.6rem;
-    height: 3.6rem;
-  }
-}
 .main-collection {
   background-color: #cad2f4;
   padding: 16rem 0;
@@ -3689,24 +3676,16 @@ textarea.input {
   overflow: hidden;
 }
 .main-collection__title {
-  color: #1f1f22;
-  font-family: "Druk Cyr";
-  font-size: 10rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 110%; /* 110px */
-  text-transform: uppercase;
   margin-bottom: 2rem;
   width: 69.5rem;
 }
 .main-collection__description {
-  color: #6a6a6a;
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 140%; /* 28px */
   margin-bottom: 5rem;
   width: 61.8rem;
+  color: #6a6a6a;
+}
+.main-collection__info {
+  color: #000000;
 }
 
 .collection-item {
@@ -3736,21 +3715,14 @@ textarea.input {
   flex-direction: column;
   padding-left: 1.2rem;
 }
+.collection-item__title .txt20 {
+  opacity: 0.7;
+}
 .collection-item__title strong {
-  color: #ffffff;
   text-align: left;
-  font-size: 2.8rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
 }
 .collection-item__title span {
-  color: #ffffff;
   text-align: left;
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 140%; /* 28px */
 }
 .collection-item__icons {
   display: flex;
@@ -3763,10 +3735,6 @@ textarea.input {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(13px);
-  color: #fff;
-  text-align: center;
-  font-size: 2rem;
-  line-height: 140%; /* 28px */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3793,29 +3761,14 @@ textarea.input {
 .collection-item__footer-item--left {
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(30px);
-  color: #ffffff;
-  text-align: center;
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 140%; /* 28px */
 }
 .collection-item__footer-item--right {
   background: #ffffff;
   backdrop-filter: blur(11.5px);
   align-self: flex-end;
-  color: #1f1f22;
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 140%; /* 28px */
+  color: #000000;
 }
 .collection-item__footer-item--right strong {
-  color: #1f1f22;
-  font-size: 2.8rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
   margin: 0 0.5rem;
   align-self: center;
 }
@@ -3896,19 +3849,10 @@ textarea.input {
     padding-left: 0;
   }
   .collection-item__title strong {
-    font-size: 3.6rem;
     margin-bottom: 1rem;
-    line-height: normal;
-  }
-  .collection-item__title span {
-    font-size: 2.8rem;
-    line-height: normal; /* 28px */
   }
   .collection-item__icons {
     gap: 1rem;
-  }
-  .collection-item__icons-item {
-    font-size: 3rem;
   }
   .collection-item__icons-item svg {
     width: 4.6rem;
@@ -3921,26 +3865,12 @@ textarea.input {
     padding: 2.4rem;
     border-radius: 4rem;
   }
-  .collection-item__footer-item--left {
-    font-size: 2.8rem;
-  }
-  .collection-item__footer-item--right {
-    font-size: 3rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 140%; /* 28px */
-  }
   .collection-item__footer-item--right strong {
-    font-size: 3.6rem;
     margin: 0 0.5rem;
     align-self: center;
   }
   .collection-item__footer-item--right span {
-    line-height: 1.1;
     margin-bottom: 0;
-  }
-  .collection-item__footer-item--right sup {
-    line-height: 1.1;
   }
 }
 .main-links {
@@ -4018,12 +3948,6 @@ textarea.input {
 }
 .main-rates__title {
   color: #ffffff;
-  font-family: "DrukCyr";
-  font-size: 10rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 110%; /* 110px */
-  text-transform: uppercase;
 }
 .main-rates__wrapper {
   display: flex;
@@ -4077,9 +4001,6 @@ textarea.input {
 }
 .rates-item__title {
   color: #1f1f22;
-  font-size: 2.8rem;
-  font-weight: 500;
-  line-height: normal;
 }
 .rates-item__right {
   display: flex;
@@ -4090,17 +4011,9 @@ textarea.input {
 }
 .rates-item__price-top {
   color: #1f1f22;
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 140%; /* 28px */
 }
 .rates-item__price-top strong {
   color: #1f1f22;
-  font-size: 2.8rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
   margin: 0 0.5rem;
   align-self: center;
 }
@@ -4113,18 +4026,10 @@ textarea.input {
 }
 .rates-item__price-bottom {
   color: #282828;
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 140%; /* 28px */
 }
 .rates-item__options {
   width: 16rem;
   color: #282828;
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
 }
 .rates-item__icon {
   position: absolute;
@@ -4190,11 +4095,7 @@ textarea.input {
     padding-left: 0;
     padding-top: 2.4rem;
   }
-  .rates-item__price-top {
-    font-size: 4rem;
-  }
   .rates-item__price-top strong {
-    font-size: 5.6rem;
     margin: 0 1rem;
   }
   .rates-item__price-top span {
@@ -4206,15 +4107,10 @@ textarea.input {
   }
   .rates-item__price-bottom {
     color: #282828;
-    font-size: 2.8rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 140%; /* 28px */
   }
   .rates-item__options {
     width: 80%;
     text-align: center;
-    font-size: 2.8rem;
     display: flex;
     justify-content: center;
     margin-bottom: 2.8rem;
@@ -4222,7 +4118,40 @@ textarea.input {
   .rates-item__icon {
     display: none;
   }
-}`, "",{"version":3,"sources":["webpack://./src/scss/fonts.scss","webpack://./src/scss/style.scss","webpack://./src/scss/set.scss","webpack://./src/scss/components/header.scss","webpack://./src/scss/components/footer.scss","webpack://./src/ui/typo.scss","webpack://./src/ui/buttons.scss","webpack://./src/ui/inputs.scss","webpack://./src/ui/tabs.scss","webpack://./src/ui/accordion.scss","webpack://./src/ui/select.scss","webpack://./src/ui/radio-btns.scss","webpack://./src/ui/social.scss","webpack://./src/scss/components/_main-collections.scss","webpack://./src/scss/components/_main-links.scss","webpack://./src/scss/components/_main-rates.scss"],"names":[],"mappings":"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","sourcesContent":["@font-face {\n  font-family: 'DrukCyr';\n  font-weight: 500;\n  src: url('./assets/fonts/DrukCyr-Medium.woff2') format('woff2');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 400;\n  src: url('./assets/fonts/EuclidCircularA-Regular.woff') format('woff');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 500;\n  src: url('./assets/fonts/EuclidCircularA-Medium.woff2') format('woff2');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 600;\n  src: url('./assets/fonts/EuclidCircularA-SemiBold.woff2') format('woff2');\n}\n","// --------------------------------- mixins ---------------------------------\n\n@import './mixins';\n\n// -------------------------------- variables -------------------------------\n\n$font: 'EuclidCircularA';\n\n// colors\n$white: #ffffff;\n$black: #000000;\n$bodyColor: #1f1f22;\n$pink: #ed89fb;\n$violet: #cad2f4;\n$green: #c9fb40;\n$yellow: #fad85d;\n$darkGray: #6a6a6a;\n$main: #282828;\n$red: #ff1212;\n\n// ---------------------------------- fonts ---------------------------------\n\n// local fonts\n@import './fonts';\n\n// ------------------------------- base styles ------------------------------\n\n// base scss file\n@import './set';\n\n// body\nbody {\n    &.lock {\n        overflow: hidden;\n        touch-action: none;\n    }\n}\n\n// main\nmain {\n    overflow: hidden;\n    padding-top: 6.7rem;\n    @media (max-width: 48em) {\n        padding-top: 12.6rem;\n    }\n}\n\n.desktop {\n    @media (max-width: 48em) {\n        display: none;\n    }\n}\n\n.mobile {\n    display: none;\n\n    @media (max-width: 48em) {\n        display: block;\n    }\n}\n\n// --------------------------------------------------------------------------\n\n// header / footer\n@import './components/header';\n@import './components/footer';\n\n// ui\n@import '../ui/ui.scss';\n\n// --------------------------------------------------------------------------\n\n@import './dev/vzmsk1.scss';\n@import './dev/markusDM.scss';\n@import './dev/ukik0.scss';\n@import './dev/kie6er.scss';\n","*,\n*::before,\n*::after {\n    box-sizing: border-box;\n}\nhtml {\n    font-family: 'EuclidCircularA'; // шрифт по умолчанию по сайту\n    font-size: 0.5208335vw; // на разрешении 1920 0.520835vw === 10px\n    font-style: normal;\n    font-weight: normal;\n    -webkit-animation: bugfix infinite 1s;\n    line-height: 1.2;\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    font-style: normal;\n    font-weight: normal;\n    -webkit-animation: bugfix infinite 1s;\n    line-height: 1.2;\n    margin: 0;\n    padding: 0;\n    color: $white; // цвет по умолчанию текста по сайту\n    background-color: $bodyColor;\n}\n\ninput,\ntextarea {\n    -webkit-animation: bugfix infinite 1s;\n    line-height: inherit;\n    margin: 0;\n    padding: 0;\n    background-color: transparent;\n    border: none;\n    color: inherit;\n}\na {\n    color: unset;\n}\na,\na:hover {\n    text-decoration: none;\n}\n\nbutton,\ninput,\na,\ntextarea {\n    outline: none;\n    cursor: pointer;\n    font: inherit;\n    &:focus {\n        outline: none;\n    }\n    &:active {\n        outline: none;\n    }\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n    font: inherit;\n    margin: 0;\n    padding: 0;\n}\np {\n    margin-top: 0;\n    margin-bottom: 0;\n}\n\nimg {\n    width: 100%;\n    height: auto;\n    display: block;\n}\n\nbutton {\n    border: none;\n    color: inherit;\n    font: inherit;\n    text-align: inherit;\n    padding: 0;\n    background-color: transparent;\n}\nul {\n    padding: 0;\n    margin: 0;\n}\n\nul li {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n}\n\n.container {\n    width: 172rem;\n    margin: 0 auto;\n}\n\ninput[type='number']::-webkit-inner-spin-button,\ninput[type='number']::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n    margin: 0;\n}\n\ninput[type='number'] {\n    -moz-appearance: textfield;\n}\n\nsvg,\nimg {\n    width: 100%;\n    height: auto;\n    object-fit: contain;\n}\n\n@media (min-width: 1920px) {\n    html {\n        font-size: 10px;\n    }\n}\n\n@media (max-width: 48em) {\n    html {\n        font-size: 5px;\n        font-size: 1.5625vw;\n        font-size: calc((100 / 375) * 5vw); // где 375 это ширина моб версии макета\n        -webkit-text-size-adjust: none;\n    }\n\n    body {\n        -webkit-text-size-adjust: none;\n    }\n\n    .container {\n        padding: 0 2rem; // в моб версии отступ от края задаем для всех контейнеров, а там где не нужно можем точечно убрать\n        width: 100%;\n    }\n}\n",".header {\n    position: fixed;\n    width: 100%;\n    top: 0;\n    left: 0;\n    z-index: 1000;\n\n    background-color: $bodyColor;\n    border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n    // .header__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        gap: 1rem;\n    }\n    // .header__burger-btn\n    &__burger-btn {\n        display: none;\n    }\n    // .header__logo\n    &__logo {\n        padding: 1rem 0;\n        height: 100%;\n        width: 22.7rem;\n        border-right: 0.1rem solid rgba(201, 251, 64, 0.5);\n    }\n    // .header__img\n    &__img {\n        width: 17.9878rem;\n        height: 4.6rem;\n    }\n    // .header__nav\n    &__nav {\n        gap: 5rem;\n    }\n    &__burger-menu {\n        display: none;\n        overflow: auto;\n    }\n}\n\n.nav {\n    display: flex;\n    align-items: center;\n    // .nav__link\n    &__link {\n        display: block;\n        font-size: 2rem;\n        line-height: 140%; /* 28px */\n        transition: color 0.2s linear;\n\n        &:hover,\n        &:focus-visible {\n            transition: color 0.2s linear;\n            color: $green;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .header {\n        border-bottom: none;\n        &.scroll {\n            border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n        }\n\n        &.show {\n            .header__phone {\n                display: none;\n            }\n            .header__inner {\n                flex-direction: row-reverse;\n            }\n        }\n        &__container {\n            position: relative;\n            z-index: 1;\n            background-color: $bodyColor;\n        }\n        // .header__inner\n        &__inner {\n            display: flex;\n            align-items: center;\n            justify-content: space-between;\n            gap: 1rem;\n            padding: 1.6rem 0 1.8rem;\n        }\n        // .header__burger-btn\n        &__burger-btn {\n            display: flex;\n            width: 5.2rem;\n            height: 4.6rem;\n        }\n        // .header__logo\n        &__logo {\n            padding: 0;\n            height: 9.2rem;\n            width: 36.6rem;\n            border-right: none;\n        }\n        // .header__img\n        &__img {\n            width: 100%;\n            height: 100%;\n        }\n        // .header__nav\n        &__nav {\n            display: none;\n        }\n        // .header__phone\n        &__phone {\n            width: 4.8rem;\n            height: 4.8rem;\n        }\n    }\n}\n@media (max-width: 48em) {\n    .burger-btn {\n        &__btn {\n            width: 100%;\n            height: 100%;\n\n            display: flex;\n            justify-content: center;\n            flex-direction: column;\n            gap: 1.4rem;\n\n            span {\n                display: block;\n                width: 100%;\n                height: 0.6rem;\n                background-color: $white;\n                border-radius: 2.4rem;\n            }\n        }\n\n        &__close {\n            display: none;\n        }\n\n        &.open {\n            .burger-btn__btn {\n                display: none;\n            }\n            .burger-btn__close {\n                display: block;\n                width: 4rem;\n                height: 4rem;\n            }\n        }\n    }\n\n    .burger-menu {\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        gap: 15rem;\n        position: absolute;\n        top: 12.6rem;\n        left: 0;\n        z-index: 0;\n        transition: transform 0.5s linear;\n        transform: translateY(-120%);\n\n        width: 100%;\n        height: calc(100vh - 12.6rem);\n        background-color: $bodyColor;\n\n        &.show {\n            transition: transform 0.5s linear;\n            transform: translateY(0);\n        }\n        // .burger-menu__wrapper\n        &__wrapper {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n            padding-top: 16rem;\n        }\n        &__phone {\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            border-top: 0.2rem solid $green;\n\n            padding: 3.2rem 0 4.4rem;\n            a {\n                display: flex;\n                align-items: center;\n                gap: 2.6rem;\n                span {\n                    width: 6.4rem;\n                    height: 6.4rem;\n                    svg path {\n                        fill: $pink;\n                    }\n                }\n\n                strong {\n                    color: $pink;\n                    font-size: 4.8rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: normal;\n                }\n            }\n        }\n        // .burger-menu__link\n        &__link {\n            display: flex;\n            justify-content: center;\n\n            width: 100%;\n            color: $white;\n            font-family: 'Druk Cyr';\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%; /* 55px */\n            text-transform: uppercase;\n            padding: 3.2rem 0;\n\n            border-bottom: 0.2rem solid $green;\n\n            &:first-child {\n                border-top: 0.2rem solid $green;\n            }\n\n            &:hover,\n            &:active,\n            &:focus-visible {\n                background-color: $pink;\n                color: $bodyColor;\n            }\n        }\n    }\n}\n",".footer {\n    background-color: $yellow;\n    color: $main;\n    // .footer__inner\n    &__inner {\n        padding: 7rem 0;\n    }\n    // .footer__top\n    &__top {\n        margin-bottom: 8rem;\n    }\n    // .footer__sitemap\n    &__sitemap {\n        gap: 20rem;\n    }\n    // .footer__middle\n    &__middle {\n        display: flex;\n        gap: 20rem;\n        align-items: flex-end;\n    }\n    // .footer__copyright\n    &__copyright {\n        color: $main;\n        font-size: 2rem;\n        width: 59.528rem;\n    }\n    // .footer__social\n    &__social {\n        gap: 1.6rem;\n    }\n    // .footer__info\n    &__info {\n        display: flex;\n        flex-direction: column;\n        margin-left: auto;\n        gap: 2.5rem;\n    }\n    // .footer__phone\n    &__phone {\n        color: $main;\n        font-size: 3.2rem;\n        line-height: normal;\n\n        &:hover,\n        &:focus-visible,\n        &:active {\n            text-decoration: underline;\n        }\n    }\n    // .footer__politic\n    &__politic {\n        color: $main;\n        font-size: 2rem;\n        line-height: normal;\n\n        position: relative;\n\n        &::after {\n            content: '';\n            width: 100%;\n            height: 0.15rem;\n            background-color: $main;\n\n            position: absolute;\n            left: 0;\n            bottom: 0;\n            z-index: 1;\n        }\n\n        &:hover,\n        &:focus-visible {\n            &::after {\n                display: none;\n            }\n        }\n    }\n    // .footer__bottom-text\n    &__bottom-text {\n        line-height: 0.86;\n        margin-top: 12rem;\n    }\n}\n.footer-sitemap {\n    display: flex;\n    // .footer-sitemap__item\n    &__item {\n        &:nth-child(1) {\n            .sitemap-item__list {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n        &:nth-child(2) {\n            .sitemap-item__list {\n                grid-template-columns: 1fr;\n            }\n        }\n        &:nth-child(3) {\n            margin-left: auto;\n            .sitemap-item__list {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n    }\n}\n.sitemap-item {\n    // .sitemap-item__title\n    &__title {\n        margin-bottom: 3.2rem;\n    }\n    // .sitemap-item__list\n    &__list {\n        line-height: normal;\n        display: grid;\n        gap: 2rem 8rem;\n    }\n    // .sitemap-item__link\n    &__link {\n        line-height: inherit;\n        white-space: nowrap;\n        background: none;\n\n        &:hover,\n        &:focus-visible,\n        &:active {\n            text-decoration: underline;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .footer {\n        background-color: $yellow;\n        color: $main;\n        // .footer__inner\n        &__inner {\n            padding: 10rem 0 17.8rem;\n        }\n        // .footer__top\n        &__top {\n            margin-bottom: 8.4rem;\n        }\n        // .footer__sitemap\n        &__sitemap {\n            padding-left: 4.4rem;\n            gap: 3rem;\n        }\n        // .footer__middle\n        &__middle {\n            display: flex;\n            flex-direction: column;\n            gap: 2rem;\n            align-items: center;\n        }\n        // .footer__copyright\n        &__copyright {\n            order: 2;\n            text-align: center;\n            font-size: 2.4rem;\n            width: 100%;\n        }\n        // .footer__social\n        &__social {\n            gap: 6rem;\n            order: 3;\n            margin-top: 5.6rem;\n        }\n        // .footer__info\n        &__info {\n            text-align: center;\n            display: flex;\n            flex-direction: column;\n            margin-left: 0;\n            gap: 1rem;\n            order: 1;\n        }\n        // .footer__phone\n        &__phone {\n            font-size: 3.6rem;\n        }\n        // .footer__politic\n        &__politic {\n            color: $main;\n            font-size: 3rem;\n\n            position: relative;\n\n            &::after {\n                display: none;\n            }\n        }\n        // .footer__bottom-text\n        &__bottom-text {\n            text-align: center;\n            line-height: 1.1;\n            margin-top: 10.4rem;\n        }\n    }\n    .footer-sitemap {\n        display: grid;\n        grid-template-columns: repeat(2, 28rem);\n        grid-auto-flow: dense;\n        // .footer-sitemap__item\n        &__item {\n            &:nth-child(1) {\n                grid-row: span 2;\n            }\n            &:nth-child(3) {\n                margin-left: 0;\n            }\n        }\n    }\n    .sitemap-item {\n        // .sitemap-item__title\n        &__title {\n            margin-bottom: 2rem;\n        }\n        // .sitemap-item__list\n        &__list {\n            line-height: normal;\n            display: flex;\n            flex-direction: column;\n            gap: 1.6rem;\n        }\n        // .sitemap-item__link\n        &__link {\n            line-height: inherit;\n            white-space: nowrap;\n            background: none;\n\n            &:hover,\n            &:focus-visible,\n            &:active {\n                text-decoration: underline;\n            }\n        }\n    }\n}\n",".tl1,\n.tl2,\n.tl3 {\n    font-family: DrukCyr;\n    font-weight: 500;\n    text-transform: uppercase;\n}\n\n.h1 {\n    font-family: 'DrukCyr';\n    font-size: 19.9646rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: 23.387rem; /* 117.143% */\n}\n\n.h2 {\n    font-family: 'DrukCyr';\n    font-size: 10rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: 110%; /* 110px */\n}\n\n.h3 {\n    font-family: 'DrukCyr';\n    font-size: 2rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: 84%; /* 16.8px */\n    letter-spacing: 0.16rem;\n}\n\n.h4 {\n    font-size: 1.8rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: normal;\n}\n\n.text-32 {\n    font-size: 3.2rem;\n    font-style: normal;\n    font-weight: 400;\n    line-height: normal;\n}\n\n.text-m-28 {\n    font-size: 2.8rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: normal;\n}\n\n.text-m-20 {\n    font-family: 'DrukCyr';\n    font-size: 2.0093rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: 84%; /* 16.878px */\n    letter-spacing: 0.1607rem;\n}\n\n.text-20 {\n    font-size: 2rem;\n    font-style: normal;\n    font-weight: 400;\n    line-height: 140%; /* 28px */\n}\n\n@media (max-width: 48em) {\n    .h1 {\n        font-size: 11rem;\n        line-height: 110%; /* 60.5px */\n    }\n\n    .h3 {\n        font-size: 4rem;\n        letter-spacing: 0.32rem;\n    }\n\n    .h4 {\n        font-size: 3.6rem;\n    }\n\n    .text-32 {\n        font-size: 3.2rem;\n        font-style: normal;\n        font-weight: 400;\n        line-height: normal;\n    }\n\n    .text-m-28 {\n        font-size: 3.6rem;\n    }\n\n    .text-m-20 {\n        font-family: 'Druk Cyr';\n        font-size: 2.0093rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 84%; /* 16.878px */\n        letter-spacing: 0.1607rem;\n    }\n\n    .text-20 {\n        font-size: 2.8rem;\n        line-height: normal; /* 28px */\n    }\n\n    .text-16 {\n        font-size: 1.6rem;\n        font-style: normal;\n        font-weight: 400;\n        line-height: normal;\n    }\n}\n\n.text-16 {\n    font-size: 1.6rem;\n    font-style: normal;\n    font-weight: 400;\n    line-height: normal;\n}\n\n.tl1 {\n    font-size: 20rem;\n    line-height: 117%;\n    @media (max-width: 48em) {\n        font-size: 11rem;\n        line-height: 110%;\n    }\n}\n\n.tl2 {\n    line-height: 110%;\n    font-size: 10rem;\n}\n\n.tl3 {\n    font-size: 6rem;\n    line-height: 110%;\n    @media (max-width: 48em) {\n        font-size: 4rem;\n        letter-spacing: 0.32rem;\n    }\n}\n\n// --------------------------------------------------------------------------\n\n.txt32 {\n    font-size: 3.2rem;\n    @media (max-width: 48em) {\n        font-size: 3rem;\n        line-height: 140%;\n    }\n}\n\n.txt20 {\n    font-family: 'DrukCyr';\n    font-size: 2.8rem;\n    &_caps {\n        font-size: 4rem;\n        line-height: 110%;\n        letter-spacing: 0.32rem;\n        text-transform: uppercase;\n    }\n    &_md {\n        font-weight: 500;\n    }\n    @media (min-width: 48em) {\n        font-size: 2rem;\n        line-height: 140%;\n        &_caps {\n            font-size: 2.2rem;\n            font-weight: 500;\n            line-height: 109.091%;\n            letter-spacing: 0.176rem;\n        }\n    }\n}\n\n.txt28 {\n    &_md {\n        font-size: 2.8rem;\n        font-weight: 500;\n        @media (max-width: 48em) {\n            font-size: 3.6rem;\n        }\n    }\n}\n\n.txt16 {\n    font-size: 1.6rem;\n    @media (max-width: 48em) {\n        font-size: 2.4rem;\n    }\n}\n",".btn {\n    padding: 1.3rem 1rem 1.3rem 2.8rem;\n    display: inline-flex;\n    justify-content: center;\n    align-items: center;\n    column-gap: 2.2rem;\n    border-radius: 9.5rem;\n    border: 1px solid $green;\n    transition: background-color 0.3s ease;\n    @media (any-hover: hover) {\n        &:hover {\n            background-color: $green;\n            .btn__text {\n                color: $white;\n            }\n            .btn__icon {\n                path {\n                    fill: $white;\n                }\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        padding: 3rem 3.6rem 3rem 6rem;\n        column-gap: 3.2rem;\n        border-radius: 19rem;\n    }\n\n    // .btn__text\n    &__text {\n        color: $green;\n        transition: color 0.3s ease;\n    }\n\n    // .btn__icon\n    &__icon {\n        flex: 0 0 2.4rem;\n        width: 2.4rem;\n        height: 2.4rem;\n        path {\n            transition: fill 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 5rem;\n            width: 5rem;\n            height: 5rem;\n        }\n    }\n}\n// <button type=\"button\" class=\"btn\">\n//       <span class=\"btn__text txt20 txt20_caps\">ОСТАВИТЬ ЗАЯВКУ</span>\n//       <svg\n//         class=\"btn__icon\"\n//         xmlns=\"http://www.w3.org/2000/svg\"\n//         width=\"24\"\n//         height=\"24\"\n//         viewBox=\"0 0 24 24\"\n//         fill=\"none\">\n//         <path\n//           d=\"M6.75586 19.2442V5.11624L17.1164 12.1802L6.75586 19.2442Z\"\n//           fill=\"#C9FB40\" />\n//       </svg>\n// </button>\n\n.btn--big {\n    color: #1f1f22;\n    font-family: 'DrukCyr';\n    font-size: 2rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: 84%; /* 16.878px */\n    letter-spacing: 0.1607rem;\n    text-transform: uppercase;\n\n    background: none;\n\n    display: flex;\n    align-items: center;\n    gap: 2.6rem;\n    padding: 1.6rem 1.6rem 1.9rem 3.3rem;\n    border-radius: 9.5rem;\n    border: 0.1rem solid #1f1f22;\n    transition: background 0.2s linear, color 0.2s linear;\n\n    svg {\n        transition: fill 0.2s linear;\n        width: 1rem;\n        height: 1.4rem;\n        fill: #1f1f22;\n    }\n\n    &:hover {\n        transition: background 0.2s linear, color 0.2s linear;\n        background: #1f1f22;\n        color: $white;\n        svg {\n            transition: fill 0.2s linear;\n            fill: $white;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .btn--big {\n        color: #1f1f22;\n        font-family: 'Druk Cyr';\n        font-size: 4rem;\n        letter-spacing: 0.32rem;\n\n        gap: 4rem;\n        padding: 3rem 6rem;\n        border-radius: 19rem;\n        border: 0.2rem solid #1f1f22;\n\n        svg {\n            width: 2rem;\n            height: 2.8rem;\n        }\n    }\n}\n\n// --------------------------------------------------------------------------\n\n.showmore-btn {\n    display: flex;\n    align-items: center;\n    column-gap: 1.6rem;\n    @media (any-hover: hover) {\n        &:hover {\n            .showmore-btn__icon {\n                circle {\n                    fill: $white;\n                }\n                path {\n                    fill: $pink;\n                }\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        column-gap: 2.4rem;\n    }\n\n    // .showmore-btn__icon\n\n    &__icon {\n        flex: 0 0 5.2rem;\n        width: 5.2rem;\n        height: 5.2rem;\n        border-radius: 50%;\n        circle,\n        path {\n            transition: fill 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 8rem;\n            width: 8rem;\n            height: 8rem;\n        }\n    }\n\n    // .showmore-btn__text\n\n    &__text {\n        color: $pink;\n    }\n}\n// <button type=\"button\" class=\"showmore-btn\">\n//       <svg\n//         class=\"showmore-btn__icon\"\n//         width=\"52\"\n//         height=\"52\"\n//         viewBox=\"0 0 52 52\"\n//         fill=\"none\"\n//         xmlns=\"http://www.w3.org/2000/svg\">\n//         <circle cx=\"26\" cy=\"26\" r=\"26\" fill=\"#ED89FB\" />\n//         <path\n//           d=\"M31.6912 24.995C32.1412 25.895 32.3737 26.8625 32.3737 27.875C32.3737 31.3925 29.5162 34.25 25.9987 34.25C22.4812 34.25 19.6237 31.3925 19.6237 27.875C19.6237 24.3575 22.4812 21.5 25.9987 21.5C26.0512 21.5 26.1787 21.5 26.3137 21.545C26.5687 21.6275 26.7562 21.845 26.8087 22.1075C27.1237 23.615 28.4662 24.7175 30.0112 24.7175C30.2962 24.7175 30.5737 24.68 30.8137 24.6125C31.1662 24.515 31.5262 24.68 31.6912 24.995ZM25.9987 17.75C20.8687 17.75 15.6112 22.25 14.7562 27.3725C14.6887 27.7775 14.9662 28.1675 15.3712 28.235C15.7762 28.3025 16.1662 28.025 16.2337 27.62C16.9012 23.6675 21.2137 19.25 25.9987 19.25C30.7837 19.25 35.0962 23.6675 35.7562 27.62C35.8162 27.9875 36.1387 28.25 36.4987 28.25C36.5362 28.25 36.5812 28.25 36.6262 28.2425C37.0312 28.175 37.3087 27.785 37.2412 27.38C36.3862 22.25 31.1287 17.75 25.9987 17.75Z\"\n//           fill=\"white\" />\n//       </svg>\n//       <span class=\"showmore-btn__text txt20 txt20_caps\"\n//         >СМОТРЕТЬ ДЕТАЛЬНЕЕ</span\n//       >\n// </button>\n\n// --------------------------------------------------------------------------\n\n.link {\n    position: relative;\n    &::after {\n        content: '';\n        position: absolute;\n        top: calc(100% + 0.6rem);\n        left: 0;\n        width: 100%;\n        height: 2px;\n        background-color: $black;\n        transform-origin: center;\n        transform: scaleX(1);\n        transition: transform 0.3s ease;\n    }\n    @media (any-hover: hover) {\n        &:hover {\n            &::after {\n                transform: scaleX(0.25);\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        &::after {\n            top: calc(100% + 1.2rem);\n        }\n    }\n\n    // .link__text\n\n    &__text {\n    }\n}\n// <a href=\"#\" class=\"link\"\n// ><span class=\"link__text txt20 txt20_caps\">ЗАГРУЗИТЬ ЕЩЕ</span></a\n// >\n","input[type='text'],\ninput[type='email'],\ninput[type='tel'],\ntextarea {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n}\ntextarea:focus,\ninput:focus {\n  outline: none;\n}\n\n.input {\n  position: relative;\n\n  &._form-focus {\n  }\n  &._form-error {\n    .input__field {\n      border-bottom: 1px solid $red;\n    }\n  }\n\n  // .input__field\n  &__field {\n    padding-bottom: 1.4rem;\n    display: block;\n    width: 100%;\n    border-radius: 0 !important;\n    border-bottom: 1px solid $black;\n    font-family: EuclidCircularA;\n    line-height: 1;\n    color: $black;\n    transition: border-bottom 0.3s ease;\n    &::placeholder {\n      color: $black;\n    }\n    @media (max-width: 48em) {\n      padding-bottom: 3rem;\n    }\n  }\n}\n\ntextarea.input {\n  padding: 0;\n  resize: none;\n}\n\n.form-error {\n  position: absolute;\n  top: calc(100% + 0.9rem);\n  left: 0;\n  color: $red;\n  @media (max-width: 48em) {\n    top: calc(100% + 1.8rem);\n  }\n}\n\n// <div class=\"input\">\n//           <input\n//             autocomplete=\"off\"\n//             type=\"text\"\n//             name=\"form[]\"\n//             data-error=\"Подсказка\"\n//             placeholder=\"Имя *\"\n//             class=\"input__field txt20 txt20_md\" />\n",".tabs {\n  // .tabs__navigation\n\n  &__navigation {\n    display: flex;\n    column-gap: 2rem;\n  }\n\n  // .tabs__title\n\n  &__title {\n  }\n\n  // .tabs__content\n\n  &__content {\n  }\n\n  // .tabs__body\n\n  &__body {\n  }\n}\n\n.tab {\n  padding: 1.6rem 3.3rem 1.9rem 3.3rem;\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  border: 1px solid $black;\n  border-radius: 4rem;\n  text-align: center;\n  transition: background-color 0.3s ease;\n  &._active {\n    background-color: $green;\n  }\n  @media (max-width: 48em) {\n    padding: 1.8rem 5rem;\n  }\n}\n\n// <div data-tabs class=\"tabs\">\n// <nav data-tabs-titles class=\"tabs__navigation\">\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab _active\">\n//     Таб №1\n//   </button>\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab\">Таб №2</button>\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab\">Таб №3</button>\n// </nav>\n// <div data-tabs-body class=\"tabs__content\">\n//   <div class=\"tabs__body\">Содержимое первого таба</div>\n//   <div class=\"tabs__body\">Содержимое второго таба</div>\n//   <div class=\"tabs__body\">Содержимое третьего таба</div>\n// </div>\n// </div>\n",".accordion {\n  // .accordion__item\n\n  &__item {\n    border-radius: 4rem;\n    background-color: $green;\n  }\n\n  // .accordion__title\n\n  &__title {\n    padding: 3.2rem 3.2rem 3.2rem 4rem;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n    &._accordion-active {\n      .accordion__title-icon {\n        transform: rotate(-180deg);\n      }\n    }\n    @media (max-width: 48em) {\n      padding: 4rem;\n    }\n  }\n\n  // .accordion__title-icon\n\n  &__title-icon {\n    flex: 0 0 5rem;\n    width: 5rem;\n    height: 5rem;\n    transition: transform 0.3s ease;\n    @media (max-width: 48em) {\n      flex: 0 0 8rem;\n      width: 8rem;\n      height: 8rem;\n    }\n  }\n\n  // .accordion__title-txt\n\n  &__title-txt {\n  }\n\n  // .accordion__body\n\n  &__body {\n    padding: 4rem 3.2rem;\n    padding-top: 0;\n    @media (max-width: 48em) {\n      padding: 4rem;\n      padding-top: 0;\n    }\n  }\n\n  // .accordion__text\n\n  &__text {\n    font-family: EuclidCircularA;\n    max-width: 72.6rem;\n    @media (max-width: 48em) {\n      max-width: 62.2rem;\n    }\n  }\n}\n\n// <div data-accordion data-accordion-one-active class=\"accordion\">\n//           <div class=\"accordion__item\">\n//             <button type=\"button\" data-accordion-item class=\"accordion__title\">\n//               <svg\n//                 class=\"accordion__title-icon\"\n//                 width=\"52\"\n//                 height=\"52\"\n//                 viewBox=\"0 0 52 52\"\n//                 fill=\"none\"\n//                 xmlns=\"http://www.w3.org/2000/svg\">\n//                 <circle cx=\"26\" cy=\"26\" r=\"26\" fill=\"#1F1F22\" />\n//                 <path\n//                   d=\"M18.872 21L33 21L25.936 31.3605L18.872 21Z\"\n//                   fill=\"white\" />\n//               </svg>\n//               <span class=\"accordion__title-txt tl3\">Качество</span>\n//             </button>\n//             <div class=\"accordion__body\">\n//               <p class=\"accordion__text txt20\">\n//                 Мы придерживаемся высочайших стандартов и регулярно обновляем\n//                 наши навыки и техники, чтобы удовлетворить все потребности и\n//                 ожидания наших клиентов.\n//               </p>\n//             </div>\n//           </div>\n//         </div>\n",".select {\n    position: relative;\n    @media (min-width: 48em) {\n        min-width: 20.4rem;\n    }\n\n    // .select__body\n\n    &__body {\n        position: relative;\n    }\n\n    // .select__title\n\n    &__title {\n        border-radius: 4rem;\n        width: 100%;\n        background-color: $violet;\n        cursor: pointer;\n        text-align: left;\n        color: inherit;\n    }\n\n    // .select__value\n\n    &__value {\n        @extend .txt20_caps;\n        padding: 1.4rem 2.4rem;\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        gap: 1rem;\n        height: 5.2rem;\n        width: 100%;\n        font-family: DrukCyr;\n\n        > * {\n            flex: 1 1 auto;\n        }\n\n        &::after {\n            content: '';\n            flex: 0 0 2.4rem;\n            width: 2.4rem;\n            height: 2.4rem;\n            background-image: url(./assets/images/icons/arr.svg);\n            background-size: contain;\n            background-position: center;\n            background-repeat: no-repeat;\n            transition: transform 0.3s ease;\n            ._select-opened & {\n                transform: rotate(-180deg);\n            }\n        }\n        .select__content {\n            max-width: 31.4rem;\n            overflow: hidden;\n            white-space: nowrap;\n            text-overflow: ellipsis;\n        }\n        @media (max-width: 48em) {\n            padding: 1.8rem 4rem;\n            height: 8rem;\n            &::after {\n                flex: 0 0 5rem;\n                width: 5rem;\n                height: 5rem;\n            }\n        }\n    }\n\n    // .select__content\n\n    &__content {\n        // hide / show selected value\n        // display: none;\n    }\n\n    // .select__text\n\n    &__text {\n        flex: 1 1 auto;\n    }\n\n    // .select__input\n\n    &__input {\n        width: 100%;\n        height: 100%;\n        background-color: transparent;\n    }\n\n    // .select__options\n\n    &__options {\n        position: absolute;\n        z-index: 2;\n        top: calc(100% + 0.4rem);\n        left: 0;\n        padding: 1.2rem 2.8rem 2rem 1.2rem;\n        min-width: 100%;\n        box-shadow: 0 0.8rem 2.5rem 0 rgba(99, 119, 156, 0.2);\n        border-radius: 4rem;\n        background-color: $violet;\n        opacity: 0;\n        visibility: hidden;\n        transition: opacity 0.3s ease, visibility 0.3s ease;\n        .dropdown_sort & {\n            background-color: $white;\n        }\n        ._select-opened & {\n            opacity: 1;\n            visibility: visible;\n        }\n    }\n\n    // .select__scroll\n\n    &__scroll {\n        overflow-y: auto;\n        overflow-x: hidden;\n\n        // maximum height\n        max-height: 23.4rem;\n\n        // scrollbar styles\n        &.simplebar-scrollable-y {\n            .simplebar-track.simplebar-vertical {\n                top: 5rem;\n                right: 0;\n                width: 0.4rem;\n                border-radius: 0.8rem;\n                background-color: rgba(255, 255, 255, 0.4);\n            }\n            .simplebar-scrollbar {\n                min-height: 3.2rem;\n                border-radius: 0.8rem;\n                background-color: $white;\n            }\n        }\n        @media (max-width: 48em) {\n            max-height: 40rem;\n        }\n    }\n    // .select__option\n    &__option {\n        @extend .txt20_caps;\n        width: 95%;\n        padding: 1.2rem 3rem;\n        border-radius: 4rem;\n        font-family: DrukCyr;\n        text-align: left;\n        color: inherit;\n        transition: background-color 0.3s ease;\n        &._select-selected {\n            background-color: $white;\n            .dropdown_sort & {\n                background-color: $violet;\n            }\n        }\n        &:not(:last-child) {\n            position: relative;\n            margin-bottom: 1rem;\n            &::after {\n                content: '';\n                position: absolute;\n                top: calc(100% + 0.5rem);\n                left: 0;\n                width: 100%;\n                height: 1px;\n                background-color: rgba(204, 213, 251, 1);\n            }\n        }\n        @media (any-hover: hover) {\n            &:hover {\n                &:not(&.select__subtitle) {\n                    cursor: pointer;\n                    background-color: $white;\n                    .dropdown_sort & {\n                        background-color: $violet;\n                    }\n                }\n            }\n        }\n    }\n}\n// list\n._select-list {\n    cursor: pointer;\n}\n\n// <div class=\"dropdown dropdown_filters\">\n// <select data-no-slide data-show-selection data-sel-scroll=\"234\">\n//     <option value=\"1\" selected>Пункт №1</option>\n//     <option value=\"2\">Пункт №2</option>\n//     <option value=\"3\">Пункт №3</option>\n//     <option value=\"4\">Пункт №4</option>\n//     <option value=\"5\">Пункт №5</option>\n//     <option value=\"6\">Пункт №6</option>\n//     <option value=\"7\">Пункт №7</option>\n// </select>\n// </div>\n\n// <div class=\"dropdown dropdown_sort\">\n//      <select data-show-selection>\n//           <option value=\"1\" selected>Пункт №1</option>\n//           <option value=\"2\">Пункт №2</option>\n//           <option value=\"3\">Пункт №3</option>\n//           <option value=\"4\">Пункт №4</option>\n//      </select>\n// </div>\n",".option {\n    position: relative;\n    display: flex;\n    flex-direction: column;\n    row-gap: 0.4rem;\n    cursor: pointer;\n\n    // .option__input\n    &__input {\n        position: absolute;\n        width: 0;\n        height: 0;\n        opacity: 0;\n        &:checked + .option__label .option__text::before {\n            border: 2px solid $green;\n        }\n        &:checked + .option__label .option__text::after {\n            transform: scale(0.6);\n        }\n    }\n\n    // .option__text\n    &__text {\n        display: inline-flex;\n        align-items: center;\n        gap: 1rem;\n        cursor: pointer;\n        &::before {\n            content: '';\n            align-self: flex-start;\n            flex: 0 0 3rem;\n            width: 3rem;\n            height: 3rem;\n            border-radius: 50%;\n            border: 2px solid rgba(233, 233, 233);\n            transition: border 0.3s ease;\n        }\n        &::after {\n            content: '';\n            position: absolute;\n            left: 0;\n            width: 3rem;\n            height: 3rem;\n            border-radius: 50%;\n            background-color: $green;\n            transform: scale(0);\n            transform-origin: center;\n            transition: transform 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            &::before,\n            &::after {\n                width: 4rem;\n                height: 4rem;\n            }\n            &::before {\n                flex: 0 0 4rem;\n            }\n            &::after {\n                top: 4rem;\n            }\n        }\n    }\n}\n\n// <div class=\"option\">\n//    <input hidden id=\"o_1\" class=\"option__input\" checked type=\"radio\" value=\"1\" name=\"option\"/>\n//    <label for=\"o_1\" class=\"option__label\"><span class=\"option__text\"></span></label>\n//  </div>\n",".social {\n    display: flex;\n    align-items: center;\n    // .social__link\n    &__link {\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 5.2rem;\n        height: 5.2rem;\n        background-color: $main;\n        border-radius: 50%;\n        transition: background 0.2s linear;\n\n        svg {\n            width: 2.2rem;\n            height: 2.2rem;\n        }\n\n        &:hover {\n            transition: background 0.2s linear;\n            background-color: $white;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .social {\n        // .social__link\n        &__link {\n            width: 8rem;\n            height: 8rem;\n\n            svg {\n                width: 3.6rem;\n                height: 3.6rem;\n            }\n        }\n    }\n}\n",".main-collection {\n    background-color: #cad2f4;\n    padding: 16rem 0;\n    margin-bottom: 16rem;\n    // .main-collection__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        gap: 8rem;\n    }\n    // .main-collection__cards\n    &__cards.swiper {\n        position: relative;\n        width: 83.6rem;\n        height: 73.3rem;\n        margin: 0;\n    }\n    &__cards-item.swiper-slide {\n        display: flex;\n\n        width: 51.5rem;\n        height: 51.5rem;\n        border-radius: 4rem;\n        position: absolute;\n        padding: 1.2rem;\n        overflow: hidden;\n    }\n    // .main-collection__title\n    &__title {\n        color: #1f1f22;\n        font-family: 'Druk Cyr';\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 110%; /* 110px */\n        text-transform: uppercase;\n        margin-bottom: 2rem;\n\n        width: 69.5rem;\n    }\n    // .main-collection__description\n    &__description {\n        color: #6a6a6a;\n        font-size: 2rem;\n        font-style: normal;\n        font-weight: 400;\n        line-height: 140%; /* 28px */\n        margin-bottom: 5rem;\n        width: 61.8rem;\n    }\n}\n.collection-item {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n\n    &--rat {\n        top: 0;\n        left: 0;\n        z-index: 2;\n\n        background: linear-gradient(223deg, #8792ed 1.18%, #5f6eda 34.96%, #6778df 68.58%, #8792ed 100%);\n    }\n    &--snail {\n        right: -2rem;\n        bottom: 0;\n        z-index: 1;\n\n        background: linear-gradient(226deg, #455265 0%, #11161e 40.66%, #11161e 60.6%, #455265 103.07%);\n    }\n\n    // .collection-item__header\n    &__header {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n    }\n    // .collection-item__title\n    &__title {\n        display: flex;\n        flex-direction: column;\n        padding-left: 1.2rem;\n\n        strong {\n            color: $white;\n            text-align: left;\n            font-size: 2.8rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: normal;\n        }\n\n        span {\n            color: $white;\n            text-align: left;\n            font-size: 2rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%; /* 28px */\n        }\n    }\n    // .collection-item__icons\n    &__icons {\n        display: flex;\n        align-items: center;\n        gap: 0.7rem;\n        &-item {\n            width: 8rem;\n            height: 8rem;\n            border-radius: 50%;\n            background: rgba(255, 255, 255, 0.3);\n            backdrop-filter: blur(13px);\n\n            color: #fff;\n            text-align: center;\n            font-size: 2rem;\n            line-height: 140%; /* 28px */\n\n            display: flex;\n            align-items: center;\n            justify-content: center;\n\n            svg {\n                display: block;\n                width: 4.4rem;\n                height: 4.4rem;\n            }\n        }\n    }\n    // .collection-item__footer\n    &__footer {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        &-item {\n            display: flex;\n            width: 24.1rem;\n            height: 6.8rem;\n            padding: 1.6rem;\n            justify-content: center;\n            align-items: center;\n            border-radius: 5.2rem;\n\n            &--left {\n                background: rgba(255, 255, 255, 0.3);\n                backdrop-filter: blur(30px);\n\n                color: $white;\n                text-align: center;\n                font-size: 2rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%; /* 28px */\n            }\n            &--right {\n                background: $white;\n                backdrop-filter: blur(11.5px);\n                align-self: flex-end;\n\n                color: #1f1f22;\n                font-size: 2rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%; /* 28px */\n\n                strong {\n                    color: #1f1f22;\n                    font-size: 2.8rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: normal;\n                    margin: 0 0.5rem;\n                    align-self: center;\n                }\n                span {\n                    align-self: flex-end;\n                    margin-bottom: 0.2rem;\n                }\n                sup {\n                    align-self: flex-start;\n                }\n            }\n        }\n    }\n    // .collection-item__backdrop\n    &__backdrop {\n        position: absolute;\n        top: 0;\n        left: 0;\n        z-index: -1;\n        width: 100%;\n        height: 100%;\n        padding: 3.2rem;\n\n        img {\n            width: 100%;\n            height: auto;\n            object-fit: contain;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .main-collection {\n        padding: 10rem 0;\n        &__container {\n            padding: 0;\n        }\n        // .main-collection__inner\n        &__inner {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n            justify-content: space-between;\n            gap: 6.4rem;\n        }\n        // .main-collection__cards\n        &__cards.swiper {\n            order: 2;\n            position: relative;\n            width: 100%;\n            height: auto;\n            margin: 0;\n            padding: 0 2rem;\n        }\n\n        &__cards-item.swiper-slide {\n            width: 65.8rem;\n            height: 67rem;\n            border-radius: 4rem;\n            position: static;\n            padding: 2.4rem;\n            overflow: hidden;\n        }\n\n        // .main-collection__info\n        &__info {\n            order: 1;\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            padding: 0 2rem;\n        }\n        // .main-collection__title\n        &__title {\n            width: 90%;\n            text-align: center;\n            margin-bottom: 2.4rem;\n        }\n        // .main-collection__description\n        &__description {\n            font-size: 2.8rem;\n            text-align: center;\n            margin-bottom: 6.4rem;\n            width: 93%;\n        }\n    }\n    .collection-item {\n        &--snail {\n            right: 0;\n        }\n        // .collection-item__title\n        &__title {\n            padding-left: 0;\n\n            strong {\n                font-size: 3.6rem;\n                margin-bottom: 1rem;\n                line-height: normal;\n            }\n\n            span {\n                font-size: 2.8rem;\n                line-height: normal; /* 28px */\n            }\n        }\n        // .collection-item__icons\n        &__icons {\n            gap: 1rem;\n            &-item {\n                font-size: 3rem;\n                svg {\n                    width: 4.6rem;\n                    height: 4.6rem;\n                }\n            }\n        }\n        // .collection-item__footer\n        &__footer {\n            &-item {\n                display: flex;\n                width: 30rem;\n                height: 8.8rem;\n                padding: 2.4rem;\n                border-radius: 4rem;\n\n                &--left {\n                    font-size: 2.8rem;\n                }\n                &--right {\n                    font-size: 3rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: 140%; /* 28px */\n\n                    strong {\n                        font-size: 3.6rem;\n                        margin: 0 0.5rem;\n                        align-self: center;\n                    }\n                    span {\n                        line-height: 1.1;\n                        margin-bottom: 0;\n                    }\n                    sup {\n                        line-height: 1.1;\n                    }\n                }\n            }\n        }\n    }\n}\n",".main-links {\n  margin-top: 5.2rem;\n  margin-bottom: 0;\n  // .main-links__list\n  &__list {\n    display: flex;\n    align-items: center;\n    flex-direction: column;\n  }\n  // .main-links__item\n  &__item {\n    width: 100%;\n    text-align: center;\n    color: $white;\n    font-family: 'DrukCyr';\n    font-size: 10rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: normal;\n    transition: background 0.3s linear, color 0.3s linear;\n\n    border-top: 0.1rem solid rgba(201, 243, 43, 0.5);\n\n    &:hover {\n      transition: background 0.3s linear, color 0.3s linear;\n      background-color: $yellow;\n      color: $main;\n    }\n    a {\n      display: block;\n      width: 100%;\n      padding: 0.6rem 0;\n    }\n    &--big {\n      font-size: 19.9646rem;\n      line-height: 23.387rem; /* 117.143% */\n\n      a {\n        padding: 1.8rem 0 3.4rem;\n      }\n    }\n  }\n}\n\n@media (max-width: 48em) {\n  .main-links {\n    margin-top: 0;\n    margin-bottom: 7.6rem;\n    // .main-links__list\n    &__list {\n      display: flex;\n      align-items: center;\n      flex-direction: column;\n    }\n    // .main-links__item\n    &__item {\n      line-height: 110%;\n      border-top: 0.2rem solid rgba(201, 243, 43, 0.5);\n      a {\n        padding: 2.4rem 0;\n      }\n      &--big {\n        font-size: 11rem;\n        line-height: 110%; /* 117.143% */\n\n        a {\n          padding: 2.4rem 0;\n        }\n      }\n    }\n  }\n}\n",".main-rates {\n    margin-bottom: 21.7rem;\n    // .main-rates__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        flex-direction: column;\n        gap: 9rem;\n    }\n    // .main-rates__title\n    &__title {\n        color: $white;\n        font-family: 'DrukCyr';\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 110%; /* 110px */\n        text-transform: uppercase;\n    }\n    // .main-rates__wrapper\n    &__wrapper {\n        display: flex;\n        flex-direction: column;\n        gap: 4rem;\n        width: 100%;\n    }\n    // .main-rates__item\n    &__item {\n        height: 18rem;\n        display: flex;\n        align-items: center;\n        border-radius: 3rem;\n    }\n}\n.rates-item {\n    position: relative;\n\n    &::before,\n    &::after {\n        content: '';\n        width: 5.1rem;\n        height: 5.1rem;\n        border-radius: 50%;\n        background: #1f1f22;\n\n        position: absolute;\n        z-index: 1;\n        top: 50%;\n        transform: translateY(-50%);\n    }\n\n    &::after {\n        right: -2.5rem;\n    }\n    &::before {\n        left: -2.5rem;\n    }\n    &--bg--pink {\n        background: #ff69c2;\n    }\n    &--bg--blue {\n        background: #cad2f4;\n    }\n    &--bg--green {\n        background: $green;\n    }\n    // .rates-item__left\n    &__left {\n        padding: 3.6rem 3.6rem 3.6rem 8.6rem;\n        height: 100%;\n        width: 57.8rem;\n        display: flex;\n        align-items: center;\n        border-right: 0.3rem dashed $main;\n    }\n    // .rates-item__title\n    &__title {\n        color: #1f1f22;\n        font-size: 2.8rem;\n        font-weight: 500;\n        line-height: normal;\n    }\n    // .rates-item__right\n    &__right {\n        display: flex;\n        align-items: center;\n        gap: 20.2rem;\n        height: 100%;\n        padding-left: 9.3rem;\n    }\n    // .rates-item__price\n    &__price {\n        &-top {\n            color: #1f1f22;\n            font-size: 2rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%; /* 28px */\n\n            strong {\n                color: #1f1f22;\n                font-size: 2.8rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: normal;\n                margin: 0 0.5rem;\n                align-self: center;\n            }\n            span {\n                align-self: flex-end;\n                margin-bottom: 0.2rem;\n            }\n            sup {\n                align-self: flex-start;\n            }\n        }\n        &-bottom {\n            color: $main;\n            font-size: 2rem;\n            font-style: normal;\n            font-weight: 600;\n            line-height: 140%; /* 28px */\n        }\n    }\n    // .rates-item__options\n    &__options {\n        width: 16rem;\n        color: $main;\n        font-size: 2rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: normal;\n    }\n    // .rates-item__icon\n    &__icon {\n        position: absolute;\n    }\n}\n.rates-icon {\n    &--sunny {\n        top: -5rem;\n        left: 14.3rem;\n        width: 9.7rem;\n        height: 8rem;\n        transform: rotate(-7.376deg);\n    }\n    &--shapes {\n        right: 35.6rem;\n        top: -4.3rem;\n        width: 9.2rem;\n        height: 9rem;\n        transform: rotate(-15deg);\n    }\n    &--megafon {\n        width: 8.7rem;\n        height: 7rem;\n        transform: rotate(-12.401deg);\n        right: 68.6rem;\n        bottom: -3.5rem;\n    }\n}\n\n@media (max-width: 48em) {\n    .main-rates {\n        // .main-rates__inner\n        &__inner {\n            gap: 10rem;\n        }\n        // .main-rates__item\n        &__item {\n            height: 56rem;\n            border-radius: 4rem;\n            flex-direction: column;\n        }\n    }\n    .rates-item {\n        &::before,\n        &::after {\n            width: 9rem;\n            height: 9rem;\n        }\n        &::after {\n            right: -4.5rem;\n        }\n        &::before {\n            left: -4.5rem;\n        }\n        // .rates-item__left\n        &__left {\n            padding: 4.8rem;\n            height: 13.4rem;\n            width: 100%;\n            justify-content: center;\n            border-right: 0;\n            border-bottom: 0.3rem dashed $main;\n        }\n        // .rates-item__title\n        &__title {\n            font-size: 3rem;\n        }\n        // .rates-item__right\n        &__right {\n            flex-direction: column;\n            width: 100%;\n            gap: 4rem;\n            height: auto;\n            padding-left: 0;\n            padding-top: 2.4rem;\n        }\n        // .rates-item__price\n        &__price {\n            &-top {\n                font-size: 4rem;\n\n                strong {\n                    font-size: 5.6rem;\n                    margin: 0 1rem;\n                }\n                span {\n                    align-self: flex-end;\n                    margin-bottom: 0;\n                }\n                sup {\n                    align-self: flex-start;\n                }\n            }\n            &-bottom {\n                color: $main;\n                font-size: 2.8rem;\n                font-style: normal;\n                font-weight: 600;\n                line-height: 140%; /* 28px */\n            }\n        }\n        // .rates-item__options\n        &__options {\n            width: 80%;\n            text-align: center;\n            font-size: 2.8rem;\n\n            display: flex;\n            justify-content: center;\n            margin-bottom: 2.8rem;\n        }\n        // .rates-item__icon\n        &__icon {\n            display: none;\n        }\n    }\n}\n"],"sourceRoot":""}]);
+}
+.social {
+  display: flex;
+  align-items: center;
+}
+.social__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.2rem;
+  height: 5.2rem;
+  background-color: #282828;
+  border-radius: 50%;
+  transition: background 0.2s linear;
+}
+.social__link svg {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+.social__link:hover {
+  transition: background 0.2s linear;
+  background-color: #ffffff;
+}
+
+@media (max-width: 48em) {
+  .social__link {
+    width: 8rem;
+    height: 8rem;
+  }
+  .social__link svg {
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+}`, "",{"version":3,"sources":["webpack://./src/scss/fonts.scss","webpack://./src/scss/style.scss","webpack://./src/scss/set.scss","webpack://./src/scss/components/header.scss","webpack://./src/scss/components/footer.scss","webpack://./src/ui/typo.scss","webpack://./src/ui/buttons.scss","webpack://./src/ui/inputs.scss","webpack://./src/ui/tabs.scss","webpack://./src/ui/accordion.scss","webpack://./src/ui/select.scss","webpack://./src/ui/radio-btns.scss","webpack://./src/scss/components/_main-collections.scss","webpack://./src/scss/components/_main-links.scss","webpack://./src/scss/components/_main-rates.scss","webpack://./src/scss/dev/kie6er.scss"],"names":[],"mappings":"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","sourcesContent":["@font-face {\n  font-family: 'DrukCyr';\n  font-weight: 500;\n  src: url('./assets/fonts/DrukCyr-Medium.woff2') format('woff2');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 400;\n  src: url('./assets/fonts/EuclidCircularA-Regular.woff') format('woff');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 500;\n  src: url('./assets/fonts/EuclidCircularA-Medium.woff2') format('woff2');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 600;\n  src: url('./assets/fonts/EuclidCircularA-SemiBold.woff2') format('woff2');\n}\n","// --------------------------------- mixins ---------------------------------\n\n@import './mixins';\n\n// -------------------------------- variables -------------------------------\n\n$font: 'EuclidCircularA';\n\n// colors\n$white: #ffffff;\n$black: #000000;\n$bodyColor: #1f1f22;\n$pink: #ed89fb;\n$violet: #cad2f4;\n$green: #c9fb40;\n$yellow: #fad85d;\n$darkGray: #6a6a6a;\n$main: #282828;\n$red: #ff1212;\n$gray: #6a6a6a;\n\n// ---------------------------------- fonts ---------------------------------\n\n// local fonts\n@import './fonts';\n\n// ------------------------------- base styles ------------------------------\n\n// base scss file\n@import './set';\n\n// body\nbody {\n    &.lock {\n        overflow: hidden;\n        touch-action: none;\n    }\n}\n\n// main\nmain {\n    overflow: hidden;\n    padding-top: 6.7rem;\n    @media (max-width: 48em) {\n        padding-top: 12.6rem;\n    }\n}\n\n.desktop {\n    @media (max-width: 48em) {\n        display: none;\n    }\n}\n\n.mobile {\n    display: none;\n\n    @media (max-width: 48em) {\n        display: block;\n    }\n}\n\n// --------------------------------------------------------------------------\n\n// header / footer\n@import './components/header';\n@import './components/footer';\n\n// ui\n@import '../ui/ui.scss';\n\n// --------------------------------------------------------------------------\n\n@import './dev/vzmsk1.scss';\n@import './dev/markusDM.scss';\n@import './dev/ukik0.scss';\n@import './dev/kie6er.scss';\n","*,\n*::before,\n*::after {\n    box-sizing: border-box;\n}\nhtml {\n    font-family: 'EuclidCircularA'; // шрифт по умолчанию по сайту\n    font-size: 0.5208335vw; // на разрешении 1920 0.520835vw === 10px\n    font-style: normal;\n    font-weight: normal;\n    -webkit-animation: bugfix infinite 1s;\n    line-height: 1.2;\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    font-style: normal;\n    font-weight: normal;\n    -webkit-animation: bugfix infinite 1s;\n    line-height: 1.2;\n    margin: 0;\n    padding: 0;\n    color: $white; // цвет по умолчанию текста по сайту\n    background-color: $bodyColor;\n}\n\ninput,\ntextarea {\n    -webkit-animation: bugfix infinite 1s;\n    line-height: inherit;\n    margin: 0;\n    padding: 0;\n    background-color: transparent;\n    border: none;\n    color: inherit;\n}\na {\n    color: unset;\n}\na,\na:hover {\n    text-decoration: none;\n}\n\nbutton,\ninput,\na,\ntextarea {\n    outline: none;\n    cursor: pointer;\n    font: inherit;\n    &:focus {\n        outline: none;\n    }\n    &:active {\n        outline: none;\n    }\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n    font: inherit;\n    margin: 0;\n    padding: 0;\n}\np {\n    margin-top: 0;\n    margin-bottom: 0;\n}\n\nimg {\n    width: 100%;\n    height: auto;\n    display: block;\n}\n\nbutton {\n    border: none;\n    color: inherit;\n    font: inherit;\n    text-align: inherit;\n    padding: 0;\n    background-color: transparent;\n}\nul {\n    padding: 0;\n    margin: 0;\n}\n\nul li {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n}\n\n.container {\n    width: 172rem;\n    margin: 0 auto;\n}\n\ninput[type='number']::-webkit-inner-spin-button,\ninput[type='number']::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n    margin: 0;\n}\n\ninput[type='number'] {\n    -moz-appearance: textfield;\n}\n\nsvg,\nimg {\n    width: 100%;\n    height: auto;\n    object-fit: contain;\n}\n\n@media (min-width: 1920px) {\n    html {\n        font-size: 10px;\n    }\n}\n\n@media (max-width: 48em) {\n    html {\n        font-size: 5px;\n        font-size: 1.5625vw;\n        font-size: calc((100 / 375) * 5vw); // где 375 это ширина моб версии макета\n        -webkit-text-size-adjust: none;\n    }\n\n    body {\n        -webkit-text-size-adjust: none;\n    }\n\n    .container {\n        padding: 0 2rem; // в моб версии отступ от края задаем для всех контейнеров, а там где не нужно можем точечно убрать\n        width: 100%;\n    }\n}\n",".header {\n    position: fixed;\n    width: 100%;\n    top: 0;\n    left: 0;\n    z-index: 1000;\n\n    background-color: $bodyColor;\n    border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n    // .header__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        gap: 1rem;\n    }\n    // .header__burger-btn\n    &__burger-btn {\n        display: none;\n    }\n    // .header__logo\n    &__logo {\n        padding: 1rem 0;\n        height: 100%;\n        width: 22.7rem;\n        border-right: 0.1rem solid rgba(201, 251, 64, 0.5);\n    }\n    // .header__img\n    &__img {\n        width: 17.9878rem;\n        height: 4.6rem;\n    }\n    // .header__nav\n    &__nav {\n        gap: 5rem;\n    }\n    &__burger-menu {\n        display: none;\n        overflow: auto;\n    }\n}\n\n.nav {\n    display: flex;\n    align-items: center;\n    // .nav__link\n    &__link {\n        display: block;\n        font-size: 2rem;\n        line-height: 140%; /* 28px */\n        transition: color 0.2s linear;\n\n        &:hover,\n        &:focus-visible {\n            transition: color 0.2s linear;\n            color: $green;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .header {\n        border-bottom: none;\n        &.scroll {\n            border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n        }\n\n        &.show {\n            .header__phone {\n                display: none;\n            }\n            .header__inner {\n                flex-direction: row-reverse;\n            }\n        }\n        &__container {\n            position: relative;\n            z-index: 1;\n            background-color: $bodyColor;\n        }\n        // .header__inner\n        &__inner {\n            display: flex;\n            align-items: center;\n            justify-content: space-between;\n            gap: 1rem;\n            padding: 1.6rem 0 1.8rem;\n        }\n        // .header__burger-btn\n        &__burger-btn {\n            display: flex;\n            width: 5.2rem;\n            height: 4.6rem;\n        }\n        // .header__logo\n        &__logo {\n            padding: 0;\n            height: 9.2rem;\n            width: 36.6rem;\n            border-right: none;\n        }\n        // .header__img\n        &__img {\n            width: 100%;\n            height: 100%;\n        }\n        // .header__nav\n        &__nav {\n            display: none;\n        }\n        // .header__phone\n        &__phone {\n            width: 4.8rem;\n            height: 4.8rem;\n        }\n    }\n}\n@media (max-width: 48em) {\n    .burger-btn {\n        &__btn {\n            width: 100%;\n            height: 100%;\n\n            display: flex;\n            justify-content: center;\n            flex-direction: column;\n            gap: 1.4rem;\n\n            span {\n                display: block;\n                width: 100%;\n                height: 0.6rem;\n                background-color: $white;\n                border-radius: 2.4rem;\n            }\n        }\n\n        &__close {\n            display: none;\n        }\n\n        &.open {\n            .burger-btn__btn {\n                display: none;\n            }\n            .burger-btn__close {\n                display: block;\n                width: 4rem;\n                height: 4rem;\n            }\n        }\n    }\n\n    .burger-menu {\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        gap: 15rem;\n        position: absolute;\n        top: 12.6rem;\n        left: 0;\n        z-index: 0;\n        transition: transform 0.5s linear;\n        transform: translateY(-120%);\n\n        width: 100%;\n        height: calc(100vh - 12.6rem);\n        background-color: $bodyColor;\n\n        &.show {\n            transition: transform 0.5s linear;\n            transform: translateY(0);\n        }\n        // .burger-menu__wrapper\n        &__wrapper {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n            padding-top: 16rem;\n        }\n        &__phone {\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            border-top: 0.2rem solid $green;\n\n            padding: 3.2rem 0 4.4rem;\n            a {\n                display: flex;\n                align-items: center;\n                gap: 2.6rem;\n                span {\n                    width: 6.4rem;\n                    height: 6.4rem;\n                    svg path {\n                        fill: $pink;\n                    }\n                }\n\n                strong {\n                    color: $pink;\n                    font-size: 4.8rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: normal;\n                }\n            }\n        }\n        // .burger-menu__link\n        &__link {\n            display: flex;\n            justify-content: center;\n\n            width: 100%;\n            color: $white;\n            font-family: 'Druk Cyr';\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%; /* 55px */\n            text-transform: uppercase;\n            padding: 3.2rem 0;\n\n            border-bottom: 0.2rem solid $green;\n\n            &:first-child {\n                border-top: 0.2rem solid $green;\n            }\n\n            &:hover,\n            &:active,\n            &:focus-visible {\n                background-color: $pink;\n                color: $bodyColor;\n            }\n        }\n    }\n}\n",".footer {\n    background-color: $yellow;\n    color: $main;\n    // .footer__inner\n    &__inner {\n        padding: 7rem 0;\n    }\n    // .footer__top\n    &__top {\n        margin-bottom: 8rem;\n    }\n    // .footer__sitemap\n    &__sitemap {\n        gap: 20rem;\n    }\n    // .footer__middle\n    &__middle {\n        display: flex;\n        gap: 20rem;\n        align-items: flex-end;\n    }\n    // .footer__copyright\n    &__copyright {\n        color: $main;\n        font-size: 2rem;\n        width: 59.528rem;\n    }\n    // .footer__social\n    &__social {\n        gap: 1.6rem;\n    }\n    // .footer__info\n    &__info {\n        display: flex;\n        flex-direction: column;\n        margin-left: auto;\n        gap: 2.5rem;\n    }\n    // .footer__phone\n    &__phone {\n        color: $main;\n        font-size: 3.2rem;\n        line-height: normal;\n\n        &:hover,\n        &:focus-visible,\n        &:active {\n            text-decoration: underline;\n        }\n    }\n    // .footer__politic\n    &__politic {\n        color: $main;\n        font-size: 2rem;\n        line-height: normal;\n\n        position: relative;\n\n        &::after {\n            content: '';\n            width: 100%;\n            height: 0.15rem;\n            background-color: $main;\n\n            position: absolute;\n            left: 0;\n            bottom: 0;\n            z-index: 1;\n        }\n\n        &:hover,\n        &:focus-visible {\n            &::after {\n                display: none;\n            }\n        }\n    }\n    // .footer__bottom-text\n    &__bottom-text {\n        line-height: 0.86;\n        margin-top: 12rem;\n    }\n}\n.footer-sitemap {\n    display: flex;\n    // .footer-sitemap__item\n    &__item {\n        &:nth-child(1) {\n            .sitemap-item__list {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n        &:nth-child(2) {\n            .sitemap-item__list {\n                grid-template-columns: 1fr;\n            }\n        }\n        &:nth-child(3) {\n            margin-left: auto;\n            .sitemap-item__list {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n    }\n}\n.sitemap-item {\n    // .sitemap-item__title\n    &__title {\n        margin-bottom: 3.2rem;\n    }\n    // .sitemap-item__list\n    &__list {\n        line-height: normal;\n        display: grid;\n        gap: 2rem 8rem;\n    }\n    // .sitemap-item__link\n    &__link {\n        line-height: inherit;\n        white-space: nowrap;\n        background: none;\n\n        &:hover,\n        &:focus-visible,\n        &:active {\n            text-decoration: underline;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .footer {\n        background-color: $yellow;\n        color: $main;\n        // .footer__inner\n        &__inner {\n            padding: 10rem 0 17.8rem;\n        }\n        // .footer__top\n        &__top {\n            margin-bottom: 8.4rem;\n        }\n        // .footer__sitemap\n        &__sitemap {\n            padding-left: 4.4rem;\n            gap: 3rem;\n        }\n        // .footer__middle\n        &__middle {\n            display: flex;\n            flex-direction: column;\n            gap: 2rem;\n            align-items: center;\n        }\n        // .footer__copyright\n        &__copyright {\n            order: 2;\n            text-align: center;\n            font-size: 2.4rem;\n            width: 100%;\n        }\n        // .footer__social\n        &__social {\n            gap: 6rem;\n            order: 3;\n            margin-top: 5.6rem;\n        }\n        // .footer__info\n        &__info {\n            text-align: center;\n            display: flex;\n            flex-direction: column;\n            margin-left: 0;\n            gap: 1rem;\n            order: 1;\n        }\n        // .footer__phone\n        &__phone {\n            font-size: 3.6rem;\n        }\n        // .footer__politic\n        &__politic {\n            color: $main;\n            font-size: 3rem;\n\n            position: relative;\n\n            &::after {\n                display: none;\n            }\n        }\n        // .footer__bottom-text\n        &__bottom-text {\n            text-align: center;\n            line-height: 1.1;\n            margin-top: 10.4rem;\n        }\n    }\n    .footer-sitemap {\n        display: grid;\n        grid-template-columns: repeat(2, 28rem);\n        grid-auto-flow: dense;\n        // .footer-sitemap__item\n        &__item {\n            &:nth-child(1) {\n                grid-row: span 2;\n            }\n            &:nth-child(3) {\n                margin-left: 0;\n            }\n        }\n    }\n    .sitemap-item {\n        // .sitemap-item__title\n        &__title {\n            margin-bottom: 2rem;\n        }\n        // .sitemap-item__list\n        &__list {\n            line-height: normal;\n            display: flex;\n            flex-direction: column;\n            gap: 1.6rem;\n        }\n        // .sitemap-item__link\n        &__link {\n            line-height: inherit;\n            white-space: nowrap;\n            background: none;\n\n            &:hover,\n            &:focus-visible,\n            &:active {\n                text-decoration: underline;\n            }\n        }\n    }\n}\n",".tl1,\n.tl2,\n.tl3 {\n    font-family: DrukCyr;\n    font-weight: 500;\n    text-transform: uppercase;\n}\n\n.tl1 {\n    font-size: 20rem;\n    line-height: 117%;\n    @media (max-width: 48em) {\n        font-size: 11rem;\n        line-height: 110%;\n    }\n}\n\n.tl2 {\n    line-height: 110%;\n    font-size: 10rem;\n}\n\n.tl3 {\n    font-size: 6rem;\n    line-height: 110%;\n    @media (max-width: 48em) {\n        font-size: 4rem;\n        letter-spacing: 0.32rem;\n    }\n}\n\n// --------------------------------------------------------------------------\n\n.txt32 {\n    font-size: 3.2rem;\n    @media (max-width: 48em) {\n        font-size: 3rem;\n        line-height: 140%;\n    }\n}\n\n.txt20 {\n    font-size: 2.8rem;\n    &_caps {\n        font-size: 4rem;\n        line-height: 110%;\n        letter-spacing: 0.32rem;\n        text-transform: uppercase;\n    }\n    &_md {\n        font-weight: 500;\n    }\n    @media (min-width: 48em) {\n        font-size: 2rem;\n        line-height: 140%;\n        &_caps {\n            font-size: 2.2rem;\n            font-weight: 500;\n            line-height: 109.091%;\n            letter-spacing: 0.176rem;\n        }\n    }\n}\n\n.txt28 {\n    &_md {\n        font-size: 2.8rem;\n        font-weight: 500;\n        @media (max-width: 48em) {\n            font-size: 3.6rem;\n        }\n    }\n}\n\n.txt16 {\n    font-size: 1.6rem;\n    @media (max-width: 48em) {\n        font-size: 2.4rem;\n    }\n}\n",".btn {\n    padding: 1.3rem 1rem 1.3rem 2.8rem;\n    display: inline-flex;\n    justify-content: center;\n    align-items: center;\n    column-gap: 2.2rem;\n    border-radius: 9.5rem;\n    border: 1px solid $green;\n    transition: background-color 0.3s ease;\n    &_black {\n        border: 1px solid $black;\n        .btn__text {\n            color: $black;\n        }\n    }\n    @media (any-hover: hover) {\n        &:hover {\n            &:not(&_black) {\n                background-color: $green;\n            }\n            &.btn_black {\n                background-color: $black;\n            }\n            .btn__text {\n                color: $white;\n            }\n            .btn__icon {\n                path {\n                    fill: $white;\n                }\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        padding: 3rem 3.6rem 3rem 6rem;\n        column-gap: 3.2rem;\n        border-radius: 19rem;\n    }\n\n    // .btn__text\n    &__text {\n        font-family: DrukCyr;\n        color: $green;\n        transition: color 0.3s ease;\n    }\n\n    // .btn__icon\n    &__icon {\n        flex: 0 0 2.4rem;\n        width: 2.4rem;\n        height: 2.4rem;\n        path {\n            transition: fill 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 5rem;\n            width: 5rem;\n            height: 5rem;\n        }\n    }\n}\n// <button type=\"button\" class=\"btn\">\n//       <span class=\"btn__text txt20 txt20_caps\">ОСТАВИТЬ ЗАЯВКУ</span>\n//       <svg\n//         class=\"btn__icon\"\n//         xmlns=\"http://www.w3.org/2000/svg\"\n//         width=\"24\"\n//         height=\"24\"\n//         viewBox=\"0 0 24 24\"\n//         fill=\"none\">\n//         <path\n//           d=\"M6.75586 19.2442V5.11624L17.1164 12.1802L6.75586 19.2442Z\"\n//           fill=\"#C9FB40\" />\n//       </svg>\n// </button>\n\n// --------------------------------------------------------------------------\n\n.showmore-btn {\n    display: flex;\n    align-items: center;\n    column-gap: 1.6rem;\n    @media (any-hover: hover) {\n        &:hover {\n            .showmore-btn__icon {\n                circle {\n                    fill: $white;\n                }\n                path {\n                    fill: $pink;\n                }\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        column-gap: 2.4rem;\n    }\n\n    // .showmore-btn__icon\n\n    &__icon {\n        flex: 0 0 5.2rem;\n        width: 5.2rem;\n        height: 5.2rem;\n        border-radius: 50%;\n        circle,\n        path {\n            transition: fill 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 8rem;\n            width: 8rem;\n            height: 8rem;\n        }\n    }\n\n    // .showmore-btn__text\n\n    &__text {\n        font-family: DrukCyr;\n        color: $pink;\n    }\n}\n// <button type=\"button\" class=\"showmore-btn\">\n//       <svg\n//         class=\"showmore-btn__icon\"\n//         width=\"52\"\n//         height=\"52\"\n//         viewBox=\"0 0 52 52\"\n//         fill=\"none\"\n//         xmlns=\"http://www.w3.org/2000/svg\">\n//         <circle cx=\"26\" cy=\"26\" r=\"26\" fill=\"#ED89FB\" />\n//         <path\n//           d=\"M31.6912 24.995C32.1412 25.895 32.3737 26.8625 32.3737 27.875C32.3737 31.3925 29.5162 34.25 25.9987 34.25C22.4812 34.25 19.6237 31.3925 19.6237 27.875C19.6237 24.3575 22.4812 21.5 25.9987 21.5C26.0512 21.5 26.1787 21.5 26.3137 21.545C26.5687 21.6275 26.7562 21.845 26.8087 22.1075C27.1237 23.615 28.4662 24.7175 30.0112 24.7175C30.2962 24.7175 30.5737 24.68 30.8137 24.6125C31.1662 24.515 31.5262 24.68 31.6912 24.995ZM25.9987 17.75C20.8687 17.75 15.6112 22.25 14.7562 27.3725C14.6887 27.7775 14.9662 28.1675 15.3712 28.235C15.7762 28.3025 16.1662 28.025 16.2337 27.62C16.9012 23.6675 21.2137 19.25 25.9987 19.25C30.7837 19.25 35.0962 23.6675 35.7562 27.62C35.8162 27.9875 36.1387 28.25 36.4987 28.25C36.5362 28.25 36.5812 28.25 36.6262 28.2425C37.0312 28.175 37.3087 27.785 37.2412 27.38C36.3862 22.25 31.1287 17.75 25.9987 17.75Z\"\n//           fill=\"white\" />\n//       </svg>\n//       <span class=\"showmore-btn__text txt20 txt20_caps\"\n//         >СМОТРЕТЬ ДЕТАЛЬНЕЕ</span\n//       >\n// </button>\n\n// --------------------------------------------------------------------------\n\n.link {\n    position: relative;\n    &::after {\n        content: '';\n        position: absolute;\n        top: calc(100% + 0.6rem);\n        left: 0;\n        width: 100%;\n        height: 2px;\n        background-color: $black;\n        transform-origin: center;\n        transform: scaleX(1);\n        transition: transform 0.3s ease;\n    }\n    @media (any-hover: hover) {\n        &:hover {\n            &::after {\n                transform: scaleX(0.25);\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        &::after {\n            top: calc(100% + 1.2rem);\n        }\n    }\n\n    // .link__text\n\n    &__text {\n    }\n}\n// <a href=\"#\" class=\"link\"\n// ><span class=\"link__text txt20 txt20_caps\">ЗАГРУЗИТЬ ЕЩЕ</span></a\n// >\n","input[type='text'],\ninput[type='email'],\ninput[type='tel'],\ntextarea {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n}\ntextarea:focus,\ninput:focus {\n  outline: none;\n}\n\n.input {\n  position: relative;\n\n  &._form-focus {\n  }\n  &._form-error {\n    .input__field {\n      border-bottom: 1px solid $red;\n    }\n  }\n\n  // .input__field\n  &__field {\n    padding-bottom: 1.4rem;\n    display: block;\n    width: 100%;\n    border-radius: 0 !important;\n    border-bottom: 1px solid $black;\n    font-family: EuclidCircularA;\n    line-height: 1;\n    color: $black;\n    transition: border-bottom 0.3s ease;\n    &::placeholder {\n      color: $black;\n    }\n    @media (max-width: 48em) {\n      padding-bottom: 3rem;\n    }\n  }\n}\n\ntextarea.input {\n  padding: 0;\n  resize: none;\n}\n\n.form-error {\n  position: absolute;\n  top: calc(100% + 0.9rem);\n  left: 0;\n  color: $red;\n  @media (max-width: 48em) {\n    top: calc(100% + 1.8rem);\n  }\n}\n\n// <div class=\"input\">\n//           <input\n//             autocomplete=\"off\"\n//             type=\"text\"\n//             name=\"form[]\"\n//             data-error=\"Подсказка\"\n//             placeholder=\"Имя *\"\n//             class=\"input__field txt20 txt20_md\" />\n",".tabs {\n  // .tabs__navigation\n\n  &__navigation {\n    display: flex;\n    column-gap: 2rem;\n  }\n\n  // .tabs__title\n\n  &__title {\n  }\n\n  // .tabs__content\n\n  &__content {\n  }\n\n  // .tabs__body\n\n  &__body {\n  }\n}\n\n.tab {\n  padding: 1.6rem 3.3rem 1.9rem 3.3rem;\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  border: 1px solid $black;\n  border-radius: 4rem;\n  text-align: center;\n  transition: background-color 0.3s ease;\n  &._active {\n    background-color: $green;\n  }\n  @media (max-width: 48em) {\n    padding: 1.8rem 5rem;\n  }\n}\n\n// <div data-tabs class=\"tabs\">\n// <nav data-tabs-titles class=\"tabs__navigation\">\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab _active\">\n//     Таб №1\n//   </button>\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab\">Таб №2</button>\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab\">Таб №3</button>\n// </nav>\n// <div data-tabs-body class=\"tabs__content\">\n//   <div class=\"tabs__body\">Содержимое первого таба</div>\n//   <div class=\"tabs__body\">Содержимое второго таба</div>\n//   <div class=\"tabs__body\">Содержимое третьего таба</div>\n// </div>\n// </div>\n",".accordion {\n  // .accordion__item\n\n  &__item {\n    border-radius: 4rem;\n    background-color: $green;\n  }\n\n  // .accordion__title\n\n  &__title {\n    padding: 3.2rem 3.2rem 3.2rem 4rem;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n    &._accordion-active {\n      .accordion__title-icon {\n        transform: rotate(-180deg);\n      }\n    }\n    @media (max-width: 48em) {\n      padding: 4rem;\n    }\n  }\n\n  // .accordion__title-icon\n\n  &__title-icon {\n    flex: 0 0 5rem;\n    width: 5rem;\n    height: 5rem;\n    transition: transform 0.3s ease;\n    @media (max-width: 48em) {\n      flex: 0 0 8rem;\n      width: 8rem;\n      height: 8rem;\n    }\n  }\n\n  // .accordion__title-txt\n\n  &__title-txt {\n  }\n\n  // .accordion__body\n\n  &__body {\n    padding: 4rem 3.2rem;\n    padding-top: 0;\n    @media (max-width: 48em) {\n      padding: 4rem;\n      padding-top: 0;\n    }\n  }\n\n  // .accordion__text\n\n  &__text {\n    font-family: EuclidCircularA;\n    max-width: 72.6rem;\n    @media (max-width: 48em) {\n      max-width: 62.2rem;\n    }\n  }\n}\n\n// <div data-accordion data-accordion-one-active class=\"accordion\">\n//           <div class=\"accordion__item\">\n//             <button type=\"button\" data-accordion-item class=\"accordion__title\">\n//               <svg\n//                 class=\"accordion__title-icon\"\n//                 width=\"52\"\n//                 height=\"52\"\n//                 viewBox=\"0 0 52 52\"\n//                 fill=\"none\"\n//                 xmlns=\"http://www.w3.org/2000/svg\">\n//                 <circle cx=\"26\" cy=\"26\" r=\"26\" fill=\"#1F1F22\" />\n//                 <path\n//                   d=\"M18.872 21L33 21L25.936 31.3605L18.872 21Z\"\n//                   fill=\"white\" />\n//               </svg>\n//               <span class=\"accordion__title-txt tl3\">Качество</span>\n//             </button>\n//             <div class=\"accordion__body\">\n//               <p class=\"accordion__text txt20\">\n//                 Мы придерживаемся высочайших стандартов и регулярно обновляем\n//                 наши навыки и техники, чтобы удовлетворить все потребности и\n//                 ожидания наших клиентов.\n//               </p>\n//             </div>\n//           </div>\n//         </div>\n",".select {\n    position: relative;\n    @media (min-width: 48em) {\n        min-width: 20.4rem;\n    }\n\n    // .select__body\n\n    &__body {\n        position: relative;\n    }\n\n    // .select__title\n\n    &__title {\n        border-radius: 4rem;\n        width: 100%;\n        background-color: $violet;\n        cursor: pointer;\n        text-align: left;\n        color: inherit;\n    }\n\n    // .select__value\n\n    &__value {\n        @extend .txt20_caps;\n        padding: 1.4rem 2.4rem;\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        gap: 1rem;\n        height: 5.2rem;\n        width: 100%;\n        font-family: DrukCyr;\n\n        > * {\n            flex: 1 1 auto;\n        }\n\n        &::after {\n            content: '';\n            flex: 0 0 2.4rem;\n            width: 2.4rem;\n            height: 2.4rem;\n            background-image: url(./assets/images/icons/arr.svg);\n            background-size: contain;\n            background-position: center;\n            background-repeat: no-repeat;\n            transition: transform 0.3s ease;\n            ._select-opened & {\n                transform: rotate(-180deg);\n            }\n        }\n        .select__content {\n            max-width: 31.4rem;\n            overflow: hidden;\n            white-space: nowrap;\n            text-overflow: ellipsis;\n        }\n        @media (max-width: 48em) {\n            padding: 1.8rem 4rem;\n            height: 8rem;\n            &::after {\n                flex: 0 0 5rem;\n                width: 5rem;\n                height: 5rem;\n            }\n        }\n    }\n\n    // .select__content\n\n    &__content {\n        // hide / show selected value\n        // display: none;\n    }\n\n    // .select__text\n\n    &__text {\n        flex: 1 1 auto;\n    }\n\n    // .select__input\n\n    &__input {\n        width: 100%;\n        height: 100%;\n        background-color: transparent;\n    }\n\n    // .select__options\n\n    &__options {\n        position: absolute;\n        z-index: 2;\n        top: calc(100% + 0.4rem);\n        left: 0;\n        padding: 1.2rem 2.8rem 2rem 1.2rem;\n        min-width: 100%;\n        box-shadow: 0 0.8rem 2.5rem 0 rgba(99, 119, 156, 0.2);\n        border-radius: 4rem;\n        background-color: $violet;\n        opacity: 0;\n        visibility: hidden;\n        transition: opacity 0.3s ease, visibility 0.3s ease;\n        .dropdown_sort & {\n            background-color: $white;\n        }\n        ._select-opened & {\n            opacity: 1;\n            visibility: visible;\n        }\n    }\n\n    // .select__scroll\n\n    &__scroll {\n        overflow-y: auto;\n        overflow-x: hidden;\n\n        // maximum height\n        max-height: 23.4rem;\n\n        // scrollbar styles\n        &.simplebar-scrollable-y {\n            .simplebar-track.simplebar-vertical {\n                top: 5rem;\n                right: 0;\n                width: 0.4rem;\n                border-radius: 0.8rem;\n                background-color: rgba(255, 255, 255, 0.4);\n            }\n            .simplebar-scrollbar {\n                min-height: 3.2rem;\n                border-radius: 0.8rem;\n                background-color: $white;\n            }\n        }\n        @media (max-width: 48em) {\n            max-height: 40rem;\n        }\n    }\n    // .select__option\n    &__option {\n        @extend .txt20_caps;\n        width: 95%;\n        padding: 1.2rem 3rem;\n        border-radius: 4rem;\n        font-family: DrukCyr;\n        text-align: left;\n        color: inherit;\n        transition: background-color 0.3s ease;\n        &._select-selected {\n            background-color: $white;\n            .dropdown_sort & {\n                background-color: $violet;\n            }\n        }\n        &:not(:last-child) {\n            position: relative;\n            margin-bottom: 1rem;\n            &::after {\n                content: '';\n                position: absolute;\n                top: calc(100% + 0.5rem);\n                left: 0;\n                width: 100%;\n                height: 1px;\n                background-color: rgba(204, 213, 251, 1);\n            }\n        }\n        @media (any-hover: hover) {\n            &:hover {\n                &:not(&.select__subtitle) {\n                    cursor: pointer;\n                    background-color: $white;\n                    .dropdown_sort & {\n                        background-color: $violet;\n                    }\n                }\n            }\n        }\n    }\n}\n// list\n._select-list {\n    cursor: pointer;\n}\n\n// <div class=\"dropdown dropdown_filters\">\n// <select data-no-slide data-show-selection data-sel-scroll=\"234\">\n//     <option value=\"1\" selected>Пункт №1</option>\n//     <option value=\"2\">Пункт №2</option>\n//     <option value=\"3\">Пункт №3</option>\n//     <option value=\"4\">Пункт №4</option>\n//     <option value=\"5\">Пункт №5</option>\n//     <option value=\"6\">Пункт №6</option>\n//     <option value=\"7\">Пункт №7</option>\n// </select>\n// </div>\n\n// <div class=\"dropdown dropdown_sort\">\n//      <select data-show-selection>\n//           <option value=\"1\" selected>Пункт №1</option>\n//           <option value=\"2\">Пункт №2</option>\n//           <option value=\"3\">Пункт №3</option>\n//           <option value=\"4\">Пункт №4</option>\n//      </select>\n// </div>\n",".option {\n    position: relative;\n    display: flex;\n    flex-direction: column;\n    row-gap: 0.4rem;\n    cursor: pointer;\n\n    // .option__input\n    &__input {\n        position: absolute;\n        width: 0;\n        height: 0;\n        opacity: 0;\n        &:checked + .option__label .option__text::before {\n            border: 2px solid $green;\n        }\n        &:checked + .option__label .option__text::after {\n            transform: scale(0.6);\n        }\n    }\n\n    // .option__text\n    &__text {\n        display: inline-flex;\n        align-items: center;\n        gap: 1rem;\n        cursor: pointer;\n        &::before {\n            content: '';\n            align-self: flex-start;\n            flex: 0 0 3rem;\n            width: 3rem;\n            height: 3rem;\n            border-radius: 50%;\n            border: 2px solid rgba(233, 233, 233);\n            transition: border 0.3s ease;\n        }\n        &::after {\n            content: '';\n            position: absolute;\n            left: 0;\n            width: 3rem;\n            height: 3rem;\n            border-radius: 50%;\n            background-color: $green;\n            transform: scale(0);\n            transform-origin: center;\n            transition: transform 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            &::before,\n            &::after {\n                width: 4rem;\n                height: 4rem;\n            }\n            &::before {\n                flex: 0 0 4rem;\n            }\n            &::after {\n                top: 4rem;\n            }\n        }\n    }\n}\n\n// <div class=\"option\">\n//    <input hidden id=\"o_1\" class=\"option__input\" checked type=\"radio\" value=\"1\" name=\"option\"/>\n//    <label for=\"o_1\" class=\"option__label\"><span class=\"option__text\"></span></label>\n//  </div>\n",".main-collection {\n    background-color: #cad2f4;\n    padding: 16rem 0;\n    margin-bottom: 16rem;\n    // .main-collection__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        gap: 8rem;\n    }\n    // .main-collection__cards\n    &__cards.swiper {\n        position: relative;\n        width: 83.6rem;\n        height: 73.3rem;\n        margin: 0;\n    }\n    &__cards-item.swiper-slide {\n        display: flex;\n\n        width: 51.5rem;\n        height: 51.5rem;\n        border-radius: 4rem;\n        position: absolute;\n        padding: 1.2rem;\n        overflow: hidden;\n    }\n    // .main-collection__title\n    &__title {\n        margin-bottom: 2rem;\n\n        width: 69.5rem;\n    }\n    // .main-collection__description\n    &__description {\n        margin-bottom: 5rem;\n        width: 61.8rem;\n        color: $gray;\n    }\n    // .main-collection__info\n    &__info {\n        color: $black;\n    }\n}\n.collection-item {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n\n    &--rat {\n        top: 0;\n        left: 0;\n        z-index: 2;\n\n        background: linear-gradient(223deg, #8792ed 1.18%, #5f6eda 34.96%, #6778df 68.58%, #8792ed 100%);\n    }\n    &--snail {\n        right: -2rem;\n        bottom: 0;\n        z-index: 1;\n\n        background: linear-gradient(226deg, #455265 0%, #11161e 40.66%, #11161e 60.6%, #455265 103.07%);\n    }\n\n    // .collection-item__header\n    &__header {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n    }\n    // .collection-item__title\n    &__title {\n        display: flex;\n        flex-direction: column;\n        padding-left: 1.2rem;\n        .txt20 {\n            opacity: 0.7;\n        }\n\n        strong {\n            text-align: left;\n        }\n\n        span {\n            text-align: left;\n        }\n    }\n    // .collection-item__icons\n    &__icons {\n        display: flex;\n        align-items: center;\n        gap: 0.7rem;\n        &-item {\n            width: 8rem;\n            height: 8rem;\n            border-radius: 50%;\n            background: rgba(255, 255, 255, 0.3);\n            backdrop-filter: blur(13px);\n\n            display: flex;\n            align-items: center;\n            justify-content: center;\n\n            svg {\n                display: block;\n                width: 4.4rem;\n                height: 4.4rem;\n            }\n        }\n    }\n    // .collection-item__footer\n    &__footer {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        &-item {\n            display: flex;\n            width: 24.1rem;\n            height: 6.8rem;\n            padding: 1.6rem;\n            justify-content: center;\n            align-items: center;\n            border-radius: 5.2rem;\n\n            &--left {\n                background: rgba(255, 255, 255, 0.3);\n                backdrop-filter: blur(30px);\n            }\n            &--right {\n                background: $white;\n                backdrop-filter: blur(11.5px);\n                align-self: flex-end;\n                color: $black;\n\n                strong {\n                    margin: 0 0.5rem;\n                    align-self: center;\n                }\n                span {\n                    align-self: flex-end;\n                    margin-bottom: 0.2rem;\n                }\n                sup {\n                    align-self: flex-start;\n                }\n            }\n        }\n    }\n    // .collection-item__backdrop\n    &__backdrop {\n        position: absolute;\n        top: 0;\n        left: 0;\n        z-index: -1;\n        width: 100%;\n        height: 100%;\n        padding: 3.2rem;\n\n        img {\n            width: 100%;\n            height: auto;\n            object-fit: contain;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .main-collection {\n        padding: 10rem 0;\n        &__container {\n            padding: 0;\n        }\n        // .main-collection__inner\n        &__inner {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n            justify-content: space-between;\n            gap: 6.4rem;\n        }\n        // .main-collection__cards\n        &__cards.swiper {\n            order: 2;\n            position: relative;\n            width: 100%;\n            height: auto;\n            margin: 0;\n            padding: 0 2rem;\n        }\n\n        &__cards-item.swiper-slide {\n            width: 65.8rem;\n            height: 67rem;\n            border-radius: 4rem;\n            position: static;\n            padding: 2.4rem;\n            overflow: hidden;\n        }\n\n        // .main-collection__info\n        &__info {\n            order: 1;\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            padding: 0 2rem;\n        }\n        // .main-collection__title\n        &__title {\n            width: 90%;\n            text-align: center;\n            margin-bottom: 2.4rem;\n        }\n        // .main-collection__description\n        &__description {\n            font-size: 2.8rem;\n            text-align: center;\n            margin-bottom: 6.4rem;\n            width: 93%;\n        }\n    }\n    .collection-item {\n        &--snail {\n            right: 0;\n        }\n        // .collection-item__title\n        &__title {\n            padding-left: 0;\n\n            strong {\n                margin-bottom: 1rem;\n            }\n        }\n        // .collection-item__icons\n        &__icons {\n            gap: 1rem;\n            &-item {\n                svg {\n                    width: 4.6rem;\n                    height: 4.6rem;\n                }\n            }\n        }\n        // .collection-item__footer\n        &__footer {\n            &-item {\n                display: flex;\n                width: 30rem;\n                height: 8.8rem;\n                padding: 2.4rem;\n                border-radius: 4rem;\n                &--right {\n                    strong {\n                        margin: 0 0.5rem;\n                        align-self: center;\n                    }\n                    span {\n                        margin-bottom: 0;\n                    }\n                }\n            }\n        }\n    }\n}\n",".main-links {\n  margin-top: 5.2rem;\n  margin-bottom: 0;\n  // .main-links__list\n  &__list {\n    display: flex;\n    align-items: center;\n    flex-direction: column;\n  }\n  // .main-links__item\n  &__item {\n    width: 100%;\n    text-align: center;\n    color: $white;\n    font-family: 'DrukCyr';\n    font-size: 10rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: normal;\n    transition: background 0.3s linear, color 0.3s linear;\n\n    border-top: 0.1rem solid rgba(201, 243, 43, 0.5);\n\n    &:hover {\n      transition: background 0.3s linear, color 0.3s linear;\n      background-color: $yellow;\n      color: $main;\n    }\n    a {\n      display: block;\n      width: 100%;\n      padding: 0.6rem 0;\n    }\n    &--big {\n      font-size: 19.9646rem;\n      line-height: 23.387rem; /* 117.143% */\n\n      a {\n        padding: 1.8rem 0 3.4rem;\n      }\n    }\n  }\n}\n\n@media (max-width: 48em) {\n  .main-links {\n    margin-top: 0;\n    margin-bottom: 7.6rem;\n    // .main-links__list\n    &__list {\n      display: flex;\n      align-items: center;\n      flex-direction: column;\n    }\n    // .main-links__item\n    &__item {\n      line-height: 110%;\n      border-top: 0.2rem solid rgba(201, 243, 43, 0.5);\n      a {\n        padding: 2.4rem 0;\n      }\n      &--big {\n        font-size: 11rem;\n        line-height: 110%; /* 117.143% */\n\n        a {\n          padding: 2.4rem 0;\n        }\n      }\n    }\n  }\n}\n",".main-rates {\n    margin-bottom: 21.7rem;\n    // .main-rates__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        flex-direction: column;\n        gap: 9rem;\n    }\n    // .main-rates__title\n    &__title {\n        color: $white;\n    }\n    // .main-rates__wrapper\n    &__wrapper {\n        display: flex;\n        flex-direction: column;\n        gap: 4rem;\n        width: 100%;\n    }\n    // .main-rates__item\n    &__item {\n        height: 18rem;\n        display: flex;\n        align-items: center;\n        border-radius: 3rem;\n    }\n}\n.rates-item {\n    position: relative;\n\n    &::before,\n    &::after {\n        content: '';\n        width: 5.1rem;\n        height: 5.1rem;\n        border-radius: 50%;\n        background: #1f1f22;\n\n        position: absolute;\n        z-index: 1;\n        top: 50%;\n        transform: translateY(-50%);\n    }\n\n    &::after {\n        right: -2.5rem;\n    }\n    &::before {\n        left: -2.5rem;\n    }\n    &--bg--pink {\n        background: #ff69c2;\n    }\n    &--bg--blue {\n        background: #cad2f4;\n    }\n    &--bg--green {\n        background: $green;\n    }\n    // .rates-item__left\n    &__left {\n        padding: 3.6rem 3.6rem 3.6rem 8.6rem;\n        height: 100%;\n        width: 57.8rem;\n        display: flex;\n        align-items: center;\n        border-right: 0.3rem dashed $main;\n    }\n    // .rates-item__title\n    &__title {\n        color: #1f1f22;\n    }\n    // .rates-item__right\n    &__right {\n        display: flex;\n        align-items: center;\n        gap: 20.2rem;\n        height: 100%;\n        padding-left: 9.3rem;\n    }\n    // .rates-item__price\n    &__price {\n        &-top {\n            color: #1f1f22;\n\n            strong {\n                color: #1f1f22;\n                margin: 0 0.5rem;\n                align-self: center;\n            }\n            span {\n                align-self: flex-end;\n                margin-bottom: 0.2rem;\n            }\n            sup {\n                align-self: flex-start;\n            }\n        }\n        &-bottom {\n            color: $main;\n        }\n    }\n    // .rates-item__options\n    &__options {\n        width: 16rem;\n        color: $main;\n    }\n    // .rates-item__icon\n    &__icon {\n        position: absolute;\n    }\n}\n.rates-icon {\n    &--sunny {\n        top: -5rem;\n        left: 14.3rem;\n        width: 9.7rem;\n        height: 8rem;\n        transform: rotate(-7.376deg);\n    }\n    &--shapes {\n        right: 35.6rem;\n        top: -4.3rem;\n        width: 9.2rem;\n        height: 9rem;\n        transform: rotate(-15deg);\n    }\n    &--megafon {\n        width: 8.7rem;\n        height: 7rem;\n        transform: rotate(-12.401deg);\n        right: 68.6rem;\n        bottom: -3.5rem;\n    }\n}\n\n@media (max-width: 48em) {\n    .main-rates {\n        // .main-rates__inner\n        &__inner {\n            gap: 10rem;\n        }\n        // .main-rates__item\n        &__item {\n            height: 56rem;\n            border-radius: 4rem;\n            flex-direction: column;\n        }\n    }\n    .rates-item {\n        &::before,\n        &::after {\n            width: 9rem;\n            height: 9rem;\n        }\n        &::after {\n            right: -4.5rem;\n        }\n        &::before {\n            left: -4.5rem;\n        }\n        // .rates-item__left\n        &__left {\n            padding: 4.8rem;\n            height: 13.4rem;\n            width: 100%;\n            justify-content: center;\n            border-right: 0;\n            border-bottom: 0.3rem dashed $main;\n        }\n        // .rates-item__title\n        &__title {\n            font-size: 3rem;\n        }\n        // .rates-item__right\n        &__right {\n            flex-direction: column;\n            width: 100%;\n            gap: 4rem;\n            height: auto;\n            padding-left: 0;\n            padding-top: 2.4rem;\n        }\n        // .rates-item__price\n        &__price {\n            &-top {\n                strong {\n                    margin: 0 1rem;\n                }\n                span {\n                    align-self: flex-end;\n                    margin-bottom: 0;\n                }\n                sup {\n                    align-self: flex-start;\n                }\n            }\n            &-bottom {\n                color: $main;\n            }\n        }\n        // .rates-item__options\n        &__options {\n            width: 80%;\n            text-align: center;\n\n            display: flex;\n            justify-content: center;\n            margin-bottom: 2.8rem;\n        }\n        // .rates-item__icon\n        &__icon {\n            display: none;\n        }\n    }\n}\n","@import '../components/_main-collections';\n@import '../components/_main-links';\n@import '../components/_main-rates';\n\n// --------------------------------------------------------------------------\n\n.social {\n    display: flex;\n    align-items: center;\n    // .social__link\n    &__link {\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 5.2rem;\n        height: 5.2rem;\n        background-color: $main;\n        border-radius: 50%;\n        transition: background 0.2s linear;\n\n        svg {\n            width: 2.2rem;\n            height: 2.2rem;\n        }\n\n        &:hover {\n            transition: background 0.2s linear;\n            background-color: $white;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .social {\n        // .social__link\n        &__link {\n            width: 8rem;\n            height: 8rem;\n\n            svg {\n                width: 3.6rem;\n                height: 3.6rem;\n            }\n        }\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
@@ -15136,6 +15065,65 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 /***/ }),
 
+/***/ "./node_modules/zoomist/src/scss/index.scss":
+/*!**************************************************!*\
+  !*** ./node_modules/zoomist/src/scss/index.scss ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+/* harmony import */ var _style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
+/* harmony import */ var _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+/* harmony import */ var _style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+/* harmony import */ var _style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+/* harmony import */ var _style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _css_loader_dist_cjs_js_ruleSet_1_rules_2_use_1_sass_loader_dist_cjs_js_index_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!../../../sass-loader/dist/cjs.js!./index.scss */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./node_modules/zoomist/src/scss/index.scss");
+/* harmony import */ var _css_loader_dist_cjs_js_ruleSet_1_rules_2_use_1_sass_loader_dist_cjs_js_index_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_cjs_js_ruleSet_1_rules_2_use_1_sass_loader_dist_cjs_js_index_scss__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _css_loader_dist_cjs_js_ruleSet_1_rules_2_use_1_sass_loader_dist_cjs_js_index_scss__WEBPACK_IMPORTED_MODULE_6__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _css_loader_dist_cjs_js_ruleSet_1_rules_2_use_1_sass_loader_dist_cjs_js_index_scss__WEBPACK_IMPORTED_MODULE_6__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()((_css_loader_dist_cjs_js_ruleSet_1_rules_2_use_1_sass_loader_dist_cjs_js_index_scss__WEBPACK_IMPORTED_MODULE_6___default()), options);
+
+
+
+
+       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_css_loader_dist_cjs_js_ruleSet_1_rules_2_use_1_sass_loader_dist_cjs_js_index_scss__WEBPACK_IMPORTED_MODULE_6___default()) && (_css_loader_dist_cjs_js_ruleSet_1_rules_2_use_1_sass_loader_dist_cjs_js_index_scss__WEBPACK_IMPORTED_MODULE_6___default().locals) ? (_css_loader_dist_cjs_js_ruleSet_1_rules_2_use_1_sass_loader_dist_cjs_js_index_scss__WEBPACK_IMPORTED_MODULE_6___default().locals) : undefined);
+
+
+/***/ }),
+
 /***/ "./src/scss/libs/simplebar.css":
 /*!*************************************!*\
   !*** ./src/scss/libs/simplebar.css ***!
@@ -15524,6 +15512,1333 @@ function styleTagTransform(css, styleElement) {
   }
 }
 module.exports = styleTagTransform;
+
+/***/ }),
+
+/***/ "./node_modules/zoomist/src/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/zoomist/src/index.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _scss_index_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scss/index.scss */ "./node_modules/zoomist/src/scss/index.scss");
+/* harmony import */ var _js_zoomist__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/zoomist */ "./node_modules/zoomist/src/js/zoomist.js");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_js_zoomist__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+/***/ }),
+
+/***/ "./node_modules/zoomist/src/js/core/events.js":
+/*!****************************************************!*\
+  !*** ./node_modules/zoomist/src/js/core/events.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   sliderEvents: () => (/* binding */ sliderEvents),
+/* harmony export */   zoomerEvents: () => (/* binding */ zoomerEvents)
+/* harmony export */ });
+/* harmony import */ var _shared_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../shared/utils */ "./node_modules/zoomist/src/js/shared/utils.js");
+/* harmony import */ var _shared_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../shared/constants */ "./node_modules/zoomist/src/js/shared/constants.js");
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((zoomist) => {
+  const { element, wrapper, image, options, data } = zoomist
+  const { containerData, imageData, originImageData } = data
+  
+  // set image size on window resize
+  const resize = () => {
+    if (containerData.width === element.offsetWidth) return;
+
+    const widthRatio = element.offsetWidth / containerData.width
+    const heightRatio = element.offsetHeight / containerData.height
+
+    const originImageWidth = originImageData.width * widthRatio
+    const originImageHeight = originImageData.height * heightRatio
+    const originImageLeft = originImageData.left * widthRatio
+    const originImageTop = originImageData.top * heightRatio
+
+    const imageWidth = imageData.width * widthRatio
+    const imageHeight = imageData.height * heightRatio
+    const imageLeft = imageData.left * widthRatio
+    const imageTop = imageData.top * heightRatio
+    const transformX = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getTransformX)(image) * widthRatio
+    const transformY = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getTransformY)(image) * heightRatio
+
+    ;(0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.setObject)(containerData, {
+      width: element.offsetWidth,
+      height: element.offsetHeight
+    })
+
+    ;(0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.setObject)(originImageData, {
+      width: originImageWidth,
+      height: originImageHeight,
+      left: originImageLeft,
+      top: originImageTop
+    })
+
+    ;(0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.setObject)(imageData, {
+      width: imageWidth,
+      height: imageHeight,
+      left: imageLeft,
+      top: imageTop
+    })
+
+    ;(0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.setStyle)(zoomist.image, {
+      width: imageWidth,
+      height: imageHeight,
+      left: imageLeft,
+      top: imageTop,
+      transform: `translate(${transformX}px, ${transformY}px)`
+    })
+
+    zoomist.emit('resize')
+  }
+
+  window.addEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_RESIZE, resize)
+
+
+  // set image drag event
+  zoomist.dragging = false
+  zoomist.data.dragData = {
+    startX: 0,
+    startY: 0,
+    transX: 0,
+    transY: 0
+  }
+
+  if (options.fill === 'contain' && options.bounds) options.bounds = false
+
+  const { dragData } = data
+
+  const dragStart = (e) => {
+    if (!options.draggable) return;
+    if (e.which === 2 || e.which === 3) return;
+
+    const isPinch = e.touches && e.touches.length === 2
+
+    ;(0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.setObject)(dragData, {
+      startX: isPinch ? (e.touches[0].pageX + e.touches[1].pageX) / 2 : (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getPointer)(e).x,
+      startY: isPinch ? (e.touches[0].pageY + e.touches[1].pageY) / 2 : (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getPointer)(e).y,
+      transX: (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getTransformX)(image),
+      transY: (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getTransformY)(image)
+    })
+
+    zoomist.dragging = true
+
+    zoomist.emit('dragStart', {x: dragData.transX, y: dragData.transY}, e)
+
+    document.addEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_MOVE, dragMove)
+    document.addEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_END, dragEnd)
+  }
+  const dragMove = (e) => {
+    if (!zoomist.dragging) return;
+
+    const isPinch = e.touches && e.touches.length === 2
+
+    const pageX = isPinch ? (e.touches[0].pageX + e.touches[1].pageX) / 2 : (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getPointer)(e).x
+    const pageY = isPinch ? (e.touches[0].pageY + e.touches[1].pageY) / 2 : (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getPointer)(e).y
+    if(options.bounds) {
+      const minPageX = dragData.startX - ( dragData.transX - imageData.left )
+      const maxPageX = dragData.startX - ( dragData.transX + imageData.left )
+      const minPageY = dragData.startY - ( dragData.transY - imageData.top )
+      const maxPageY = dragData.startY - ( dragData.transY + imageData.top )
+      if (pageX < minPageX) dragData.startX += pageX - minPageX
+      if (pageX > maxPageX) dragData.startX += pageX - maxPageX
+      if (pageY < minPageY) dragData.startY += pageY - minPageY
+      if (pageY > maxPageY) dragData.startY += pageY - maxPageY
+    }
+    const transformX = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.roundToTwo)(pageX - dragData.startX + dragData.transX)
+    const transformY = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.roundToTwo)(pageY - dragData.startY + dragData.transY)
+
+    image.style.transform = `translate(${transformX}px, ${transformY}px)`
+
+    zoomist.emit('drag', {x: transformX, y: transformY}, e)
+  }
+  const dragEnd = (e) => {
+    zoomist.dragging = false
+
+    ;(0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.setObject)(dragData, {
+      transX: (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getTransformX)(image),
+      transY: (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getTransformY)(image)
+    })
+
+    zoomist.emit('dragEnd', {x: dragData.transX, y: dragData.transY}, e)
+
+    document.removeEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_MOVE, dragMove)
+    document.removeEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_END, dragEnd)
+  }
+
+  // set image pinch event
+  zoomist.pinching = false
+  zoomist.data.pinchData = {
+    dist: 0,
+    startX: 0,
+    startY: 0
+  }
+
+  const pinchStart = (e) => {
+    if (!options.pinchable) return;
+    if (!e.touches || e.touches.length !== 2) return;
+
+    const { pinchData } = zoomist.data
+
+    ;(0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.setObject)(pinchData, {
+      dist: Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY),
+      startX: e.touches[0].clientX,
+      startY: e.touches[0].clientY
+    })
+
+    // zoomist.dragging = false
+    zoomist.pinching = true
+
+    zoomist.emit('pinchStart', e)
+
+    document.addEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_MOVE, pinchMove)
+    document.addEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_END, pinchEnd)
+  }
+  const pinchMove = (e) => {
+    if (!zoomist.pinching) return;
+
+    const { pinchData } = zoomist.data
+
+    const pinchDist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY)
+    const zoomRatio = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.roundToTwo)((pinchDist - pinchData.dist) / 100)
+    const pointer = {
+      clientX: (e.touches[0].clientX + e.touches[1].clientX) / 2,
+      clientY: (e.touches[0].clientY + e.touches[1].clientY) / 2
+    }
+
+    zoomist.zoom(zoomRatio, pointer)
+
+    pinchData.dist = pinchDist
+
+    zoomist.emit('pinch', e)
+  }
+  const pinchEnd = (e) => {
+    zoomist.pinching = false
+
+    zoomist.emit('pinchEnd', e)
+
+    document.removeEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_MOVE, pinchMove)
+    document.removeEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_END, pinchEnd)
+  }
+
+  // touch start handler
+  const touchStart = (e) => {
+    dragStart(e)
+    pinchStart(e)
+  }
+
+  wrapper.addEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_START, touchStart)
+
+
+  // set zomm on mousewheel event
+  zoomist.wheeling = false
+
+  const wheel = (e) => {
+    if (!options.wheelable) return;
+    e.preventDefault()
+
+    const { zoomRatio } = options
+
+    if (zoomist.wheeling) return;
+
+    // prevent wheeling too fast
+    zoomist.wheeling = true
+    setTimeout(() => { zoomist.wheeling = false }, 30)
+
+    let delta
+    if (e.deltaY) delta = e.deltaY > 0 ? -1 : 1
+    else if (e.wheelDelta) delta = e.wheelDelta / 120
+    else if (e.detail) delta = e.detail > 0 ? -1 : 1
+
+    zoomist.zoom(delta * zoomRatio, (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getPointer)(e))
+
+    zoomist.emit('wheel', e)
+  }
+
+  wrapper.addEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_WHEEL, wheel)
+});
+
+
+// slider events
+const sliderEvents = (zoomist) => {
+  const { slider } = zoomist.__modules__
+
+  // events
+  slider.sliding = false
+  const isHorizontal = slider.direction === 'horizontal'
+
+  const slideHandler = (e) => {
+    const rect = slider.sliderMain.getBoundingClientRect()
+
+    const mousePoint = isHorizontal ? (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getPointer)(e).clientX : -(0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getPointer)(e).clientY
+    const sliderTotal = isHorizontal ? rect.width : rect.height
+    const sliderStart = isHorizontal ? rect.left : -rect.bottom
+    const percentage = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.minmax)((0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.roundToTwo)(( mousePoint - sliderStart ) / sliderTotal), 0, 1)
+
+    const minRatio = zoomist.ratio < 1 ? zoomist.ratio : 1
+    const maxRatio = zoomist.ratio > slider.maxRatio ? zoomist.ratio : slider.maxRatio
+    const ratio = ( maxRatio - minRatio ) * percentage + minRatio
+
+    zoomist.zoomTo(ratio)
+  }
+  const slideStart = (e) => {
+    slideHandler(e)
+
+    slider.sliding = true
+
+    zoomist.emit('slideStart', zoomist.getSliderValue(), e)
+
+    document.addEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_MOVE, slideMove)
+    document.addEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_END, slideEnd)
+  }
+  const slideMove = (e) => {
+    if (!slider.sliding) return;
+
+    slideHandler(e)
+
+    zoomist.emit('slide', zoomist.getSliderValue(), e)
+  }
+  const slideEnd = (e) => {
+    slider.sliding = false
+
+    zoomist.emit('slideEnd', zoomist.getSliderValue(), e)
+
+    document.removeEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_MOVE, slideMove)
+    document.removeEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_END, slideEnd)
+  }
+
+  slider.sliderMain.addEventListener(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_TOUCH_START, slideStart)
+  slider.sliderMain.event = slideStart
+}
+
+
+// zoomer events
+const zoomerEvents = (zoomist) => {
+  const { zoomRatio } = zoomist.options
+  const { zoomer } = zoomist.__modules__
+
+  const zoomInHandler = () => zoomist.zoom(zoomRatio)
+  const zoomOutHandler = () => zoomist.zoom(-zoomRatio)
+
+  zoomer.zoomerInEl.addEventListener('click', zoomInHandler)
+  zoomer.zoomerOutEl.addEventListener('click', zoomOutHandler)
+  zoomer.zoomerInEl.event = zoomInHandler
+  zoomer.zoomerOutEl.event = zoomOutHandler
+}
+
+/***/ }),
+
+/***/ "./node_modules/zoomist/src/js/core/methods.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/zoomist/src/js/core/methods.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _shared_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../shared/utils */ "./node_modules/zoomist/src/js/shared/utils.js");
+/* harmony import */ var _shared_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../shared/constants */ "./node_modules/zoomist/src/js/shared/constants.js");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  /**
+   * get container (element) data
+   * @returns {Object}
+   */
+  getContainerData() {
+    return (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getNewObject)(this.data.containerData)
+  },
+
+  /**
+   * get image data
+   * @returns {Object}
+   */
+  getImageData() {
+    return (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getNewObject)(this.data.imageData)
+  },
+
+  /**
+   * get slider value
+   * @returns {Number}
+   */
+  getSliderValue() {
+    return this.__modules__.slider?.value
+  },
+
+  /**
+   * get now zoom ratio
+   * @returns {Number}
+   */
+  getZoomRatio() {
+    return this.ratio
+  },
+
+  /**
+   * zoom
+   * zoomRatio - zoomin when pass a positive number, zoomout when pass a negative number
+   * pointer - a object which return from getPoiner()
+   * @param {Number, Object} 
+   */
+  zoom(zoomRatio, pointer) {
+    const { image, data, options, ratio } = this
+    const { bounds, maxRatio } = options
+
+    if (bounds && ratio === 1 && zoomRatio < 0) return;
+    if (maxRatio && ratio === maxRatio && zoomRatio > 0) return;
+
+    const { originImageData } = data
+    const containerData = this.getContainerData()
+    const imageData = this.getImageData()
+    const imageRect = image.getBoundingClientRect()
+
+    const calcRatio = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.roundToTwo)(ratio * (zoomRatio + 1))
+    const newRatio = bounds && calcRatio < 1 ? 1 : maxRatio && calcRatio > maxRatio ? maxRatio : calcRatio
+    const newZoomRatio = newRatio / ratio - 1
+
+    const newWidth = originImageData.width * newRatio
+    const newHeight = originImageData.height * newRatio
+    const newLeft = (containerData.width - newWidth) / 2
+    const newTop = (containerData.height - newHeight) / 2
+    const distanceX = pointer ? ( imageData.width / 2 - pointer.clientX + imageRect.left ) * newZoomRatio + (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getTransformX)(image) : (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getTransformX)(image)
+    const distanceY = pointer ? ( imageData.height / 2 - pointer.clientY + imageRect.top ) * newZoomRatio + (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getTransformY)(image) : (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.getTransformY)(image)
+    const transformX = bounds ? (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.minmax)(distanceX, newLeft, -newLeft) : distanceX
+    const transformY = bounds ? (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.minmax)(distanceY, newTop, -newTop) : distanceY
+
+    const newData = {
+      width: newWidth,
+      height: newHeight,
+      left: newLeft,
+      top: newTop
+    }
+
+    ;(0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.setObject)(data.imageData, newData)
+
+    ;(0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.setStyle)(image, {
+      ...newData,
+      transform: `translate(${transformX}px, ${transformY}px)`
+    })
+
+    this.ratio = newRatio
+
+    this.emit('zoom', newRatio)
+
+    // if has slider
+    if (options.slider) {
+      const { slider } = this.__modules__
+      const ratioPercentage = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.roundToTwo)(1 - ( slider.maxRatio - newRatio ) / ( slider.maxRatio - 1 )) * 100
+
+      slider.value = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.minmax)(ratioPercentage, 0, 100)
+
+      this.slideTo(ratioPercentage, true)
+    }
+
+    // if zoomer disableOnBounds
+    if (options.zoomer) {
+      const { zoomer } = this.__modules__
+      if (zoomer.disableOnBounds) {
+        const { bounds } = options
+        const { zoomerInEl, zoomerOutEl } = this.__modules__.zoomer
+
+        bounds && this.ratio === 1 ? zoomerOutEl.classList.add(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_ZOOMER_DISABLE) : zoomerOutEl.classList.remove(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_ZOOMER_DISABLE)
+        this.ratio === maxRatio ? zoomerInEl.classList.add(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_ZOOMER_DISABLE) : zoomerInEl.classList.remove(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_ZOOMER_DISABLE)
+      }
+    }
+
+    return this
+  },
+
+  /**
+   * zoomTo (zoom to a specific ratio)
+   * zoomRatio - zoomin when pass a number more than 1, zoomout when pass a number less than 1
+   * @param {Number} 
+   */
+  zoomTo(zoomRatio) {
+    const { ratio } = this
+
+    if (zoomRatio !== ratio) {
+      const calcRatio = zoomRatio / ratio - 1
+      this.zoom(calcRatio)
+    }
+
+    return this
+  },
+
+  /**
+   * move - move to a relative position
+   * x - number
+   * y - number
+   * @param {Number}
+   */
+  move(x = 0, y = 0) {
+    const { image, data, options } = this
+    const { imageData, dragData } = data
+    const { top, left } = imageData
+    const { transX, transY } = dragData
+    const { bounds } = options
+
+    const calcTransX = bounds ? (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.minmax)(transX - x, left, -left) : transX - x
+    const calcTransY = bounds ? (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.minmax)(transY - y, top, -top) : transY - y
+    const newTransX = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.roundToTwo)(calcTransX)
+    const newTransY = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.roundToTwo)(calcTransY)
+
+    ;(0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.setObject)(dragData, {
+      transX: newTransX,
+      transY: newTransY
+    })
+    image.style.transform = `translate(${newTransX}px, ${newTransY}px)`
+
+    return this
+  },
+
+  /**
+   * moveTo - move to a absolute position
+   * x - number
+   * y - number
+   * @param {Number}
+   */
+  moveTo(x, y) {
+    const { data, options } = this
+    const { imageData, dragData } = data
+    const { top, left } = imageData
+    const { transX, transY } = dragData
+    const { bounds } = options
+
+    x = x ?? Math.abs(left)
+    y = y ?? Math.abs(top)
+
+    const calcTransX = bounds ? (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.minmax)(left + x + transX, left, -left) : left + x + transX
+    const calcTransY = bounds ? (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.minmax)(top + y + transY, top, -top) : top + y + transY
+
+    this.move(calcTransX, calcTransY)
+
+    return this
+  },
+
+  /**
+   * slideTo (only work on the slider)
+   * value - a numer between 0-100
+   * @param {Number}
+   */
+  slideTo(value, onlySlide) {
+    const { __modules__ } = this
+
+    if (!__modules__.slider) return;
+
+    const { slider } = __modules__
+
+    const position = slider.direction === 'horizontal' ? 'left' : 'top'
+    const symbol = slider.direction === 'horizontal' ? '' : '-'
+    const distance = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.minmax)(value, 0, 100)
+
+    slider.sliderButton.style[position] = `${symbol}${distance}%`
+
+    if (!onlySlide) {
+      const percentage = distance / 100
+      const minRatio = this.ratio < 1 ? this.ratio : 1
+      const maxRatio = this.ratio > slider.maxRatio ? this.ratio : slider.maxRatio
+      const ratio = ( maxRatio - minRatio ) * percentage + minRatio
+
+      this.zoomTo(ratio)
+    }
+
+    return this
+  },
+
+  /**
+   * reset image to initial status
+   */
+  reset() {
+    const { image } = this
+
+    this.zoomTo(1)
+
+    ;(0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.setStyle)(image, {
+      transform: 'translate(0, 0)'
+    })
+
+    this.emit('reset')
+    
+    return this
+  },
+  
+  /**
+   * destory the instance of zoomist
+   */
+  destroy() {
+    const { element, wrapper } = this
+    const { slider, zoomer } = this.__modules__
+
+    element[_shared_constants__WEBPACK_IMPORTED_MODULE_1__.NAME] = undefined
+    this.mounted = false
+    
+    if (slider) this.destroySlider()
+    if (zoomer) this.destroyZoomer()
+    
+    wrapper.remove()
+    element.style.removeProperty('width')
+    element.style.removeProperty('padding-bottom')
+    element.classList.remove(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_CONTAINER)
+
+    this.emit('destroy')
+
+    return this
+  },
+
+  /**
+   * a syntactic sugar of destroy and init
+   */
+  update() {
+    this.destroy().init()
+
+    this.emit('update')
+
+    return this
+  },
+
+  /**
+   * add handler on __events__
+   * @param {String} events 
+   * @param {Function} handler 
+   */
+  on(events, handler) {
+    if (!(0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.isFunction)(handler)) return this;
+
+    const { __events__ } = this
+
+    events.split(' ').forEach(evt => {
+      if (!__events__[evt]) __events__[evt] = []
+      __events__[evt].push(handler)
+    })
+
+    return this
+  },
+
+  /**
+   * invoke handlers in __events__[event]
+   * @param  {String, ...} args 
+   */
+  emit(...args) {
+    const { __events__ } = this
+
+    const event = args[0]
+    const data = args.slice(1, args.length)
+
+    if (!__events__[event]) return this
+
+    __events__[event].forEach(handler => {
+      if ((0,_shared_utils__WEBPACK_IMPORTED_MODULE_0__.isFunction)(handler)) handler.apply(this, data)
+    })
+
+    return this
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/zoomist/src/js/core/modules.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/zoomist/src/js/core/modules.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _options__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./options */ "./node_modules/zoomist/src/js/core/options.js");
+/* harmony import */ var _shared_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../shared/constants */ "./node_modules/zoomist/src/js/shared/constants.js");
+/* harmony import */ var _shared_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../shared/utils */ "./node_modules/zoomist/src/js/shared/utils.js");
+/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./events */ "./node_modules/zoomist/src/js/core/events.js");
+/* harmony import */ var _template__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./template */ "./node_modules/zoomist/src/js/core/template.js");
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  /**
+   * create all modules
+   */
+  createModules() {
+    const { options } = this
+
+    this.__modules__ = {}
+    _shared_constants__WEBPACK_IMPORTED_MODULE_1__.MODULES.forEach(module => {
+      if (options[module]) this[`create${(0,_shared_utils__WEBPACK_IMPORTED_MODULE_2__.upperFirstLetter)(module)}`]()
+    })
+  },
+
+  /**
+   * create slider module
+   */
+  createSlider() {
+    const { element, options, __modules__ } = this
+    __modules__.slider = Object.assign({}, _options__WEBPACK_IMPORTED_MODULE_0__.DEFAULT_SLIDER_OPTIONS, options.slider)
+    
+    const { slider } = __modules__
+    
+    if (options.maxRatio) Object.assign(slider, { maxRatio: options.maxRatio })
+    if (slider.direction !== 'horizontal' && slider.direction !== 'vertical') slider.direction = 'horizontal'
+    slider.value = 0
+
+    // mount
+    if (slider.mounted) slider.sliderMain.remove()
+
+    const isCustomEl = slider.isCustomEl = slider.el && (0,_shared_utils__WEBPACK_IMPORTED_MODULE_2__.isElementExist)(slider.el)
+    const sliderEl = isCustomEl ? (0,_shared_utils__WEBPACK_IMPORTED_MODULE_2__.getElement)(slider.el) : document.createElement('div')
+    if (!isCustomEl) sliderEl.classList.add(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_SLIDER)
+    sliderEl.innerHTML = _template__WEBPACK_IMPORTED_MODULE_4__.sliderTemp
+
+    slider.sliderEl = sliderEl
+    slider.sliderMain = sliderEl.querySelector(`.${_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_SLIDER_MAIN}`)
+    slider.sliderBar = sliderEl.querySelector(`.${_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_SLIDER_BAR}`)
+    slider.sliderButton = sliderEl.querySelector(`.${_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_SLIDER_BUTTON}`)
+    slider.sliderMain.classList.add(`${_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_SLIDER}-${slider.direction}`)
+
+    // events
+    ;(0,_events__WEBPACK_IMPORTED_MODULE_3__.sliderEvents)(this)
+
+    slider.mounted = true
+
+    // render
+    if (!isCustomEl) element.append(sliderEl)
+  },
+
+  /**
+   * destroy slider module
+   */
+  destroySlider() {
+    const { slider } = this.__modules__
+
+    if (!slider || !slider.mounted) return;
+
+    if (slider.isCustomEl) slider.sliderMain.remove()
+    else slider.sliderEl.remove()
+
+    slider.mounted = false
+  },
+
+  /**
+   * create zoomer module
+   */
+  createZoomer() {
+    const { element, options, __modules__ } = this
+    __modules__.zoomer = Object.assign({}, _options__WEBPACK_IMPORTED_MODULE_0__.DEFAULT_ZOOMER_OPTIONS, options.zoomer)
+
+    const { zoomer } = __modules__
+
+    // mount
+    if (zoomer.mounted && zoomer.zoomerEl) zoomer.sliderMain.remove()
+
+    const isCustomInEl = zoomer.isCustomInEl = zoomer.inEl && (0,_shared_utils__WEBPACK_IMPORTED_MODULE_2__.isElementExist)(zoomer.inEl)
+    const isCustomOutEl = zoomer.isCustomOutEl = zoomer.outEl && (0,_shared_utils__WEBPACK_IMPORTED_MODULE_2__.isElementExist)(zoomer.outEl)
+    const zoomerInEl = isCustomInEl ? (0,_shared_utils__WEBPACK_IMPORTED_MODULE_2__.getElement)(zoomer.inEl) : document.createElement('div')
+    const zoomerOutEl = isCustomOutEl ? (0,_shared_utils__WEBPACK_IMPORTED_MODULE_2__.getElement)(zoomer.outEl) : document.createElement('div')
+    if (!isCustomInEl) {
+      zoomerInEl.classList.add(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_ZOOMER_IN)
+      zoomerInEl.innerHTML = _template__WEBPACK_IMPORTED_MODULE_4__.inZoomerIcon
+    }
+    if (!isCustomOutEl) {
+      zoomerOutEl.classList.add(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_ZOOMER_OUT)
+      zoomerOutEl.innerHTML = _template__WEBPACK_IMPORTED_MODULE_4__.outZoomerIcon
+    }
+
+    zoomer.zoomerInEl = zoomerInEl
+    zoomer.zoomerOutEl = zoomerOutEl
+
+    if (zoomer.disableOnBounds) {
+      const { bounds, maxRatio } = options
+
+      if (bounds && this.ratio === 1) zoomerOutEl.classList.add(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_ZOOMER_DISABLE)
+      if (this.ratio === maxRatio) zoomerInEl.classList.add(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_ZOOMER_DISABLE)
+    }
+
+    // events
+    (0,_events__WEBPACK_IMPORTED_MODULE_3__.zoomerEvents)(this)
+
+    zoomer.mounted = true
+
+    // render
+    if (!isCustomInEl || !isCustomOutEl) {
+      const zoomerEl = document.createElement('div')
+      zoomerEl.classList.add(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_ZOOMER)
+
+      if (!isCustomInEl) zoomerEl.append(zoomerInEl)
+      if (!isCustomOutEl) zoomerEl.append(zoomerOutEl)
+
+      zoomer.zoomerEl = zoomerEl
+
+      element.append(zoomerEl)
+    }
+  },
+
+  /**
+   * destroy zoomer module
+   */
+  destroyZoomer() {
+    const { zoomer } = this.__modules__
+
+    if (!zoomer || !zoomer.mounted) return;
+
+    const unbindZoomer = (target) => {
+      target.removeEventListener('click', target.event)
+      target.event = undefined
+      target.classList.remove(_shared_constants__WEBPACK_IMPORTED_MODULE_1__.CLASS_ZOOMER_DISABLE)
+    }
+
+    if (zoomer.isCustomInEl) unbindZoomer(zoomer.zoomerInEl)
+    else zoomer.zoomerInEl.remove()
+    if (zoomer.isCustomOutEl) unbindZoomer(zoomer.zoomerOutEl)
+    else zoomer.zoomerOutEl.remove()
+    if (zoomer.zoomerEl) zoomer.zoomerEl.remove()
+
+    zoomer.mounted = false
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/zoomist/src/js/core/options.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/zoomist/src/js/core/options.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DEFAULT_SLIDER_OPTIONS: () => (/* binding */ DEFAULT_SLIDER_OPTIONS),
+/* harmony export */   DEFAULT_ZOOMER_OPTIONS: () => (/* binding */ DEFAULT_ZOOMER_OPTIONS),
+/* harmony export */   EVENTS: () => (/* binding */ EVENTS),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _shared_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../shared/constants */ "./node_modules/zoomist/src/js/shared/constants.js");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  // {String} set initial image status
+  fill: 'cover',
+  // {String / querySelector} the attribute of image source or a image element
+  src: 'data-zoomist-src',
+  // {Boolean} set is draggable or not
+  draggable: true,
+  // {Boolean} set is wheelable or not
+  wheelable: true,
+  // {Boolean} set is pinchable or not
+  pinchable: true,
+  // {Boolean} set image can be drag out of the bounds (it will set to false when fill is contain)
+  bounds: true,
+  // {Number} the ratio of zoom at one time
+  zoomRatio: 0.1,
+  // {Number > 1, False} the max ratio of the image (compare to the initial image status)
+  maxRatio: false,
+  // {Boolean / String}
+  height: 'auto'
+});
+
+const DEFAULT_SLIDER_OPTIONS = {
+  // {String / querySelector} the css selector string or a element of the slider
+  el: _shared_constants__WEBPACK_IMPORTED_MODULE_0__.CLASS_SLIDER,
+  // {String} the direction of the slider 'horizontal' or 'vertical'
+  direction: 'horizontal',
+  // {Number} the max ratio of the slider (only work on options.maxRatio = false)
+  maxRatio: 2
+}
+
+const DEFAULT_ZOOMER_OPTIONS = {
+  // {String / querySelector} the css selector string or a element of the in zoomer
+  inEl: _shared_constants__WEBPACK_IMPORTED_MODULE_0__.CLASS_ZOOMER_IN,
+  // {String / querySelector} the css selector string or a element of the out zoomer
+  outEl: _shared_constants__WEBPACK_IMPORTED_MODULE_0__.CLASS_ZOOMER_OUT,
+  // {Boolean} in zoomer and out zoomer will be disabled when image comes to maximin or minimum
+  disableOnBounds: true
+}
+
+const EVENTS = {
+  // invoked when zoomist instance ready
+  ready: null,
+  // invoked when image is zooming
+  zoom: null,
+  // invoked when wheeling
+  wheel: null,
+  // invoked when mousedown on wrapper
+  dragStart: null,
+  // invoked when dragging the image
+  drag: null,
+  // invoked when mouseup on wrapper
+  dragEnd: null,
+  // invoked when mousedown on wrapper
+  pinchStart: null,
+  // invoked when pinching the image
+  pinch: null,
+  // invoked when mouseup on wrapper
+  pinchEnd: null,
+  // invoked when mousedown on slider
+  slideStart: null,
+  // invoked when sliding the slider
+  slide: null,
+  // invoked when mouseup on slider
+  slideEnd: null,
+  // invoked when image changes it's size
+  resize: null,
+  // invoked when reset methods be used
+  reset: null,
+  // invoked when destroy methods be used
+  destroy: null,
+  // invoked when update methods be used
+  update: null
+}
+
+/***/ }),
+
+/***/ "./node_modules/zoomist/src/js/core/template.js":
+/*!******************************************************!*\
+  !*** ./node_modules/zoomist/src/js/core/template.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   inZoomerIcon: () => (/* binding */ inZoomerIcon),
+/* harmony export */   outZoomerIcon: () => (/* binding */ outZoomerIcon),
+/* harmony export */   sliderTemp: () => (/* binding */ sliderTemp)
+/* harmony export */ });
+/* harmony import */ var _shared_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../shared/constants */ "./node_modules/zoomist/src/js/shared/constants.js");
+
+
+const sliderTemp = `
+  <div class="${_shared_constants__WEBPACK_IMPORTED_MODULE_0__.CLASS_SLIDER_MAIN}">
+    <span class="${_shared_constants__WEBPACK_IMPORTED_MODULE_0__.CLASS_SLIDER_BAR}"></span>
+    <span class="${_shared_constants__WEBPACK_IMPORTED_MODULE_0__.CLASS_SLIDER_BUTTON}"></span>
+  </div>
+`
+
+const inZoomerIcon = `
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 12 12">
+  <polygon points="12,5.5 6.5,5.5 6.5,0 5.5,0 5.5,5.5 0,5.5 0,6.5 5.5,6.5 5.5,12 6.5,12 6.5,6.5 12,6.5 "/>
+</svg>
+`
+
+const outZoomerIcon = `
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 12 12">
+  <rect y="5.5" width="12" height="1"/>
+</svg>
+`
+
+/***/ }),
+
+/***/ "./node_modules/zoomist/src/js/shared/constants.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/zoomist/src/js/shared/constants.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CLASS_CONTAINER: () => (/* binding */ CLASS_CONTAINER),
+/* harmony export */   CLASS_IMAGE: () => (/* binding */ CLASS_IMAGE),
+/* harmony export */   CLASS_SLIDER: () => (/* binding */ CLASS_SLIDER),
+/* harmony export */   CLASS_SLIDER_BAR: () => (/* binding */ CLASS_SLIDER_BAR),
+/* harmony export */   CLASS_SLIDER_BUTTON: () => (/* binding */ CLASS_SLIDER_BUTTON),
+/* harmony export */   CLASS_SLIDER_MAIN: () => (/* binding */ CLASS_SLIDER_MAIN),
+/* harmony export */   CLASS_WRAPPER: () => (/* binding */ CLASS_WRAPPER),
+/* harmony export */   CLASS_ZOOMER: () => (/* binding */ CLASS_ZOOMER),
+/* harmony export */   CLASS_ZOOMER_DISABLE: () => (/* binding */ CLASS_ZOOMER_DISABLE),
+/* harmony export */   CLASS_ZOOMER_IN: () => (/* binding */ CLASS_ZOOMER_IN),
+/* harmony export */   CLASS_ZOOMER_OUT: () => (/* binding */ CLASS_ZOOMER_OUT),
+/* harmony export */   EVENT_RESIZE: () => (/* binding */ EVENT_RESIZE),
+/* harmony export */   EVENT_TOUCH_END: () => (/* binding */ EVENT_TOUCH_END),
+/* harmony export */   EVENT_TOUCH_MOVE: () => (/* binding */ EVENT_TOUCH_MOVE),
+/* harmony export */   EVENT_TOUCH_START: () => (/* binding */ EVENT_TOUCH_START),
+/* harmony export */   EVENT_WHEEL: () => (/* binding */ EVENT_WHEEL),
+/* harmony export */   IS_BROWSER: () => (/* binding */ IS_BROWSER),
+/* harmony export */   IS_TOUCH: () => (/* binding */ IS_TOUCH),
+/* harmony export */   MODULES: () => (/* binding */ MODULES),
+/* harmony export */   NAME: () => (/* binding */ NAME)
+/* harmony export */ });
+const NAME = 'zoomist'
+
+const MODULES = ['slider', 'zoomer']
+
+const CLASS_CONTAINER = `${NAME}-container`
+const CLASS_WRAPPER = `${NAME}-wrapper`
+const CLASS_IMAGE = `${NAME}-image`
+
+const CLASS_SLIDER = `${NAME}-slider`
+const CLASS_SLIDER_MAIN = `${NAME}-slider-main`
+const CLASS_SLIDER_BAR = `${NAME}-slider-bar`
+const CLASS_SLIDER_BUTTON = `${NAME}-slider-button`
+
+const CLASS_ZOOMER = `${NAME}-zoomer`
+const CLASS_ZOOMER_IN = `${NAME}-in-zoomer`
+const CLASS_ZOOMER_OUT = `${NAME}-out-zoomer`
+const CLASS_ZOOMER_DISABLE = `${NAME}-zoomer-disable`
+
+const IS_BROWSER = typeof window !== 'undefined' && typeof window.document !== 'undefined'
+const IS_TOUCH = IS_BROWSER && 'ontouchstart' in window ? true : false
+
+const EVENT_TOUCH_START = IS_TOUCH ? 'touchstart' : 'mousedown'
+const EVENT_TOUCH_MOVE = IS_TOUCH ? 'touchmove' : 'mousemove'
+const EVENT_TOUCH_END = IS_TOUCH ? 'touchend' : 'mouseup'
+const EVENT_RESIZE = 'resize'
+const EVENT_WHEEL = 'wheel'
+
+/***/ }),
+
+/***/ "./node_modules/zoomist/src/js/shared/utils.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/zoomist/src/js/shared/utils.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getElement: () => (/* binding */ getElement),
+/* harmony export */   getNewObject: () => (/* binding */ getNewObject),
+/* harmony export */   getPointer: () => (/* binding */ getPointer),
+/* harmony export */   getStyle: () => (/* binding */ getStyle),
+/* harmony export */   getTransformX: () => (/* binding */ getTransformX),
+/* harmony export */   getTransformY: () => (/* binding */ getTransformY),
+/* harmony export */   isElementExist: () => (/* binding */ isElementExist),
+/* harmony export */   isFunction: () => (/* binding */ isFunction),
+/* harmony export */   isImg: () => (/* binding */ isImg),
+/* harmony export */   isNumber: () => (/* binding */ isNumber),
+/* harmony export */   isObject: () => (/* binding */ isObject),
+/* harmony export */   isPercentage: () => (/* binding */ isPercentage),
+/* harmony export */   isPlainObject: () => (/* binding */ isPlainObject),
+/* harmony export */   isString: () => (/* binding */ isString),
+/* harmony export */   minmax: () => (/* binding */ minmax),
+/* harmony export */   roundToTwo: () => (/* binding */ roundToTwo),
+/* harmony export */   setObject: () => (/* binding */ setObject),
+/* harmony export */   setStyle: () => (/* binding */ setStyle),
+/* harmony export */   upperFirstLetter: () => (/* binding */ upperFirstLetter)
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./node_modules/zoomist/src/js/shared/constants.js");
+
+
+// check value is a object and not null
+const isObject = (value) => {
+  return typeof value === 'object' && value !== null;
+}
+
+// check value is a plain object
+const isPlainObject = (value) => {
+  if (!isObject(value)) return false
+  try {
+    const { constructor } = value
+    const { prototype } = constructor
+    const { hasOwnProperty } = Object.prototype
+    return constructor && prototype && hasOwnProperty.call(prototype, 'isPrototypeOf')
+  } catch (error) {
+    return false
+  }
+}
+
+// set object key and value
+const setObject = (obj, value) => {
+  if (!obj) obj = {}
+  for (const [k, v] of Object.entries(value)) {
+    obj[k] = v
+  }
+}
+
+// make a new object from old object
+const getNewObject = (value) => {
+  return Object.assign({}, value)
+}
+
+// check value is string and not empty
+const isString = (value) => {
+  return typeof value === 'string' && value !== ''
+}
+
+// check value is number and not NaN
+const isNumber = (value) => {
+  return typeof value === 'number' && !isNaN(value);
+}
+
+// check element is exist
+const isElementExist = (value) => {
+  return getElement(value) !== null
+}
+
+// if value is an element then return value, if not then query value
+const getElement = (value) => {
+  return value instanceof HTMLElement ? value : document.querySelector(value)
+}
+
+// check value is img tag or not
+const isImg = (value) => {
+  return isElementExist(value) && getElement(value).tagName === 'IMG'
+}
+
+// check value is a function
+const isFunction = (value) => {
+  return typeof value === 'function';
+}
+
+// check value is percentage
+const isPercentage = (value) => {
+  return value.indexOf('%') > -1
+}
+
+// get elemant style
+const getStyle = (element, prop) => {
+  return element[prop] || element.style[prop] || window.getComputedStyle(element).getPropertyValue(prop)
+}
+
+// foreach set style
+const setStyle = (element, obj) => {
+  for (const [k, v] of Object.entries(obj)) {
+    element.style[k] = isNumber(v) ? `${v}px` : v
+  }
+}
+
+// get mouse pageX and pageY
+const getPointer = (event) => {
+  const isNotTouch = !_constants__WEBPACK_IMPORTED_MODULE_0__.IS_TOUCH || event.type === 'wheel'
+  return {
+    x: isNotTouch ? event.pageX : event.touches[0].pageX,
+    y: isNotTouch ? event.pageY : event.touches[0].pageY,
+    clientX: isNotTouch ? event.clientX : event.touches[0].clientX,
+    clientY: isNotTouch ? event.clientY : event.touches[0].clientY
+  }
+}
+
+// get transformX
+const getTransformX = (target) => {
+  const transform = getComputedStyle(target).transform
+  let mat = transform.match(/^matrix3d\((.+)\)$/)
+  if (mat) return parseFloat(mat[1].split(', ')[12])
+  mat = transform.match(/^matrix\((.+)\)$/)
+  return mat ? parseFloat(mat[1].split(', ')[4]) : 0
+}
+
+// get transformY
+const getTransformY = (target) => {
+  const transform = getComputedStyle(target).transform
+  let mat = transform.match(/^matrix3d\((.+)\)$/)
+  if (mat) return parseFloat(mat[1].split(', ')[13])
+  mat = transform.match(/^matrix\((.+)\)$/)
+  return mat ? parseFloat(mat[1].split(', ')[5]) : 0
+}
+
+// like .toFixed(2)
+const roundToTwo = (value) => {
+  return +(Math.round(value + "e+2")  + "e-2")
+}
+
+// limit value
+const minmax = (value, min, max) => {
+  return Math.min(Math.max(value, min), max)
+}
+
+// first letter to uppercase
+const upperFirstLetter = (value) => {
+  return value.charAt(0).toUpperCase() + value.slice(1)
+}
+
+
+
+/***/ }),
+
+/***/ "./node_modules/zoomist/src/js/zoomist.js":
+/*!************************************************!*\
+  !*** ./node_modules/zoomist/src/js/zoomist.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _core_options__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core/options */ "./node_modules/zoomist/src/js/core/options.js");
+/* harmony import */ var _core_methods__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core/methods */ "./node_modules/zoomist/src/js/core/methods.js");
+/* harmony import */ var _core_modules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./core/modules */ "./node_modules/zoomist/src/js/core/modules.js");
+/* harmony import */ var _core_events__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./core/events */ "./node_modules/zoomist/src/js/core/events.js");
+/* harmony import */ var _shared_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./shared/utils */ "./node_modules/zoomist/src/js/shared/utils.js");
+/* harmony import */ var _shared_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./shared/constants */ "./node_modules/zoomist/src/js/shared/constants.js");
+
+
+
+
+
+
+
+
+
+class Zoomist {
+  /**
+   * 
+   * @param {Element} element - target element 
+   * @param {Object} options - the configuration options
+   */
+  constructor(element, options = {}) {
+    if (!element) throw new Error('The first argument is required.')
+    if (!(0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.isElementExist)(element)) throw new Error('This element is not exist.')
+
+    this.element = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.getElement)(element)
+    this.options = Object.assign({}, _core_options__WEBPACK_IMPORTED_MODULE_0__["default"], (0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.isPlainObject)(options) && options)
+    
+    this.init()
+  }
+
+  init() {
+    const { element, options } = this
+    const { src } = options
+
+    if (element[_shared_constants__WEBPACK_IMPORTED_MODULE_5__.NAME]) return;
+
+    element[_shared_constants__WEBPACK_IMPORTED_MODULE_5__.NAME] = this
+
+    const source = options.src = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.isString)(src) || (0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.isImg)(src) ? src : _core_options__WEBPACK_IMPORTED_MODULE_0__["default"].src
+    const url = (0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.isImg)(source) ? source.src : element.getAttribute(source)
+
+    if (!url) throw new Error(`Cannot find src from ${source}`)
+
+    this.create(url)
+  }
+  
+  create(url) {
+    if (!url) return;
+    
+    const { options } = this
+    
+    this.url = url
+    this.data = {}
+    this.ratio = 1
+
+    this.__events__ = _core_options__WEBPACK_IMPORTED_MODULE_0__.EVENTS
+    if (options.on) {
+      for (const [k, v] of Object.entries(options.on)) {
+        this.__events__[k] = [v]
+      }
+    }
+
+    this.mount()
+  }
+  
+  mount() {
+    if (this.mounted) return;
+
+    const { element, options, data, url } = this
+    const { fill, maxRatio, height } = options
+    
+    if (this.wrapper) this.wrapper.remove()
+
+    const wrapper = document.createElement('div')
+    wrapper.classList.add(_shared_constants__WEBPACK_IMPORTED_MODULE_5__.CLASS_WRAPPER)
+    
+    const image = document.createElement('img')
+    image.classList.add(_shared_constants__WEBPACK_IMPORTED_MODULE_5__.CLASS_IMAGE)
+    image.src = url
+    
+    image.onload = () => {
+      this.wrapper = wrapper
+      this.image = image
+      
+      const { naturalWidth, naturalHeight } = image
+      const imageRatio = naturalWidth / naturalHeight
+      
+      // set container height
+      if (height) {
+        (0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.setStyle)(element, { width: '100%' })
+        if (height === 'auto') (0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.setStyle)(element, { paddingBottom: `${(0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.roundToTwo)(naturalHeight / naturalWidth * 100)}%` })
+        else if ((0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.isNumber)(height)) (0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.setStyle)(element, { height: height })
+        else if ((0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.isPercentage)(height)) (0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.setStyle)(element, { paddingBottom: height })
+      }
+      
+      const { offsetWidth, offsetHeight } = element
+      this.data.containerData = {
+        width: offsetWidth,
+        height: offsetHeight,
+        aspectRatio: offsetWidth / offsetHeight,
+      }
+
+      // get base on width or height
+      const { containerData } = data
+      let baseSide
+      if (fill !== 'cover' && fill !== 'contain' && fill !== 'none') options.fill = 'cover'
+      if (options.fill !== 'contain') baseSide = containerData.aspectRatio === imageRatio ? 'both' : containerData.aspectRatio > imageRatio ? 'width' : 'height'
+      if (options.fill === 'contain') baseSide = containerData.aspectRatio === imageRatio ? 'both' : containerData.aspectRatio > imageRatio ? 'height' : 'width'
+  
+      // calculate the image width, height, left, top
+      const imageWidth = options.fill === 'none' ? naturalWidth : baseSide === 'both' || baseSide === 'width' ? containerData.width : containerData.height * imageRatio
+      const imageHeight = options.fill === 'none' ? naturalHeight : baseSide === 'both' || baseSide === 'height' ? containerData.height : containerData.width / imageRatio
+      const imageLeft = (containerData.width - imageWidth) / 2
+      const imageTop = (containerData.height - imageHeight) / 2
+
+      this.data.originImageData = {
+        naturalWidth,
+        naturalHeight,
+        aspectRatio: imageRatio,
+        width: imageWidth,
+        height: imageHeight,
+        left: imageLeft,
+        top: imageTop
+      }
+      this.data.imageData = Object.assign({}, this.data.originImageData)
+      
+      ;(0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.setStyle)(image, {
+        width: imageWidth,
+        height: imageHeight,
+        left: imageLeft,
+        top: imageTop,
+      })
+
+      // if has maxRatio
+      if (( !(0,_shared_utils__WEBPACK_IMPORTED_MODULE_4__.isNumber)(maxRatio) || maxRatio <= 1 ) && maxRatio !== false) options.maxRatio = false
+
+      ;(0,_core_events__WEBPACK_IMPORTED_MODULE_3__["default"])(this)
+  
+      this.mounted = true
+      
+      this.render()
+    }
+  }
+
+  render() {
+    const { element, wrapper, image } = this
+
+    element.classList.add(_shared_constants__WEBPACK_IMPORTED_MODULE_5__.CLASS_CONTAINER)
+
+    wrapper.append(image)
+    element.append(wrapper)
+
+    this.createModules()
+
+    this.emit('ready')
+  }
+}
+
+Object.assign(Zoomist.prototype, _core_methods__WEBPACK_IMPORTED_MODULE_1__["default"], _core_modules__WEBPACK_IMPORTED_MODULE_2__["default"])
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Zoomist);
 
 /***/ }),
 
@@ -25921,7 +27236,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _libs_simplebar_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./libs/simplebar.js */ "./src/js/libs/simplebar.js");
 /* harmony import */ var _utils_select_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/select.js */ "./src/js/utils/select.js");
 /* harmony import */ var _dev_vzmsk1_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./dev/vzmsk1.js */ "./src/js/dev/vzmsk1.js");
-/* harmony import */ var _dev_vzmsk1_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_dev_vzmsk1_js__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _dev_markusDM_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./dev/markusDM.js */ "./src/js/dev/markusDM.js");
 /* harmony import */ var _dev_markusDM_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_dev_markusDM_js__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _dev_ukik0_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./dev/ukik0.js */ "./src/js/dev/ukik0.js");
@@ -25969,4 +27283,4 @@ _utils_forms_js__WEBPACK_IMPORTED_MODULE_1__.formSubmit();
 
 /******/ })()
 ;
-//# sourceMappingURL=index2ddbc253f5ceec202b19.js.map
+//# sourceMappingURL=homec6e78c80876baf24b0ee.js.map

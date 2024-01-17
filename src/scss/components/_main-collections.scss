@@ -28,26 +28,19 @@
     }
     // .main-collection__title
     &__title {
-        color: #1f1f22;
-        font-family: 'Druk Cyr';
-        font-size: 10rem;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 110%; /* 110px */
-        text-transform: uppercase;
         margin-bottom: 2rem;
 
         width: 69.5rem;
     }
     // .main-collection__description
     &__description {
-        color: #6a6a6a;
-        font-size: 2rem;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 140%; /* 28px */
         margin-bottom: 5rem;
         width: 61.8rem;
+        color: $gray;
+    }
+    // .main-collection__info
+    &__info {
+        color: $black;
     }
 }
 .collection-item {
@@ -81,23 +74,16 @@
         display: flex;
         flex-direction: column;
         padding-left: 1.2rem;
+        .txt20 {
+            opacity: 0.7;
+        }
 
         strong {
-            color: $white;
             text-align: left;
-            font-size: 2.8rem;
-            font-style: normal;
-            font-weight: 500;
-            line-height: normal;
         }
 
         span {
-            color: $white;
             text-align: left;
-            font-size: 2rem;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 140%; /* 28px */
         }
     }
     // .collection-item__icons
@@ -111,11 +97,6 @@
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(13px);
-
-            color: #fff;
-            text-align: center;
-            font-size: 2rem;
-            line-height: 140%; /* 28px */
 
             display: flex;
             align-items: center;
@@ -145,31 +126,14 @@
             &--left {
                 background: rgba(255, 255, 255, 0.3);
                 backdrop-filter: blur(30px);
-
-                color: $white;
-                text-align: center;
-                font-size: 2rem;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 140%; /* 28px */
             }
             &--right {
                 background: $white;
                 backdrop-filter: blur(11.5px);
                 align-self: flex-end;
-
-                color: #1f1f22;
-                font-size: 2rem;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 140%; /* 28px */
+                color: $black;
 
                 strong {
-                    color: #1f1f22;
-                    font-size: 2.8rem;
-                    font-style: normal;
-                    font-weight: 500;
-                    line-height: normal;
                     margin: 0 0.5rem;
                     align-self: center;
                 }
@@ -265,21 +229,13 @@
             padding-left: 0;
 
             strong {
-                font-size: 3.6rem;
                 margin-bottom: 1rem;
-                line-height: normal;
-            }
-
-            span {
-                font-size: 2.8rem;
-                line-height: normal; /* 28px */
             }
         }
         // .collection-item__icons
         &__icons {
             gap: 1rem;
             &-item {
-                font-size: 3rem;
                 svg {
                     width: 4.6rem;
                     height: 4.6rem;
@@ -294,27 +250,13 @@
                 height: 8.8rem;
                 padding: 2.4rem;
                 border-radius: 4rem;
-
-                &--left {
-                    font-size: 2.8rem;
-                }
                 &--right {
-                    font-size: 3rem;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: 140%; /* 28px */
-
                     strong {
-                        font-size: 3.6rem;
                         margin: 0 0.5rem;
                         align-self: center;
                     }
                     span {
-                        line-height: 1.1;
                         margin-bottom: 0;
-                    }
-                    sup {
-                        line-height: 1.1;
                     }
                 }
             }
