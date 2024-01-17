@@ -21,8 +21,8 @@ body {
     line-height: 1.2;
     margin: 0;
     padding: 0;
-    color: $black; // цвет по умолчанию текста по сайту
-    background-color: $white;
+    color: $white; // цвет по умолчанию текста по сайту
+    background-color: $bodyColor;
 }
 
 input,
@@ -113,6 +113,13 @@ input[type='number'] {
     -moz-appearance: textfield;
 }
 
+svg,
+img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
 @media (min-width: 1920px) {
     html {
         font-size: 10px;
@@ -132,7 +139,7 @@ input[type='number'] {
     }
 
     .container {
-        padding: 0 4rem; // в моб версии отступ от края задаем для всех контейнеров, а там где не нужно можем точечно убрать
+        padding: 0 2rem; // в моб версии отступ от края задаем для всех контейнеров, а там где не нужно можем точечно убрать
         width: 100%;
     }
 }

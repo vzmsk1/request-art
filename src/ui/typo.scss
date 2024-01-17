@@ -1,81 +1,198 @@
 .tl1,
 .tl2,
 .tl3 {
-  font-family: DrukCyr;
-  font-weight: 500;
-  text-transform: uppercase;
+    font-family: DrukCyr;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.h1 {
+    font-family: 'DrukCyr';
+    font-size: 19.9646rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 23.387rem; /* 117.143% */
+}
+
+.h2 {
+    font-family: 'DrukCyr';
+    font-size: 10rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%; /* 110px */
+}
+
+.h3 {
+    font-family: 'DrukCyr';
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 84%; /* 16.8px */
+    letter-spacing: 0.16rem;
+}
+
+.h4 {
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.text-32 {
+    font-size: 3.2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.text-m-28 {
+    font-size: 2.8rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.text-m-20 {
+    font-family: 'DrukCyr';
+    font-size: 2.0093rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 84%; /* 16.878px */
+    letter-spacing: 0.1607rem;
+}
+
+.text-20 {
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%; /* 28px */
+}
+
+@media (max-width: 48em) {
+    .h1 {
+        font-size: 11rem;
+        line-height: 110%; /* 60.5px */
+    }
+
+    .h3 {
+        font-size: 4rem;
+        letter-spacing: 0.32rem;
+    }
+
+    .h4 {
+        font-size: 3.6rem;
+    }
+
+    .text-32 {
+        font-size: 3.2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    .text-m-28 {
+        font-size: 3.6rem;
+    }
+
+    .text-m-20 {
+        font-family: 'Druk Cyr';
+        font-size: 2.0093rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 84%; /* 16.878px */
+        letter-spacing: 0.1607rem;
+    }
+
+    .text-20 {
+        font-size: 2.8rem;
+        line-height: normal; /* 28px */
+    }
+
+    .text-16 {
+        font-size: 1.6rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}
+
+.text-16 {
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .tl1 {
-  font-size: 20rem;
-  line-height: 117%;
-  @media (max-width: 48em) {
-    font-size: 11rem;
-    line-height: 110%;
-  }
+    font-size: 20rem;
+    line-height: 117%;
+    @media (max-width: 48em) {
+        font-size: 11rem;
+        line-height: 110%;
+    }
 }
 
 .tl2 {
-  line-height: 110%;
-  font-size: 10rem;
+    line-height: 110%;
+    font-size: 10rem;
 }
 
 .tl3 {
-  font-size: 6rem;
-  line-height: 110%;
-  @media (max-width: 48em) {
-    font-size: 4rem;
-    letter-spacing: 0.32rem;
-  }
+    font-size: 6rem;
+    line-height: 110%;
+    @media (max-width: 48em) {
+        font-size: 4rem;
+        letter-spacing: 0.32rem;
+    }
 }
 
 // --------------------------------------------------------------------------
 
 .txt32 {
-  font-size: 3.2rem;
-  @media (max-width: 48em) {
-    font-size: 3rem;
-    line-height: 140%;
-  }
+    font-size: 3.2rem;
+    @media (max-width: 48em) {
+        font-size: 3rem;
+        line-height: 140%;
+    }
 }
 
 .txt20 {
-  font-family: DrukCyr;
-  font-size: 2.8rem;
-  &_caps {
-    font-size: 4rem;
-    line-height: 110%;
-    letter-spacing: 0.32rem;
-    text-transform: uppercase;
-  }
-  &_md {
-    font-weight: 500;
-  }
-  @media (min-width: 48em) {
-    font-size: 2rem;
-    line-height: 140%;
+    font-family: 'DrukCyr';
+    font-size: 2.8rem;
     &_caps {
-      font-size: 2.2rem;
-      font-weight: 500;
-      line-height: 109.091%;
-      letter-spacing: 0.176rem;
+        font-size: 4rem;
+        line-height: 110%;
+        letter-spacing: 0.32rem;
+        text-transform: uppercase;
     }
-  }
+    &_md {
+        font-weight: 500;
+    }
+    @media (min-width: 48em) {
+        font-size: 2rem;
+        line-height: 140%;
+        &_caps {
+            font-size: 2.2rem;
+            font-weight: 500;
+            line-height: 109.091%;
+            letter-spacing: 0.176rem;
+        }
+    }
 }
 
 .txt28 {
-  &_md {
-    font-size: 2.8rem;
-    font-weight: 500;
-    @media (max-width: 48em) {
-      font-size: 3.6rem;
+    &_md {
+        font-size: 2.8rem;
+        font-weight: 500;
+        @media (max-width: 48em) {
+            font-size: 3.6rem;
+        }
     }
-  }
 }
 
 .txt16 {
-  font-size: 1.6rem;
-  @media (max-width: 48em) {
-    font-size: 2.4rem;
-  }
+    font-size: 1.6rem;
+    @media (max-width: 48em) {
+        font-size: 2.4rem;
+    }
 }

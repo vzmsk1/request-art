@@ -12,10 +12,6 @@
     // .footer__sitemap
     &__sitemap {
         gap: 20rem;
-
-        .sitemap-item__link {
-            font-family: 'EuclidCircularA';
-        }
     }
     // .footer__middle
     &__middle {
@@ -83,12 +79,6 @@
     &__bottom-text {
         line-height: 0.86;
         margin-top: 12rem;
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-        &.tl1 {
-            font-size: 19rem;
-        }
     }
 }
 .footer-sitemap {
