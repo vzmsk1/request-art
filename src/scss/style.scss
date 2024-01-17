@@ -40,17 +40,29 @@ body {
 main {
     padding-top: 6.7rem;
     @media (max-width: 48em) {
-        main {
-            padding-top: 12.6rem;
-        }
+        padding-top: 12.6rem;
+    }
+}
+
+.desktop {
+    @media (max-width: 48em) {
+        display: none;
+    }
+}
+
+.mobile {
+    display: none;
+
+    @media (max-width: 48em) {
+        display: block;
     }
 }
 
 // --------------------------------------------------------------------------
 
 // header / footer
-@import './components/_header';
-@import './components/_footer';
+@import './components/header';
+@import './components/footer';
 
 // ui
 @import '../ui/ui.scss';
