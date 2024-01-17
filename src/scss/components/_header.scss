@@ -64,6 +64,20 @@
         &.scroll {
             border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);
         }
+
+        &.show {
+            .header__phone {
+                display: none;
+            }
+            .header__inner {
+                flex-direction: row-reverse;
+            }
+        }
+        &__container {
+            position: relative;
+            z-index: 1;
+            background-color: $bodyColor;
+        }
         // .header__inner
         &__inner {
             display: flex;
@@ -138,22 +152,59 @@
     }
 
     .burger-menu {
-        display: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 15rem;
+        position: absolute;
+        top: 12.6rem;
+        left: 0;
+        z-index: 0;
+        transition: transform 0.5s linear;
+        transform: translateY(-120%);
 
         width: 100%;
         height: calc(100vh - 12.6rem);
-        background-color: #f0f1f4;
+        background-color: $bodyColor;
 
         &.show {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            transition: transform 0.5s linear;
+            transform: translateY(0);
         }
         // .burger-menu__wrapper
         &__wrapper {
             display: flex;
             align-items: center;
             flex-direction: column;
+            padding-top: 16rem;
+        }
+        &__phone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-top: 0.2rem solid $green;
+
+            padding: 3.2rem 0 4.4rem;
+            a {
+                display: flex;
+                align-items: center;
+                gap: 2.6rem;
+                span {
+                    width: 6.4rem;
+                    height: 6.4rem;
+                    svg path {
+                        fill: $pink;
+                    }
+                }
+
+                strong {
+                    color: $pink;
+                    font-size: 4.8rem;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                }
+            }
         }
         // .burger-menu__link
         &__link {
@@ -161,23 +212,26 @@
             justify-content: center;
 
             width: 100%;
-            color: $main;
+            color: $white;
             font-family: 'Druk Cyr';
             font-size: 10rem;
             font-style: normal;
             font-weight: 500;
             line-height: 110%; /* 55px */
             text-transform: uppercase;
-            padding: 2.4rem 0;
+            padding: 3.2rem 0;
 
-            &:not(:last-child) {
-                border-bottom: 0.2rem solid #282828;
+            border-bottom: 0.2rem solid $green;
+
+            &:first-child {
+                border-top: 0.2rem solid $green;
             }
 
             &:hover,
             &:active,
             &:focus-visible {
                 background-color: $pink;
+                color: $bodyColor;
             }
         }
     }
