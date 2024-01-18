@@ -15,7 +15,7 @@
     }
     @media (any-hover: hover) {
         &:hover {
-            &:not(&_black) {
+            &:not(&.btn_black) {
                 background-color: $green;
             }
             &.btn_black {

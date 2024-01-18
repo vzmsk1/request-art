@@ -63,8 +63,8 @@ main {
 // --------------------------------------------------------------------------
 
 // header / footer
-@import './components/header';
-@import './components/footer';
+@import './sections/header';
+@import './sections/footer';
 
 // ui
 @import '../ui/ui.scss';
