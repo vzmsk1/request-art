@@ -160,7 +160,8 @@ module.exports = {
     entry: {
         index: path.resolve(__dirname, 'src/js', 'app.js'),
         home: path.resolve(__dirname, 'src/js', 'app.js'),
-        services: path.resolve(__dirname, 'src/js', 'app.js')
+        services: path.resolve(__dirname, 'src/js', 'app.js'),
+        'article-detailed': path.resolve(__dirname, 'src/js', 'app.js')
     },
     // entry: getEntries(),
     output: {

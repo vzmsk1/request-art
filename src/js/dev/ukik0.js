@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 import gsap from 'gsap';
-import {ScrollTrigger, Linear} from 'gsap/all';
+import { ScrollTrigger, Linear } from 'gsap/all';
 import Swiper from 'swiper';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -18,7 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const textElements = gsap.utils.toArray('.collections__articles-item-text');
 
-textElements.forEach(text => {
+textElements.forEach((text) => {
     gsap.to(text, {
         backgroundSize: '100%',
         ease: Linear.easeNone,
@@ -26,7 +26,20 @@ textElements.forEach(text => {
             trigger: text,
             start: 'center 100%',
             end: 'center 70%',
-            scrub: true,
-        },
+            scrub: true
+        }
     });
+});
+
+const section = document.querySelector('.article__shares');
+
+gsap.to(section, {
+    '--scale': 1,
+    scrollTrigger: {
+        trigger: section,
+        start: 'top 100%',
+        end: 'bottom 80%',
+        scrub: true
+    },
+    ease: Linear.easeIn
 });
