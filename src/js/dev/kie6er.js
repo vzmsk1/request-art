@@ -2,6 +2,7 @@ import $ from 'jquery';
 import Swiper from 'swiper';
 import 'swiper/css';
 import { Navigation, Pagination, EffectFade, Thumbs } from 'swiper/modules';
+import { remToPx } from '../utils/utils';
 
 $(document).ready(function () {
     // HEADER
@@ -35,16 +36,6 @@ $(document).ready(function () {
     }
 
     // SWIPER
-    function remToPx(remValue) {
-        // Получаем текущий базовый размер шрифта (font-size) из элемента <html>
-        var htmlFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-
-        // Переводим значение из rem в px
-        var pxValue = remValue * htmlFontSize;
-
-        // Округляем значение до целых пикселей (по желанию)
-        return Math.round(pxValue) + 'px';
-    }
 
     const collectionSwiper = new Swiper('.main-collection__cards', {
         enabled: true,
