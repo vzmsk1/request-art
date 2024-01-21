@@ -1,10 +1,11 @@
 .team {
     background: $violet;
     padding: 16rem 0;
-    margin: 16rem 0;
+    margin-bottom: 16rem;
 
     @include small-tablet {
         padding: 12.8rem 0;
+        margin-bottom: 24rem;
     }
 
     &__content {
