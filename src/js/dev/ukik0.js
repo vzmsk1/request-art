@@ -2,7 +2,8 @@ import $ from 'jquery';
 
 import gsap from 'gsap';
 import { ScrollTrigger, Linear } from 'gsap/all';
-import Swiper from 'swiper';
+
+import '../components/ymaps';
 
 gsap.registerPlugin(ScrollTrigger);
 
