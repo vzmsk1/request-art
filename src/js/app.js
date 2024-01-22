@@ -24,6 +24,10 @@ import './utils/accordion.js';
 
 import './libs/simplebar.js';
 
+// ------------------------------- dynamic dom ------------------------------
+
+import './libs/da.js';
+
 // --------------------------------- select ---------------------------------
 
 import './utils/select.js';
@@ -34,4 +38,3 @@ import './dev/vzmsk1.js';
 import './dev/markusDM.js';
 import './dev/ukik0.js';
 import './dev/kie6er.js';
-
