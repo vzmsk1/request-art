@@ -1,3 +1,10 @@
+import Swiper from 'swiper';
+import 'swiper/css';
+import { Navigation } from 'swiper/modules';
+import { remToPx } from '../utils/utils';
+
+// --------------------------------------------------------------------------
+
 /**
  * changes the speed of wave animation
  */
@@ -16,6 +23,26 @@ const changeWaveAnimDur = () => {
     }
 };
 changeWaveAnimDur();
+
+/**
+ * initializes sliders
+ */
+const initSliders = () => {
+    if (document.querySelector('.stages__slider')) {
+        const stagesSlider = new Swiper('.stages__slider', {
+            modules: [Navigation],
+            slidesPerView: 'auto',
+            spaceBetween: `${remToPx(6)}rem`,
+            rewind: true,
+            speed: 800,
+            navigation: {
+                nextEl: '.stages .sl-btn_next',
+                prevEl: '.stages .sl-btn_prev'
+            }
+        });
+    }
+};
+initSliders();
 
 // ------------------------------ hero gallery ------------------------------
 
