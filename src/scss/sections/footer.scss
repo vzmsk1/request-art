@@ -77,8 +77,21 @@
     }
     // .footer__bottom-text
     &__bottom-text {
-        line-height: 0.86;
-        margin-top: 12rem;
+        margin-top: 3rem;
+        font-family: $font-druk;
+        font-size: 19.9rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 23.4rem;
+        text-transform: uppercase;
+
+        @include small-tablet {
+            font-size: 11rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 110%;
+            text-transform: uppercase;
+        }
     }
 }
 .footer-sitemap {

@@ -1,0 +1,148 @@
+.collections {
+    margin-bottom: 13rem;
+
+    @include small-tablet{
+        margin-bottom: 24rem;
+    }
+
+    &__articles {
+        &-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &-item {
+            position: relative;
+
+            &.--active {
+                .--masking {
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                }
+            }
+
+            &:first-child {
+                border-top: 0.1rem solid rgba(201, 251, 64, 0.5);
+            }
+
+            border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);
+
+            &-wrapper {
+                padding: 4rem 10rem;
+                display: flex;
+                align-items: center;
+
+                @include small-tablet{
+                    padding: 2.3rem 2.2rem;
+                }
+
+                &.--masking {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    z-index: 1;
+                    background-color: $pink;
+                    clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);
+                    transform-origin: center;
+                    transition: clip-path cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;
+
+                    figcaption {
+                        color: #0d0d0d;
+                    }
+                }
+            }
+
+            &-number {
+                color: $white;
+                font-family: $font-druk;
+                font-size: 10rem;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 110%;
+                text-transform: uppercase;
+                display: block;
+                width: 14rem;
+
+                @include small-tablet{
+                    display: none;
+                }
+            }
+
+            figure {
+                display: flex;
+                align-items: flex-end;
+                gap: 6rem;
+                margin-left: 16rem;
+
+                @include small-tablet{
+                    margin-left: 0;
+                    width: 100%;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
+            &-image {
+                border-radius: 1.5rem;
+                @include sizes(25rem, 14rem);
+
+                @include small-tablet{
+                    display: none;
+                }
+
+                img {
+                    height: 100%;
+                    border-radius: inherit;
+                }
+            }
+
+            &-text {
+                font-family: $font-druk;
+                font-size: 10rem;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 110%;
+                text-transform: uppercase;
+                color: transparent;
+                background: linear-gradient(to right, $white, $white) no-repeat;
+                -webkit-background-clip: text;
+                background-clip: text;
+                background-size: 0;
+                transition: background-size cubic-bezier(.1,.5,.5,1) 0.5s;
+
+                @include small-tablet{
+                    font-size: 10rem;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 110%;
+                    text-transform: uppercase;
+                }
+            }
+
+            &-link {
+                margin-left: auto;
+                display: flex;
+                align-items: center;
+                gap: 1.6rem;
+
+                @include small-tablet{
+                    display: none;
+                }
+
+                svg {
+                    @include sizes(5.2rem, 5.2rem);
+                }
+
+                span {
+                    color: $bodyColor;
+                    font-family: $font-druk;
+                    font-size: 2.2rem;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 2.4rem;
+                    letter-spacing: 0.176rem;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+}
