@@ -562,6 +562,319 @@ da.init();
 
 /***/ }),
 
+/***/ "./src/js/libs/modals.js":
+/*!*******************************!*\
+  !*** ./src/js/libs/modals.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modules_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules.js */ "./src/js/modules.js");
+/* harmony import */ var _utils_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/utils.js */ "./src/js/utils/utils.js");
+
+
+
+// --------------------------------------------------------------------------
+
+class Modal {
+  constructor(options) {
+    let config = {
+      logging: true,
+      init: true,
+      attributeOpenButton: 'data-modal',
+      attributeCloseButton: 'data-close',
+      fixElementSelector: '[data-lp]',
+      youtubeAttribute: 'data-modal-youtube',
+      youtubePlaceAttribute: 'data-modal-youtube-place',
+      setAutoplayYoutube: true,
+      classes: {
+        modal: 'modal',
+        // modalWrapper: 'modal__wrapper',
+        modalContent: 'modal__content',
+        modalActive: 'modal_show',
+        bodyActive: 'modal-show'
+      },
+      focusCatch: true,
+      closeEsc: true,
+      bodyLock: true,
+      hashSettings: {
+        location: true,
+        goHash: true
+      },
+      on: {
+        beforeOpen: function () {},
+        afterOpen: function () {},
+        beforeClose: function () {},
+        afterClose: function () {}
+      }
+    };
+    this.youTubeCode;
+    this.isOpen = false;
+    this.targetOpen = {
+      selector: false,
+      element: false
+    };
+    this.previousOpen = {
+      selector: false,
+      element: false
+    };
+    this.lastClosed = {
+      selector: false,
+      element: false
+    };
+    this._dataValue = false;
+    this.hash = false;
+    this._reopen = false;
+    this._selectorOpen = false;
+    this.lastFocusEl = false;
+    this._focusEl = ['a[href]', 'input:not([disabled]):not([type="hidden"]):not([aria-hidden])', 'button:not([disabled]):not([aria-hidden])', 'select:not([disabled]):not([aria-hidden])', 'textarea:not([disabled]):not([aria-hidden])', 'area[href]', 'iframe', 'object', 'embed', '[contenteditable]', '[tabindex]:not([tabindex^="-"])'];
+    //this.options = Object.assign(config, options);
+    this.options = {
+      ...config,
+      ...options,
+      classes: {
+        ...config.classes,
+        ...options?.classes
+      },
+      hashSettings: {
+        ...config.hashSettings,
+        ...options?.hashSettings
+      },
+      on: {
+        ...config.on,
+        ...options?.on
+      }
+    };
+    this.bodyLock = false;
+    this.options.init ? this.initmodals() : null;
+  }
+  initmodals() {
+    this.eventsmodal();
+  }
+  eventsmodal() {
+    document.addEventListener('click', function (e) {
+      const buttonOpen = e.target.closest(`[${this.options.attributeOpenButton}]`);
+      if (buttonOpen) {
+        e.preventDefault();
+        this._dataValue = buttonOpen.getAttribute(this.options.attributeOpenButton) ? buttonOpen.getAttribute(this.options.attributeOpenButton) : 'error';
+        this.youTubeCode = buttonOpen.getAttribute(this.options.youtubeAttribute) ? buttonOpen.getAttribute(this.options.youtubeAttribute) : null;
+        if (this._dataValue !== 'error') {
+          if (!this.isOpen) this.lastFocusEl = buttonOpen;
+          this.targetOpen.selector = `${this._dataValue}`;
+          this._selectorOpen = true;
+          this.open();
+          return;
+        }
+        return;
+      }
+      const buttonClose = e.target.closest(`[${this.options.attributeCloseButton}]`);
+      if (!e.target.closest('#unconfirmedAgeModal') && !e.target.closest('#confirmAgeModal') && (buttonClose || !e.target.closest(`.${this.options.classes.modalContent}`) && this.isOpen)) {
+        e.preventDefault();
+        this.close();
+        return;
+      }
+    }.bind(this));
+    document.addEventListener('keydown', function (e) {
+      if (this.options.closeEsc && e.which == 27 && e.code === 'Escape' && this.isOpen) {
+        e.preventDefault();
+        this.close();
+        return;
+      }
+      if (this.options.focusCatch && e.which == 9 && this.isOpen) {
+        this._focusCatch(e);
+        return;
+      }
+    }.bind(this));
+    if (this.options.hashSettings.goHash) {
+      window.addEventListener('hashchange', function () {
+        if (window.location.hash) {
+          this._openToHash();
+        } else {
+          this.close(this.targetOpen.selector);
+        }
+      }.bind(this));
+      window.addEventListener('load', function () {
+        if (window.location.hash) {
+          this._openToHash();
+        }
+      }.bind(this));
+    }
+  }
+  open(selectorValue) {
+    if (_utils_utils_js__WEBPACK_IMPORTED_MODULE_1__.bodyLockStatus) {
+      this.bodyLock = document.documentElement.classList.contains('lock') && !this.isOpen ? true : false;
+      if (selectorValue && typeof selectorValue === 'string' && selectorValue.trim() !== '') {
+        this.targetOpen.selector = selectorValue;
+        this._selectorOpen = true;
+      }
+      if (this.isOpen) {
+        this._reopen = true;
+        this.close();
+      }
+      if (!this._selectorOpen) this.targetOpen.selector = this.lastClosed.selector;
+      if (!this._reopen) this.previousActiveElement = document.activeElement;
+      this.targetOpen.element = document.querySelector(this.targetOpen.selector);
+      if (this.targetOpen.element) {
+        if (this.youTubeCode) {
+          const codeVideo = this.youTubeCode;
+          const urlVideo = `https://www.youtube.com/embed/${codeVideo}?rel=0&showinfo=0&autoplay=1`;
+          const iframe = document.createElement('iframe');
+          iframe.setAttribute('allowfullscreen', '');
+          const autoplay = this.options.setAutoplayYoutube ? 'autoplay;' : '';
+          iframe.setAttribute('allow', `${autoplay}; encrypted-media`);
+          iframe.setAttribute('src', urlVideo);
+          if (!this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`)) {
+            const youtubePlace = this.targetOpen.element.querySelector('.modal__text').setAttribute(`${this.options.youtubePlaceAttribute}`, '');
+          }
+          this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`).appendChild(iframe);
+        }
+        if (this.options.hashSettings.location) {
+          this._getHash();
+          this._setHash();
+        }
+        this.options.on.beforeOpen(this);
+        document.dispatchEvent(new CustomEvent('beforemodalOpen', {
+          detail: {
+            modal: this
+          }
+        }));
+        this.targetOpen.element.classList.add(this.options.classes.modalActive);
+        document.documentElement.classList.add(this.options.classes.bodyActive);
+        if (!this._reopen) {
+          !this.bodyLock ? (0,_utils_utils_js__WEBPACK_IMPORTED_MODULE_1__.bodyLock)() : null;
+        } else this._reopen = false;
+        this.targetOpen.element.setAttribute('aria-hidden', 'false');
+        this.previousOpen.selector = this.targetOpen.selector;
+        this.previousOpen.element = this.targetOpen.element;
+        this._selectorOpen = false;
+        this.isOpen = true;
+        setTimeout(() => {
+          this._focusTrap();
+        }, 50);
+        this.options.on.afterOpen(this);
+        document.dispatchEvent(new CustomEvent('aftermodalOpen', {
+          detail: {
+            modal: this
+          }
+        }));
+      }
+    }
+  }
+  close(selectorValue) {
+    if (selectorValue && typeof selectorValue === 'string' && selectorValue.trim() !== '') {
+      this.previousOpen.selector = selectorValue;
+    }
+    if (!this.isOpen || !_utils_utils_js__WEBPACK_IMPORTED_MODULE_1__.bodyLockStatus) {
+      return;
+    }
+    this.options.on.beforeClose(this);
+    document.dispatchEvent(new CustomEvent('beforemodalClose', {
+      detail: {
+        modal: this
+      }
+    }));
+    if (this.youTubeCode) {
+      if (this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`)) this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`).innerHTML = '';
+    }
+    this.previousOpen.element.classList.remove(this.options.classes.modalActive);
+    // aria-hidden
+    this.previousOpen.element.setAttribute('aria-hidden', 'true');
+    if (!this._reopen) {
+      document.documentElement.classList.remove(this.options.classes.bodyActive);
+      !this.bodyLock ? (0,_utils_utils_js__WEBPACK_IMPORTED_MODULE_1__.bodyUnlock)() : null;
+      this.isOpen = false;
+    }
+    this._removeHash();
+    if (this._selectorOpen) {
+      this.lastClosed.selector = this.previousOpen.selector;
+      this.lastClosed.element = this.previousOpen.element;
+    }
+    this.options.on.afterClose(this);
+    document.dispatchEvent(new CustomEvent('aftermodalClose', {
+      detail: {
+        modal: this
+      }
+    }));
+    setTimeout(() => {
+      this._focusTrap();
+    }, 50);
+  }
+  _getHash() {
+    if (this.options.hashSettings.location) {
+      this.hash = this.targetOpen.selector.includes('#') ? this.targetOpen.selector : this.targetOpen.selector.replace('.', '#');
+    }
+  }
+  _openToHash() {
+    let classInHash = document.querySelector(`.${window.location.hash.replace('#', '')}`) ? `.${window.location.hash.replace('#', '')}` : document.querySelector(`${window.location.hash}`) ? `${window.location.hash}` : null;
+    const buttons = document.querySelector(`[${this.options.attributeOpenButton} = "${classInHash}"]`) ? document.querySelector(`[${this.options.attributeOpenButton} = "${classInHash}"]`) : document.querySelector(`[${this.options.attributeOpenButton} = "${classInHash.replace('.', '#')}"]`);
+    if (buttons && classInHash) this.open(classInHash);
+  }
+  _setHash() {
+    history.pushState('', '', this.hash);
+  }
+  _removeHash() {
+    history.pushState('', '', window.location.href.split('#')[0]);
+  }
+  _focusCatch(e) {
+    const focusable = this.targetOpen.element.querySelectorAll(this._focusEl);
+    const focusArray = Array.prototype.slice.call(focusable);
+    const focusedIndex = focusArray.indexOf(document.activeElement);
+    if (e.shiftKey && focusedIndex === 0) {
+      focusArray[focusArray.length - 1].focus();
+      e.preventDefault();
+    }
+    if (!e.shiftKey && focusedIndex === focusArray.length - 1) {
+      focusArray[0].focus();
+      e.preventDefault();
+    }
+  }
+  _focusTrap() {
+    const focusable = this.previousOpen.element.querySelectorAll(this._focusEl);
+    if (!this.isOpen && this.lastFocusEl) {
+      this.lastFocusEl.focus();
+    } else {
+      focusable[0].focus();
+    }
+  }
+}
+_modules_js__WEBPACK_IMPORTED_MODULE_0__.modules.modal = new Modal({});
+
+// show age modal
+if (document.querySelector('.mainpage')) {
+  const confirmAgeBtn = document.getElementById('confirm-age-btn');
+  // modules.modal.open('#confirmAgeModal');
+  confirmAgeBtn.addEventListener('click', function () {
+    _modules_js__WEBPACK_IMPORTED_MODULE_0__.modules.modal.close('#confirmAgeModal');
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/libs/phone-mask.js":
+/*!***********************************!*\
+  !*** ./src/js/libs/phone-mask.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var imask__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! imask */ "./node_modules/imask/esm/index.js");
+
+
+// --------------------------------------------------------------------------
+
+const phoneInputs = document.querySelectorAll('[data-phone-mask]');
+if (phoneInputs.length) {
+  phoneInputs.forEach(phoneInput => {
+    const mask = new imask__WEBPACK_IMPORTED_MODULE_0__["default"](phoneInput, {
+      mask: '+{7} (000) 000 00-00'
+    });
+  });
+}
+
+/***/ }),
+
 /***/ "./src/js/libs/simplebar.js":
 /*!**********************************!*\
   !*** ./src/js/libs/simplebar.js ***!
@@ -1146,6 +1459,21 @@ var SimpleBar = function (t) {
 
 /***/ }),
 
+/***/ "./src/js/modules.js":
+/*!***************************!*\
+  !*** ./src/js/modules.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   modules: () => (/* binding */ modules)
+/* harmony export */ });
+const modules = {};
+
+/***/ }),
+
 /***/ "./src/js/utils/accordion.js":
 /*!***********************************!*\
   !*** ./src/js/utils/accordion.js ***!
@@ -1322,6 +1650,14 @@ function formFieldsInit() {
       }
     }
   });
+  if (document.querySelectorAll('[data-file-input]').length) {
+    document.querySelectorAll('[data-file-input]').forEach(fileInput => {
+      formValidate.validateInput(fileInput);
+      fileInput.addEventListener('input', function () {
+        formValidate.validateInput(fileInput);
+      });
+    });
+  }
   if (options.viewPass) {
     document.addEventListener('click', function (e) {
       let targetElement = e.target;
@@ -1361,6 +1697,51 @@ let formValidate = {
     } else if (formRequiredItem.type === 'checkbox' && !formRequiredItem.checked) {
       this.addError(formRequiredItem);
       error++;
+    } else if (formRequiredItem.type === 'file') {
+      const ths = this;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const maxSize = Number(formRequiredItem.dataset.fileInput);
+        const file = formRequiredItem.files[0];
+        if (maxSize && file) {
+          const parent = formRequiredItem.closest('.file-input');
+          const text = parent.querySelector('[data-file-txt]');
+          const name = parent.querySelector('[data-file-name]');
+          const extension = parent.querySelector('[data-file-extension]');
+          const img = parent.querySelector('[data-file-img]');
+          const size = parent.querySelector('[data-file-size]');
+          const removeBtn = parent.querySelector('[data-remove-file-btn]');
+          const data = {
+            name: file.name.split('.').slice(0, -1).join(''),
+            size: file.size / 1000000,
+            extension: file.name.split('.').pop()
+          };
+          img ? img.src = e.target.result : null;
+          text ? text.innerHTML = `Максимальный размер файла - ${maxSize} мб` : null;
+          name ? name.innerHTML = data.name : null;
+          extension ? extension.innerHTML = data.extension : null;
+          size ? size.innerHTML = data.size.toFixed(1) : null;
+          if (data.size > maxSize) {
+            parent.classList.add('_error');
+            parent.classList.remove('_filled');
+            text.innerHTML = 'Большой размер файла';
+            ths.addError(formRequiredItem);
+          } else {
+            parent.classList.remove('_error');
+            parent.classList.add('_filled');
+            ths.removeError(formRequiredItem);
+          }
+          if (removeBtn) {
+            removeBtn.addEventListener('click', function () {
+              parent.classList.remove('_error');
+              parent.classList.remove('_filled');
+              formRequiredItem.value = '';
+              ths.removeError(formRequiredItem);
+            });
+          }
+        }
+      };
+      if (formRequiredItem.files[0]) reader.readAsDataURL(formRequiredItem.files[0]);
     } else {
       if (!formRequiredItem.value.trim() && !formRequiredItem.hasAttribute('data-static')) {
         this.addError(formRequiredItem);
@@ -1379,6 +1760,7 @@ let formValidate = {
     return error;
   },
   addError(formRequiredItem) {
+    console.log(formRequiredItem);
     formRequiredItem.classList.add('_form-error');
     formRequiredItem.parentElement.classList.add('_form-error');
     formRequiredItem.parentElement.classList.remove('_filled');
@@ -1411,6 +1793,11 @@ let formValidate = {
           el.parentElement.classList.remove('_form-focus');
           el.classList.remove('_form-focus');
           formValidate.removeError(el);
+          if (el.type && el.type === 'file') {
+            el.value = '';
+            el.closest('.file-input').classList.remove('_filled');
+            el.closest('.file-input').classList.remove('_error');
+          }
         }
         let checkboxes = form.querySelectorAll('.checkbox__input');
         if (checkboxes.length > 0) {
@@ -1450,7 +1837,7 @@ function formSubmit() {
   }
   async function formSubmitAction(form, e) {
     const error = !form.hasAttribute('data-no-validate') ? formValidate.getErrors(form) : 0;
-    if (error === 0) {
+    if (error === 0 && !form.querySelector('._form-error')) {
       const ajax = form.hasAttribute('data-ajax');
       if (ajax) {
         e.preventDefault();
@@ -3594,6 +3981,7 @@ main {
   justify-content: center;
   align-items: center;
   column-gap: 2.2rem;
+  min-width: 16.4rem;
   border-radius: 9.5rem;
   border: 1px solid #c9fb40;
   transition: background-color 0.3s ease;
@@ -3758,7 +4146,7 @@ textarea.input {
 
 .form-error {
   position: absolute;
-  top: calc(100% + 0.9rem);
+  top: calc(100% + 0.5rem);
   left: 0;
   color: #ff1212;
 }
@@ -3768,25 +4156,228 @@ textarea.input {
   }
 }
 
+.file-input {
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 48em) {
+  .file-input {
+    flex-direction: row;
+    column-gap: 5.6rem;
+  }
+}
+.file-input__content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.8rem;
+}
+@media (max-width: 48em) {
+  .file-input__content {
+    margin-bottom: 3rem;
+  }
+}
+.file-input__content-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  column-gap: 1.6rem;
+}
+@media (max-width: 48em) {
+  .file-input__content-inner {
+    column-gap: 2.4rem;
+  }
+}
+.file-input__icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 5rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background-color: #000000;
+}
+@media (max-width: 48em) {
+  .file-input__icon-wrap {
+    flex: 0 0 8rem;
+    width: 8rem;
+    height: 8rem;
+  }
+}
+.file-input__icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  object-fit: contain;
+}
+@media (max-width: 48em) {
+  .file-input__icon {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+.file-input__title {
+  font-family: "DrukCyr";
+}
+.file-input__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+._error .file-input__text {
+  color: #ff1212;
+}
+.file-input__info {
+  position: relative;
+  padding: 0.8rem;
+  padding-right: 5.6rem;
+  display: flex;
+  column-gap: 1.2rem;
+  width: 26.9rem;
+  border-radius: 1.5rem;
+  background-color: #3a3a41;
+}
+.file-input__info:not(._error .file-input__info, ._filled .file-input__info) {
+  display: none;
+}
+@media (max-width: 48em) {
+  .file-input__info {
+    padding: 1.6rem;
+    padding-right: 11.2rem;
+    column-gap: 1.6rem;
+    width: 43.4rem;
+    border-radius: 3rem;
+  }
+}
+.file-input__image-container {
+  position: relative;
+  flex: 0 0 6.4rem;
+  width: 6.4rem;
+  height: 6.4rem;
+}
+.file-input__image-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0.4rem;
+  right: 0.4rem;
+  width: 2rem;
+  height: 2rem;
+  background-image: url(./assets/images/icons/success.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+._error .file-input__image-container::after {
+  background-image: url(./assets/images/icons/error.svg);
+}
+.file-input__image-container img {
+  display: block;
+  height: 100%;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+@media (max-width: 48em) {
+  .file-input__image-container {
+    flex: 0 0 10rem;
+    width: 10rem;
+    height: 10rem;
+  }
+  .file-input__image-container::before {
+    bottom: 1.2rem;
+    right: 1.2rem;
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+  .file-input__image-container img {
+    border-radius: 2rem;
+  }
+}
+.file-input__info-text {
+  display: flex;
+  flex-direction: column;
+}
+.file-input__name {
+  margin-bottom: 1.2rem;
+  padding-top: 0.6rem;
+  display: flex;
+  color: #ffffff;
+}
+.file-input__name span {
+  display: block;
+}
+.file-input__name span:first-child {
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 48em) {
+  .file-input__name {
+    margin-bottom: 1.6rem;
+    padding-top: 1rem;
+  }
+  .file-input__name span:first-child {
+    max-width: 14rem;
+  }
+}
+.file-input__size {
+  color: rgba(255, 255, 255, 0.6);
+}
+.file-input__remove-btn {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+@media (max-width: 48em) {
+  .file-input__remove-btn {
+    top: 2rem;
+    right: 2rem;
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+}
+.file-input__remove-btn-icon {
+  height: 100%;
+  object-fit: contain;
+}
+
 .tabs__navigation {
   display: flex;
   column-gap: 2rem;
 }
-.tab {
+.badge {
+  position: relative;
   padding: 1.6rem 3.3rem 1.9rem 3.3rem;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   border: 1px solid #000000;
   border-radius: 4rem;
+  font-family: "DrukCyr";
   text-align: center;
   transition: background-color 0.3s ease;
 }
-.tab._active {
+.badge input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 4rem;
+  opacity: 0;
+}
+.badge:has(> input:checked), .badge._active {
   background-color: #c9fb40;
 }
+.badge.badge_white:has(> input:checked), .badge.badge_white._active {
+  background-color: #ffffff;
+}
 @media (max-width: 48em) {
-  .tab {
+  .badge {
     padding: 1.8rem 5rem;
   }
 }
@@ -4092,6 +4683,201 @@ textarea.input {
     height: 3.6rem;
   }
 }
+body::after {
+  content: "";
+  position: fixed;
+  z-index: 2100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease 0s;
+}
+.modal-show body::after {
+  opacity: 0.4;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 3rem 2.4rem;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0.8s ease 0s;
+}
+.modal.modal_show {
+  z-index: 2101;
+  visibility: visible;
+  overflow: auto;
+  pointer-events: auto;
+}
+.modal.modal_show .modal__content {
+  visibility: visible;
+  transform: scale(1);
+}
+@media (max-width: 48em) {
+  .modal.modal_show.modal_fs {
+    padding: 0;
+  }
+  .modal.modal_show.modal_fs .modal__content {
+    border-radius: 0;
+    opacity: 1;
+  }
+}
+.modal__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 100%;
+}
+.modal__content {
+  position: relative;
+  padding: 4rem 10rem 10rem 4rem;
+  max-width: 85rem;
+  width: 100%;
+  min-height: 87rem;
+  border-radius: 4rem;
+  background-color: #ed89fb;
+  visibility: hidden;
+  transform: scale(0);
+  transition: transform 0.3s ease 0s;
+}
+.lock .modal__content {
+  visibility: visible;
+}
+@media (max-width: 48em) {
+  .modal__content {
+    padding: 3rem 2rem;
+    min-height: 100vh;
+  }
+  .modal_fs .modal__content {
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+}
+.modal__close {
+  margin-bottom: 5rem;
+  margin-right: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 3.4rem;
+}
+@media (max-width: 48em) {
+  .modal__close {
+    margin-bottom: 10rem;
+    width: 6.4rem;
+    height: 6.4rem;
+  }
+}
+.modal__close-icon {
+  height: 100%;
+  object-fit: contain;
+}
+
+.application-modal {
+  color: #000000;
+}
+.application-modal__inner {
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 48em) {
+  .application-modal__inner {
+    padding-left: 6rem;
+  }
+  .application-modal__inner .modal__close {
+    transform: translateX(-6rem);
+  }
+}
+.application-modal__title {
+  margin-bottom: 1.6rem;
+}
+@media (max-width: 48em) {
+  .application-modal__title {
+    margin-bottom: 3.2rem;
+  }
+}
+.application-modal__text {
+  margin-bottom: 4rem;
+}
+@media (max-width: 48em) {
+  .application-modal__text {
+    margin-bottom: 8rem;
+  }
+}
+.application-modal__form {
+  display: flex;
+  flex-direction: column;
+}
+.application-modal__options {
+  margin-bottom: 3.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+}
+@media (max-width: 48em) {
+  .application-modal__options {
+    margin-bottom: 6.4rem;
+    gap: 1rem;
+  }
+}
+.application-modal__fields {
+  margin-bottom: 3.2rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
+}
+@media (max-width: 48em) {
+  .application-modal__fields {
+    margin-bottom: 6.4rem;
+    row-gap: 5rem;
+  }
+}
+.application-modal__file-input {
+  margin-bottom: 4rem;
+}
+@media (max-width: 48em) {
+  .application-modal__file-input {
+    margin-bottom: 8rem;
+  }
+}
+.application-modal__footer {
+  display: flex;
+  flex-direction: column-reverse;
+}
+@media (min-width: 48em) {
+  .application-modal__footer {
+    flex-direction: row;
+    align-items: flex-end;
+    column-gap: 2.4rem;
+  }
+}
+@media (max-width: 48em) {
+  .application-modal__btn {
+    align-self: flex-start;
+  }
+}
+.application-modal__footer-text {
+  max-width: 36.3rem;
+}
+@media (max-width: 48em) {
+  .application-modal__footer-text {
+    margin-bottom: 3rem;
+    max-width: 71rem;
+  }
+}
+
 @media (min-width: 48em) {
   ._mobile-only {
     display: none;
@@ -6512,7 +7298,7 @@ figure {
   .rates-item__icon {
     display: none;
   }
-}`, "",{"version":3,"sources":["webpack://./src/scss/fonts.scss","webpack://./src/scss/style.scss","webpack://./src/scss/set.scss","webpack://./src/scss/sections/header.scss","webpack://./src/scss/sections/footer.scss","webpack://./src/scss/mixins.scss","webpack://./src/ui/typo.scss","webpack://./src/ui/buttons.scss","webpack://./src/ui/inputs.scss","webpack://./src/ui/tabs.scss","webpack://./src/ui/accordion.scss","webpack://./src/ui/select.scss","webpack://./src/ui/radio-btns.scss","webpack://./src/ui/social.scss","webpack://./src/scss/dev/vzmsk1.scss","webpack://./src/scss/sections/_hero-gallery.scss","webpack://./src/scss/sections/_articles-hero.scss","webpack://./src/scss/sections/_services.scss","webpack://./src/scss/sections/_collections.scss","webpack://./src/scss/sections/_feedback.scss","webpack://./src/scss/sections/_article.scss","webpack://./src/scss/sections/_our-team.scss","webpack://./src/scss/sections/_achievements.scss","webpack://./src/scss/dev/ukik0.scss","webpack://./src/scss/sections/_main-collections.scss","webpack://./src/scss/sections/_main-links.scss","webpack://./src/scss/sections/_main-rates.scss"],"names":[],"mappings":"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","sourcesContent":["@font-face {\n  font-family: 'DrukCyr';\n  font-weight: 500;\n  src: url('./assets/fonts/DrukCyr-Medium.woff2') format('woff2');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 400;\n  src: url('./assets/fonts/EuclidCircularA-Regular.woff') format('woff');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 500;\n  src: url('./assets/fonts/EuclidCircularA-Medium.woff2') format('woff2');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 600;\n  src: url('./assets/fonts/EuclidCircularA-SemiBold.woff2') format('woff2');\n}\n","// --------------------------------- mixins ---------------------------------\n\n@import './mixins';\n\n// -------------------------------- variables -------------------------------\n\n$font: 'EuclidCircularA';\n$font-druk: 'DrukCyr';\n\n// colors\n$white: #ffffff;\n$black: #000000;\n$bodyColor: #1f1f22;\n$pink: #ed89fb;\n$violet: #cad2f4;\n$green: #c9fb40;\n$yellow: #fad85d;\n$darkGray: #6a6a6a;\n$main: #282828;\n$red: #ff1212;\n$gray: #6a6a6a;\n$gray-darken: #3a3a41;\n\n// ---------------------------------- fonts ---------------------------------\n\n// local fonts\n@import './fonts';\n\n// ------------------------------- base styles ------------------------------\n\n// base scss file\n@import './set';\n\n// html\nhtml.lock,\nhtml.lock body {\n    overflow: hidden;\n    touch-action: none;\n}\n\n// main\nmain {\n    overflow: hidden;\n    padding-top: 6.7rem;\n    @media (max-width: 48em) {\n        padding-top: 12.6rem;\n    }\n}\n\n.desktop {\n    @media (max-width: 48em) {\n        display: none;\n    }\n}\n\n.mobile {\n    display: none;\n\n    @media (max-width: 48em) {\n        display: block;\n    }\n}\n\n.wrapper {\n    margin: 0 auto;\n    max-width: 1920px;\n}\n\n// --------------------------------------------------------------------------\n\n// header / footer\n@import './sections/header';\n@import './sections/footer';\n\n// ui\n@import '../ui/ui.scss';\n\n// --------------------------------------------------------------------------\n\n@import './dev/vzmsk1.scss';\n@import './dev/markusDM.scss';\n@import './dev/ukik0.scss';\n@import './dev/kie6er.scss';\n","*,\n*::before,\n*::after {\n    box-sizing: border-box;\n}\nhtml {\n    font-family: 'EuclidCircularA'; // шрифт по умолчанию по сайту\n    font-size: 0.5208335vw; // на разрешении 1920 0.520835vw === 10px\n    font-style: normal;\n    font-weight: normal;\n    -webkit-animation: bugfix infinite 1s;\n    line-height: 1.2;\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    font-style: normal;\n    font-weight: normal;\n    -webkit-animation: bugfix infinite 1s;\n    line-height: 1.2;\n    margin: 0;\n    padding: 0;\n    color: $white; // цвет по умолчанию текста по сайту\n    background-color: $bodyColor;\n}\n\ninput,\ntextarea {\n    -webkit-animation: bugfix infinite 1s;\n    line-height: inherit;\n    margin: 0;\n    padding: 0;\n    background-color: transparent;\n    border: none;\n    color: inherit;\n}\na {\n    color: unset;\n}\na,\na:hover {\n    text-decoration: none;\n}\n\nbutton,\ninput,\na,\ntextarea {\n    outline: none;\n    cursor: pointer;\n    font: inherit;\n    &:focus {\n        outline: none;\n    }\n    &:active {\n        outline: none;\n    }\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n    font: inherit;\n    margin: 0;\n    padding: 0;\n}\np {\n    margin-top: 0;\n    margin-bottom: 0;\n}\n\nimg {\n    width: 100%;\n    height: auto;\n    display: block;\n}\n\nbutton {\n    border: none;\n    color: inherit;\n    font: inherit;\n    text-align: inherit;\n    padding: 0;\n    background-color: transparent;\n}\nul {\n    padding: 0;\n    margin: 0;\n}\n\nul li {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n}\n\n.container {\n    width: 172rem;\n    margin: 0 auto;\n}\n\ninput[type='number']::-webkit-inner-spin-button,\ninput[type='number']::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n    margin: 0;\n}\n\ninput[type='number'] {\n    -moz-appearance: textfield;\n}\n\nsvg,\nimg {\n    width: 100%;\n    height: auto;\n    object-fit: contain;\n}\n\n@media (min-width: 1920px) {\n    html {\n        font-size: 10px;\n    }\n}\n\n@media (max-width: 48em) {\n    html {\n        font-size: 5px;\n        font-size: 1.5625vw;\n        font-size: calc((100 / 375) * 5vw); // где 375 это ширина моб версии макета\n        -webkit-text-size-adjust: none;\n    }\n\n    body {\n        -webkit-text-size-adjust: none;\n    }\n\n    .container {\n        padding: 0 2rem; // в моб версии отступ от края задаем для всех контейнеров, а там где не нужно можем точечно убрать\n        width: 100%;\n    }\n}\n",".header {\n    position: fixed;\n    width: 100%;\n    top: 0;\n    left: 0;\n    z-index: 2000;\n    background-color: $bodyColor;\n    border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n    // .header__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        gap: 1rem;\n    }\n    // .header__burger-btn\n    &__burger-btn {\n        display: none;\n    }\n    // .header__logo\n    &__logo {\n        padding: 1rem 0;\n        height: 100%;\n        width: 22.7rem;\n        border-right: 0.1rem solid rgba(201, 251, 64, 0.5);\n    }\n    // .header__img\n    &__img {\n        width: 17.9878rem;\n        height: 4.6rem;\n    }\n    // .header__nav\n    &__nav {\n        gap: 5rem;\n    }\n    &__burger-menu {\n        display: none;\n        overflow: auto;\n    }\n}\n\n.nav {\n    display: flex;\n    align-items: center;\n    // .nav__link\n    &__link {\n        display: block;\n        font-size: 2rem;\n        line-height: 140%; /* 28px */\n        transition: color 0.2s linear;\n\n        &:hover,\n        &:focus-visible {\n            transition: color 0.2s linear;\n            color: $green;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .header {\n        border-bottom: none;\n        &.scroll {\n            border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n        }\n\n        &.show {\n            .header__phone {\n                display: none;\n            }\n            .header__inner {\n                flex-direction: row-reverse;\n            }\n        }\n        &__container {\n            position: relative;\n            z-index: 1;\n            background-color: $bodyColor;\n        }\n        // .header__inner\n        &__inner {\n            display: flex;\n            align-items: center;\n            justify-content: space-between;\n            gap: 1rem;\n            padding: 1.6rem 0 1.8rem;\n        }\n        // .header__burger-btn\n        &__burger-btn {\n            display: flex;\n            width: 5.2rem;\n            height: 4.6rem;\n        }\n        // .header__logo\n        &__logo {\n            padding: 0;\n            height: 9.2rem;\n            width: 36.6rem;\n            border-right: none;\n        }\n        // .header__img\n        &__img {\n            width: 100%;\n            height: 100%;\n        }\n        // .header__nav\n        &__nav {\n            display: none;\n        }\n        // .header__phone\n        &__phone {\n            width: 4.8rem;\n            height: 4.8rem;\n        }\n    }\n}\n@media (max-width: 48em) {\n    .burger-btn {\n        &__btn {\n            width: 100%;\n            height: 100%;\n\n            display: flex;\n            justify-content: center;\n            flex-direction: column;\n            gap: 1.4rem;\n\n            span {\n                display: block;\n                width: 100%;\n                height: 0.6rem;\n                background-color: $white;\n                border-radius: 2.4rem;\n            }\n        }\n\n        &__close {\n            display: none;\n        }\n\n        &.open {\n            .burger-btn__btn {\n                display: none;\n            }\n            .burger-btn__close {\n                display: block;\n                width: 4rem;\n                height: 4rem;\n            }\n        }\n    }\n\n    .burger-menu {\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        gap: 15rem;\n        position: absolute;\n        top: 12.6rem;\n        left: 0;\n        z-index: 0;\n        transition: transform 0.5s linear;\n        transform: translateY(-120%);\n\n        width: 100%;\n        height: calc(100vh - 12.6rem);\n        background-color: $bodyColor;\n\n        &.show {\n            transition: transform 0.5s linear;\n            transform: translateY(0);\n        }\n        // .burger-menu__wrapper\n        &__wrapper {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n            padding-top: 16rem;\n        }\n        &__phone {\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            border-top: 0.2rem solid $green;\n\n            padding: 3.2rem 0 4.4rem;\n            a {\n                display: flex;\n                align-items: center;\n                gap: 2.6rem;\n                span {\n                    width: 6.4rem;\n                    height: 6.4rem;\n                    svg path {\n                        fill: $pink;\n                    }\n                }\n\n                strong {\n                    color: $pink;\n                    font-size: 4.8rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: normal;\n                }\n            }\n        }\n        // .burger-menu__link\n        &__link {\n            display: flex;\n            justify-content: center;\n\n            width: 100%;\n            color: $white;\n            font-family: $font-druk;\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%; /* 55px */\n            text-transform: uppercase;\n            padding: 3.2rem 0;\n\n            border-bottom: 0.2rem solid $green;\n\n            &:first-child {\n                border-top: 0.2rem solid $green;\n            }\n\n            &:hover,\n            &:active,\n            &:focus-visible {\n                background-color: $pink;\n                color: $bodyColor;\n            }\n        }\n    }\n}\n",".footer {\n    background-color: $yellow;\n    color: $main;\n    // .footer__inner\n    &__inner {\n        padding: 7rem 0;\n    }\n    // .footer__top\n    &__top {\n        margin-bottom: 8rem;\n    }\n    // .footer__sitemap\n    &__sitemap {\n        gap: 20rem;\n    }\n    // .footer__middle\n    &__middle {\n        display: flex;\n        gap: 20rem;\n        align-items: flex-end;\n    }\n    // .footer__copyright\n    &__copyright {\n        color: $main;\n        font-size: 2rem;\n        width: 59.528rem;\n    }\n    // .footer__social\n    &__social {\n        gap: 1.6rem;\n    }\n    // .footer__info\n    &__info {\n        display: flex;\n        flex-direction: column;\n        margin-left: auto;\n        gap: 2.5rem;\n    }\n    // .footer__phone\n    &__phone {\n        color: $main;\n        font-size: 3.2rem;\n        line-height: normal;\n\n        &:hover,\n        &:focus-visible,\n        &:active {\n            text-decoration: underline;\n        }\n    }\n    // .footer__politic\n    &__politic {\n        color: $main;\n        font-size: 2rem;\n        line-height: normal;\n\n        position: relative;\n\n        &::after {\n            content: '';\n            width: 100%;\n            height: 0.15rem;\n            background-color: $main;\n\n            position: absolute;\n            left: 0;\n            bottom: 0;\n            z-index: 1;\n        }\n\n        &:hover,\n        &:focus-visible {\n            &::after {\n                display: none;\n            }\n        }\n    }\n    // .footer__bottom-text\n    &__bottom-text {\n        margin-top: 3rem;\n        font-family: $font-druk;\n        font-size: 19.9rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 23.4rem;\n        text-transform: uppercase;\n\n        @include small-tablet {\n            font-size: 11rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n        }\n    }\n}\n.footer-sitemap {\n    display: flex;\n    // .footer-sitemap__item\n    &__item {\n        &:nth-child(1) {\n            .sitemap-item__list {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n        &:nth-child(2) {\n            .sitemap-item__list {\n                grid-template-columns: 1fr;\n            }\n        }\n        &:nth-child(3) {\n            margin-left: auto;\n            .sitemap-item__list {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n    }\n}\n.sitemap-item {\n    // .sitemap-item__title\n    &__title {\n        margin-bottom: 3.2rem;\n    }\n    // .sitemap-item__list\n    &__list {\n        line-height: normal;\n        display: grid;\n        gap: 2rem 8rem;\n    }\n    // .sitemap-item__link\n    &__link {\n        line-height: inherit;\n        white-space: nowrap;\n        background: none;\n\n        &:hover,\n        &:focus-visible,\n        &:active {\n            text-decoration: underline;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .footer {\n        background-color: $yellow;\n        color: $main;\n        // .footer__inner\n        &__inner {\n            padding: 10rem 0 17.8rem;\n        }\n        // .footer__top\n        &__top {\n            margin-bottom: 8.4rem;\n        }\n        // .footer__sitemap\n        &__sitemap {\n            padding-left: 4.4rem;\n            gap: 3rem;\n        }\n        // .footer__middle\n        &__middle {\n            display: flex;\n            flex-direction: column;\n            gap: 2rem;\n            align-items: center;\n        }\n        // .footer__copyright\n        &__copyright {\n            order: 2;\n            text-align: center;\n            font-size: 2.4rem;\n            width: 100%;\n        }\n        // .footer__social\n        &__social {\n            gap: 6rem;\n            order: 3;\n            margin-top: 5.6rem;\n        }\n        // .footer__info\n        &__info {\n            text-align: center;\n            display: flex;\n            flex-direction: column;\n            margin-left: 0;\n            gap: 1rem;\n            order: 1;\n        }\n        // .footer__phone\n        &__phone {\n            font-size: 3.6rem;\n        }\n        // .footer__politic\n        &__politic {\n            color: $main;\n            font-size: 3rem;\n\n            position: relative;\n\n            &::after {\n                display: none;\n            }\n        }\n        // .footer__bottom-text\n        &__bottom-text {\n            text-align: center;\n            line-height: 1.1;\n            margin-top: 10.4rem;\n        }\n    }\n    .footer-sitemap {\n        display: grid;\n        grid-template-columns: repeat(2, 28rem);\n        grid-auto-flow: dense;\n        // .footer-sitemap__item\n        &__item {\n            &:nth-child(1) {\n                grid-row: span 2;\n            }\n            &:nth-child(3) {\n                margin-left: 0;\n            }\n        }\n    }\n    .sitemap-item {\n        // .sitemap-item__title\n        &__title {\n            margin-bottom: 2rem;\n        }\n        // .sitemap-item__list\n        &__list {\n            line-height: normal;\n            display: flex;\n            flex-direction: column;\n            gap: 1.6rem;\n        }\n        // .sitemap-item__link\n        &__link {\n            line-height: inherit;\n            white-space: nowrap;\n            background: none;\n\n            &:hover,\n            &:focus-visible,\n            &:active {\n                text-decoration: underline;\n            }\n        }\n    }\n}\n","@mixin pseudo() {\n    content: '';\n    position: absolute;\n    @content;\n}\n\n@mixin small-tablet {\n    @media (max-width: 48em) {\n        @content;\n    }\n}\n\n@mixin sizes($width, $height) {\n    max-width: $width;\n    width: 100%;\n    height: $height;\n\n    @content;\n}\n",".tl1,\n.tl2,\n.tl3 {\n    font-family: DrukCyr;\n    font-weight: 500;\n    text-transform: uppercase;\n}\n\n.tl1 {\n    font-size: 20rem;\n    line-height: 117%;\n    @media (max-width: 48em) {\n        font-size: 11rem;\n        line-height: 110%;\n    }\n}\n\n.tl2 {\n    line-height: 110%;\n    font-size: 10rem;\n}\n\n.tl3 {\n    font-size: 6rem;\n    line-height: 110%;\n    @media (max-width: 48em) {\n        font-size: 4rem;\n        letter-spacing: 0.32rem;\n    }\n}\n\n// --------------------------------------------------------------------------\n\n.txt32 {\n    font-size: 3.2rem;\n    @media (max-width: 48em) {\n        font-size: 3rem;\n        line-height: 140%;\n    }\n}\n\n.txt20 {\n    font-size: 2.8rem;\n\n    &_caps {\n        font-size: 4rem;\n        line-height: 110%;\n        letter-spacing: 0.32rem;\n        text-transform: uppercase;\n    }\n    &_md {\n        font-weight: 500;\n    }\n    @media (min-width: 48em) {\n        font-size: 2rem;\n        line-height: 140%;\n        &_caps {\n            font-size: 2.2rem;\n            font-weight: 500;\n            line-height: 109.091%;\n            letter-spacing: 0.176rem;\n        }\n    }\n}\n\n.txt28 {\n    &_md {\n        font-size: 2.8rem;\n        font-weight: 500;\n        @media (max-width: 48em) {\n            font-size: 3.6rem;\n        }\n    }\n}\n\n.txt16 {\n    font-size: 1.6rem;\n    @media (max-width: 48em) {\n        font-size: 2.4rem;\n    }\n}\n\n.text-32 {\n    font-size: 3.2rem;\n    font-style: normal;\n    font-weight: 400;\n    line-height: normal;\n}\n\n.text-m-28 {\n    font-size: 2.8rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: normal;\n\n    @include small-tablet {\n        font-size: 3.6rem;\n    }\n}\n\n.text-m-20 {\n    font-family: 'DrukCyr';\n    font-size: 2.0093rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: 84%; /* 16.878px */\n    letter-spacing: 0.1607rem;\n}\n\n.text-20 {\n    font-size: 2rem;\n    font-style: normal;\n    font-weight: 400;\n    line-height: 140%; /* 28px */\n\n    @include small-tablet {\n        font-size: 2.8rem;\n    }\n}\n",".btn {\n    padding: 1.3rem 1rem 1.3rem 2.8rem;\n    display: inline-flex;\n    justify-content: center;\n    align-items: center;\n    column-gap: 2.2rem;\n    border-radius: 9.5rem;\n    border: 1px solid $green;\n    transition: background-color 0.3s ease;\n    &_black {\n        border: 1px solid $black;\n        .btn__text {\n            color: $black;\n        }\n    }\n    @media (any-hover: hover) {\n        &:hover {\n            &:not(&.btn_black) {\n                background-color: $green;\n            }\n            &.btn_black {\n                background-color: $black;\n            }\n            .btn__text {\n                color: $white;\n            }\n            .btn__icon {\n                path {\n                    fill: $white;\n                }\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        padding: 3rem 3.6rem 3rem 6rem;\n        column-gap: 3.2rem;\n        border-radius: 19rem;\n    }\n\n    // .btn__text\n    &__text {\n        font-family: DrukCyr;\n        color: $green;\n        transition: color 0.3s ease;\n    }\n\n    // .btn__icon\n    &__icon {\n        flex: 0 0 2.4rem;\n        width: 2.4rem;\n        height: 2.4rem;\n        path {\n            transition: fill 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 5rem;\n            width: 5rem;\n            height: 5rem;\n        }\n    }\n}\n// <button type=\"button\" class=\"btn\">\n//       <span class=\"btn__text txt20 txt20_caps\">ОСТАВИТЬ ЗАЯВКУ</span>\n//       <svg\n//         class=\"btn__icon\"\n//         xmlns=\"http://www.w3.org/2000/svg\"\n//         width=\"24\"\n//         height=\"24\"\n//         viewBox=\"0 0 24 24\"\n//         fill=\"none\">\n//         <path\n//           d=\"M6.75586 19.2442V5.11624L17.1164 12.1802L6.75586 19.2442Z\"\n//           fill=\"#C9FB40\" />\n//       </svg>\n// </button>\n\n// --------------------------------------------------------------------------\n\n.showmore-btn {\n    display: flex;\n    align-items: center;\n    column-gap: 1.6rem;\n    @media (any-hover: hover) {\n        &:hover {\n            .showmore-btn__icon {\n                circle {\n                    fill: $white;\n                }\n                path {\n                    fill: $pink;\n                }\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        column-gap: 2.4rem;\n    }\n\n    // .showmore-btn__icon\n\n    &__icon {\n        flex: 0 0 5.2rem;\n        width: 5.2rem;\n        height: 5.2rem;\n        border-radius: 50%;\n        circle,\n        path {\n            transition: fill 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 8rem;\n            width: 8rem;\n            height: 8rem;\n        }\n    }\n\n    // .showmore-btn__text\n\n    &__text {\n        font-family: DrukCyr;\n        color: $pink;\n    }\n}\n// <button type=\"button\" class=\"showmore-btn\">\n//       <svg\n//         class=\"showmore-btn__icon\"\n//         width=\"52\"\n//         height=\"52\"\n//         viewBox=\"0 0 52 52\"\n//         fill=\"none\"\n//         xmlns=\"http://www.w3.org/2000/svg\">\n//         <circle cx=\"26\" cy=\"26\" r=\"26\" fill=\"#ED89FB\" />\n//         <path\n//           d=\"M31.6912 24.995C32.1412 25.895 32.3737 26.8625 32.3737 27.875C32.3737 31.3925 29.5162 34.25 25.9987 34.25C22.4812 34.25 19.6237 31.3925 19.6237 27.875C19.6237 24.3575 22.4812 21.5 25.9987 21.5C26.0512 21.5 26.1787 21.5 26.3137 21.545C26.5687 21.6275 26.7562 21.845 26.8087 22.1075C27.1237 23.615 28.4662 24.7175 30.0112 24.7175C30.2962 24.7175 30.5737 24.68 30.8137 24.6125C31.1662 24.515 31.5262 24.68 31.6912 24.995ZM25.9987 17.75C20.8687 17.75 15.6112 22.25 14.7562 27.3725C14.6887 27.7775 14.9662 28.1675 15.3712 28.235C15.7762 28.3025 16.1662 28.025 16.2337 27.62C16.9012 23.6675 21.2137 19.25 25.9987 19.25C30.7837 19.25 35.0962 23.6675 35.7562 27.62C35.8162 27.9875 36.1387 28.25 36.4987 28.25C36.5362 28.25 36.5812 28.25 36.6262 28.2425C37.0312 28.175 37.3087 27.785 37.2412 27.38C36.3862 22.25 31.1287 17.75 25.9987 17.75Z\"\n//           fill=\"white\" />\n//       </svg>\n//       <span class=\"showmore-btn__text txt20 txt20_caps\"\n//         >СМОТРЕТЬ ДЕТАЛЬНЕЕ</span\n//       >\n// </button>\n\n// --------------------------------------------------------------------------\n\n.link {\n    position: relative;\n    &::after {\n        content: '';\n        position: absolute;\n        top: calc(100% + 0.6rem);\n        left: 0;\n        width: 100%;\n        height: 2px;\n        background-color: $black;\n        transform-origin: center;\n        transform: scaleX(1);\n        transition: transform 0.3s ease;\n    }\n    @media (any-hover: hover) {\n        &:hover {\n            &::after {\n                transform: scaleX(0.25);\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        &::after {\n            top: calc(100% + 1.2rem);\n        }\n    }\n\n    // .link__text\n\n    &__text {\n    }\n}\n// <a href=\"#\" class=\"link\"\n// ><span class=\"link__text txt20 txt20_caps\">ЗАГРУЗИТЬ ЕЩЕ</span></a\n// >\n","input[type='text'],\ninput[type='email'],\ninput[type='tel'],\ntextarea {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n}\ntextarea:focus,\ninput:focus {\n  outline: none;\n}\n\n.input {\n  position: relative;\n\n  &._form-focus {\n  }\n  &._form-error {\n    .input__field {\n      border-bottom: 1px solid $red;\n    }\n  }\n\n  // .input__field\n  &__field {\n    padding-bottom: 1.4rem;\n    display: block;\n    width: 100%;\n    border-radius: 0 !important;\n    border-bottom: 1px solid $black;\n    font-family: EuclidCircularA;\n    line-height: 1;\n    color: $black;\n    transition: border-bottom 0.3s ease;\n    &::placeholder {\n      color: $black;\n    }\n    @media (max-width: 48em) {\n      padding-bottom: 3rem;\n    }\n  }\n}\n\ntextarea.input {\n  padding: 0;\n  resize: none;\n}\n\n.form-error {\n  position: absolute;\n  top: calc(100% + 0.9rem);\n  left: 0;\n  color: $red;\n  @media (max-width: 48em) {\n    top: calc(100% + 1.8rem);\n  }\n}\n\n// <div class=\"input\">\n//           <input\n//             autocomplete=\"off\"\n//             type=\"text\"\n//             name=\"form[]\"\n//             data-error=\"Подсказка\"\n//             placeholder=\"Имя *\"\n//             class=\"input__field txt20 txt20_md\" />\n",".tabs {\n  // .tabs__navigation\n\n  &__navigation {\n    display: flex;\n    column-gap: 2rem;\n  }\n\n  // .tabs__title\n\n  &__title {\n  }\n\n  // .tabs__content\n\n  &__content {\n  }\n\n  // .tabs__body\n\n  &__body {\n  }\n}\n\n.tab {\n  padding: 1.6rem 3.3rem 1.9rem 3.3rem;\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  border: 1px solid $black;\n  border-radius: 4rem;\n  text-align: center;\n  transition: background-color 0.3s ease;\n  &._active {\n    background-color: $green;\n  }\n  @media (max-width: 48em) {\n    padding: 1.8rem 5rem;\n  }\n}\n\n// <div data-tabs class=\"tabs\">\n// <nav data-tabs-titles class=\"tabs__navigation\">\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab _active\">\n//     Таб №1\n//   </button>\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab\">Таб №2</button>\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab\">Таб №3</button>\n// </nav>\n// <div data-tabs-body class=\"tabs__content\">\n//   <div class=\"tabs__body\">Содержимое первого таба</div>\n//   <div class=\"tabs__body\">Содержимое второго таба</div>\n//   <div class=\"tabs__body\">Содержимое третьего таба</div>\n// </div>\n// </div>\n",".accordion {\n  // .accordion__item\n\n  &__item {\n    border-radius: 4rem;\n    background-color: $green;\n  }\n\n  // .accordion__title\n\n  &__title {\n    padding: 3.2rem 3.2rem 3.2rem 4rem;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n    &._accordion-active {\n      .accordion__title-icon {\n        transform: rotate(-180deg);\n      }\n    }\n    @media (max-width: 48em) {\n      padding: 4rem;\n    }\n  }\n\n  // .accordion__title-icon\n\n  &__title-icon {\n    flex: 0 0 5rem;\n    width: 5rem;\n    height: 5rem;\n    transition: transform 0.3s ease;\n    @media (max-width: 48em) {\n      flex: 0 0 8rem;\n      width: 8rem;\n      height: 8rem;\n    }\n  }\n\n  // .accordion__title-txt\n\n  &__title-txt {\n  }\n\n  // .accordion__body\n\n  &__body {\n    padding: 4rem 3.2rem;\n    padding-top: 0;\n    @media (max-width: 48em) {\n      padding: 4rem;\n      padding-top: 0;\n    }\n  }\n\n  // .accordion__text\n\n  &__text {\n    font-family: EuclidCircularA;\n    max-width: 72.6rem;\n    @media (max-width: 48em) {\n      max-width: 62.2rem;\n    }\n  }\n}\n\n// <div data-accordion data-accordion-one-active class=\"accordion\">\n//           <div class=\"accordion__item\">\n//             <button type=\"button\" data-accordion-item class=\"accordion__title\">\n//               <svg\n//                 class=\"accordion__title-icon\"\n//                 width=\"52\"\n//                 height=\"52\"\n//                 viewBox=\"0 0 52 52\"\n//                 fill=\"none\"\n//                 xmlns=\"http://www.w3.org/2000/svg\">\n//                 <circle cx=\"26\" cy=\"26\" r=\"26\" fill=\"#1F1F22\" />\n//                 <path\n//                   d=\"M18.872 21L33 21L25.936 31.3605L18.872 21Z\"\n//                   fill=\"white\" />\n//               </svg>\n//               <span class=\"accordion__title-txt tl3\">Качество</span>\n//             </button>\n//             <div class=\"accordion__body\">\n//               <p class=\"accordion__text txt20\">\n//                 Мы придерживаемся высочайших стандартов и регулярно обновляем\n//                 наши навыки и техники, чтобы удовлетворить все потребности и\n//                 ожидания наших клиентов.\n//               </p>\n//             </div>\n//           </div>\n//         </div>\n",".select {\n    position: relative;\n    @media (min-width: 48em) {\n        min-width: 20.4rem;\n    }\n\n    // .select__body\n\n    &__body {\n        position: relative;\n    }\n\n    // .select__title\n\n    &__title {\n        border-radius: 4rem;\n        width: 100%;\n        background-color: $violet;\n        cursor: pointer;\n        text-align: left;\n        color: inherit;\n    }\n\n    // .select__value\n\n    &__value {\n        @extend .txt20_caps;\n        padding: 1.4rem 2.4rem;\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        gap: 1rem;\n        height: 5.2rem;\n        width: 100%;\n        font-family: DrukCyr;\n\n        > * {\n            flex: 1 1 auto;\n        }\n\n        &::after {\n            content: '';\n            flex: 0 0 2.4rem;\n            width: 2.4rem;\n            height: 2.4rem;\n            background-image: url(./assets/images/icons/arr.svg);\n            background-size: contain;\n            background-position: center;\n            background-repeat: no-repeat;\n            transition: transform 0.3s ease;\n            ._select-opened & {\n                transform: rotate(-180deg);\n            }\n        }\n        .select__content {\n            max-width: 31.4rem;\n            overflow: hidden;\n            white-space: nowrap;\n            text-overflow: ellipsis;\n        }\n        @media (max-width: 48em) {\n            padding: 1.8rem 4rem;\n            height: 8rem;\n            &::after {\n                flex: 0 0 5rem;\n                width: 5rem;\n                height: 5rem;\n            }\n        }\n    }\n\n    // .select__content\n\n    &__content {\n        // hide / show selected value\n        // display: none;\n    }\n\n    // .select__text\n\n    &__text {\n        flex: 1 1 auto;\n    }\n\n    // .select__input\n\n    &__input {\n        width: 100%;\n        height: 100%;\n        background-color: transparent;\n    }\n\n    // .select__options\n\n    &__options {\n        position: absolute;\n        z-index: 2;\n        top: calc(100% + 0.4rem);\n        left: 0;\n        padding: 1.2rem 2.8rem 2rem 1.2rem;\n        min-width: 100%;\n        box-shadow: 0 0.8rem 2.5rem 0 rgba(99, 119, 156, 0.2);\n        border-radius: 4rem;\n        background-color: $violet;\n        opacity: 0;\n        visibility: hidden;\n        transition: opacity 0.3s ease, visibility 0.3s ease;\n        .dropdown_sort & {\n            background-color: $white;\n        }\n        ._select-opened & {\n            opacity: 1;\n            visibility: visible;\n        }\n    }\n\n    // .select__scroll\n\n    &__scroll {\n        overflow-y: auto;\n        overflow-x: hidden;\n\n        // maximum height\n        max-height: 23.4rem;\n\n        // scrollbar styles\n        &.simplebar-scrollable-y {\n            .simplebar-track.simplebar-vertical {\n                top: 5rem;\n                right: 0;\n                width: 0.4rem;\n                border-radius: 0.8rem;\n                background-color: rgba(255, 255, 255, 0.4);\n            }\n            .simplebar-scrollbar {\n                min-height: 3.2rem;\n                border-radius: 0.8rem;\n                background-color: $white;\n            }\n        }\n        @media (max-width: 48em) {\n            max-height: 40rem;\n        }\n    }\n    // .select__option\n    &__option {\n        @extend .txt20_caps;\n        width: 95%;\n        padding: 1.2rem 3rem;\n        border-radius: 4rem;\n        font-family: DrukCyr;\n        text-align: left;\n        color: inherit;\n        transition: background-color 0.3s ease;\n        &._select-selected {\n            background-color: $white;\n            .dropdown_sort & {\n                background-color: $violet;\n            }\n        }\n        &:not(:last-child) {\n            position: relative;\n            margin-bottom: 1rem;\n            &::after {\n                content: '';\n                position: absolute;\n                top: calc(100% + 0.5rem);\n                left: 0;\n                width: 100%;\n                height: 1px;\n                background-color: rgba(204, 213, 251, 1);\n            }\n        }\n        @media (any-hover: hover) {\n            &:hover {\n                &:not(&.select__subtitle) {\n                    cursor: pointer;\n                    background-color: $white;\n                    .dropdown_sort & {\n                        background-color: $violet;\n                    }\n                }\n            }\n        }\n    }\n}\n// list\n._select-list {\n    cursor: pointer;\n}\n\n// <div class=\"dropdown dropdown_filters\">\n// <select data-no-slide data-show-selection data-sel-scroll=\"234\">\n//     <option value=\"1\" selected>Пункт №1</option>\n//     <option value=\"2\">Пункт №2</option>\n//     <option value=\"3\">Пункт №3</option>\n//     <option value=\"4\">Пункт №4</option>\n//     <option value=\"5\">Пункт №5</option>\n//     <option value=\"6\">Пункт №6</option>\n//     <option value=\"7\">Пункт №7</option>\n// </select>\n// </div>\n\n// <div class=\"dropdown dropdown_sort\">\n//      <select data-show-selection>\n//           <option value=\"1\" selected>Пункт №1</option>\n//           <option value=\"2\">Пункт №2</option>\n//           <option value=\"3\">Пункт №3</option>\n//           <option value=\"4\">Пункт №4</option>\n//      </select>\n// </div>\n",".option {\n    position: relative;\n    display: flex;\n    flex-direction: column;\n    row-gap: 0.4rem;\n    cursor: pointer;\n\n    // .option__input\n    &__input {\n        position: absolute;\n        width: 0;\n        height: 0;\n        opacity: 0;\n        &:checked + .option__label .option__text::before {\n            border: 2px solid $green;\n        }\n        &:checked + .option__label .option__text::after {\n            transform: scale(0.6);\n        }\n    }\n\n    // .option__text\n    &__text {\n        display: inline-flex;\n        align-items: center;\n        gap: 1rem;\n        cursor: pointer;\n        &::before {\n            content: '';\n            align-self: flex-start;\n            flex: 0 0 3rem;\n            width: 3rem;\n            height: 3rem;\n            border-radius: 50%;\n            border: 2px solid rgba(233, 233, 233);\n            transition: border 0.3s ease;\n        }\n        &::after {\n            content: '';\n            position: absolute;\n            left: 0;\n            width: 3rem;\n            height: 3rem;\n            border-radius: 50%;\n            background-color: $green;\n            transform: scale(0);\n            transform-origin: center;\n            transition: transform 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            &::before,\n            &::after {\n                width: 4rem;\n                height: 4rem;\n            }\n            &::before {\n                flex: 0 0 4rem;\n            }\n            &::after {\n                top: 4rem;\n            }\n        }\n    }\n}\n\n// <div class=\"option\">\n//    <input hidden id=\"o_1\" class=\"option__input\" checked type=\"radio\" value=\"1\" name=\"option\"/>\n//    <label for=\"o_1\" class=\"option__label\"><span class=\"option__text\"></span></label>\n//  </div>\n",".social {\n    display: flex;\n    align-items: center;\n    // .social__link\n    &__link {\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 5.2rem;\n        height: 5.2rem;\n        background-color: $main;\n        border-radius: 50%;\n        transition: background 0.2s linear;\n\n        svg {\n            width: 2.2rem;\n            height: 2.2rem;\n        }\n\n        &:hover {\n            transition: background 0.2s linear;\n            background-color: $white;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .social {\n        // .social__link\n        &__link {\n            width: 8rem;\n            height: 8rem;\n\n            svg {\n                width: 3.6rem;\n                height: 3.6rem;\n            }\n        }\n    }\n}\n","._mobile-only {\n    @media (min-width: 48em) {\n        display: none;\n    }\n}\n\n@import '../sections/hero-gallery';\n@import '../sections/articles-hero';\n",".hero-gallery {\n    padding-bottom: 9rem;\n    background-color: $bodyColor;\n    overflow: hidden;\n    @media (max-width: 48em) {\n        padding-bottom: 12.8rem;\n    }\n\n    // .hero-gallery__container\n\n    &__container {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .hero-gallery__head\n\n    &__head {\n        align-self: center;\n        text-align: center;\n        @media (max-width: 48em) {\n            margin-bottom: 6rem;\n        }\n    }\n\n    // .hero-gallery__title\n\n    &__title {\n        color: $pink;\n        transition: opacity 0.5s ease;\n        user-select: none;\n        &.tl1 {\n            @media (min-width: 48em) {\n                font-size: 19rem;\n            }\n        }\n        ._coloured-txt {\n            color: $green;\n        }\n        ._dragging & {\n            opacity: 0;\n        }\n    }\n\n    // .hero-gallery__body\n\n    &__body {\n        position: relative;\n        height: 63rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n            height: 73rem;\n        }\n    }\n\n    // .hero-gallery__item\n\n    &__item {\n        position: absolute;\n        border-radius: 1.5rem;\n        background-color: #29292c;\n        overflow: hidden;\n        &._a {\n            top: 0;\n            left: 0;\n            width: 8.6rem;\n            height: 8rem;\n        }\n        &._b {\n            top: 0;\n            left: 10.8rem;\n            width: 14.3rem;\n            height: 8.8rem;\n            @media (max-width: 48em) {\n                left: 11rem;\n            }\n        }\n        &._c {\n            top: 0;\n            left: 28.2rem;\n            width: 26.3rem;\n            height: 12.2rem;\n            @media (max-width: 48em) {\n                width: 22rem;\n                height: 12.6rem;\n            }\n        }\n        &._d {\n            top: 0;\n            left: 57.3rem;\n            width: 15.8rem;\n            height: 10.2rem;\n            @media (max-width: 48em) {\n                left: 53.3rem;\n                width: 13.2rem;\n                height: 10.6rem;\n            }\n        }\n        &._e {\n            top: 0;\n            left: 76rem;\n            width: 29.7rem;\n            height: 10.7rem;\n            @media (max-width: 48em) {\n                left: 69.5rem;\n                width: 24.8rem;\n                height: 11rem;\n            }\n        }\n        &._f {\n            top: 0;\n            left: 108.9rem;\n            width: 12.4rem;\n            height: 10.2rem;\n            @media (max-width: 48em) {\n                left: 97.3rem;\n                width: 10.4rem;\n                height: 10.6rem;\n            }\n        }\n        &._g {\n            top: 0;\n            left: 124.4rem;\n            width: 19rem;\n            height: 9.6rem;\n            @media (max-width: 48em) {\n                left: 110.6rem;\n                width: 16rem;\n                height: 10.2rem;\n            }\n        }\n        &._h {\n            top: 0;\n            right: 0;\n            width: 26.3rem;\n            height: 29rem;\n        }\n        &._i {\n            top: 11.3rem;\n            left: 0;\n            width: 25.1rem;\n            height: 12.6rem;\n            @media (max-width: 48em) {\n                top: 11.3rem;\n                left: 0;\n                width: 21.5rem;\n            }\n        }\n        &._j {\n            top: 14.7rem;\n            left: 27.7rem;\n            width: 9.2rem;\n            height: 9.2rem;\n            @media (max-width: 48em) {\n                top: 15.6rem;\n                left: 24.3rem;\n                width: 9.6rem;\n                height: 9.4rem;\n            }\n        }\n        &._k {\n            top: 14.6rem;\n            left: 39.2rem;\n            width: 14.4rem;\n            height: 9.4rem;\n            @media (max-width: 48em) {\n                top: 15.3rem;\n                left: 36.6rem;\n                width: 12rem;\n                height: 9.8rem;\n            }\n        }\n        &._l {\n            top: 13.2rem;\n            left: 55.8rem;\n            width: 27.8rem;\n            height: 13.4rem;\n            @media (max-width: 48em) {\n                top: 13.6rem;\n                left: 51.5rem;\n                width: 23.2rem;\n                height: 13.8rem;\n            }\n        }\n        &._m {\n            top: 13.2rem;\n            left: 86.5rem;\n            width: 26.9rem;\n            height: 13.4rem;\n            @media (max-width: 48em) {\n                top: 13.6rem;\n                left: 77.6rem;\n                width: 22.6rem;\n                height: 13.8rem;\n            }\n        }\n        &._n {\n            top: 13.2rem;\n            left: 115.9rem;\n            width: 26.8rem;\n            height: 23.5rem;\n            @media (max-width: 48em) {\n                top: 13.6rem;\n                left: 103.5rem;\n                width: 22.4rem;\n                height: 24.4rem;\n            }\n        }\n        &._o {\n            top: 26.3rem;\n            left: 1.9rem;\n            width: 23.2rem;\n            height: 13.2rem;\n            @media (max-width: 48em) {\n                top: 26.3rem;\n                left: 0.4rem;\n            }\n        }\n        &._p {\n            top: 26.3rem;\n            left: 27.7rem;\n            width: 18.4rem;\n            height: 10.4rem;\n            @media (max-width: 48em) {\n                top: 27.8rem;\n                left: 26.6rem;\n                width: 15.4rem;\n                height: 10.8rem;\n            }\n        }\n        &._q {\n            top: 29.2rem;\n            left: 48.9rem;\n            width: 18.8rem;\n            height: 10.1rem;\n            @media (max-width: 48em) {\n                top: 30.2rem;\n                left: 44.8rem;\n                width: 15.8rem;\n                height: 10.4rem;\n            }\n        }\n        &._r {\n            top: 29.2rem;\n            left: 70.2rem;\n            width: 12.1rem;\n            height: 15rem;\n            @media (max-width: 48em) {\n                top: 30.2rem;\n                left: 63.5rem;\n                width: 10.2rem;\n                height: 15.6rem;\n            }\n        }\n        &._s {\n            top: 29.2rem;\n            left: 84.8rem;\n            width: 27.8rem;\n            height: 15.8rem;\n            @media (max-width: 48em) {\n                top: 30.2rem;\n                left: 76.7rem;\n                width: 23.2rem;\n                height: 16.4rem;\n            }\n        }\n        &._t {\n            top: 39.1rem;\n            left: 116.2rem;\n            width: 22.3rem;\n            height: 14.2rem;\n            @media (max-width: 48em) {\n                top: 40.1rem;\n                left: 103.5rem;\n                width: 20.25rem;\n                height: 14.6rem;\n            }\n        }\n        &._u {\n            top: 39rem;\n            left: 140.5rem;\n            width: 6.4rem;\n            height: 5.2rem;\n            @media (max-width: 48em) {\n                top: 39rem;\n                left: 125.5rem;\n            }\n        }\n        &._v {\n            top: 31.4rem;\n            left: 149.2rem;\n            width: 9.1rem;\n            height: 18.3rem;\n            @media (max-width: 48em) {\n                top: 31.4rem;\n                left: 133.9rem;\n            }\n        }\n        &._w {\n            top: 31.4rem;\n            right: 0;\n            width: 11.4rem;\n            height: 8.1rem;\n            @media (max-width: 48em) {\n                width: 10.4rem;\n            }\n        }\n        &._x {\n            top: 41.7rem;\n            left: 11.9rem;\n            width: 11.5rem;\n            height: 6.5rem;\n            @media (max-width: 48em) {\n                left: 11.2rem;\n            }\n        }\n        &._y {\n            top: 39.1rem;\n            left: 26.1rem;\n            width: 21rem;\n            height: 10.9rem;\n            @media (max-width: 48em) {\n                top: 40.6rem;\n                left: 24.6rem;\n                width: 17.6rem;\n                height: 11.2rem;\n            }\n        }\n        &._z {\n            top: 42.1rem;\n            left: 49.5rem;\n            width: 14.1rem;\n            height: 11.5rem;\n            @media (max-width: 48em) {\n                top: 43.5rem;\n                left: 45.5rem;\n                width: 11.2rem;\n                height: 11.2rem;\n            }\n        }\n        &._a1 {\n            top: 47.4rem;\n            left: 65.9rem;\n            width: 17.1rem;\n            height: 15.7rem;\n            @media (max-width: 48em) {\n                top: 49rem;\n                left: 59.9rem;\n                width: 14.4rem;\n                height: 16.2rem;\n            }\n        }\n        &._b1 {\n            top: 49.5rem;\n            left: 85.4rem;\n            width: 14.3rem;\n            height: 13.6rem;\n            @media (max-width: 48em) {\n                top: 51rem;\n                left: 77rem;\n                width: 12rem;\n                height: 14rem;\n            }\n        }\n        &._c1 {\n            top: 48.6rem;\n            left: 102.2rem;\n            width: 11.4rem;\n            height: 8.1rem;\n            @media (max-width: 48em) {\n                top: 52.6rem;\n                left: 91.8rem;\n                width: 9.6rem;\n                height: 8.4rem;\n            }\n        }\n        &._d1 {\n            top: 45.7rem;\n            left: 140.9rem;\n            width: 5.7rem;\n            height: 5.7rem;\n            @media (max-width: 48em) {\n                top: 46.4rem;\n                left: 125.9rem;\n            }\n        }\n        &._e1 {\n            top: 41.5rem;\n            right: 0;\n            width: 10.4rem;\n            height: 6.6rem;\n            @media (max-width: 48em) {\n                top: 42rem;\n            }\n        }\n        // .hero-gallery__item_gray\n\n        &_gray {\n            background-color: $gray;\n        }\n    }\n\n    // .hero-gallery__plane-wrap\n\n    &__plane-wrap {\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        @media (max-width: 48em) {\n            left: 50%;\n            width: calc(100% + 85rem);\n            &:not(._dragging &) {\n                transform: translateX(-50%) !important;\n            }\n        }\n    }\n\n    // .hero-gallery__plane\n\n    &__plane {\n        margin: 0 auto;\n        width: 172rem;\n        height: 63rem;\n        @media (max-width: 48em) {\n            height: 73rem;\n        }\n    }\n\n    // .hero-gallery__image-wrap\n\n    &__image-wrap {\n        display: block;\n        height: 100%;\n    }\n\n    // .hero-gallery__image\n\n    &__image {\n        height: 100%;\n        object-fit: cover;\n    }\n\n    // .hero-gallery__footer\n\n    &__footer {\n        position: relative;\n        z-index: 2000;\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        @media (min-width: 48em) {\n            flex-direction: row;\n            justify-content: space-between;\n            transform: translateY(-7rem);\n        }\n    }\n\n    // .hero-gallery__group\n\n    &__group {\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        @media (max-width: 48em) {\n            margin-bottom: 6.4rem;\n        }\n    }\n\n    // .hero-gallery__text\n\n    &__text {\n        margin-bottom: 4.4rem;\n        display: flex;\n        column-gap: 2.8rem;\n        max-width: 40rem;\n        transition: opacity 0.3s ease;\n        ._dragging & {\n            opacity: 0;\n        }\n        &::before {\n            content: '';\n            width: 9.4rem;\n            height: 1px;\n            background-color: rgba(201, 251, 64, 0.5);\n            transform: translateY(1.5rem);\n        }\n        @media (max-width: 48em) {\n            margin-bottom: 0;\n            column-gap: 6.4rem;\n            max-width: 70rem;\n            &::before {\n                width: 22.8rem;\n                transform: translateY(3rem);\n            }\n        }\n    }\n\n    // .hero-gallery__showmore-btn\n\n    &__showmore-btn {\n        position: relative;\n        z-index: 2000;\n        ._scale & {\n            display: none;\n        }\n        ._dragging & {\n            position: fixed;\n            left: 10rem;\n            bottom: 0;\n            opacity: 0;\n        }\n        @media (max-width: 48em) {\n            width: 8rem;\n            height: 8rem;\n            &:not(._dragging &) {\n                position: absolute;\n                top: -13rem;\n                right: 0;\n            }\n            ._dragging & {\n                bottom: 5rem;\n                left: auto;\n                right: 1rem;\n            }\n            .showmore-btn__text {\n                display: none;\n            }\n            svg {\n                circle {\n                    fill: $green;\n                }\n                path {\n                    fill: $bodyColor;\n                }\n                ._dragging & {\n                    &:first-child {\n                        display: none;\n                    }\n                    &:last-child {\n                        display: block;\n                    }\n                }\n            }\n        }\n    }\n\n    // .hero-gallery__btn\n\n    &__btn {\n        margin-top: 3rem;\n        transition: opacity 0.3s ease;\n        ._dragging & {\n            opacity: 0;\n        }\n        @media (max-width: 48em) {\n            margin-top: 0;\n            margin-left: 19rem;\n        }\n    }\n}\n\n.popup-hero-gallery {\n    position: fixed;\n    z-index: 2000;\n    bottom: 0;\n    right: 0;\n    padding: 3.2rem 4rem;\n    display: flex;\n    flex-direction: column;\n    width: 63rem;\n    border-radius: 4rem;\n    background-color: $green;\n    transform: translateY(100%);\n    opacity: 0;\n    transition: none;\n    @media (min-width: 48em) {\n        &._active {\n            opacity: 1;\n            visibility: visible;\n            transform: translateY(0);\n            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;\n        }\n    }\n\n    // .popup-hero-gallery__title\n\n    &__title {\n        margin-bottom: 5.6rem;\n        color: $bodyColor;\n    }\n\n    // .popup-hero-gallery__icon\n\n    &__icon {\n        svg {\n            width: 5rem;\n            height: 5rem;\n        }\n    }\n}\n",".articles-hero {\n    position: relative;\n    padding-top: 18.9rem;\n    padding-bottom: 17.7rem;\n    user-select: none;\n    border-bottom: 1px solid rgba(201, 251, 64, 0.5);\n    @media (max-width: 48em) {\n        padding-top: 16.8rem;\n        padding-bottom: 10rem;\n    }\n\n    // .articles-hero__container\n\n    &__container {\n        position: relative;\n        z-index: 2;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        @media (min-width: 48em) {\n            display: grid;\n            grid-template-columns: 3fr 6fr 3fr;\n            align-items: start;\n            column-gap: 6.5rem;\n        }\n    }\n\n    // .articles-hero__bg\n\n    &__bg {\n        position: relative;\n        margin-bottom: 12rem;\n        @media (min-width: 48em) {\n            margin-bottom: 0;\n            grid-column: 2/3;\n        }\n    }\n\n    // .articles-hero__title\n\n    &__title {\n        position: absolute;\n        top: auto;\n        bottom: -12.6rem;\n        left: 50%;\n        text-align: center;\n        -webkit-text-stroke-width: 2px;\n        -webkit-text-stroke-color: $white;\n        transform: translateX(-50%);\n        &:first-child {\n            top: -14.5rem;\n        }\n        @media (max-width: 48em) {\n            bottom: -5.5rem;\n            -webkit-text-stroke-width: 1px;\n            &:first-child {\n                top: -7.3rem;\n            }\n        }\n    }\n\n    // .articles-hero__bg-inner\n\n    &__bg-inner {\n        position: relative;\n        z-index: 2;\n        overflow: hidden;\n        .articles-hero__title {\n            color: transparent;\n            &:first-child {\n                top: -14.6rem;\n            }\n            @media (max-width: 48em) {\n                bottom: -5.6rem;\n                &:first-child {\n                    top: -7.3rem;\n                }\n            }\n        }\n    }\n\n    // .articles-hero__image-wrap\n\n    &__image-wrap {\n        width: 100%;\n        height: 41rem;\n        @media (max-width: 48em) {\n            width: 50rem;\n            height: 26.4rem;\n        }\n\n        // .articles-hero__image-wrap_small\n\n        &_small {\n            position: relative;\n            margin-top: 8rem;\n            width: 24.2rem;\n            height: 14.4rem;\n\n            .articles-hero__image {\n                border-radius: 3rem;\n            }\n            &::before {\n                content: '';\n                position: absolute;\n                top: -4rem;\n                left: 50%;\n                width: 5rem;\n                height: 5rem;\n                background-image: url(./assets/images/icons/ah-union.svg);\n                background-size: contain;\n                background-repeat: no-repeat;\n                transform: translate(-50%, -100%);\n            }\n            @media (min-width: 48em) {\n                position: absolute;\n                top: 0;\n                left: -6.4rem;\n                margin-top: 0;\n                width: 18.1rem;\n                height: 13.5rem;\n                transform: translateX(-100%);\n                .articles-hero__image {\n                    border-radius: 1.6rem;\n                }\n                &::before {\n                    top: 12rem;\n                    width: 7.3rem;\n                    height: 7.5rem;\n                    transform: translate(-50%, 100%);\n                }\n            }\n        }\n    }\n\n    // .articles-hero__image\n\n    &__image {\n        display: block;\n        height: 100%;\n        border-radius: 4rem;\n        object-fit: cover;\n    }\n\n    // .articles-hero__info\n\n    &__info {\n        padding: 0 5rem;\n        display: flex;\n        flex-direction: row-reverse;\n        justify-content: space-between;\n        align-items: flex-end;\n        column-gap: 11rem;\n        width: 100%;\n        grid-column: 3/4;\n        @media (min-width: 48em) {\n            padding: 9rem 0 0 0;\n            display: block;\n            width: auto;\n            grid-column: 3/4;\n        }\n    }\n\n    // .articles-hero__list\n\n    &__list {\n        position: relative;\n        padding-left: 4rem;\n        display: flex;\n        flex-direction: column;\n        row-gap: 1.2rem;\n        &::before {\n            content: '';\n            position: absolute;\n            top: 50%;\n            left: 0;\n            width: 4rem;\n            height: 4rem;\n            background-image: url(./assets/images/icons/ah-circles.svg);\n            background-size: contain;\n            background-repeat: no-repeat;\n            transform: translateY(-50%);\n        }\n        @media (max-width: 48em) {\n            padding-left: 6.4rem;\n            row-gap: 2rem;\n            &::before {\n                width: 3.2rem;\n                height: 6.4rem;\n            }\n        }\n    }\n\n    // .articles-hero__list-item\n\n    &__list-item {\n        font-family: 'DrukCyr';\n        @media (max-width: 48em) {\n            letter-spacing: 0.32rem;\n        }\n    }\n\n    // .articles-hero__wave\n\n    &__wave {\n        position: absolute;\n        top: 8rem;\n        left: 0;\n        width: 100vw;\n        height: auto;\n        overflow: visible;\n        path {\n            fill: transparent;\n            stroke: $violet;\n            stroke-width: 10rem;\n        }\n        text {\n            fill: $white;\n            font-family: 'DrukCyr';\n            font-size: 6rem;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            transform: translateY(2.5rem);\n        }\n        textPath {\n            word-spacing: 4rem;\n        }\n        @media (max-width: 48em) {\n            top: -57rem;\n            left: -50rem;\n            path {\n                stroke-width: 8rem;\n            }\n            text {\n                font-size: 4rem;\n                letter-spacing: 0.32rem;\n                transform: translateY(2rem);\n            }\n            textPath {\n                word-spacing: 5rem;\n            }\n        }\n    }\n}\n",".services {\n    position: relative;\n    background: #171717;\n    margin-bottom: 16rem;\n\n    @include small-tablet{\n        margin-bottom: 28rem;\n    }\n\n    &__content {\n        min-height: 78rem;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n\n        @include small-tablet {\n            min-height: 107rem;\n        }\n    }\n\n    &__sentences {\n        position: absolute;\n        inset: 0;\n        top: 5rem;\n        display: flex;\n        gap: 20rem;\n\n        @include small-tablet{\n            top: 10rem;\n        }\n\n        &-list {\n            width: 100%;\n            height: 100%;\n            position: relative;\n        }\n\n        &-item {\n            max-width: 57.3rem;\n            width: 100%;\n            position: absolute;\n            user-select: none;\n\n            @include small-tablet {\n                max-width: 54rem;\n            }\n\n            &:nth-child(1) {\n                left: -12rem;\n                top: 0;\n\n                @include small-tablet{\n                    left: 2rem;\n                    white-space: nowrap;\n                }\n            }\n\n            &:nth-child(2) {\n                left: 50%;\n                transform: translate(-50%);\n                top: 0;\n\n                @include small-tablet{\n                    top: 13rem;\n                    white-space: nowrap;\n                }\n            }\n\n            &:nth-child(3) {\n                right: -8.3rem;\n                top: 0;\n\n                @include small-tablet{\n                    right: auto;\n                    top: 26rem;\n                    left: -19rem;\n                }\n            }\n\n            &:nth-child(4) {\n                left: 0;\n                top: 30.7rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n\n            &:nth-child(5) {\n                right: 2.7rem;\n                top: 30.7rem;\n\n                @include small-tablet{\n                    right: -21.3rem;\n                    top: 26.7rem;\n                }\n            }\n\n            &:nth-child(6) {\n                left: -18.6rem;\n                bottom: 0.6rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n\n            &:nth-child(7) {\n                right: -15.9rem;\n                bottom: 0.6rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n        }\n\n        &-text {\n            color: $gray-darken;\n            font-family: $font-druk;\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            text-align: center;\n            width: 100%;\n\n            @include small-tablet {\n                font-size: 10rem;\n            }\n        }\n    }\n\n    &__circular {\n        @include sizes(80rem, 52.8rem);\n        position: relative;\n\n        @include small-tablet {\n            @include sizes(100%, 46.8rem);\n        }\n\n        &-text-image {\n            width: 100%;\n            height: 100%;\n\n            img {\n                width: 100%;\n                height: 100%;\n            }\n        }\n\n        &-image {\n            position: absolute;\n            bottom: -3.7rem;\n            left: 50%;\n            transform: translateX(-50%);\n            @include sizes(26.3rem, 32.6rem);\n            border-radius: 1.5rem;\n            border: 0.1rem solid rgba(255, 255, 255, 0.3);\n            z-index: 5;\n\n            @include small-tablet {\n                @include sizes(23.4rem, 29.2rem);\n                border-radius: 3rem;\n                border-width: 0.2rem;\n            }\n\n            img {\n                height: 100%;\n                border-radius: inherit;\n            }\n        }\n    }\n}\n",".collections {\n    margin-bottom: 13rem;\n\n    @include small-tablet{\n        margin-bottom: 24rem;\n    }\n\n    &__articles {\n        &-list {\n            display: flex;\n            flex-direction: column;\n        }\n\n        &-item {\n            position: relative;\n\n            &.--active {\n                .--masking {\n                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);\n                }\n            }\n\n            &:first-child {\n                border-top: 0.1rem solid rgba(201, 251, 64, 0.5);\n            }\n\n            border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n\n            &-wrapper {\n                padding: 4rem 10rem;\n                display: flex;\n                align-items: center;\n\n                @include small-tablet{\n                    padding: 2.3rem 2.2rem;\n                }\n\n                &.--masking {\n                    position: absolute;\n                    inset: 0;\n                    width: 100%;\n                    z-index: 1;\n                    background-color: $pink;\n                    clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);\n                    transform-origin: center;\n                    transition: clip-path cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;\n\n                    figcaption {\n                        color: #0d0d0d;\n                    }\n                }\n            }\n\n            &-number {\n                color: $white;\n                font-family: $font-druk;\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                display: block;\n                width: 14rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n\n            figure {\n                display: flex;\n                align-items: flex-end;\n                gap: 6rem;\n                margin-left: 16rem;\n\n                @include small-tablet{\n                    margin-left: 0;\n                    width: 100%;\n                    align-items: center;\n                    justify-content: center;\n                }\n            }\n\n            &-image {\n                border-radius: 1.5rem;\n                @include sizes(25rem, 14rem);\n\n                @include small-tablet{\n                    display: none;\n                }\n\n                img {\n                    height: 100%;\n                    border-radius: inherit;\n                }\n            }\n\n            &-text {\n                font-family: $font-druk;\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                color: transparent;\n                background: linear-gradient(to right, $white, $white) no-repeat;\n                -webkit-background-clip: text;\n                background-clip: text;\n                background-size: 0;\n                transition: background-size cubic-bezier(.1,.5,.5,1) 0.5s;\n\n                @include small-tablet{\n                    font-size: 10rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-link {\n                margin-left: auto;\n                display: flex;\n                align-items: center;\n                gap: 1.6rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n\n                svg {\n                    @include sizes(5.2rem, 5.2rem);\n                }\n\n                span {\n                    color: $bodyColor;\n                    font-family: $font-druk;\n                    font-size: 2.2rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 2.4rem;\n                    letter-spacing: 0.176rem;\n                    text-transform: uppercase;\n                }\n            }\n        }\n    }\n}\n",".feedback {\n    @include small-tablet {\n        margin-bottom: 3.2rem;\n    }\n\n    a {\n        display: block;\n        width: 100%;\n        color: #fff;\n        font-family: $font-druk;\n        font-size: 19.9646rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 23.387rem;\n        text-align: center;\n        transition:\n            background 0.3s linear,\n            color 0.3s linear;\n\n        @include small-tablet {\n            font-size: 11rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n        }\n\n        &:hover {\n            transition:\n                background 0.3s linear,\n                color 0.3s linear;\n            background-color: $yellow;\n            color: $main;\n        }\n    }\n}\n",".article {\n    margin-top: 6.8rem;\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        margin-top: 9.6rem;\n        margin-bottom: 24rem;\n    }\n\n    &__heading {\n        padding-bottom: 8rem;\n        margin-bottom: 4rem;\n\n        position: relative;\n\n        display: flex;\n        align-items: flex-start;\n        justify-content: space-between;\n        gap: 2rem;\n\n        @include small-tablet {\n            padding-bottom: 9.6rem;\n            margin-bottom: 4.8rem;\n            flex-direction: column;\n            gap: 11.2rem;\n        }\n\n        &::after {\n            @include pseudo {\n                width: calc(100% + 20rem);\n                height: 0.1rem;\n\n                left: -10rem;\n                bottom: 0;\n\n                background: rgba(201, 251, 64, 0.5);\n            }\n        }\n\n        &-info {\n            max-width: 70.5rem;\n            width: 100%;\n            margin-top: 11.9rem;\n\n            @include small-tablet {\n                max-width: 100%;\n                margin-top: 0;\n            }\n        }\n\n        &-subtitle {\n            display: inline-block;\n            position: relative;\n            margin-bottom: 1.2rem;\n            color: var(--purple, #ed89fb);\n            font-family: $font-druk;\n            font-size: 2.2rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 2.4rem;\n            letter-spacing: 0.176rem;\n            text-transform: uppercase;\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                margin-bottom: 2.4rem;\n            }\n\n            &::after {\n                @include pseudo {\n                    right: -5.6rem;\n                    width: 4rem;\n                    height: 0.1rem;\n                    top: 50%;\n                    transform: translateY(-50%);\n                    background: $pink;\n\n                    @include small-tablet {\n                        width: 4.8rem;\n                        right: -8rem;\n                        height: 0.2rem;\n                    }\n                }\n            }\n        }\n\n        &-title {\n            color: $white;\n            font-family: $font-druk;\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            margin-bottom: 2rem;\n\n            @include small-tablet {\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                margin-bottom: 4rem;\n            }\n        }\n\n        &-description {\n            color: $white;\n            font-size: 2rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%;\n            padding-right: 3.1rem;\n\n            @include small-tablet {\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n                padding-right: 0;\n            }\n        }\n\n        &-poster {\n            @include sizes(99.5rem, 50.7rem);\n            position: relative;\n\n            @include small-tablet {\n                @include sizes(100%, 49.2rem);\n            }\n\n            &-image {\n                width: 100%;\n                height: 100%;\n                border-radius: 4rem;\n\n                img {\n                    height: 100%;\n                    border-radius: inherit;\n                    object-fit: cover;\n                }\n            }\n\n            &-icon {\n                @include sizes(16rem, 16rem);\n                position: absolute;\n                top: -2rem;\n                left: -3.5rem;\n\n                @include small-tablet {\n                    @include sizes(23rem, 23rem);\n                    right: 0;\n                    top: -4.8rem;\n                    left: auto;\n                }\n            }\n        }\n    }\n\n    &__content {\n        display: flex;\n        justify-content: space-between;\n        padding-right: 14.5rem;\n\n        @include small-tablet {\n            padding-right: 0;\n            flex-direction: column;\n            gap: 8rem;\n        }\n\n        &-block {\n            display: flex;\n            flex-direction: column;\n            max-width: 85rem;\n            width: 100%;\n        }\n    }\n\n    &__shares {\n        max-width: 39rem;\n        width: 100%;\n        display: flex;\n        flex-direction: column;\n        position: relative;\n\n        @include small-tablet {\n            max-width: 100%;\n            flex-direction: row;\n            justify-content: space-between;\n        }\n\n        &::before {\n            @include pseudo {\n                right: 0;\n                top: 0;\n                width: 0.1rem;\n                height: 100%;\n                transform-origin: left top;\n                transform: scaleY(var(--scale));\n                background: rgba(201, 251, 64, 0.5);\n\n                @include small-tablet {\n                    display: none;\n                }\n            }\n        }\n\n        &-date {\n            font-size: 2.8rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: normal;\n            display: block;\n            margin-bottom: 6.4rem;\n\n            @include small-tablet {\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n                margin-bottom: 0;\n            }\n        }\n\n        &-socials {\n            &-list {\n                display: flex;\n                flex-direction: column;\n                gap: 1.6rem;\n\n                @include small-tablet {\n                    flex-direction: row;\n                    gap: 2.4rem;\n                }\n            }\n\n            &-item {\n                @include sizes(4.8rem, 4.8rem);\n\n                @include small-tablet {\n                    @include sizes(8rem, 8rem);\n                }\n\n                a {\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    padding: 1.2rem;\n                    transition:\n                        0.3s background ease,\n                        0.3s border ease;\n                    border: 0.1rem solid $white;\n                    border-radius: 50%;\n\n                    @include small-tablet {\n                        padding: 1.6rem;\n                    }\n\n                    &:hover {\n                        background: $yellow;\n                        border-color: transparent;\n                    }\n\n                    img {\n                        height: 100%;\n                    }\n                }\n            }\n        }\n\n        &-link {\n            margin-top: auto;\n            width: fit-content;\n            display: flex;\n            align-items: center;\n            gap: 2.2rem;\n\n            @include small-tablet {\n                &.desktop {\n                    display: none;\n                }\n\n                gap: 3.2rem;\n                margin-top: 8rem;\n            }\n\n            span {\n                font-family: $font-druk;\n                font-size: 2.2rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 2.4rem;\n                letter-spacing: 0.176rem;\n                text-transform: uppercase;\n\n                @include small-tablet {\n                    font-size: 4rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    letter-spacing: 0.32rem;\n                    text-transform: uppercase;\n                }\n            }\n        }\n    }\n\n    &__title {\n        margin-bottom: 3.2rem;\n        font-size: 2.8rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: normal;\n\n        @include small-tablet {\n            margin-bottom: 4.8rem;\n            font-size: 3.6rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: normal;\n        }\n    }\n\n    &__description {\n        margin-bottom: 2.2rem;\n        font-size: 2rem;\n        font-style: normal;\n        font-weight: 400;\n        line-height: 140%;\n\n        @include small-tablet {\n            font-size: 2.8rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: normal;\n            margin-bottom: 4.8rem;\n        }\n    }\n\n    &__block {\n        &-image {\n            display: flex;\n            flex-direction: column;\n            gap: 1.6rem;\n            margin-bottom: 3.2rem;\n\n            @include small-tablet {\n                margin-bottom: 4.8rem;\n                gap: 3.2rem;\n            }\n\n            img {\n                border-radius: 4rem;\n                height: 52.4rem;\n                object-fit: cover;\n\n                @include small-tablet {\n                    height: 48.4rem;\n                }\n            }\n\n            &-description {\n                color: $gray;\n                font-size: 2rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n\n                @include small-tablet {\n                    font-size: 3rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: 140%;\n                }\n            }\n        }\n    }\n\n    &__list {\n        display: flex;\n        flex-direction: column;\n        gap: 3.2rem;\n\n        @include small-tablet {\n            gap: 4.8rem;\n        }\n    }\n\n    &__item {\n        &-text {\n            font-size: 2rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%;\n\n            @include small-tablet {\n                font-size: 2.8rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: normal;\n            }\n        }\n    }\n}\n",".team {\n    background: $violet;\n    padding: 16rem 0;\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        padding: 12.8rem 0;\n        margin-bottom: 24rem;\n    }\n\n    &__content {\n        display: flex;\n        justify-content: space-between;\n\n        @include small-tablet {\n            flex-direction: column;\n            gap: 6.4rem;\n        }\n    }\n\n    &__text {\n        max-width: 72.5rem;\n        width: 100%;\n        display: flex;\n        flex-direction: column;\n        gap: 9rem;\n\n        @include small-tablet {\n            max-width: 100%;\n            gap: 6.4rem;\n        }\n\n        &-image {\n            @include sizes(100%, 58.5rem);\n            border-radius: 4rem;\n\n            @include small-tablet {\n                @include sizes(100%, 35.6rem);\n            }\n\n            img {\n                border-radius: inherit;\n                height: 100%;\n                object-fit: cover;\n            }\n        }\n    }\n\n    &__title {\n        color: $bodyColor;\n        font-family: $font-druk;\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 110%;\n        text-transform: uppercase;\n\n        @include small-tablet {\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n        }\n    }\n\n    &__info {\n        max-width: 85rem;\n        width: 100%;\n        padding-top: 0.9rem;\n\n        @include small-tablet {\n            padding-top: 0;\n            max-width: 100%;\n        }\n\n        &-title {\n            margin-bottom: 6rem;\n            color: $bodyColor;\n            font-family: $font-druk;\n            font-size: 6rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                text-transform: uppercase;\n                margin-bottom: 2.4rem;\n            }\n        }\n\n        &-description {\n            max-width: 55.9rem;\n            width: 100%;\n            color: $gray;\n            font-size: 2.8rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: normal;\n            margin-bottom: 12rem;\n\n            @include small-tablet {\n                margin-bottom: 6.4rem;\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n            }\n        }\n\n        &-figures {\n            display: flex;\n            align-items: flex-end;\n            justify-content: space-between;\n        }\n\n        &-figure {\n            &-icon {\n                @include sizes(10rem, 10rem);\n\n                @include small-tablet {\n                    @include sizes(11.2rem, 11.2rem);\n                }\n            }\n\n            &-image {\n                @include sizes(41.3rem, 29rem);\n                border-radius: 4rem;\n\n                @include small-tablet {\n                    @include sizes(33.4rem, 21.6rem);\n                }\n\n                img {\n                    height: 100%;\n                    border-radius: inherit;\n                    object-fit: cover;\n                }\n            }\n        }\n    }\n}\n",".achievements {\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        margin-bottom: 24rem;\n    }\n\n    &__title {\n        font-family: $font-druk;\n        margin-bottom: 2rem;\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 110%;\n        text-transform: uppercase;\n\n        @include small-tablet {\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            margin-bottom: 4.4rem;\n        }\n    }\n\n    &__heading {\n        display: flex;\n        align-items: flex-start;\n        justify-content: space-between;\n        margin-bottom: 16rem;\n\n        @include small-tablet {\n            margin-bottom: 24rem;\n            flex-direction: column;\n            gap: 8rem;\n        }\n\n        &-list {\n            display: flex;\n            align-items: flex-start;\n            gap: 5.6rem;\n\n            @include small-tablet {\n                display: grid;\n                grid-template-columns: repeat(2, minmax(30.4rem, 1fr));\n                gap: 6.4rem;\n            }\n        }\n\n        &-item {\n            display: flex;\n            flex-direction: column;\n            gap: 1rem;\n            position: relative;\n            max-width: 17rem;\n\n            @include small-tablet {\n                max-width: 100%;\n                flex-direction: row;\n                gap: 1.6rem;\n                align-items: flex-end;\n            }\n\n            @media (min-width: 48em) {\n                &:not(:last-child) {\n                    &::after {\n                        @include pseudo {\n                            height: calc(100% - 4.2rem);\n                            right: -2.8rem;\n                            width: 0.1rem;\n                            background: rgba(201, 251, 64, 0.5);\n                        }\n                    }\n                }\n            }\n\n            @include small-tablet {\n                &:nth-child(odd) {\n                    &::before {\n                        @include pseudo {\n                            height: 100%;\n                            right: -3.2rem;\n                            width: 0.1rem;\n                            background: rgba(201, 251, 64, 0.5);\n                        }\n                    }\n                }\n\n                &:not(:nth-last-child(-n+2)) {\n                    &::after {\n                        @include pseudo {\n                            width: 100%;\n                            height: 0.1rem;\n                            bottom: -3.2rem;\n                            background: rgba(201, 251, 64, 0.5);\n                        }\n                    }\n                }\n            }\n\n            &-digit {\n                font-family: $font-druk;\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n\n                @include small-tablet {\n                    font-size: 10rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-description {\n                color: rgba(255, 255, 255, 0.8);\n                font-size: 2.8rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: normal;\n\n                @include small-tablet {\n                    font-size: 3rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: 140%;\n                }\n            }\n        }\n    }\n\n    &__description {\n        color: rgba(255, 255, 255, 0.8);\n        font-size: 2.8rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: normal;\n        max-width: 72rem;\n        width: 100%;\n        margin-top: 2rem;\n\n        @include small-tablet {\n            color: rgba(255, 255, 255, 0.8);\n            font-size: 3rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%;\n        }\n    }\n\n    &__banner {\n        @include sizes(100%, 67.2rem);\n        border-radius: 4rem;\n\n        @include small-tablet {\n            @include sizes(100%, 34.2rem);\n        }\n\n        img {\n            border-radius: inherit;\n            height: 100%;\n            object-fit: cover;\n        }\n    }\n}\n","@import '../sections/services';\n@import '../sections/collections';\n@import '../sections/feedback';\n@import '../sections/article';\n@import '../sections/our-team';\n@import '../sections/achievements';\n\nfigure {\n    margin: 0;\n}\n",".main-collection {\n    background-color: #cad2f4;\n    padding: 16rem 0;\n    margin-bottom: 16rem;\n    // .main-collection__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        gap: 8rem;\n    }\n    // .main-collection__cards\n    &__cards.swiper {\n        position: relative;\n        width: 83.6rem;\n        height: 73.3rem;\n        margin: 0;\n    }\n    &__cards-item.swiper-slide {\n        display: flex;\n\n        width: 51.5rem;\n        height: 51.5rem;\n        border-radius: 4rem;\n        position: absolute;\n        padding: 1.2rem;\n        overflow: hidden;\n    }\n    // .main-collection__title\n    &__title {\n        margin-bottom: 2rem;\n\n        width: 69.5rem;\n    }\n    // .main-collection__description\n    &__description {\n        margin-bottom: 5rem;\n        width: 61.8rem;\n        color: $gray;\n    }\n    // .main-collection__info\n    &__info {\n        color: $black;\n    }\n}\n.collection-item {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n\n    &--rat {\n        top: 0;\n        left: 0;\n        z-index: 2;\n\n        background: linear-gradient(223deg, #8792ed 1.18%, #5f6eda 34.96%, #6778df 68.58%, #8792ed 100%);\n    }\n    &--snail {\n        right: -2rem;\n        bottom: 0;\n        z-index: 1;\n\n        background: linear-gradient(226deg, #455265 0%, #11161e 40.66%, #11161e 60.6%, #455265 103.07%);\n    }\n\n    // .collection-item__header\n    &__header {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n    }\n    // .collection-item__title\n    &__title {\n        display: flex;\n        flex-direction: column;\n        padding-left: 1.2rem;\n        .txt20 {\n            opacity: 0.7;\n        }\n\n        strong {\n            text-align: left;\n        }\n\n        span {\n            text-align: left;\n        }\n    }\n    // .collection-item__icons\n    &__icons {\n        display: flex;\n        align-items: center;\n        gap: 0.7rem;\n        &-item {\n            width: 8rem;\n            height: 8rem;\n            border-radius: 50%;\n            background: rgba(255, 255, 255, 0.3);\n            backdrop-filter: blur(13px);\n\n            display: flex;\n            align-items: center;\n            justify-content: center;\n\n            svg {\n                display: block;\n                width: 4.4rem;\n                height: 4.4rem;\n            }\n        }\n    }\n    // .collection-item__footer\n    &__footer {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        &-item {\n            display: flex;\n            width: 24.1rem;\n            height: 6.8rem;\n            padding: 1.6rem;\n            justify-content: center;\n            align-items: center;\n            border-radius: 5.2rem;\n\n            &--left {\n                background: rgba(255, 255, 255, 0.3);\n                backdrop-filter: blur(30px);\n            }\n            &--right {\n                background: $white;\n                backdrop-filter: blur(11.5px);\n                align-self: flex-end;\n                color: $black;\n\n                strong {\n                    margin: 0 0.5rem;\n                    align-self: center;\n                }\n                span {\n                    align-self: flex-end;\n                    margin-bottom: 0.2rem;\n                }\n                sup {\n                    align-self: flex-start;\n                }\n            }\n        }\n    }\n    // .collection-item__backdrop\n    &__backdrop {\n        position: absolute;\n        top: 0;\n        left: 0;\n        z-index: -1;\n        width: 100%;\n        height: 100%;\n        padding: 3.2rem;\n\n        img {\n            width: 100%;\n            height: auto;\n            object-fit: contain;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .main-collection {\n        padding: 10rem 0;\n        &__container {\n            padding: 0;\n        }\n        // .main-collection__inner\n        &__inner {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n            justify-content: space-between;\n            gap: 6.4rem;\n        }\n        // .main-collection__cards\n        &__cards.swiper {\n            order: 2;\n            position: relative;\n            width: 100%;\n            height: auto;\n            margin: 0;\n            padding: 0 2rem;\n        }\n\n        &__cards-item.swiper-slide {\n            width: 65.8rem;\n            height: 67rem;\n            border-radius: 4rem;\n            position: static;\n            padding: 2.4rem;\n            overflow: hidden;\n        }\n\n        // .main-collection__info\n        &__info {\n            order: 1;\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            padding: 0 2rem;\n        }\n        // .main-collection__title\n        &__title {\n            width: 90%;\n            text-align: center;\n            margin-bottom: 2.4rem;\n        }\n        // .main-collection__description\n        &__description {\n            font-size: 2.8rem;\n            text-align: center;\n            margin-bottom: 6.4rem;\n            width: 93%;\n        }\n    }\n    .collection-item {\n        &--snail {\n            right: 0;\n        }\n        // .collection-item__title\n        &__title {\n            padding-left: 0;\n\n            strong {\n                margin-bottom: 1rem;\n            }\n        }\n        // .collection-item__icons\n        &__icons {\n            gap: 1rem;\n            &-item {\n                svg {\n                    width: 4.6rem;\n                    height: 4.6rem;\n                }\n            }\n        }\n        // .collection-item__footer\n        &__footer {\n            &-item {\n                display: flex;\n                width: 30rem;\n                height: 8.8rem;\n                padding: 2.4rem;\n                border-radius: 4rem;\n                &--right {\n                    strong {\n                        margin: 0 0.5rem;\n                        align-self: center;\n                    }\n                    span {\n                        margin-bottom: 0;\n                    }\n                }\n            }\n        }\n    }\n}\n",".main-links {\n    margin-top: 5.2rem;\n    margin-bottom: 0;\n    // .main-links__list\n    &__list {\n        display: flex;\n        align-items: center;\n        flex-direction: column;\n    }\n    // .main-links__item\n    &__item {\n        width: 100%;\n        text-align: center;\n        color: $white;\n        font-family: 'DrukCyr';\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: normal;\n        transition:\n            background 0.3s linear,\n            color 0.3s linear;\n\n        border-top: 0.1rem solid rgba(201, 243, 43, 0.5);\n\n      &:last-child{\n        border-bottom: 0.1rem solid rgba(201, 243, 43, 0.5);\n      }\n\n        &:hover {\n            transition:\n                background 0.3s linear,\n                color 0.3s linear;\n            background-color: $yellow;\n            color: $main;\n        }\n        a {\n            display: block;\n            width: 100%;\n            padding: 0.6rem 0;\n        }\n        &--big {\n            font-size: 19.9646rem;\n            line-height: 23.387rem; /* 117.143% */\n\n            a {\n                padding: 1.8rem 0 3.4rem;\n            }\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .main-links {\n        margin-top: 0;\n        margin-bottom: 7.6rem;\n        // .main-links__list\n        &__list {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n        }\n        // .main-links__item\n        &__item {\n            line-height: 110%;\n            border-top: 0.2rem solid rgba(201, 243, 43, 0.5);\n            a {\n                padding: 2.4rem 0;\n            }\n            &--big {\n                font-size: 11rem;\n                line-height: 110%; /* 117.143% */\n\n                a {\n                    padding: 2.4rem 0;\n                }\n            }\n        }\n    }\n}\n",".main-rates {\n    margin-bottom: 21.7rem;\n    // .main-rates__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        flex-direction: column;\n        gap: 9rem;\n    }\n    // .main-rates__title\n    &__title {\n        color: $white;\n    }\n    // .main-rates__wrapper\n    &__wrapper {\n        display: flex;\n        flex-direction: column;\n        gap: 4rem;\n        width: 100%;\n    }\n    // .main-rates__item\n    &__item {\n        height: 18rem;\n        display: flex;\n        align-items: center;\n        border-radius: 3rem;\n    }\n}\n.rates-item {\n    position: relative;\n\n    &::before,\n    &::after {\n        content: '';\n        width: 5.1rem;\n        height: 5.1rem;\n        border-radius: 50%;\n        background: #1f1f22;\n\n        position: absolute;\n        z-index: 1;\n        top: 50%;\n        transform: translateY(-50%);\n    }\n\n    &::after {\n        right: -2.5rem;\n    }\n    &::before {\n        left: -2.5rem;\n    }\n    &--bg--pink {\n        background: #ff69c2;\n    }\n    &--bg--blue {\n        background: #cad2f4;\n    }\n    &--bg--green {\n        background: $green;\n    }\n    // .rates-item__left\n    &__left {\n        padding: 3.6rem 3.6rem 3.6rem 8.6rem;\n        height: 100%;\n        width: 57.8rem;\n        display: flex;\n        align-items: center;\n        border-right: 0.3rem dashed $main;\n    }\n    // .rates-item__title\n    &__title {\n        color: #1f1f22;\n    }\n    // .rates-item__right\n    &__right {\n        display: flex;\n        align-items: center;\n        gap: 20.2rem;\n        height: 100%;\n        padding-left: 9.3rem;\n    }\n    // .rates-item__price\n    &__price {\n        &-top {\n            color: #1f1f22;\n\n            strong {\n                color: #1f1f22;\n                margin: 0 0.5rem;\n                align-self: center;\n            }\n            span {\n                align-self: flex-end;\n                margin-bottom: 0.2rem;\n            }\n            sup {\n                align-self: flex-start;\n            }\n        }\n        &-bottom {\n            color: $main;\n        }\n    }\n    // .rates-item__options\n    &__options {\n        width: 16rem;\n        color: $main;\n    }\n    // .rates-item__icon\n    &__icon {\n        position: absolute;\n    }\n}\n.rates-icon {\n    &--sunny {\n        top: -5rem;\n        left: 14.3rem;\n        width: 9.7rem;\n        height: 8rem;\n        transform: rotate(-7.376deg);\n    }\n    &--shapes {\n        right: 35.6rem;\n        top: -4.3rem;\n        width: 9.2rem;\n        height: 9rem;\n        transform: rotate(-15deg);\n    }\n    &--megafon {\n        width: 8.7rem;\n        height: 7rem;\n        transform: rotate(-12.401deg);\n        right: 68.6rem;\n        bottom: -3.5rem;\n    }\n}\n\n@media (max-width: 48em) {\n    .main-rates {\n        // .main-rates__inner\n        &__inner {\n            gap: 10rem;\n        }\n        // .main-rates__item\n        &__item {\n            height: 56rem;\n            border-radius: 4rem;\n            flex-direction: column;\n        }\n    }\n    .rates-item {\n        &::before,\n        &::after {\n            width: 9rem;\n            height: 9rem;\n        }\n        &::after {\n            right: -4.5rem;\n        }\n        &::before {\n            left: -4.5rem;\n        }\n        // .rates-item__left\n        &__left {\n            padding: 4.8rem;\n            height: 13.4rem;\n            width: 100%;\n            justify-content: center;\n            border-right: 0;\n            border-bottom: 0.3rem dashed $main;\n        }\n        // .rates-item__title\n        &__title {\n            font-size: 3rem;\n        }\n        // .rates-item__right\n        &__right {\n            flex-direction: column;\n            width: 100%;\n            gap: 4rem;\n            height: auto;\n            padding-left: 0;\n            padding-top: 2.4rem;\n        }\n        // .rates-item__price\n        &__price {\n            &-top {\n                strong {\n                    margin: 0 1rem;\n                }\n                span {\n                    align-self: flex-end;\n                    margin-bottom: 0;\n                }\n                sup {\n                    align-self: flex-start;\n                }\n            }\n            &-bottom {\n                color: $main;\n            }\n        }\n        // .rates-item__options\n        &__options {\n            width: 80%;\n            text-align: center;\n\n            display: flex;\n            justify-content: center;\n            margin-bottom: 2.8rem;\n        }\n        // .rates-item__icon\n        &__icon {\n            display: none;\n        }\n    }\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/scss/fonts.scss","webpack://./src/scss/style.scss","webpack://./src/scss/set.scss","webpack://./src/scss/sections/header.scss","webpack://./src/scss/sections/footer.scss","webpack://./src/scss/mixins.scss","webpack://./src/ui/typo.scss","webpack://./src/ui/buttons.scss","webpack://./src/ui/inputs.scss","webpack://./src/ui/tabs.scss","webpack://./src/ui/accordion.scss","webpack://./src/ui/select.scss","webpack://./src/ui/radio-btns.scss","webpack://./src/ui/social.scss","webpack://./src/ui/modals.scss","webpack://./src/scss/dev/vzmsk1.scss","webpack://./src/scss/sections/_hero-gallery.scss","webpack://./src/scss/sections/_articles-hero.scss","webpack://./src/scss/sections/_services.scss","webpack://./src/scss/sections/_collections.scss","webpack://./src/scss/sections/_feedback.scss","webpack://./src/scss/sections/_article.scss","webpack://./src/scss/sections/_our-team.scss","webpack://./src/scss/sections/_achievements.scss","webpack://./src/scss/dev/ukik0.scss","webpack://./src/scss/sections/_main-collections.scss","webpack://./src/scss/sections/_main-links.scss","webpack://./src/scss/sections/_main-rates.scss"],"names":[],"mappings":"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","sourcesContent":["@font-face {\n  font-family: 'DrukCyr';\n  font-weight: 500;\n  src: url('./assets/fonts/DrukCyr-Medium.woff2') format('woff2');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 400;\n  src: url('./assets/fonts/EuclidCircularA-Regular.woff') format('woff');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 500;\n  src: url('./assets/fonts/EuclidCircularA-Medium.woff2') format('woff2');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 600;\n  src: url('./assets/fonts/EuclidCircularA-SemiBold.woff2') format('woff2');\n}\n","// --------------------------------- mixins ---------------------------------\n\n@import './mixins';\n\n// -------------------------------- variables -------------------------------\n\n$font: 'EuclidCircularA';\n$font-druk: 'DrukCyr';\n\n// colors\n$white: #ffffff;\n$black: #000000;\n$bodyColor: #1f1f22;\n$pink: #ed89fb;\n$violet: #cad2f4;\n$green: #c9fb40;\n$yellow: #fad85d;\n$darkGray: #6a6a6a;\n$main: #282828;\n$red: #ff1212;\n$gray: #6a6a6a;\n$gray-darken: #3a3a41;\n\n// ---------------------------------- fonts ---------------------------------\n\n// local fonts\n@import './fonts';\n\n// ------------------------------- base styles ------------------------------\n\n// base scss file\n@import './set';\n\n// html\nhtml.lock,\nhtml.lock body {\n    overflow: hidden;\n    touch-action: none;\n}\n\n// main\nmain {\n    overflow: hidden;\n    padding-top: 6.7rem;\n    @media (max-width: 48em) {\n        padding-top: 12.6rem;\n    }\n}\n\n.desktop {\n    @media (max-width: 48em) {\n        display: none;\n    }\n}\n\n.mobile {\n    display: none;\n\n    @media (max-width: 48em) {\n        display: block;\n    }\n}\n\n.wrapper {\n    margin: 0 auto;\n    max-width: 1920px;\n}\n\n// --------------------------------------------------------------------------\n\n// header / footer\n@import './sections/header';\n@import './sections/footer';\n\n// ui\n@import '../ui/ui.scss';\n\n// --------------------------------------------------------------------------\n\n@import './dev/vzmsk1.scss';\n@import './dev/markusDM.scss';\n@import './dev/ukik0.scss';\n@import './dev/kie6er.scss';\n","*,\n*::before,\n*::after {\n    box-sizing: border-box;\n}\nhtml {\n    font-family: 'EuclidCircularA'; // шрифт по умолчанию по сайту\n    font-size: 0.5208335vw; // на разрешении 1920 0.520835vw === 10px\n    font-style: normal;\n    font-weight: normal;\n    -webkit-animation: bugfix infinite 1s;\n    line-height: 1.2;\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    font-style: normal;\n    font-weight: normal;\n    -webkit-animation: bugfix infinite 1s;\n    line-height: 1.2;\n    margin: 0;\n    padding: 0;\n    color: $white; // цвет по умолчанию текста по сайту\n    background-color: $bodyColor;\n}\n\ninput,\ntextarea {\n    -webkit-animation: bugfix infinite 1s;\n    line-height: inherit;\n    margin: 0;\n    padding: 0;\n    background-color: transparent;\n    border: none;\n    color: inherit;\n}\na {\n    color: unset;\n}\na,\na:hover {\n    text-decoration: none;\n}\n\nbutton,\ninput,\na,\ntextarea {\n    outline: none;\n    cursor: pointer;\n    font: inherit;\n    &:focus {\n        outline: none;\n    }\n    &:active {\n        outline: none;\n    }\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n    font: inherit;\n    margin: 0;\n    padding: 0;\n}\np {\n    margin-top: 0;\n    margin-bottom: 0;\n}\n\nimg {\n    width: 100%;\n    height: auto;\n    display: block;\n}\n\nbutton {\n    border: none;\n    color: inherit;\n    font: inherit;\n    text-align: inherit;\n    padding: 0;\n    background-color: transparent;\n}\nul {\n    padding: 0;\n    margin: 0;\n}\n\nul li {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n}\n\n.container {\n    width: 172rem;\n    margin: 0 auto;\n}\n\ninput[type='number']::-webkit-inner-spin-button,\ninput[type='number']::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n    margin: 0;\n}\n\ninput[type='number'] {\n    -moz-appearance: textfield;\n}\n\nsvg,\nimg {\n    width: 100%;\n    height: auto;\n    object-fit: contain;\n}\n\n@media (min-width: 1920px) {\n    html {\n        font-size: 10px;\n    }\n}\n\n@media (max-width: 48em) {\n    html {\n        font-size: 5px;\n        font-size: 1.5625vw;\n        font-size: calc((100 / 375) * 5vw); // где 375 это ширина моб версии макета\n        -webkit-text-size-adjust: none;\n    }\n\n    body {\n        -webkit-text-size-adjust: none;\n    }\n\n    .container {\n        padding: 0 2rem; // в моб версии отступ от края задаем для всех контейнеров, а там где не нужно можем точечно убрать\n        width: 100%;\n    }\n}\n",".header {\n    position: fixed;\n    width: 100%;\n    top: 0;\n    left: 0;\n    z-index: 2000;\n    background-color: $bodyColor;\n    border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n    // .header__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        gap: 1rem;\n    }\n    // .header__burger-btn\n    &__burger-btn {\n        display: none;\n    }\n    // .header__logo\n    &__logo {\n        padding: 1rem 0;\n        height: 100%;\n        width: 22.7rem;\n        border-right: 0.1rem solid rgba(201, 251, 64, 0.5);\n    }\n    // .header__img\n    &__img {\n        width: 17.9878rem;\n        height: 4.6rem;\n    }\n    // .header__nav\n    &__nav {\n        gap: 5rem;\n    }\n    &__burger-menu {\n        display: none;\n        overflow: auto;\n    }\n}\n\n.nav {\n    display: flex;\n    align-items: center;\n    // .nav__link\n    &__link {\n        display: block;\n        font-size: 2rem;\n        line-height: 140%; /* 28px */\n        transition: color 0.2s linear;\n\n        &:hover,\n        &:focus-visible {\n            transition: color 0.2s linear;\n            color: $green;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .header {\n        border-bottom: none;\n        &.scroll {\n            border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n        }\n\n        &.show {\n            .header__phone {\n                display: none;\n            }\n            .header__inner {\n                flex-direction: row-reverse;\n            }\n        }\n        &__container {\n            position: relative;\n            z-index: 1;\n            background-color: $bodyColor;\n        }\n        // .header__inner\n        &__inner {\n            display: flex;\n            align-items: center;\n            justify-content: space-between;\n            gap: 1rem;\n            padding: 1.6rem 0 1.8rem;\n        }\n        // .header__burger-btn\n        &__burger-btn {\n            display: flex;\n            width: 5.2rem;\n            height: 4.6rem;\n        }\n        // .header__logo\n        &__logo {\n            padding: 0;\n            height: 9.2rem;\n            width: 36.6rem;\n            border-right: none;\n        }\n        // .header__img\n        &__img {\n            width: 100%;\n            height: 100%;\n        }\n        // .header__nav\n        &__nav {\n            display: none;\n        }\n        // .header__phone\n        &__phone {\n            width: 4.8rem;\n            height: 4.8rem;\n        }\n    }\n}\n@media (max-width: 48em) {\n    .burger-btn {\n        &__btn {\n            width: 100%;\n            height: 100%;\n\n            display: flex;\n            justify-content: center;\n            flex-direction: column;\n            gap: 1.4rem;\n\n            span {\n                display: block;\n                width: 100%;\n                height: 0.6rem;\n                background-color: $white;\n                border-radius: 2.4rem;\n            }\n        }\n\n        &__close {\n            display: none;\n        }\n\n        &.open {\n            .burger-btn__btn {\n                display: none;\n            }\n            .burger-btn__close {\n                display: block;\n                width: 4rem;\n                height: 4rem;\n            }\n        }\n    }\n\n    .burger-menu {\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        gap: 15rem;\n        position: absolute;\n        top: 12.6rem;\n        left: 0;\n        z-index: 0;\n        transition: transform 0.5s linear;\n        transform: translateY(-120%);\n\n        width: 100%;\n        height: calc(100vh - 12.6rem);\n        background-color: $bodyColor;\n\n        &.show {\n            transition: transform 0.5s linear;\n            transform: translateY(0);\n        }\n        // .burger-menu__wrapper\n        &__wrapper {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n            padding-top: 16rem;\n        }\n        &__phone {\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            border-top: 0.2rem solid $green;\n\n            padding: 3.2rem 0 4.4rem;\n            a {\n                display: flex;\n                align-items: center;\n                gap: 2.6rem;\n                span {\n                    width: 6.4rem;\n                    height: 6.4rem;\n                    svg path {\n                        fill: $pink;\n                    }\n                }\n\n                strong {\n                    color: $pink;\n                    font-size: 4.8rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: normal;\n                }\n            }\n        }\n        // .burger-menu__link\n        &__link {\n            display: flex;\n            justify-content: center;\n\n            width: 100%;\n            color: $white;\n            font-family: $font-druk;\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%; /* 55px */\n            text-transform: uppercase;\n            padding: 3.2rem 0;\n\n            border-bottom: 0.2rem solid $green;\n\n            &:first-child {\n                border-top: 0.2rem solid $green;\n            }\n\n            &:hover,\n            &:active,\n            &:focus-visible {\n                background-color: $pink;\n                color: $bodyColor;\n            }\n        }\n    }\n}\n",".footer {\n    background-color: $yellow;\n    color: $main;\n    // .footer__inner\n    &__inner {\n        padding: 7rem 0;\n    }\n    // .footer__top\n    &__top {\n        margin-bottom: 8rem;\n    }\n    // .footer__sitemap\n    &__sitemap {\n        gap: 20rem;\n    }\n    // .footer__middle\n    &__middle {\n        display: flex;\n        gap: 20rem;\n        align-items: flex-end;\n    }\n    // .footer__copyright\n    &__copyright {\n        color: $main;\n        font-size: 2rem;\n        width: 59.528rem;\n    }\n    // .footer__social\n    &__social {\n        gap: 1.6rem;\n    }\n    // .footer__info\n    &__info {\n        display: flex;\n        flex-direction: column;\n        margin-left: auto;\n        gap: 2.5rem;\n    }\n    // .footer__phone\n    &__phone {\n        color: $main;\n        font-size: 3.2rem;\n        line-height: normal;\n\n        &:hover,\n        &:focus-visible,\n        &:active {\n            text-decoration: underline;\n        }\n    }\n    // .footer__politic\n    &__politic {\n        color: $main;\n        font-size: 2rem;\n        line-height: normal;\n\n        position: relative;\n\n        &::after {\n            content: '';\n            width: 100%;\n            height: 0.15rem;\n            background-color: $main;\n\n            position: absolute;\n            left: 0;\n            bottom: 0;\n            z-index: 1;\n        }\n\n        &:hover,\n        &:focus-visible {\n            &::after {\n                display: none;\n            }\n        }\n    }\n    // .footer__bottom-text\n    &__bottom-text {\n        margin-top: 3rem;\n        font-family: $font-druk;\n        font-size: 19.9rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 23.4rem;\n        text-transform: uppercase;\n\n        @include small-tablet {\n            font-size: 11rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n        }\n    }\n}\n.footer-sitemap {\n    display: flex;\n    // .footer-sitemap__item\n    &__item {\n        &:nth-child(1) {\n            .sitemap-item__list {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n        &:nth-child(2) {\n            .sitemap-item__list {\n                grid-template-columns: 1fr;\n            }\n        }\n        &:nth-child(3) {\n            margin-left: auto;\n            .sitemap-item__list {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n    }\n}\n.sitemap-item {\n    // .sitemap-item__title\n    &__title {\n        margin-bottom: 3.2rem;\n    }\n    // .sitemap-item__list\n    &__list {\n        line-height: normal;\n        display: grid;\n        gap: 2rem 8rem;\n    }\n    // .sitemap-item__link\n    &__link {\n        line-height: inherit;\n        white-space: nowrap;\n        background: none;\n\n        &:hover,\n        &:focus-visible,\n        &:active {\n            text-decoration: underline;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .footer {\n        background-color: $yellow;\n        color: $main;\n        // .footer__inner\n        &__inner {\n            padding: 10rem 0 17.8rem;\n        }\n        // .footer__top\n        &__top {\n            margin-bottom: 8.4rem;\n        }\n        // .footer__sitemap\n        &__sitemap {\n            padding-left: 4.4rem;\n            gap: 3rem;\n        }\n        // .footer__middle\n        &__middle {\n            display: flex;\n            flex-direction: column;\n            gap: 2rem;\n            align-items: center;\n        }\n        // .footer__copyright\n        &__copyright {\n            order: 2;\n            text-align: center;\n            font-size: 2.4rem;\n            width: 100%;\n        }\n        // .footer__social\n        &__social {\n            gap: 6rem;\n            order: 3;\n            margin-top: 5.6rem;\n        }\n        // .footer__info\n        &__info {\n            text-align: center;\n            display: flex;\n            flex-direction: column;\n            margin-left: 0;\n            gap: 1rem;\n            order: 1;\n        }\n        // .footer__phone\n        &__phone {\n            font-size: 3.6rem;\n        }\n        // .footer__politic\n        &__politic {\n            color: $main;\n            font-size: 3rem;\n\n            position: relative;\n\n            &::after {\n                display: none;\n            }\n        }\n        // .footer__bottom-text\n        &__bottom-text {\n            text-align: center;\n            line-height: 1.1;\n            margin-top: 10.4rem;\n        }\n    }\n    .footer-sitemap {\n        display: grid;\n        grid-template-columns: repeat(2, 28rem);\n        grid-auto-flow: dense;\n        // .footer-sitemap__item\n        &__item {\n            &:nth-child(1) {\n                grid-row: span 2;\n            }\n            &:nth-child(3) {\n                margin-left: 0;\n            }\n        }\n    }\n    .sitemap-item {\n        // .sitemap-item__title\n        &__title {\n            margin-bottom: 2rem;\n        }\n        // .sitemap-item__list\n        &__list {\n            line-height: normal;\n            display: flex;\n            flex-direction: column;\n            gap: 1.6rem;\n        }\n        // .sitemap-item__link\n        &__link {\n            line-height: inherit;\n            white-space: nowrap;\n            background: none;\n\n            &:hover,\n            &:focus-visible,\n            &:active {\n                text-decoration: underline;\n            }\n        }\n    }\n}\n","@mixin pseudo() {\n    content: '';\n    position: absolute;\n    @content;\n}\n\n@mixin small-tablet {\n    @media (max-width: 48em) {\n        @content;\n    }\n}\n\n@mixin sizes($width, $height) {\n    max-width: $width;\n    width: 100%;\n    height: $height;\n\n    @content;\n}\n",".tl1,\n.tl2,\n.tl3 {\n    font-family: DrukCyr;\n    font-weight: 500;\n    text-transform: uppercase;\n}\n\n.tl1 {\n    font-size: 20rem;\n    line-height: 117%;\n    @media (max-width: 48em) {\n        font-size: 11rem;\n        line-height: 110%;\n    }\n}\n\n.tl2 {\n    line-height: 110%;\n    font-size: 10rem;\n}\n\n.tl3 {\n    font-size: 6rem;\n    line-height: 110%;\n    @media (max-width: 48em) {\n        font-size: 4rem;\n        letter-spacing: 0.32rem;\n    }\n}\n\n// --------------------------------------------------------------------------\n\n.txt32 {\n    font-size: 3.2rem;\n    @media (max-width: 48em) {\n        font-size: 3rem;\n        line-height: 140%;\n    }\n}\n\n.txt20 {\n    font-size: 2.8rem;\n\n    &_caps {\n        font-size: 4rem;\n        line-height: 110%;\n        letter-spacing: 0.32rem;\n        text-transform: uppercase;\n    }\n    &_md {\n        font-weight: 500;\n    }\n    @media (min-width: 48em) {\n        font-size: 2rem;\n        line-height: 140%;\n        &_caps {\n            font-size: 2.2rem;\n            font-weight: 500;\n            line-height: 109.091%;\n            letter-spacing: 0.176rem;\n        }\n    }\n}\n\n.txt28 {\n    &_md {\n        font-size: 2.8rem;\n        font-weight: 500;\n        @media (max-width: 48em) {\n            font-size: 3.6rem;\n        }\n    }\n}\n\n.txt16 {\n    font-size: 1.6rem;\n    @media (max-width: 48em) {\n        font-size: 2.4rem;\n    }\n}\n\n.text-32 {\n    font-size: 3.2rem;\n    font-style: normal;\n    font-weight: 400;\n    line-height: normal;\n}\n\n.text-m-28 {\n    font-size: 2.8rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: normal;\n\n    @include small-tablet {\n        font-size: 3.6rem;\n    }\n}\n\n.text-m-20 {\n    font-family: 'DrukCyr';\n    font-size: 2.0093rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: 84%; /* 16.878px */\n    letter-spacing: 0.1607rem;\n}\n\n.text-20 {\n    font-size: 2rem;\n    font-style: normal;\n    font-weight: 400;\n    line-height: 140%; /* 28px */\n\n    @include small-tablet {\n        font-size: 2.8rem;\n    }\n}\n",".btn {\n    padding: 1.3rem 1rem 1.3rem 2.8rem;\n    display: inline-flex;\n    justify-content: center;\n    align-items: center;\n    column-gap: 2.2rem;\n    min-width: 16.4rem;\n    border-radius: 9.5rem;\n    border: 1px solid $green;\n    transition: background-color 0.3s ease;\n    &_black {\n        border: 1px solid $black;\n        .btn__text {\n            color: $black;\n        }\n    }\n    @media (any-hover: hover) {\n        &:hover {\n            &:not(&.btn_black) {\n                background-color: $green;\n            }\n            &.btn_black {\n                background-color: $black;\n            }\n            .btn__text {\n                color: $white;\n            }\n            .btn__icon {\n                path {\n                    fill: $white;\n                }\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        padding: 3rem 3.6rem 3rem 6rem;\n        column-gap: 3.2rem;\n        border-radius: 19rem;\n    }\n\n    // .btn__text\n    &__text {\n        font-family: DrukCyr;\n        color: $green;\n        transition: color 0.3s ease;\n    }\n\n    // .btn__icon\n    &__icon {\n        flex: 0 0 2.4rem;\n        width: 2.4rem;\n        height: 2.4rem;\n        path {\n            transition: fill 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 5rem;\n            width: 5rem;\n            height: 5rem;\n        }\n    }\n}\n// <button type=\"button\" class=\"btn\">\n//       <span class=\"btn__text txt20 txt20_caps\">ОСТАВИТЬ ЗАЯВКУ</span>\n//       <svg\n//         class=\"btn__icon\"\n//         xmlns=\"http://www.w3.org/2000/svg\"\n//         width=\"24\"\n//         height=\"24\"\n//         viewBox=\"0 0 24 24\"\n//         fill=\"none\">\n//         <path\n//           d=\"M6.75586 19.2442V5.11624L17.1164 12.1802L6.75586 19.2442Z\"\n//           fill=\"#C9FB40\" />\n//       </svg>\n// </button>\n\n// --------------------------------------------------------------------------\n\n.showmore-btn {\n    display: flex;\n    align-items: center;\n    column-gap: 1.6rem;\n    @media (any-hover: hover) {\n        &:hover {\n            .showmore-btn__icon {\n                circle {\n                    fill: $white;\n                }\n                path {\n                    fill: $pink;\n                }\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        column-gap: 2.4rem;\n    }\n\n    // .showmore-btn__icon\n\n    &__icon {\n        flex: 0 0 5.2rem;\n        width: 5.2rem;\n        height: 5.2rem;\n        border-radius: 50%;\n        circle,\n        path {\n            transition: fill 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 8rem;\n            width: 8rem;\n            height: 8rem;\n        }\n    }\n\n    // .showmore-btn__text\n\n    &__text {\n        font-family: DrukCyr;\n        color: $pink;\n    }\n}\n// <button type=\"button\" class=\"showmore-btn\">\n//       <svg\n//         class=\"showmore-btn__icon\"\n//         width=\"52\"\n//         height=\"52\"\n//         viewBox=\"0 0 52 52\"\n//         fill=\"none\"\n//         xmlns=\"http://www.w3.org/2000/svg\">\n//         <circle cx=\"26\" cy=\"26\" r=\"26\" fill=\"#ED89FB\" />\n//         <path\n//           d=\"M31.6912 24.995C32.1412 25.895 32.3737 26.8625 32.3737 27.875C32.3737 31.3925 29.5162 34.25 25.9987 34.25C22.4812 34.25 19.6237 31.3925 19.6237 27.875C19.6237 24.3575 22.4812 21.5 25.9987 21.5C26.0512 21.5 26.1787 21.5 26.3137 21.545C26.5687 21.6275 26.7562 21.845 26.8087 22.1075C27.1237 23.615 28.4662 24.7175 30.0112 24.7175C30.2962 24.7175 30.5737 24.68 30.8137 24.6125C31.1662 24.515 31.5262 24.68 31.6912 24.995ZM25.9987 17.75C20.8687 17.75 15.6112 22.25 14.7562 27.3725C14.6887 27.7775 14.9662 28.1675 15.3712 28.235C15.7762 28.3025 16.1662 28.025 16.2337 27.62C16.9012 23.6675 21.2137 19.25 25.9987 19.25C30.7837 19.25 35.0962 23.6675 35.7562 27.62C35.8162 27.9875 36.1387 28.25 36.4987 28.25C36.5362 28.25 36.5812 28.25 36.6262 28.2425C37.0312 28.175 37.3087 27.785 37.2412 27.38C36.3862 22.25 31.1287 17.75 25.9987 17.75Z\"\n//           fill=\"white\" />\n//       </svg>\n//       <span class=\"showmore-btn__text txt20 txt20_caps\"\n//         >СМОТРЕТЬ ДЕТАЛЬНЕЕ</span\n//       >\n// </button>\n\n// --------------------------------------------------------------------------\n\n.link {\n    position: relative;\n    &::after {\n        content: '';\n        position: absolute;\n        top: calc(100% + 0.6rem);\n        left: 0;\n        width: 100%;\n        height: 2px;\n        background-color: $black;\n        transform-origin: center;\n        transform: scaleX(1);\n        transition: transform 0.3s ease;\n    }\n    @media (any-hover: hover) {\n        &:hover {\n            &::after {\n                transform: scaleX(0.25);\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        &::after {\n            top: calc(100% + 1.2rem);\n        }\n    }\n\n    // .link__text\n\n    &__text {\n    }\n}\n// <a href=\"#\" class=\"link\"\n// ><span class=\"link__text txt20 txt20_caps\">ЗАГРУЗИТЬ ЕЩЕ</span></a\n// >\n","input[type='text'],\ninput[type='email'],\ninput[type='tel'],\ntextarea {\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n}\ntextarea:focus,\ninput:focus {\n    outline: none;\n}\n\n.input {\n    position: relative;\n\n    &._form-focus {\n    }\n    &._form-error {\n        .input__field {\n            border-bottom: 1px solid $red;\n        }\n    }\n\n    // .input__field\n    &__field {\n        padding-bottom: 1.4rem;\n        display: block;\n        width: 100%;\n        border-radius: 0 !important;\n        border-bottom: 1px solid $black;\n        font-family: EuclidCircularA;\n        line-height: 1;\n        color: $black;\n        transition: border-bottom 0.3s ease;\n        &::placeholder {\n            color: $black;\n        }\n        @media (max-width: 48em) {\n            padding-bottom: 3rem;\n        }\n    }\n}\n\ntextarea.input {\n    padding: 0;\n    resize: none;\n}\n\n.form-error {\n    position: absolute;\n    top: calc(100% + 0.5rem);\n    left: 0;\n    color: $red;\n    @media (max-width: 48em) {\n        top: calc(100% + 1.8rem);\n    }\n}\n\n.file-input {\n    display: flex;\n    flex-direction: column;\n    @media (min-width: 48em) {\n        flex-direction: row;\n        column-gap: 5.6rem;\n    }\n\n    // .file-input__content\n\n    &__content {\n        display: flex;\n        flex-direction: column;\n        row-gap: 0.8rem;\n        @media (max-width: 48em) {\n            margin-bottom: 3rem;\n        }\n    }\n\n    // .file-input__content-inner\n\n    &__content-inner {\n        position: relative;\n        display: flex;\n        align-items: center;\n        column-gap: 1.6rem;\n        @media (max-width: 48em) {\n            column-gap: 2.4rem;\n        }\n    }\n\n    // .file-input__icon-wrap\n\n    &__icon-wrap {\n        display: inline-flex;\n        align-items: center;\n        justify-content: center;\n        flex: 0 0 5rem;\n        width: 5rem;\n        height: 5rem;\n        border-radius: 50%;\n        background-color: $black;\n        @media (max-width: 48em) {\n            flex: 0 0 8rem;\n            width: 8rem;\n            height: 8rem;\n        }\n    }\n\n    // .file-input__icon\n\n    &__icon {\n        width: 2.4rem;\n        height: 2.4rem;\n        object-fit: contain;\n        @media (max-width: 48em) {\n            width: 4rem;\n            height: 4rem;\n        }\n    }\n\n    // .file-input__title\n\n    &__title {\n        font-family: 'DrukCyr';\n    }\n\n    // .file-input__input\n\n    &__input {\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        opacity: 0;\n    }\n\n    // .file-input__text\n\n    &__text {\n        ._error & {\n            color: $red;\n        }\n    }\n\n    // .file-input__info\n\n    &__info {\n        position: relative;\n        padding: 0.8rem;\n        padding-right: 5.6rem;\n        display: flex;\n        column-gap: 1.2rem;\n        width: 26.9rem;\n        border-radius: 1.5rem;\n        background-color: $gray-darken;\n        &:not(._error &, ._filled &) {\n            display: none;\n        }\n        @media (max-width: 48em) {\n            padding: 1.6rem;\n            padding-right: 11.2rem;\n            column-gap: 1.6rem;\n            width: 43.4rem;\n            border-radius: 3rem;\n        }\n    }\n\n    // .file-input__image-container\n\n    &__image-container {\n        position: relative;\n        flex: 0 0 6.4rem;\n        width: 6.4rem;\n        height: 6.4rem;\n        &::after {\n            content: '';\n            position: absolute;\n            bottom: 0.4rem;\n            right: 0.4rem;\n            width: 2rem;\n            height: 2rem;\n            background-image: url(./assets/images/icons/success.svg);\n            background-size: contain;\n            background-repeat: no-repeat;\n            ._error & {\n                background-image: url(./assets/images/icons/error.svg);\n            }\n        }\n        img {\n            display: block;\n            height: 100%;\n            border-radius: 1rem;\n            object-fit: cover;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 10rem;\n            width: 10rem;\n            height: 10rem;\n            &::before {\n                bottom: 1.2rem;\n                right: 1.2rem;\n                width: 3.2rem;\n                height: 3.2rem;\n            }\n            img {\n                border-radius: 2rem;\n            }\n        }\n    }\n\n    // .file-input__info-text\n\n    &__info-text {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .file-input__name\n\n    &__name {\n        margin-bottom: 1.2rem;\n        padding-top: 0.6rem;\n        display: flex;\n        color: $white;\n        span {\n            display: block;\n            &:first-child {\n                max-width: 10rem;\n                overflow: hidden;\n                text-overflow: ellipsis;\n                white-space: nowrap;\n            }\n        }\n        @media (max-width: 48em) {\n            margin-bottom: 1.6rem;\n            padding-top: 1rem;\n            span {\n                &:first-child {\n                    max-width: 14rem;\n                }\n            }\n        }\n    }\n\n    // .file-input__size\n\n    &__size {\n        color: rgba(255, 255, 255, 0.6);\n    }\n\n    // .file-input__remove-btn\n\n    &__remove-btn {\n        position: absolute;\n        top: 0.8rem;\n        right: 0.8rem;\n        width: 1.6rem;\n        height: 1.6rem;\n        @media (max-width: 48em) {\n            top: 2rem;\n            right: 2rem;\n            width: 2.8rem;\n            height: 2.8rem;\n        }\n    }\n\n    // .file-input__remove-btn-icon\n\n    &__remove-btn-icon {\n        height: 100%;\n        object-fit: contain;\n    }\n}\n\n// <div class=\"input\">\n//           <input\n//             autocomplete=\"off\"\n//             type=\"text\"\n//             name=\"form[]\"\n//             data-error=\"Подсказка\"\n//             placeholder=\"Имя *\"\n//             class=\"input__field txt20 txt20_md\" />\n",".tabs {\n    // .tabs__navigation\n\n    &__navigation {\n        display: flex;\n        column-gap: 2rem;\n    }\n\n    // .tabs__title\n\n    &__title {\n    }\n\n    // .tabs__content\n\n    &__content {\n    }\n\n    // .tabs__body\n\n    &__body {\n    }\n}\n\n.badge {\n    position: relative;\n    padding: 1.6rem 3.3rem 1.9rem 3.3rem;\n    display: inline-flex;\n    justify-content: center;\n    align-items: center;\n    border: 1px solid $black;\n    border-radius: 4rem;\n    font-family: 'DrukCyr';\n    text-align: center;\n    transition: background-color 0.3s ease;\n    input {\n        position: absolute;\n        top: 0;\n        left: 0;\n        display: block;\n        width: 100%;\n        height: 100%;\n        border-radius: 4rem;\n        opacity: 0;\n    }\n    &:has(> input:checked),\n    &._active {\n        background-color: $green;\n    }\n    &.badge_white {\n        &:has(> input:checked),\n        &._active {\n            background-color: $white;\n        }\n    }\n    @media (max-width: 48em) {\n        padding: 1.8rem 5rem;\n    }\n}\n\n// <div data-tabs class=\"tabs\">\n// <nav data-tabs-titles class=\"tabs__navigation\">\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab _active\">\n//     Таб №1\n//   </button>\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab\">Таб №2</button>\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab\">Таб №3</button>\n// </nav>\n// <div data-tabs-body class=\"tabs__content\">\n//   <div class=\"tabs__body\">Содержимое первого таба</div>\n//   <div class=\"tabs__body\">Содержимое второго таба</div>\n//   <div class=\"tabs__body\">Содержимое третьего таба</div>\n// </div>\n// </div>\n",".accordion {\n  // .accordion__item\n\n  &__item {\n    border-radius: 4rem;\n    background-color: $green;\n  }\n\n  // .accordion__title\n\n  &__title {\n    padding: 3.2rem 3.2rem 3.2rem 4rem;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n    &._accordion-active {\n      .accordion__title-icon {\n        transform: rotate(-180deg);\n      }\n    }\n    @media (max-width: 48em) {\n      padding: 4rem;\n    }\n  }\n\n  // .accordion__title-icon\n\n  &__title-icon {\n    flex: 0 0 5rem;\n    width: 5rem;\n    height: 5rem;\n    transition: transform 0.3s ease;\n    @media (max-width: 48em) {\n      flex: 0 0 8rem;\n      width: 8rem;\n      height: 8rem;\n    }\n  }\n\n  // .accordion__title-txt\n\n  &__title-txt {\n  }\n\n  // .accordion__body\n\n  &__body {\n    padding: 4rem 3.2rem;\n    padding-top: 0;\n    @media (max-width: 48em) {\n      padding: 4rem;\n      padding-top: 0;\n    }\n  }\n\n  // .accordion__text\n\n  &__text {\n    font-family: EuclidCircularA;\n    max-width: 72.6rem;\n    @media (max-width: 48em) {\n      max-width: 62.2rem;\n    }\n  }\n}\n\n// <div data-accordion data-accordion-one-active class=\"accordion\">\n//           <div class=\"accordion__item\">\n//             <button type=\"button\" data-accordion-item class=\"accordion__title\">\n//               <svg\n//                 class=\"accordion__title-icon\"\n//                 width=\"52\"\n//                 height=\"52\"\n//                 viewBox=\"0 0 52 52\"\n//                 fill=\"none\"\n//                 xmlns=\"http://www.w3.org/2000/svg\">\n//                 <circle cx=\"26\" cy=\"26\" r=\"26\" fill=\"#1F1F22\" />\n//                 <path\n//                   d=\"M18.872 21L33 21L25.936 31.3605L18.872 21Z\"\n//                   fill=\"white\" />\n//               </svg>\n//               <span class=\"accordion__title-txt tl3\">Качество</span>\n//             </button>\n//             <div class=\"accordion__body\">\n//               <p class=\"accordion__text txt20\">\n//                 Мы придерживаемся высочайших стандартов и регулярно обновляем\n//                 наши навыки и техники, чтобы удовлетворить все потребности и\n//                 ожидания наших клиентов.\n//               </p>\n//             </div>\n//           </div>\n//         </div>\n",".select {\n    position: relative;\n    @media (min-width: 48em) {\n        min-width: 20.4rem;\n    }\n\n    // .select__body\n\n    &__body {\n        position: relative;\n    }\n\n    // .select__title\n\n    &__title {\n        border-radius: 4rem;\n        width: 100%;\n        background-color: $violet;\n        cursor: pointer;\n        text-align: left;\n        color: inherit;\n    }\n\n    // .select__value\n\n    &__value {\n        @extend .txt20_caps;\n        padding: 1.4rem 2.4rem;\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        gap: 1rem;\n        height: 5.2rem;\n        width: 100%;\n        font-family: DrukCyr;\n\n        > * {\n            flex: 1 1 auto;\n        }\n\n        &::after {\n            content: '';\n            flex: 0 0 2.4rem;\n            width: 2.4rem;\n            height: 2.4rem;\n            background-image: url(./assets/images/icons/arr.svg);\n            background-size: contain;\n            background-position: center;\n            background-repeat: no-repeat;\n            transition: transform 0.3s ease;\n            ._select-opened & {\n                transform: rotate(-180deg);\n            }\n        }\n        .select__content {\n            max-width: 31.4rem;\n            overflow: hidden;\n            white-space: nowrap;\n            text-overflow: ellipsis;\n        }\n        @media (max-width: 48em) {\n            padding: 1.8rem 4rem;\n            height: 8rem;\n            &::after {\n                flex: 0 0 5rem;\n                width: 5rem;\n                height: 5rem;\n            }\n        }\n    }\n\n    // .select__content\n\n    &__content {\n        // hide / show selected value\n        // display: none;\n    }\n\n    // .select__text\n\n    &__text {\n        flex: 1 1 auto;\n    }\n\n    // .select__input\n\n    &__input {\n        width: 100%;\n        height: 100%;\n        background-color: transparent;\n    }\n\n    // .select__options\n\n    &__options {\n        position: absolute;\n        z-index: 2;\n        top: calc(100% + 0.4rem);\n        left: 0;\n        padding: 1.2rem 2.8rem 2rem 1.2rem;\n        min-width: 100%;\n        box-shadow: 0 0.8rem 2.5rem 0 rgba(99, 119, 156, 0.2);\n        border-radius: 4rem;\n        background-color: $violet;\n        opacity: 0;\n        visibility: hidden;\n        transition: opacity 0.3s ease, visibility 0.3s ease;\n        .dropdown_sort & {\n            background-color: $white;\n        }\n        ._select-opened & {\n            opacity: 1;\n            visibility: visible;\n        }\n    }\n\n    // .select__scroll\n\n    &__scroll {\n        overflow-y: auto;\n        overflow-x: hidden;\n\n        // maximum height\n        max-height: 23.4rem;\n\n        // scrollbar styles\n        &.simplebar-scrollable-y {\n            .simplebar-track.simplebar-vertical {\n                top: 5rem;\n                right: 0;\n                width: 0.4rem;\n                border-radius: 0.8rem;\n                background-color: rgba(255, 255, 255, 0.4);\n            }\n            .simplebar-scrollbar {\n                min-height: 3.2rem;\n                border-radius: 0.8rem;\n                background-color: $white;\n            }\n        }\n        @media (max-width: 48em) {\n            max-height: 40rem;\n        }\n    }\n    // .select__option\n    &__option {\n        @extend .txt20_caps;\n        width: 95%;\n        padding: 1.2rem 3rem;\n        border-radius: 4rem;\n        font-family: DrukCyr;\n        text-align: left;\n        color: inherit;\n        transition: background-color 0.3s ease;\n        &._select-selected {\n            background-color: $white;\n            .dropdown_sort & {\n                background-color: $violet;\n            }\n        }\n        &:not(:last-child) {\n            position: relative;\n            margin-bottom: 1rem;\n            &::after {\n                content: '';\n                position: absolute;\n                top: calc(100% + 0.5rem);\n                left: 0;\n                width: 100%;\n                height: 1px;\n                background-color: rgba(204, 213, 251, 1);\n            }\n        }\n        @media (any-hover: hover) {\n            &:hover {\n                &:not(&.select__subtitle) {\n                    cursor: pointer;\n                    background-color: $white;\n                    .dropdown_sort & {\n                        background-color: $violet;\n                    }\n                }\n            }\n        }\n    }\n}\n// list\n._select-list {\n    cursor: pointer;\n}\n\n// <div class=\"dropdown dropdown_filters\">\n// <select data-no-slide data-show-selection data-sel-scroll=\"234\">\n//     <option value=\"1\" selected>Пункт №1</option>\n//     <option value=\"2\">Пункт №2</option>\n//     <option value=\"3\">Пункт №3</option>\n//     <option value=\"4\">Пункт №4</option>\n//     <option value=\"5\">Пункт №5</option>\n//     <option value=\"6\">Пункт №6</option>\n//     <option value=\"7\">Пункт №7</option>\n// </select>\n// </div>\n\n// <div class=\"dropdown dropdown_sort\">\n//      <select data-show-selection>\n//           <option value=\"1\" selected>Пункт №1</option>\n//           <option value=\"2\">Пункт №2</option>\n//           <option value=\"3\">Пункт №3</option>\n//           <option value=\"4\">Пункт №4</option>\n//      </select>\n// </div>\n",".option {\n    position: relative;\n    display: flex;\n    flex-direction: column;\n    row-gap: 0.4rem;\n    cursor: pointer;\n\n    // .option__input\n    &__input {\n        position: absolute;\n        width: 0;\n        height: 0;\n        opacity: 0;\n        &:checked + .option__label .option__text::before {\n            border: 2px solid $green;\n        }\n        &:checked + .option__label .option__text::after {\n            transform: scale(0.6);\n        }\n    }\n\n    // .option__text\n    &__text {\n        display: inline-flex;\n        align-items: center;\n        gap: 1rem;\n        cursor: pointer;\n        &::before {\n            content: '';\n            align-self: flex-start;\n            flex: 0 0 3rem;\n            width: 3rem;\n            height: 3rem;\n            border-radius: 50%;\n            border: 2px solid rgba(233, 233, 233);\n            transition: border 0.3s ease;\n        }\n        &::after {\n            content: '';\n            position: absolute;\n            left: 0;\n            width: 3rem;\n            height: 3rem;\n            border-radius: 50%;\n            background-color: $green;\n            transform: scale(0);\n            transform-origin: center;\n            transition: transform 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            &::before,\n            &::after {\n                width: 4rem;\n                height: 4rem;\n            }\n            &::before {\n                flex: 0 0 4rem;\n            }\n            &::after {\n                top: 4rem;\n            }\n        }\n    }\n}\n\n// <div class=\"option\">\n//    <input hidden id=\"o_1\" class=\"option__input\" checked type=\"radio\" value=\"1\" name=\"option\"/>\n//    <label for=\"o_1\" class=\"option__label\"><span class=\"option__text\"></span></label>\n//  </div>\n",".social {\n    display: flex;\n    align-items: center;\n    // .social__link\n    &__link {\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 5.2rem;\n        height: 5.2rem;\n        background-color: $main;\n        border-radius: 50%;\n        transition: background 0.2s linear;\n\n        svg {\n            width: 2.2rem;\n            height: 2.2rem;\n        }\n\n        &:hover {\n            transition: background 0.2s linear;\n            background-color: $white;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .social {\n        // .social__link\n        &__link {\n            width: 8rem;\n            height: 8rem;\n\n            svg {\n                width: 3.6rem;\n                height: 3.6rem;\n            }\n        }\n    }\n}\n","body::after {\n    content: '';\n    position: fixed;\n    z-index: 2100;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: $black;\n    opacity: 0;\n    pointer-events: none;\n    transition: opacity 0.8s ease 0s;\n    .modal-show & {\n        opacity: 0.4;\n    }\n}\n\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    right: 0;\n    padding: 3rem 2.4rem;\n    visibility: hidden;\n    pointer-events: none;\n    transition: visibility 0.8s ease 0s;\n    &.modal_show {\n        z-index: 2101;\n        visibility: visible;\n        overflow: auto;\n        pointer-events: auto;\n        .modal__content {\n            visibility: visible;\n            transform: scale(1);\n        }\n        @media (max-width: 48em) {\n            &.modal_fs {\n                padding: 0;\n                .modal__content {\n                    border-radius: 0;\n                    opacity: 1;\n                }\n            }\n        }\n    }\n\n    // .modal__wrapper\n\n    &__wrapper {\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        flex: 1 1 auto;\n        width: 100%;\n        min-height: 100%;\n    }\n\n    // .modal__content\n\n    &__content {\n        position: relative;\n        padding: 4rem 10rem 10rem 4rem;\n        max-width: 85rem;\n        width: 100%;\n        min-height: 87rem;\n        border-radius: 4rem;\n        background-color: $pink;\n        visibility: hidden;\n        transform: scale(0);\n        transition: transform 0.3s ease 0s;\n        .lock & {\n            visibility: visible;\n        }\n        @media (max-width: 48em) {\n            padding: 3rem 2rem;\n            min-height: 100vh;\n            .modal_fs & {\n                opacity: 0;\n                transition: opacity 0.3s ease, visibility 0.3s ease;\n            }\n        }\n    }\n\n    // .modal__close\n\n    &__close {\n        margin-bottom: 5rem;\n        margin-right: auto;\n        display: inline-flex;\n        align-items: center;\n        justify-content: center;\n        width: 3.4rem;\n        height: 3.4rem;\n        @media (max-width: 48em) {\n            margin-bottom: 10rem;\n            width: 6.4rem;\n            height: 6.4rem;\n        }\n    }\n\n    // .modal__close-icon\n\n    &__close-icon {\n        height: 100%;\n        object-fit: contain;\n    }\n}\n\n// --------------------------------------------------------------------------\n\n.application-modal {\n    color: $black;\n\n    // .application-modal__inner\n\n    &__inner {\n        display: flex;\n        flex-direction: column;\n        @media (min-width: 48em) {\n            padding-left: 6rem;\n            .modal__close {\n                transform: translateX(-6rem);\n            }\n        }\n    }\n\n    // .application-modal__title\n\n    &__title {\n        margin-bottom: 1.6rem;\n        @media (max-width: 48em) {\n            margin-bottom: 3.2rem;\n        }\n    }\n\n    // .application-modal__text\n\n    &__text {\n        margin-bottom: 4rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n        }\n    }\n\n    // .application-modal__form\n\n    &__form {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .application-modal__options\n\n    &__options {\n        margin-bottom: 3.2rem;\n        display: flex;\n        flex-wrap: wrap;\n        gap: 1.6rem;\n        @media (max-width: 48em) {\n            margin-bottom: 6.4rem;\n            gap: 1rem;\n        }\n    }\n\n    // .application-modal__option\n\n    &__option {\n    }\n\n    // .application-modal__fields\n\n    &__fields {\n        margin-bottom: 3.2rem;\n        display: flex;\n        flex-direction: column;\n        row-gap: 3rem;\n        @media (max-width: 48em) {\n            margin-bottom: 6.4rem;\n            row-gap: 5rem;\n        }\n    }\n\n    // .application-modal__input\n\n    &__input {\n    }\n\n    // .application-modal__file-input\n\n    &__file-input {\n        margin-bottom: 4rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n        }\n    }\n\n    // .application-modal__footer\n\n    &__footer {\n        display: flex;\n        flex-direction: column-reverse;\n        @media (min-width: 48em) {\n            flex-direction: row;\n            align-items: flex-end;\n            column-gap: 2.4rem;\n        }\n    }\n\n    // .application-modal__btn\n\n    &__btn {\n        @media (max-width: 48em) {\n            align-self: flex-start;\n        }\n    }\n\n    // .application-modal__footer-text\n\n    &__footer-text {\n        max-width: 36.3rem;\n        @media (max-width: 48em) {\n            margin-bottom: 3rem;\n            max-width: 71rem;\n        }\n    }\n}\n","._mobile-only {\n    @media (min-width: 48em) {\n        display: none;\n    }\n}\n\n@import '../sections/hero-gallery';\n@import '../sections/articles-hero';\n",".hero-gallery {\n    padding-bottom: 9rem;\n    background-color: $bodyColor;\n    overflow: hidden;\n    @media (max-width: 48em) {\n        padding-bottom: 12.8rem;\n    }\n\n    // .hero-gallery__container\n\n    &__container {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .hero-gallery__head\n\n    &__head {\n        align-self: center;\n        text-align: center;\n        @media (max-width: 48em) {\n            margin-bottom: 6rem;\n        }\n    }\n\n    // .hero-gallery__title\n\n    &__title {\n        color: $pink;\n        transition: opacity 0.5s ease;\n        user-select: none;\n        &.tl1 {\n            @media (min-width: 48em) {\n                font-size: 19rem;\n            }\n        }\n        ._coloured-txt {\n            color: $green;\n        }\n        ._dragging & {\n            opacity: 0;\n        }\n    }\n\n    // .hero-gallery__body\n\n    &__body {\n        position: relative;\n        height: 63rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n            height: 73rem;\n        }\n    }\n\n    // .hero-gallery__item\n\n    &__item {\n        position: absolute;\n        border-radius: 1.5rem;\n        background-color: #29292c;\n        overflow: hidden;\n        &._a {\n            top: 0;\n            left: 0;\n            width: 8.6rem;\n            height: 8rem;\n        }\n        &._b {\n            top: 0;\n            left: 10.8rem;\n            width: 14.3rem;\n            height: 8.8rem;\n            @media (max-width: 48em) {\n                left: 11rem;\n            }\n        }\n        &._c {\n            top: 0;\n            left: 28.2rem;\n            width: 26.3rem;\n            height: 12.2rem;\n            @media (max-width: 48em) {\n                width: 22rem;\n                height: 12.6rem;\n            }\n        }\n        &._d {\n            top: 0;\n            left: 57.3rem;\n            width: 15.8rem;\n            height: 10.2rem;\n            @media (max-width: 48em) {\n                left: 53.3rem;\n                width: 13.2rem;\n                height: 10.6rem;\n            }\n        }\n        &._e {\n            top: 0;\n            left: 76rem;\n            width: 29.7rem;\n            height: 10.7rem;\n            @media (max-width: 48em) {\n                left: 69.5rem;\n                width: 24.8rem;\n                height: 11rem;\n            }\n        }\n        &._f {\n            top: 0;\n            left: 108.9rem;\n            width: 12.4rem;\n            height: 10.2rem;\n            @media (max-width: 48em) {\n                left: 97.3rem;\n                width: 10.4rem;\n                height: 10.6rem;\n            }\n        }\n        &._g {\n            top: 0;\n            left: 124.4rem;\n            width: 19rem;\n            height: 9.6rem;\n            @media (max-width: 48em) {\n                left: 110.6rem;\n                width: 16rem;\n                height: 10.2rem;\n            }\n        }\n        &._h {\n            top: 0;\n            right: 0;\n            width: 26.3rem;\n            height: 29rem;\n        }\n        &._i {\n            top: 11.3rem;\n            left: 0;\n            width: 25.1rem;\n            height: 12.6rem;\n            @media (max-width: 48em) {\n                top: 11.3rem;\n                left: 0;\n                width: 21.5rem;\n            }\n        }\n        &._j {\n            top: 14.7rem;\n            left: 27.7rem;\n            width: 9.2rem;\n            height: 9.2rem;\n            @media (max-width: 48em) {\n                top: 15.6rem;\n                left: 24.3rem;\n                width: 9.6rem;\n                height: 9.4rem;\n            }\n        }\n        &._k {\n            top: 14.6rem;\n            left: 39.2rem;\n            width: 14.4rem;\n            height: 9.4rem;\n            @media (max-width: 48em) {\n                top: 15.3rem;\n                left: 36.6rem;\n                width: 12rem;\n                height: 9.8rem;\n            }\n        }\n        &._l {\n            top: 13.2rem;\n            left: 55.8rem;\n            width: 27.8rem;\n            height: 13.4rem;\n            @media (max-width: 48em) {\n                top: 13.6rem;\n                left: 51.5rem;\n                width: 23.2rem;\n                height: 13.8rem;\n            }\n        }\n        &._m {\n            top: 13.2rem;\n            left: 86.5rem;\n            width: 26.9rem;\n            height: 13.4rem;\n            @media (max-width: 48em) {\n                top: 13.6rem;\n                left: 77.6rem;\n                width: 22.6rem;\n                height: 13.8rem;\n            }\n        }\n        &._n {\n            top: 13.2rem;\n            left: 115.9rem;\n            width: 26.8rem;\n            height: 23.5rem;\n            @media (max-width: 48em) {\n                top: 13.6rem;\n                left: 103.5rem;\n                width: 22.4rem;\n                height: 24.4rem;\n            }\n        }\n        &._o {\n            top: 26.3rem;\n            left: 1.9rem;\n            width: 23.2rem;\n            height: 13.2rem;\n            @media (max-width: 48em) {\n                top: 26.3rem;\n                left: 0.4rem;\n            }\n        }\n        &._p {\n            top: 26.3rem;\n            left: 27.7rem;\n            width: 18.4rem;\n            height: 10.4rem;\n            @media (max-width: 48em) {\n                top: 27.8rem;\n                left: 26.6rem;\n                width: 15.4rem;\n                height: 10.8rem;\n            }\n        }\n        &._q {\n            top: 29.2rem;\n            left: 48.9rem;\n            width: 18.8rem;\n            height: 10.1rem;\n            @media (max-width: 48em) {\n                top: 30.2rem;\n                left: 44.8rem;\n                width: 15.8rem;\n                height: 10.4rem;\n            }\n        }\n        &._r {\n            top: 29.2rem;\n            left: 70.2rem;\n            width: 12.1rem;\n            height: 15rem;\n            @media (max-width: 48em) {\n                top: 30.2rem;\n                left: 63.5rem;\n                width: 10.2rem;\n                height: 15.6rem;\n            }\n        }\n        &._s {\n            top: 29.2rem;\n            left: 84.8rem;\n            width: 27.8rem;\n            height: 15.8rem;\n            @media (max-width: 48em) {\n                top: 30.2rem;\n                left: 76.7rem;\n                width: 23.2rem;\n                height: 16.4rem;\n            }\n        }\n        &._t {\n            top: 39.1rem;\n            left: 116.2rem;\n            width: 22.3rem;\n            height: 14.2rem;\n            @media (max-width: 48em) {\n                top: 40.1rem;\n                left: 103.5rem;\n                width: 20.25rem;\n                height: 14.6rem;\n            }\n        }\n        &._u {\n            top: 39rem;\n            left: 140.5rem;\n            width: 6.4rem;\n            height: 5.2rem;\n            @media (max-width: 48em) {\n                top: 39rem;\n                left: 125.5rem;\n            }\n        }\n        &._v {\n            top: 31.4rem;\n            left: 149.2rem;\n            width: 9.1rem;\n            height: 18.3rem;\n            @media (max-width: 48em) {\n                top: 31.4rem;\n                left: 133.9rem;\n            }\n        }\n        &._w {\n            top: 31.4rem;\n            right: 0;\n            width: 11.4rem;\n            height: 8.1rem;\n            @media (max-width: 48em) {\n                width: 10.4rem;\n            }\n        }\n        &._x {\n            top: 41.7rem;\n            left: 11.9rem;\n            width: 11.5rem;\n            height: 6.5rem;\n            @media (max-width: 48em) {\n                left: 11.2rem;\n            }\n        }\n        &._y {\n            top: 39.1rem;\n            left: 26.1rem;\n            width: 21rem;\n            height: 10.9rem;\n            @media (max-width: 48em) {\n                top: 40.6rem;\n                left: 24.6rem;\n                width: 17.6rem;\n                height: 11.2rem;\n            }\n        }\n        &._z {\n            top: 42.1rem;\n            left: 49.5rem;\n            width: 14.1rem;\n            height: 11.5rem;\n            @media (max-width: 48em) {\n                top: 43.5rem;\n                left: 45.5rem;\n                width: 11.2rem;\n                height: 11.2rem;\n            }\n        }\n        &._a1 {\n            top: 47.4rem;\n            left: 65.9rem;\n            width: 17.1rem;\n            height: 15.7rem;\n            @media (max-width: 48em) {\n                top: 49rem;\n                left: 59.9rem;\n                width: 14.4rem;\n                height: 16.2rem;\n            }\n        }\n        &._b1 {\n            top: 49.5rem;\n            left: 85.4rem;\n            width: 14.3rem;\n            height: 13.6rem;\n            @media (max-width: 48em) {\n                top: 51rem;\n                left: 77rem;\n                width: 12rem;\n                height: 14rem;\n            }\n        }\n        &._c1 {\n            top: 48.6rem;\n            left: 102.2rem;\n            width: 11.4rem;\n            height: 8.1rem;\n            @media (max-width: 48em) {\n                top: 52.6rem;\n                left: 91.8rem;\n                width: 9.6rem;\n                height: 8.4rem;\n            }\n        }\n        &._d1 {\n            top: 45.7rem;\n            left: 140.9rem;\n            width: 5.7rem;\n            height: 5.7rem;\n            @media (max-width: 48em) {\n                top: 46.4rem;\n                left: 125.9rem;\n            }\n        }\n        &._e1 {\n            top: 41.5rem;\n            right: 0;\n            width: 10.4rem;\n            height: 6.6rem;\n            @media (max-width: 48em) {\n                top: 42rem;\n            }\n        }\n        // .hero-gallery__item_gray\n\n        &_gray {\n            background-color: $gray;\n        }\n    }\n\n    // .hero-gallery__plane-wrap\n\n    &__plane-wrap {\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        @media (max-width: 48em) {\n            left: 50%;\n            width: calc(100% + 85rem);\n            &:not(._dragging &) {\n                transform: translateX(-50%) !important;\n            }\n        }\n    }\n\n    // .hero-gallery__plane\n\n    &__plane {\n        margin: 0 auto;\n        width: 172rem;\n        height: 63rem;\n        @media (max-width: 48em) {\n            height: 73rem;\n        }\n    }\n\n    // .hero-gallery__image-wrap\n\n    &__image-wrap {\n        display: block;\n        height: 100%;\n    }\n\n    // .hero-gallery__image\n\n    &__image {\n        height: 100%;\n        object-fit: cover;\n    }\n\n    // .hero-gallery__footer\n\n    &__footer {\n        position: relative;\n        z-index: 2000;\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        @media (min-width: 48em) {\n            flex-direction: row;\n            justify-content: space-between;\n            transform: translateY(-7rem);\n        }\n    }\n\n    // .hero-gallery__group\n\n    &__group {\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        @media (max-width: 48em) {\n            margin-bottom: 6.4rem;\n        }\n    }\n\n    // .hero-gallery__text\n\n    &__text {\n        margin-bottom: 4.4rem;\n        display: flex;\n        column-gap: 2.8rem;\n        max-width: 40rem;\n        transition: opacity 0.3s ease;\n        ._dragging & {\n            opacity: 0;\n        }\n        &::before {\n            content: '';\n            width: 9.4rem;\n            height: 1px;\n            background-color: rgba(201, 251, 64, 0.5);\n            transform: translateY(1.5rem);\n        }\n        @media (max-width: 48em) {\n            margin-bottom: 0;\n            column-gap: 6.4rem;\n            max-width: 70rem;\n            &::before {\n                width: 22.8rem;\n                transform: translateY(3rem);\n            }\n        }\n    }\n\n    // .hero-gallery__showmore-btn\n\n    &__showmore-btn {\n        position: relative;\n        z-index: 2000;\n        ._scale & {\n            display: none;\n        }\n        ._dragging & {\n            position: fixed;\n            left: 10rem;\n            bottom: 0;\n            opacity: 0;\n        }\n        @media (max-width: 48em) {\n            width: 8rem;\n            height: 8rem;\n            &:not(._dragging &) {\n                position: absolute;\n                top: -13rem;\n                right: 0;\n            }\n            ._dragging & {\n                bottom: 5rem;\n                left: auto;\n                right: 1rem;\n            }\n            .showmore-btn__text {\n                display: none;\n            }\n            svg {\n                circle {\n                    fill: $green;\n                }\n                path {\n                    fill: $bodyColor;\n                }\n                ._dragging & {\n                    &:first-child {\n                        display: none;\n                    }\n                    &:last-child {\n                        display: block;\n                    }\n                }\n            }\n        }\n    }\n\n    // .hero-gallery__btn\n\n    &__btn {\n        margin-top: 3rem;\n        transition: opacity 0.3s ease;\n        ._dragging & {\n            opacity: 0;\n        }\n        @media (max-width: 48em) {\n            margin-top: 0;\n            margin-left: 19rem;\n        }\n    }\n}\n\n.popup-hero-gallery {\n    position: fixed;\n    z-index: 2000;\n    bottom: 0;\n    right: 0;\n    padding: 3.2rem 4rem;\n    display: flex;\n    flex-direction: column;\n    width: 63rem;\n    border-radius: 4rem;\n    background-color: $green;\n    transform: translateY(100%);\n    opacity: 0;\n    transition: none;\n    @media (min-width: 48em) {\n        &._active {\n            opacity: 1;\n            visibility: visible;\n            transform: translateY(0);\n            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;\n        }\n    }\n\n    // .popup-hero-gallery__title\n\n    &__title {\n        margin-bottom: 5.6rem;\n        color: $bodyColor;\n    }\n\n    // .popup-hero-gallery__icon\n\n    &__icon {\n        svg {\n            width: 5rem;\n            height: 5rem;\n        }\n    }\n}\n",".articles-hero {\n    position: relative;\n    padding-top: 18.9rem;\n    padding-bottom: 17.7rem;\n    user-select: none;\n    border-bottom: 1px solid rgba(201, 251, 64, 0.5);\n    @media (max-width: 48em) {\n        padding-top: 16.8rem;\n        padding-bottom: 10rem;\n    }\n\n    // .articles-hero__container\n\n    &__container {\n        position: relative;\n        z-index: 2;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        @media (min-width: 48em) {\n            display: grid;\n            grid-template-columns: 3fr 6fr 3fr;\n            align-items: start;\n            column-gap: 6.5rem;\n        }\n    }\n\n    // .articles-hero__bg\n\n    &__bg {\n        position: relative;\n        margin-bottom: 12rem;\n        @media (min-width: 48em) {\n            margin-bottom: 0;\n            grid-column: 2/3;\n        }\n    }\n\n    // .articles-hero__title\n\n    &__title {\n        position: absolute;\n        top: auto;\n        bottom: -12.6rem;\n        left: 50%;\n        text-align: center;\n        -webkit-text-stroke-width: 2px;\n        -webkit-text-stroke-color: $white;\n        transform: translateX(-50%);\n        &:first-child {\n            top: -14.5rem;\n        }\n        @media (max-width: 48em) {\n            bottom: -5.5rem;\n            -webkit-text-stroke-width: 1px;\n            &:first-child {\n                top: -7.3rem;\n            }\n        }\n    }\n\n    // .articles-hero__bg-inner\n\n    &__bg-inner {\n        position: relative;\n        z-index: 2;\n        overflow: hidden;\n        .articles-hero__title {\n            color: transparent;\n            &:first-child {\n                top: -14.6rem;\n            }\n            @media (max-width: 48em) {\n                bottom: -5.6rem;\n                &:first-child {\n                    top: -7.3rem;\n                }\n            }\n        }\n    }\n\n    // .articles-hero__image-wrap\n\n    &__image-wrap {\n        width: 100%;\n        height: 41rem;\n        @media (max-width: 48em) {\n            width: 50rem;\n            height: 26.4rem;\n        }\n\n        // .articles-hero__image-wrap_small\n\n        &_small {\n            position: relative;\n            margin-top: 8rem;\n            width: 24.2rem;\n            height: 14.4rem;\n\n            .articles-hero__image {\n                border-radius: 3rem;\n            }\n            &::before {\n                content: '';\n                position: absolute;\n                top: -4rem;\n                left: 50%;\n                width: 5rem;\n                height: 5rem;\n                background-image: url(./assets/images/icons/ah-union.svg);\n                background-size: contain;\n                background-repeat: no-repeat;\n                transform: translate(-50%, -100%);\n            }\n            @media (min-width: 48em) {\n                position: absolute;\n                top: 0;\n                left: -6.4rem;\n                margin-top: 0;\n                width: 18.1rem;\n                height: 13.5rem;\n                transform: translateX(-100%);\n                .articles-hero__image {\n                    border-radius: 1.6rem;\n                }\n                &::before {\n                    top: 12rem;\n                    width: 7.3rem;\n                    height: 7.5rem;\n                    transform: translate(-50%, 100%);\n                }\n            }\n        }\n    }\n\n    // .articles-hero__image\n\n    &__image {\n        display: block;\n        height: 100%;\n        border-radius: 4rem;\n        object-fit: cover;\n    }\n\n    // .articles-hero__info\n\n    &__info {\n        padding: 0 5rem;\n        display: flex;\n        flex-direction: row-reverse;\n        justify-content: space-between;\n        align-items: flex-end;\n        column-gap: 11rem;\n        width: 100%;\n        grid-column: 3/4;\n        @media (min-width: 48em) {\n            padding: 9rem 0 0 0;\n            display: block;\n            width: auto;\n            grid-column: 3/4;\n        }\n    }\n\n    // .articles-hero__list\n\n    &__list {\n        position: relative;\n        padding-left: 4rem;\n        display: flex;\n        flex-direction: column;\n        row-gap: 1.2rem;\n        &::before {\n            content: '';\n            position: absolute;\n            top: 50%;\n            left: 0;\n            width: 4rem;\n            height: 4rem;\n            background-image: url(./assets/images/icons/ah-circles.svg);\n            background-size: contain;\n            background-repeat: no-repeat;\n            transform: translateY(-50%);\n        }\n        @media (max-width: 48em) {\n            padding-left: 6.4rem;\n            row-gap: 2rem;\n            &::before {\n                width: 3.2rem;\n                height: 6.4rem;\n            }\n        }\n    }\n\n    // .articles-hero__list-item\n\n    &__list-item {\n        font-family: 'DrukCyr';\n        @media (max-width: 48em) {\n            letter-spacing: 0.32rem;\n        }\n    }\n\n    // .articles-hero__wave\n\n    &__wave {\n        position: absolute;\n        top: 8rem;\n        left: 0;\n        width: 100vw;\n        height: auto;\n        overflow: visible;\n        path {\n            fill: transparent;\n            stroke: $violet;\n            stroke-width: 10rem;\n        }\n        text {\n            fill: $white;\n            font-family: 'DrukCyr';\n            font-size: 6rem;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            transform: translateY(2.5rem);\n        }\n        textPath {\n            word-spacing: 4rem;\n        }\n        @media (max-width: 48em) {\n            top: -57rem;\n            left: -50rem;\n            path {\n                stroke-width: 8rem;\n            }\n            text {\n                font-size: 4rem;\n                letter-spacing: 0.32rem;\n                transform: translateY(2rem);\n            }\n            textPath {\n                word-spacing: 5rem;\n            }\n        }\n    }\n}\n",".services {\n    position: relative;\n    background: #171717;\n    margin-bottom: 16rem;\n\n    @include small-tablet{\n        margin-bottom: 28rem;\n    }\n\n    &__content {\n        min-height: 78rem;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n\n        @include small-tablet {\n            min-height: 107rem;\n        }\n    }\n\n    &__sentences {\n        position: absolute;\n        inset: 0;\n        top: 5rem;\n        display: flex;\n        gap: 20rem;\n\n        @include small-tablet{\n            top: 10rem;\n        }\n\n        &-list {\n            width: 100%;\n            height: 100%;\n            position: relative;\n        }\n\n        &-item {\n            max-width: 57.3rem;\n            width: 100%;\n            position: absolute;\n            user-select: none;\n\n            @include small-tablet {\n                max-width: 54rem;\n            }\n\n            &:nth-child(1) {\n                left: -12rem;\n                top: 0;\n\n                @include small-tablet{\n                    left: 2rem;\n                    white-space: nowrap;\n                }\n            }\n\n            &:nth-child(2) {\n                left: 50%;\n                transform: translate(-50%);\n                top: 0;\n\n                @include small-tablet{\n                    top: 13rem;\n                    white-space: nowrap;\n                }\n            }\n\n            &:nth-child(3) {\n                right: -8.3rem;\n                top: 0;\n\n                @include small-tablet{\n                    right: auto;\n                    top: 26rem;\n                    left: -19rem;\n                }\n            }\n\n            &:nth-child(4) {\n                left: 0;\n                top: 30.7rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n\n            &:nth-child(5) {\n                right: 2.7rem;\n                top: 30.7rem;\n\n                @include small-tablet{\n                    right: -21.3rem;\n                    top: 26.7rem;\n                }\n            }\n\n            &:nth-child(6) {\n                left: -18.6rem;\n                bottom: 0.6rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n\n            &:nth-child(7) {\n                right: -15.9rem;\n                bottom: 0.6rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n        }\n\n        &-text {\n            color: $gray-darken;\n            font-family: $font-druk;\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            text-align: center;\n            width: 100%;\n\n            @include small-tablet {\n                font-size: 10rem;\n            }\n        }\n    }\n\n    &__circular {\n        @include sizes(80rem, 52.8rem);\n        position: relative;\n\n        @include small-tablet {\n            @include sizes(100%, 46.8rem);\n        }\n\n        &-text-image {\n            width: 100%;\n            height: 100%;\n\n            img {\n                width: 100%;\n                height: 100%;\n            }\n        }\n\n        &-image {\n            position: absolute;\n            bottom: -3.7rem;\n            left: 50%;\n            transform: translateX(-50%);\n            @include sizes(26.3rem, 32.6rem);\n            border-radius: 1.5rem;\n            border: 0.1rem solid rgba(255, 255, 255, 0.3);\n            z-index: 5;\n\n            @include small-tablet {\n                @include sizes(23.4rem, 29.2rem);\n                border-radius: 3rem;\n                border-width: 0.2rem;\n            }\n\n            img {\n                height: 100%;\n                border-radius: inherit;\n            }\n        }\n    }\n}\n",".collections {\n    margin-bottom: 13rem;\n\n    @include small-tablet{\n        margin-bottom: 24rem;\n    }\n\n    &__articles {\n        &-list {\n            display: flex;\n            flex-direction: column;\n        }\n\n        &-item {\n            position: relative;\n\n            &.--active {\n                .--masking {\n                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);\n                }\n            }\n\n            &:first-child {\n                border-top: 0.1rem solid rgba(201, 251, 64, 0.5);\n            }\n\n            border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n\n            &-wrapper {\n                padding: 4rem 10rem;\n                display: flex;\n                align-items: center;\n\n                @include small-tablet{\n                    padding: 2.3rem 2.2rem;\n                }\n\n                &.--masking {\n                    position: absolute;\n                    inset: 0;\n                    width: 100%;\n                    z-index: 1;\n                    background-color: $pink;\n                    clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);\n                    transform-origin: center;\n                    transition: clip-path cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;\n\n                    figcaption {\n                        color: #0d0d0d;\n                    }\n                }\n            }\n\n            &-number {\n                color: $white;\n                font-family: $font-druk;\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                display: block;\n                width: 14rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n\n            figure {\n                display: flex;\n                align-items: flex-end;\n                gap: 6rem;\n                margin-left: 16rem;\n\n                @include small-tablet{\n                    margin-left: 0;\n                    width: 100%;\n                    align-items: center;\n                    justify-content: center;\n                }\n            }\n\n            &-image {\n                border-radius: 1.5rem;\n                @include sizes(25rem, 14rem);\n\n                @include small-tablet{\n                    display: none;\n                }\n\n                img {\n                    height: 100%;\n                    border-radius: inherit;\n                }\n            }\n\n            &-text {\n                font-family: $font-druk;\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                color: transparent;\n                background: linear-gradient(to right, $white, $white) no-repeat;\n                -webkit-background-clip: text;\n                background-clip: text;\n                background-size: 0;\n                transition: background-size cubic-bezier(.1,.5,.5,1) 0.5s;\n\n                @include small-tablet{\n                    font-size: 10rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-link {\n                margin-left: auto;\n                display: flex;\n                align-items: center;\n                gap: 1.6rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n\n                svg {\n                    @include sizes(5.2rem, 5.2rem);\n                }\n\n                span {\n                    color: $bodyColor;\n                    font-family: $font-druk;\n                    font-size: 2.2rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 2.4rem;\n                    letter-spacing: 0.176rem;\n                    text-transform: uppercase;\n                }\n            }\n        }\n    }\n}\n",".feedback {\n    @include small-tablet {\n        margin-bottom: 3.2rem;\n    }\n\n    a {\n        display: block;\n        width: 100%;\n        color: #fff;\n        font-family: $font-druk;\n        font-size: 19.9646rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 23.387rem;\n        text-align: center;\n        transition:\n            background 0.3s linear,\n            color 0.3s linear;\n\n        @include small-tablet {\n            font-size: 11rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n        }\n\n        &:hover {\n            transition:\n                background 0.3s linear,\n                color 0.3s linear;\n            background-color: $yellow;\n            color: $main;\n        }\n    }\n}\n",".article {\n    margin-top: 6.8rem;\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        margin-top: 9.6rem;\n        margin-bottom: 24rem;\n    }\n\n    &__heading {\n        padding-bottom: 8rem;\n        margin-bottom: 4rem;\n\n        position: relative;\n\n        display: flex;\n        align-items: flex-start;\n        justify-content: space-between;\n        gap: 2rem;\n\n        @include small-tablet {\n            padding-bottom: 9.6rem;\n            margin-bottom: 4.8rem;\n            flex-direction: column;\n            gap: 11.2rem;\n        }\n\n        &::after {\n            @include pseudo {\n                width: calc(100% + 20rem);\n                height: 0.1rem;\n\n                left: -10rem;\n                bottom: 0;\n\n                background: rgba(201, 251, 64, 0.5);\n            }\n        }\n\n        &-info {\n            max-width: 70.5rem;\n            width: 100%;\n            margin-top: 11.9rem;\n\n            @include small-tablet {\n                max-width: 100%;\n                margin-top: 0;\n            }\n        }\n\n        &-subtitle {\n            display: inline-block;\n            position: relative;\n            margin-bottom: 1.2rem;\n            color: var(--purple, #ed89fb);\n            font-family: $font-druk;\n            font-size: 2.2rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 2.4rem;\n            letter-spacing: 0.176rem;\n            text-transform: uppercase;\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                margin-bottom: 2.4rem;\n            }\n\n            &::after {\n                @include pseudo {\n                    right: -5.6rem;\n                    width: 4rem;\n                    height: 0.1rem;\n                    top: 50%;\n                    transform: translateY(-50%);\n                    background: $pink;\n\n                    @include small-tablet {\n                        width: 4.8rem;\n                        right: -8rem;\n                        height: 0.2rem;\n                    }\n                }\n            }\n        }\n\n        &-title {\n            color: $white;\n            font-family: $font-druk;\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            margin-bottom: 2rem;\n\n            @include small-tablet {\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                margin-bottom: 4rem;\n            }\n        }\n\n        &-description {\n            color: $white;\n            font-size: 2rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%;\n            padding-right: 3.1rem;\n\n            @include small-tablet {\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n                padding-right: 0;\n            }\n        }\n\n        &-poster {\n            @include sizes(99.5rem, 50.7rem);\n            position: relative;\n\n            @include small-tablet {\n                @include sizes(100%, 49.2rem);\n            }\n\n            &-image {\n                width: 100%;\n                height: 100%;\n                border-radius: 4rem;\n\n                img {\n                    height: 100%;\n                    border-radius: inherit;\n                    object-fit: cover;\n                }\n            }\n\n            &-icon {\n                @include sizes(16rem, 16rem);\n                position: absolute;\n                top: -2rem;\n                left: -3.5rem;\n\n                @include small-tablet {\n                    @include sizes(23rem, 23rem);\n                    right: 0;\n                    top: -4.8rem;\n                    left: auto;\n                }\n            }\n        }\n    }\n\n    &__content {\n        display: flex;\n        justify-content: space-between;\n        padding-right: 14.5rem;\n\n        @include small-tablet {\n            padding-right: 0;\n            flex-direction: column;\n            gap: 8rem;\n        }\n\n        &-block {\n            display: flex;\n            flex-direction: column;\n            max-width: 85rem;\n            width: 100%;\n        }\n    }\n\n    &__shares {\n        max-width: 39rem;\n        width: 100%;\n        display: flex;\n        flex-direction: column;\n        position: relative;\n\n        @include small-tablet {\n            max-width: 100%;\n            flex-direction: row;\n            justify-content: space-between;\n        }\n\n        &::before {\n            @include pseudo {\n                right: 0;\n                top: 0;\n                width: 0.1rem;\n                height: 100%;\n                transform-origin: left top;\n                transform: scaleY(var(--scale));\n                background: rgba(201, 251, 64, 0.5);\n\n                @include small-tablet {\n                    display: none;\n                }\n            }\n        }\n\n        &-date {\n            font-size: 2.8rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: normal;\n            display: block;\n            margin-bottom: 6.4rem;\n\n            @include small-tablet {\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n                margin-bottom: 0;\n            }\n        }\n\n        &-socials {\n            &-list {\n                display: flex;\n                flex-direction: column;\n                gap: 1.6rem;\n\n                @include small-tablet {\n                    flex-direction: row;\n                    gap: 2.4rem;\n                }\n            }\n\n            &-item {\n                @include sizes(4.8rem, 4.8rem);\n\n                @include small-tablet {\n                    @include sizes(8rem, 8rem);\n                }\n\n                a {\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    padding: 1.2rem;\n                    transition:\n                        0.3s background ease,\n                        0.3s border ease;\n                    border: 0.1rem solid $white;\n                    border-radius: 50%;\n\n                    @include small-tablet {\n                        padding: 1.6rem;\n                    }\n\n                    &:hover {\n                        background: $yellow;\n                        border-color: transparent;\n                    }\n\n                    img {\n                        height: 100%;\n                    }\n                }\n            }\n        }\n\n        &-link {\n            margin-top: auto;\n            width: fit-content;\n            display: flex;\n            align-items: center;\n            gap: 2.2rem;\n\n            @include small-tablet {\n                &.desktop {\n                    display: none;\n                }\n\n                gap: 3.2rem;\n                margin-top: 8rem;\n            }\n\n            span {\n                font-family: $font-druk;\n                font-size: 2.2rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 2.4rem;\n                letter-spacing: 0.176rem;\n                text-transform: uppercase;\n\n                @include small-tablet {\n                    font-size: 4rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    letter-spacing: 0.32rem;\n                    text-transform: uppercase;\n                }\n            }\n        }\n    }\n\n    &__title {\n        margin-bottom: 3.2rem;\n        font-size: 2.8rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: normal;\n\n        @include small-tablet {\n            margin-bottom: 4.8rem;\n            font-size: 3.6rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: normal;\n        }\n    }\n\n    &__description {\n        margin-bottom: 2.2rem;\n        font-size: 2rem;\n        font-style: normal;\n        font-weight: 400;\n        line-height: 140%;\n\n        @include small-tablet {\n            font-size: 2.8rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: normal;\n            margin-bottom: 4.8rem;\n        }\n    }\n\n    &__block {\n        &-image {\n            display: flex;\n            flex-direction: column;\n            gap: 1.6rem;\n            margin-bottom: 3.2rem;\n\n            @include small-tablet {\n                margin-bottom: 4.8rem;\n                gap: 3.2rem;\n            }\n\n            img {\n                border-radius: 4rem;\n                height: 52.4rem;\n                object-fit: cover;\n\n                @include small-tablet {\n                    height: 48.4rem;\n                }\n            }\n\n            &-description {\n                color: $gray;\n                font-size: 2rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n\n                @include small-tablet {\n                    font-size: 3rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: 140%;\n                }\n            }\n        }\n    }\n\n    &__list {\n        display: flex;\n        flex-direction: column;\n        gap: 3.2rem;\n\n        @include small-tablet {\n            gap: 4.8rem;\n        }\n    }\n\n    &__item {\n        &-text {\n            font-size: 2rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%;\n\n            @include small-tablet {\n                font-size: 2.8rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: normal;\n            }\n        }\n    }\n}\n",".team {\n    background: $violet;\n    padding: 16rem 0;\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        padding: 12.8rem 0;\n        margin-bottom: 24rem;\n    }\n\n    &__content {\n        display: flex;\n        justify-content: space-between;\n\n        @include small-tablet {\n            flex-direction: column;\n            gap: 6.4rem;\n        }\n    }\n\n    &__text {\n        max-width: 72.5rem;\n        width: 100%;\n        display: flex;\n        flex-direction: column;\n        gap: 9rem;\n\n        @include small-tablet {\n            max-width: 100%;\n            gap: 6.4rem;\n        }\n\n        &-image {\n            @include sizes(100%, 58.5rem);\n            border-radius: 4rem;\n\n            @include small-tablet {\n                @include sizes(100%, 35.6rem);\n            }\n\n            img {\n                border-radius: inherit;\n                height: 100%;\n                object-fit: cover;\n            }\n        }\n    }\n\n    &__title {\n        color: $bodyColor;\n        font-family: $font-druk;\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 110%;\n        text-transform: uppercase;\n\n        @include small-tablet {\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n        }\n    }\n\n    &__info {\n        max-width: 85rem;\n        width: 100%;\n        padding-top: 0.9rem;\n\n        @include small-tablet {\n            padding-top: 0;\n            max-width: 100%;\n        }\n\n        &-title {\n            margin-bottom: 6rem;\n            color: $bodyColor;\n            font-family: $font-druk;\n            font-size: 6rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                text-transform: uppercase;\n                margin-bottom: 2.4rem;\n            }\n        }\n\n        &-description {\n            max-width: 55.9rem;\n            width: 100%;\n            color: $gray;\n            font-size: 2.8rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: normal;\n            margin-bottom: 12rem;\n\n            @include small-tablet {\n                margin-bottom: 6.4rem;\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n            }\n        }\n\n        &-figures {\n            display: flex;\n            align-items: flex-end;\n            justify-content: space-between;\n        }\n\n        &-figure {\n            &-icon {\n                @include sizes(10rem, 10rem);\n\n                @include small-tablet {\n                    @include sizes(11.2rem, 11.2rem);\n                }\n            }\n\n            &-image {\n                @include sizes(41.3rem, 29rem);\n                border-radius: 4rem;\n\n                @include small-tablet {\n                    @include sizes(33.4rem, 21.6rem);\n                }\n\n                img {\n                    height: 100%;\n                    border-radius: inherit;\n                    object-fit: cover;\n                }\n            }\n        }\n    }\n}\n",".achievements {\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        margin-bottom: 24rem;\n    }\n\n    &__title {\n        font-family: $font-druk;\n        margin-bottom: 2rem;\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 110%;\n        text-transform: uppercase;\n\n        @include small-tablet {\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            margin-bottom: 4.4rem;\n        }\n    }\n\n    &__heading {\n        display: flex;\n        align-items: flex-start;\n        justify-content: space-between;\n        margin-bottom: 16rem;\n\n        @include small-tablet {\n            margin-bottom: 24rem;\n            flex-direction: column;\n            gap: 8rem;\n        }\n\n        &-list {\n            display: flex;\n            align-items: flex-start;\n            gap: 5.6rem;\n\n            @include small-tablet {\n                display: grid;\n                grid-template-columns: repeat(2, minmax(30.4rem, 1fr));\n                gap: 6.4rem;\n            }\n        }\n\n        &-item {\n            display: flex;\n            flex-direction: column;\n            gap: 1rem;\n            position: relative;\n            max-width: 17rem;\n\n            @include small-tablet {\n                max-width: 100%;\n                flex-direction: row;\n                gap: 1.6rem;\n                align-items: flex-end;\n            }\n\n            @media (min-width: 48em) {\n                &:not(:last-child) {\n                    &::after {\n                        @include pseudo {\n                            height: calc(100% - 4.2rem);\n                            right: -2.8rem;\n                            width: 0.1rem;\n                            background: rgba(201, 251, 64, 0.5);\n                        }\n                    }\n                }\n            }\n\n            @include small-tablet {\n                &:nth-child(odd) {\n                    &::before {\n                        @include pseudo {\n                            height: 100%;\n                            right: -3.2rem;\n                            width: 0.1rem;\n                            background: rgba(201, 251, 64, 0.5);\n                        }\n                    }\n                }\n\n                &:not(:nth-last-child(-n+2)) {\n                    &::after {\n                        @include pseudo {\n                            width: 100%;\n                            height: 0.1rem;\n                            bottom: -3.2rem;\n                            background: rgba(201, 251, 64, 0.5);\n                        }\n                    }\n                }\n            }\n\n            &-digit {\n                font-family: $font-druk;\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n\n                @include small-tablet {\n                    font-size: 10rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-description {\n                color: rgba(255, 255, 255, 0.8);\n                font-size: 2.8rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: normal;\n\n                @include small-tablet {\n                    font-size: 3rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: 140%;\n                }\n            }\n        }\n    }\n\n    &__description {\n        color: rgba(255, 255, 255, 0.8);\n        font-size: 2.8rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: normal;\n        max-width: 72rem;\n        width: 100%;\n        margin-top: 2rem;\n\n        @include small-tablet {\n            color: rgba(255, 255, 255, 0.8);\n            font-size: 3rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%;\n        }\n    }\n\n    &__banner {\n        @include sizes(100%, 67.2rem);\n        border-radius: 4rem;\n\n        @include small-tablet {\n            @include sizes(100%, 34.2rem);\n        }\n\n        img {\n            border-radius: inherit;\n            height: 100%;\n            object-fit: cover;\n        }\n    }\n}\n","@import '../sections/services';\n@import '../sections/collections';\n@import '../sections/feedback';\n@import '../sections/article';\n@import '../sections/our-team';\n@import '../sections/achievements';\n\nfigure {\n    margin: 0;\n}\n",".main-collection {\n    background-color: #cad2f4;\n    padding: 16rem 0;\n    margin-bottom: 16rem;\n    // .main-collection__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        gap: 8rem;\n    }\n    // .main-collection__cards\n    &__cards.swiper {\n        position: relative;\n        width: 83.6rem;\n        height: 73.3rem;\n        margin: 0;\n    }\n    &__cards-item.swiper-slide {\n        display: flex;\n\n        width: 51.5rem;\n        height: 51.5rem;\n        border-radius: 4rem;\n        position: absolute;\n        padding: 1.2rem;\n        overflow: hidden;\n    }\n    // .main-collection__title\n    &__title {\n        margin-bottom: 2rem;\n\n        width: 69.5rem;\n    }\n    // .main-collection__description\n    &__description {\n        margin-bottom: 5rem;\n        width: 61.8rem;\n        color: $gray;\n    }\n    // .main-collection__info\n    &__info {\n        color: $black;\n    }\n}\n.collection-item {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n\n    &--rat {\n        top: 0;\n        left: 0;\n        z-index: 2;\n\n        background: linear-gradient(223deg, #8792ed 1.18%, #5f6eda 34.96%, #6778df 68.58%, #8792ed 100%);\n    }\n    &--snail {\n        right: -2rem;\n        bottom: 0;\n        z-index: 1;\n\n        background: linear-gradient(226deg, #455265 0%, #11161e 40.66%, #11161e 60.6%, #455265 103.07%);\n    }\n\n    // .collection-item__header\n    &__header {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n    }\n    // .collection-item__title\n    &__title {\n        display: flex;\n        flex-direction: column;\n        padding-left: 1.2rem;\n        .txt20 {\n            opacity: 0.7;\n        }\n\n        strong {\n            text-align: left;\n        }\n\n        span {\n            text-align: left;\n        }\n    }\n    // .collection-item__icons\n    &__icons {\n        display: flex;\n        align-items: center;\n        gap: 0.7rem;\n        &-item {\n            width: 8rem;\n            height: 8rem;\n            border-radius: 50%;\n            background: rgba(255, 255, 255, 0.3);\n            backdrop-filter: blur(13px);\n\n            display: flex;\n            align-items: center;\n            justify-content: center;\n\n            svg {\n                display: block;\n                width: 4.4rem;\n                height: 4.4rem;\n            }\n        }\n    }\n    // .collection-item__footer\n    &__footer {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        &-item {\n            display: flex;\n            width: 24.1rem;\n            height: 6.8rem;\n            padding: 1.6rem;\n            justify-content: center;\n            align-items: center;\n            border-radius: 5.2rem;\n\n            &--left {\n                background: rgba(255, 255, 255, 0.3);\n                backdrop-filter: blur(30px);\n            }\n            &--right {\n                background: $white;\n                backdrop-filter: blur(11.5px);\n                align-self: flex-end;\n                color: $black;\n\n                strong {\n                    margin: 0 0.5rem;\n                    align-self: center;\n                }\n                span {\n                    align-self: flex-end;\n                    margin-bottom: 0.2rem;\n                }\n                sup {\n                    align-self: flex-start;\n                }\n            }\n        }\n    }\n    // .collection-item__backdrop\n    &__backdrop {\n        position: absolute;\n        top: 0;\n        left: 0;\n        z-index: -1;\n        width: 100%;\n        height: 100%;\n        padding: 3.2rem;\n\n        img {\n            width: 100%;\n            height: auto;\n            object-fit: contain;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .main-collection {\n        padding: 10rem 0;\n        &__container {\n            padding: 0;\n        }\n        // .main-collection__inner\n        &__inner {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n            justify-content: space-between;\n            gap: 6.4rem;\n        }\n        // .main-collection__cards\n        &__cards.swiper {\n            order: 2;\n            position: relative;\n            width: 100%;\n            height: auto;\n            margin: 0;\n            padding: 0 2rem;\n        }\n\n        &__cards-item.swiper-slide {\n            width: 65.8rem;\n            height: 67rem;\n            border-radius: 4rem;\n            position: static;\n            padding: 2.4rem;\n            overflow: hidden;\n        }\n\n        // .main-collection__info\n        &__info {\n            order: 1;\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            padding: 0 2rem;\n        }\n        // .main-collection__title\n        &__title {\n            width: 90%;\n            text-align: center;\n            margin-bottom: 2.4rem;\n        }\n        // .main-collection__description\n        &__description {\n            font-size: 2.8rem;\n            text-align: center;\n            margin-bottom: 6.4rem;\n            width: 93%;\n        }\n    }\n    .collection-item {\n        &--snail {\n            right: 0;\n        }\n        // .collection-item__title\n        &__title {\n            padding-left: 0;\n\n            strong {\n                margin-bottom: 1rem;\n            }\n        }\n        // .collection-item__icons\n        &__icons {\n            gap: 1rem;\n            &-item {\n                svg {\n                    width: 4.6rem;\n                    height: 4.6rem;\n                }\n            }\n        }\n        // .collection-item__footer\n        &__footer {\n            &-item {\n                display: flex;\n                width: 30rem;\n                height: 8.8rem;\n                padding: 2.4rem;\n                border-radius: 4rem;\n                &--right {\n                    strong {\n                        margin: 0 0.5rem;\n                        align-self: center;\n                    }\n                    span {\n                        margin-bottom: 0;\n                    }\n                }\n            }\n        }\n    }\n}\n",".main-links {\n    margin-top: 5.2rem;\n    margin-bottom: 0;\n    // .main-links__list\n    &__list {\n        display: flex;\n        align-items: center;\n        flex-direction: column;\n    }\n    // .main-links__item\n    &__item {\n        width: 100%;\n        text-align: center;\n        color: $white;\n        font-family: 'DrukCyr';\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: normal;\n        transition:\n            background 0.3s linear,\n            color 0.3s linear;\n\n        border-top: 0.1rem solid rgba(201, 243, 43, 0.5);\n\n      &:last-child{\n        border-bottom: 0.1rem solid rgba(201, 243, 43, 0.5);\n      }\n\n        &:hover {\n            transition:\n                background 0.3s linear,\n                color 0.3s linear;\n            background-color: $yellow;\n            color: $main;\n        }\n        a {\n            display: block;\n            width: 100%;\n            padding: 0.6rem 0;\n        }\n        &--big {\n            font-size: 19.9646rem;\n            line-height: 23.387rem; /* 117.143% */\n\n            a {\n                padding: 1.8rem 0 3.4rem;\n            }\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .main-links {\n        margin-top: 0;\n        margin-bottom: 7.6rem;\n        // .main-links__list\n        &__list {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n        }\n        // .main-links__item\n        &__item {\n            line-height: 110%;\n            border-top: 0.2rem solid rgba(201, 243, 43, 0.5);\n            a {\n                padding: 2.4rem 0;\n            }\n            &--big {\n                font-size: 11rem;\n                line-height: 110%; /* 117.143% */\n\n                a {\n                    padding: 2.4rem 0;\n                }\n            }\n        }\n    }\n}\n",".main-rates {\n    margin-bottom: 21.7rem;\n    // .main-rates__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        flex-direction: column;\n        gap: 9rem;\n    }\n    // .main-rates__title\n    &__title {\n        color: $white;\n    }\n    // .main-rates__wrapper\n    &__wrapper {\n        display: flex;\n        flex-direction: column;\n        gap: 4rem;\n        width: 100%;\n    }\n    // .main-rates__item\n    &__item {\n        height: 18rem;\n        display: flex;\n        align-items: center;\n        border-radius: 3rem;\n    }\n}\n.rates-item {\n    position: relative;\n\n    &::before,\n    &::after {\n        content: '';\n        width: 5.1rem;\n        height: 5.1rem;\n        border-radius: 50%;\n        background: #1f1f22;\n\n        position: absolute;\n        z-index: 1;\n        top: 50%;\n        transform: translateY(-50%);\n    }\n\n    &::after {\n        right: -2.5rem;\n    }\n    &::before {\n        left: -2.5rem;\n    }\n    &--bg--pink {\n        background: #ff69c2;\n    }\n    &--bg--blue {\n        background: #cad2f4;\n    }\n    &--bg--green {\n        background: $green;\n    }\n    // .rates-item__left\n    &__left {\n        padding: 3.6rem 3.6rem 3.6rem 8.6rem;\n        height: 100%;\n        width: 57.8rem;\n        display: flex;\n        align-items: center;\n        border-right: 0.3rem dashed $main;\n    }\n    // .rates-item__title\n    &__title {\n        color: #1f1f22;\n    }\n    // .rates-item__right\n    &__right {\n        display: flex;\n        align-items: center;\n        gap: 20.2rem;\n        height: 100%;\n        padding-left: 9.3rem;\n    }\n    // .rates-item__price\n    &__price {\n        &-top {\n            color: #1f1f22;\n\n            strong {\n                color: #1f1f22;\n                margin: 0 0.5rem;\n                align-self: center;\n            }\n            span {\n                align-self: flex-end;\n                margin-bottom: 0.2rem;\n            }\n            sup {\n                align-self: flex-start;\n            }\n        }\n        &-bottom {\n            color: $main;\n        }\n    }\n    // .rates-item__options\n    &__options {\n        width: 16rem;\n        color: $main;\n    }\n    // .rates-item__icon\n    &__icon {\n        position: absolute;\n    }\n}\n.rates-icon {\n    &--sunny {\n        top: -5rem;\n        left: 14.3rem;\n        width: 9.7rem;\n        height: 8rem;\n        transform: rotate(-7.376deg);\n    }\n    &--shapes {\n        right: 35.6rem;\n        top: -4.3rem;\n        width: 9.2rem;\n        height: 9rem;\n        transform: rotate(-15deg);\n    }\n    &--megafon {\n        width: 8.7rem;\n        height: 7rem;\n        transform: rotate(-12.401deg);\n        right: 68.6rem;\n        bottom: -3.5rem;\n    }\n}\n\n@media (max-width: 48em) {\n    .main-rates {\n        // .main-rates__inner\n        &__inner {\n            gap: 10rem;\n        }\n        // .main-rates__item\n        &__item {\n            height: 56rem;\n            border-radius: 4rem;\n            flex-direction: column;\n        }\n    }\n    .rates-item {\n        &::before,\n        &::after {\n            width: 9rem;\n            height: 9rem;\n        }\n        &::after {\n            right: -4.5rem;\n        }\n        &::before {\n            left: -4.5rem;\n        }\n        // .rates-item__left\n        &__left {\n            padding: 4.8rem;\n            height: 13.4rem;\n            width: 100%;\n            justify-content: center;\n            border-right: 0;\n            border-bottom: 0.3rem dashed $main;\n        }\n        // .rates-item__title\n        &__title {\n            font-size: 3rem;\n        }\n        // .rates-item__right\n        &__right {\n            flex-direction: column;\n            width: 100%;\n            gap: 4rem;\n            height: auto;\n            padding-left: 0;\n            padding-top: 2.4rem;\n        }\n        // .rates-item__price\n        &__price {\n            &-top {\n                strong {\n                    margin: 0 1rem;\n                }\n                span {\n                    align-self: flex-end;\n                    margin-bottom: 0;\n                }\n                sup {\n                    align-self: flex-start;\n                }\n            }\n            &-bottom {\n                color: $main;\n            }\n        }\n        // .rates-item__options\n        &__options {\n            width: 80%;\n            text-align: center;\n\n            display: flex;\n            justify-content: center;\n            margin-bottom: 2.8rem;\n        }\n        // .rates-item__icon\n        &__icon {\n            display: none;\n        }\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
@@ -30830,6 +31616,4255 @@ module.exports = styleTagTransform;
 
 /***/ }),
 
+/***/ "./node_modules/imask/esm/controls/html-contenteditable-mask-element.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/imask/esm/controls/html-contenteditable-mask-element.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ HTMLContenteditableMaskElement)
+/* harmony export */ });
+/* harmony import */ var _html_mask_element_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./html-mask-element.js */ "./node_modules/imask/esm/controls/html-mask-element.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _mask_element_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mask-element.js */ "./node_modules/imask/esm/controls/mask-element.js");
+
+
+
+
+class HTMLContenteditableMaskElement extends _html_mask_element_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  /** Returns HTMLElement selection start */
+  get _unsafeSelectionStart() {
+    const root = this.rootElement;
+    const selection = root.getSelection && root.getSelection();
+    const anchorOffset = selection && selection.anchorOffset;
+    const focusOffset = selection && selection.focusOffset;
+    if (focusOffset == null || anchorOffset == null || anchorOffset < focusOffset) {
+      return anchorOffset;
+    }
+    return focusOffset;
+  }
+
+  /** Returns HTMLElement selection end */
+  get _unsafeSelectionEnd() {
+    const root = this.rootElement;
+    const selection = root.getSelection && root.getSelection();
+    const anchorOffset = selection && selection.anchorOffset;
+    const focusOffset = selection && selection.focusOffset;
+    if (focusOffset == null || anchorOffset == null || anchorOffset > focusOffset) {
+      return anchorOffset;
+    }
+    return focusOffset;
+  }
+
+  /** Sets HTMLElement selection */
+  _unsafeSelect(start, end) {
+    if (!this.rootElement.createRange) return;
+    const range = this.rootElement.createRange();
+    range.setStart(this.input.firstChild || this.input, start);
+    range.setEnd(this.input.lastChild || this.input, end);
+    const root = this.rootElement;
+    const selection = root.getSelection && root.getSelection();
+    if (selection) {
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+  }
+
+  /** HTMLElement value */
+  get value() {
+    return this.input.textContent || '';
+  }
+  set value(value) {
+    this.input.textContent = value;
+  }
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].HTMLContenteditableMaskElement = HTMLContenteditableMaskElement;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/controls/html-input-mask-element.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/imask/esm/controls/html-input-mask-element.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ HTMLInputMaskElement)
+/* harmony export */ });
+/* harmony import */ var _html_mask_element_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./html-mask-element.js */ "./node_modules/imask/esm/controls/html-mask-element.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _mask_element_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mask-element.js */ "./node_modules/imask/esm/controls/mask-element.js");
+
+
+
+
+/** Bridge between InputElement and {@link Masked} */
+class HTMLInputMaskElement extends _html_mask_element_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  /** InputElement to use mask on */
+
+  constructor(input) {
+    super(input);
+    this.input = input;
+  }
+
+  /** Returns InputElement selection start */
+  get _unsafeSelectionStart() {
+    return this.input.selectionStart != null ? this.input.selectionStart : this.value.length;
+  }
+
+  /** Returns InputElement selection end */
+  get _unsafeSelectionEnd() {
+    return this.input.selectionEnd;
+  }
+
+  /** Sets InputElement selection */
+  _unsafeSelect(start, end) {
+    this.input.setSelectionRange(start, end);
+  }
+  get value() {
+    return this.input.value;
+  }
+  set value(value) {
+    this.input.value = value;
+  }
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].HTMLMaskElement = _html_mask_element_js__WEBPACK_IMPORTED_MODULE_0__["default"];
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/controls/html-mask-element.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/imask/esm/controls/html-mask-element.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ HTMLMaskElement)
+/* harmony export */ });
+/* harmony import */ var _mask_element_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mask-element.js */ "./node_modules/imask/esm/controls/mask-element.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+
+
+
+const KEY_Z = 90;
+const KEY_Y = 89;
+
+/** Bridge between HTMLElement and {@link Masked} */
+class HTMLMaskElement extends _mask_element_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  /** HTMLElement to use mask on */
+
+  constructor(input) {
+    super();
+    this.input = input;
+    this._onKeydown = this._onKeydown.bind(this);
+    this._onInput = this._onInput.bind(this);
+    this._onBeforeinput = this._onBeforeinput.bind(this);
+    this._onCompositionEnd = this._onCompositionEnd.bind(this);
+  }
+  get rootElement() {
+    return this.input.getRootNode?.() ?? document;
+  }
+
+  /** Is element in focus */
+  get isActive() {
+    return this.input === this.rootElement.activeElement;
+  }
+
+  /** Binds HTMLElement events to mask internal events */
+  bindEvents(handlers) {
+    this.input.addEventListener('keydown', this._onKeydown);
+    this.input.addEventListener('input', this._onInput);
+    this.input.addEventListener('beforeinput', this._onBeforeinput);
+    this.input.addEventListener('compositionend', this._onCompositionEnd);
+    this.input.addEventListener('drop', handlers.drop);
+    this.input.addEventListener('click', handlers.click);
+    this.input.addEventListener('focus', handlers.focus);
+    this.input.addEventListener('blur', handlers.commit);
+    this._handlers = handlers;
+  }
+  _onKeydown(e) {
+    if (this._handlers.redo && (e.keyCode === KEY_Z && e.shiftKey && (e.metaKey || e.ctrlKey) || e.keyCode === KEY_Y && e.ctrlKey)) {
+      e.preventDefault();
+      return this._handlers.redo(e);
+    }
+    if (this._handlers.undo && e.keyCode === KEY_Z && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      return this._handlers.undo(e);
+    }
+    if (!e.isComposing) this._handlers.selectionChange(e);
+  }
+  _onBeforeinput(e) {
+    if (e.inputType === 'historyUndo' && this._handlers.undo) {
+      e.preventDefault();
+      return this._handlers.undo(e);
+    }
+    if (e.inputType === 'historyRedo' && this._handlers.redo) {
+      e.preventDefault();
+      return this._handlers.redo(e);
+    }
+  }
+  _onCompositionEnd(e) {
+    this._handlers.input(e);
+  }
+  _onInput(e) {
+    if (!e.isComposing) this._handlers.input(e);
+  }
+
+  /** Unbinds HTMLElement events to mask internal events */
+  unbindEvents() {
+    this.input.removeEventListener('keydown', this._onKeydown);
+    this.input.removeEventListener('input', this._onInput);
+    this.input.removeEventListener('beforeinput', this._onBeforeinput);
+    this.input.removeEventListener('compositionend', this._onCompositionEnd);
+    this.input.removeEventListener('drop', this._handlers.drop);
+    this.input.removeEventListener('click', this._handlers.click);
+    this.input.removeEventListener('focus', this._handlers.focus);
+    this.input.removeEventListener('blur', this._handlers.commit);
+    this._handlers = {};
+  }
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].HTMLMaskElement = HTMLMaskElement;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/controls/input-history.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/imask/esm/controls/input-history.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ InputHistory)
+/* harmony export */ });
+class InputHistory {
+  static MAX_LENGTH = 100;
+  states = [];
+  currentIndex = 0;
+  get currentState() {
+    return this.states[this.currentIndex];
+  }
+  get isEmpty() {
+    return this.states.length === 0;
+  }
+  push(state) {
+    // if current index points before the last element then remove the future
+    if (this.currentIndex < this.states.length - 1) this.states.length = this.currentIndex + 1;
+    this.states.push(state);
+    if (this.states.length > InputHistory.MAX_LENGTH) this.states.shift();
+    this.currentIndex = this.states.length - 1;
+  }
+  go(steps) {
+    this.currentIndex = Math.min(Math.max(this.currentIndex + steps, 0), this.states.length - 1);
+    return this.currentState;
+  }
+  undo() {
+    return this.go(-1);
+  }
+  redo() {
+    return this.go(+1);
+  }
+  clear() {
+    this.states.length = 0;
+    this.currentIndex = 0;
+  }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/controls/input.js":
+/*!**************************************************!*\
+  !*** ./node_modules/imask/esm/controls/input.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ InputMask)
+/* harmony export */ });
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _core_action_details_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/action-details.js */ "./node_modules/imask/esm/core/action-details.js");
+/* harmony import */ var _masked_factory_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../masked/factory.js */ "./node_modules/imask/esm/masked/factory.js");
+/* harmony import */ var _mask_element_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mask-element.js */ "./node_modules/imask/esm/controls/mask-element.js");
+/* harmony import */ var _html_input_mask_element_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./html-input-mask-element.js */ "./node_modules/imask/esm/controls/html-input-mask-element.js");
+/* harmony import */ var _html_contenteditable_mask_element_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./html-contenteditable-mask-element.js */ "./node_modules/imask/esm/controls/html-contenteditable-mask-element.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _input_history_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./input-history.js */ "./node_modules/imask/esm/controls/input-history.js");
+/* harmony import */ var _html_mask_element_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./html-mask-element.js */ "./node_modules/imask/esm/controls/html-mask-element.js");
+
+
+
+
+
+
+
+
+
+
+/** Listens to element events and controls changes between element and {@link Masked} */
+class InputMask {
+  /**
+    View element
+  */
+
+  /** Internal {@link Masked} model */
+
+  constructor(el, opts) {
+    this.el = el instanceof _mask_element_js__WEBPACK_IMPORTED_MODULE_3__["default"] ? el : el.isContentEditable && el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA' ? new _html_contenteditable_mask_element_js__WEBPACK_IMPORTED_MODULE_5__["default"](el) : new _html_input_mask_element_js__WEBPACK_IMPORTED_MODULE_4__["default"](el);
+    this.masked = (0,_masked_factory_js__WEBPACK_IMPORTED_MODULE_2__["default"])(opts);
+    this._listeners = {};
+    this._value = '';
+    this._unmaskedValue = '';
+    this._rawInputValue = '';
+    this.history = new _input_history_js__WEBPACK_IMPORTED_MODULE_7__["default"]();
+    this._saveSelection = this._saveSelection.bind(this);
+    this._onInput = this._onInput.bind(this);
+    this._onChange = this._onChange.bind(this);
+    this._onDrop = this._onDrop.bind(this);
+    this._onFocus = this._onFocus.bind(this);
+    this._onClick = this._onClick.bind(this);
+    this._onUndo = this._onUndo.bind(this);
+    this._onRedo = this._onRedo.bind(this);
+    this.alignCursor = this.alignCursor.bind(this);
+    this.alignCursorFriendly = this.alignCursorFriendly.bind(this);
+    this._bindEvents();
+
+    // refresh
+    this.updateValue();
+    this._onChange();
+  }
+  maskEquals(mask) {
+    return mask == null || this.masked?.maskEquals(mask);
+  }
+
+  /** Masked */
+  get mask() {
+    return this.masked.mask;
+  }
+  set mask(mask) {
+    if (this.maskEquals(mask)) return;
+    if (!(mask instanceof _core_holder_js__WEBPACK_IMPORTED_MODULE_6__["default"].Masked) && this.masked.constructor === (0,_masked_factory_js__WEBPACK_IMPORTED_MODULE_2__.maskedClass)(mask)) {
+      // TODO "any" no idea
+      this.masked.updateOptions({
+        mask
+      });
+      return;
+    }
+    const masked = mask instanceof _core_holder_js__WEBPACK_IMPORTED_MODULE_6__["default"].Masked ? mask : (0,_masked_factory_js__WEBPACK_IMPORTED_MODULE_2__["default"])({
+      mask
+    });
+    masked.unmaskedValue = this.masked.unmaskedValue;
+    this.masked = masked;
+  }
+
+  /** Raw value */
+  get value() {
+    return this._value;
+  }
+  set value(str) {
+    if (this.value === str) return;
+    this.masked.value = str;
+    this.updateControl('auto');
+  }
+
+  /** Unmasked value */
+  get unmaskedValue() {
+    return this._unmaskedValue;
+  }
+  set unmaskedValue(str) {
+    if (this.unmaskedValue === str) return;
+    this.masked.unmaskedValue = str;
+    this.updateControl('auto');
+  }
+
+  /** Raw input value */
+  get rawInputValue() {
+    return this._rawInputValue;
+  }
+  set rawInputValue(str) {
+    if (this.rawInputValue === str) return;
+    this.masked.rawInputValue = str;
+    this.updateControl();
+    this.alignCursor();
+  }
+
+  /** Typed unmasked value */
+  get typedValue() {
+    return this.masked.typedValue;
+  }
+  set typedValue(val) {
+    if (this.masked.typedValueEquals(val)) return;
+    this.masked.typedValue = val;
+    this.updateControl('auto');
+  }
+
+  /** Display value */
+  get displayValue() {
+    return this.masked.displayValue;
+  }
+
+  /** Starts listening to element events */
+  _bindEvents() {
+    this.el.bindEvents({
+      selectionChange: this._saveSelection,
+      input: this._onInput,
+      drop: this._onDrop,
+      click: this._onClick,
+      focus: this._onFocus,
+      commit: this._onChange,
+      undo: this._onUndo,
+      redo: this._onRedo
+    });
+  }
+
+  /** Stops listening to element events */
+  _unbindEvents() {
+    if (this.el) this.el.unbindEvents();
+  }
+
+  /** Fires custom event */
+  _fireEvent(ev, e) {
+    const listeners = this._listeners[ev];
+    if (!listeners) return;
+    listeners.forEach(l => l(e));
+  }
+
+  /** Current selection start */
+  get selectionStart() {
+    return this._cursorChanging ? this._changingCursorPos : this.el.selectionStart;
+  }
+
+  /** Current cursor position */
+  get cursorPos() {
+    return this._cursorChanging ? this._changingCursorPos : this.el.selectionEnd;
+  }
+  set cursorPos(pos) {
+    if (!this.el || !this.el.isActive) return;
+    this.el.select(pos, pos);
+    this._saveSelection();
+  }
+
+  /** Stores current selection */
+  _saveSelection( /* ev */
+  ) {
+    if (this.displayValue !== this.el.value) {
+      console.warn('Element value was changed outside of mask. Syncronize mask using `mask.updateValue()` to work properly.'); // eslint-disable-line no-console
+    }
+    this._selection = {
+      start: this.selectionStart,
+      end: this.cursorPos
+    };
+  }
+
+  /** Syncronizes model value from view */
+  updateValue() {
+    this.masked.value = this.el.value;
+    this._value = this.masked.value;
+  }
+
+  /** Syncronizes view from model value, fires change events */
+  updateControl(cursorPos) {
+    const newUnmaskedValue = this.masked.unmaskedValue;
+    const newValue = this.masked.value;
+    const newRawInputValue = this.masked.rawInputValue;
+    const newDisplayValue = this.displayValue;
+    const isChanged = this.unmaskedValue !== newUnmaskedValue || this.value !== newValue || this._rawInputValue !== newRawInputValue;
+    this._unmaskedValue = newUnmaskedValue;
+    this._value = newValue;
+    this._rawInputValue = newRawInputValue;
+    if (this.el.value !== newDisplayValue) this.el.value = newDisplayValue;
+    if (cursorPos === 'auto') this.alignCursor();else if (cursorPos != null) this.cursorPos = cursorPos;
+    if (isChanged) this._fireChangeEvents();
+    if (!this._historyChanging && (isChanged || this.history.isEmpty)) this.history.push({
+      unmaskedValue: newUnmaskedValue,
+      selection: {
+        start: this.selectionStart,
+        end: this.cursorPos
+      }
+    });
+  }
+
+  /** Updates options with deep equal check, recreates {@link Masked} model if mask type changes */
+  updateOptions(opts) {
+    const {
+      mask,
+      ...restOpts
+    } = opts; // TODO types, yes, mask is optional
+
+    const updateMask = !this.maskEquals(mask);
+    const updateOpts = this.masked.optionsIsChanged(restOpts);
+    if (updateMask) this.mask = mask;
+    if (updateOpts) this.masked.updateOptions(restOpts); // TODO
+
+    if (updateMask || updateOpts) this.updateControl();
+  }
+
+  /** Updates cursor */
+  updateCursor(cursorPos) {
+    if (cursorPos == null) return;
+    this.cursorPos = cursorPos;
+
+    // also queue change cursor for mobile browsers
+    this._delayUpdateCursor(cursorPos);
+  }
+
+  /** Delays cursor update to support mobile browsers */
+  _delayUpdateCursor(cursorPos) {
+    this._abortUpdateCursor();
+    this._changingCursorPos = cursorPos;
+    this._cursorChanging = setTimeout(() => {
+      if (!this.el) return; // if was destroyed
+      this.cursorPos = this._changingCursorPos;
+      this._abortUpdateCursor();
+    }, 10);
+  }
+
+  /** Fires custom events */
+  _fireChangeEvents() {
+    this._fireEvent('accept', this._inputEvent);
+    if (this.masked.isComplete) this._fireEvent('complete', this._inputEvent);
+  }
+
+  /** Aborts delayed cursor update */
+  _abortUpdateCursor() {
+    if (this._cursorChanging) {
+      clearTimeout(this._cursorChanging);
+      delete this._cursorChanging;
+    }
+  }
+
+  /** Aligns cursor to nearest available position */
+  alignCursor() {
+    this.cursorPos = this.masked.nearestInputPos(this.masked.nearestInputPos(this.cursorPos, _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.LEFT));
+  }
+
+  /** Aligns cursor only if selection is empty */
+  alignCursorFriendly() {
+    if (this.selectionStart !== this.cursorPos) return; // skip if range is selected
+    this.alignCursor();
+  }
+
+  /** Adds listener on custom event */
+  on(ev, handler) {
+    if (!this._listeners[ev]) this._listeners[ev] = [];
+    this._listeners[ev].push(handler);
+    return this;
+  }
+
+  /** Removes custom event listener */
+  off(ev, handler) {
+    if (!this._listeners[ev]) return this;
+    if (!handler) {
+      delete this._listeners[ev];
+      return this;
+    }
+    const hIndex = this._listeners[ev].indexOf(handler);
+    if (hIndex >= 0) this._listeners[ev].splice(hIndex, 1);
+    return this;
+  }
+
+  /** Handles view input event */
+  _onInput(e) {
+    this._inputEvent = e;
+    this._abortUpdateCursor();
+    const details = new _core_action_details_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
+      // new state
+      value: this.el.value,
+      cursorPos: this.cursorPos,
+      // old state
+      oldValue: this.displayValue,
+      oldSelection: this._selection
+    });
+    const oldRawValue = this.masked.rawInputValue;
+    const offset = this.masked.splice(details.startChangePos, details.removed.length, details.inserted, details.removeDirection, {
+      input: true,
+      raw: true
+    }).offset;
+
+    // force align in remove direction only if no input chars were removed
+    // otherwise we still need to align with NONE (to get out from fixed symbols for instance)
+    const removeDirection = oldRawValue === this.masked.rawInputValue ? details.removeDirection : _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.NONE;
+    let cursorPos = this.masked.nearestInputPos(details.startChangePos + offset, removeDirection);
+    if (removeDirection !== _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.NONE) cursorPos = this.masked.nearestInputPos(cursorPos, _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.NONE);
+    this.updateControl(cursorPos);
+    delete this._inputEvent;
+  }
+
+  /** Handles view change event and commits model value */
+  _onChange() {
+    if (this.displayValue !== this.el.value) {
+      this.updateValue();
+    }
+    this.masked.doCommit();
+    this.updateControl();
+    this._saveSelection();
+  }
+
+  /** Handles view drop event, prevents by default */
+  _onDrop(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+  }
+
+  /** Restore last selection on focus */
+  _onFocus(ev) {
+    this.alignCursorFriendly();
+  }
+
+  /** Restore last selection on focus */
+  _onClick(ev) {
+    this.alignCursorFriendly();
+  }
+  _onUndo() {
+    this._applyHistoryState(this.history.undo());
+  }
+  _onRedo() {
+    this._applyHistoryState(this.history.redo());
+  }
+  _applyHistoryState(state) {
+    if (!state) return;
+    this._historyChanging = true;
+    this.unmaskedValue = state.unmaskedValue;
+    this.el.select(state.selection.start, state.selection.end);
+    this._saveSelection();
+    this._historyChanging = false;
+  }
+
+  /** Unbind view events and removes element reference */
+  destroy() {
+    this._unbindEvents();
+    this._listeners.length = 0;
+    delete this.el;
+  }
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_6__["default"].InputMask = InputMask;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/controls/mask-element.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/imask/esm/controls/mask-element.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MaskElement)
+/* harmony export */ });
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+
+
+/**  Generic element API to use with mask */
+class MaskElement {
+  /** */
+
+  /** */
+
+  /** */
+
+  /** Safely returns selection start */
+  get selectionStart() {
+    let start;
+    try {
+      start = this._unsafeSelectionStart;
+    } catch {}
+    return start != null ? start : this.value.length;
+  }
+
+  /** Safely returns selection end */
+  get selectionEnd() {
+    let end;
+    try {
+      end = this._unsafeSelectionEnd;
+    } catch {}
+    return end != null ? end : this.value.length;
+  }
+
+  /** Safely sets element selection */
+  select(start, end) {
+    if (start == null || end == null || start === this.selectionStart && end === this.selectionEnd) return;
+    try {
+      this._unsafeSelect(start, end);
+    } catch {}
+  }
+
+  /** */
+  get isActive() {
+    return false;
+  }
+  /** */
+
+  /** */
+
+  /** */
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_0__["default"].MaskElement = MaskElement;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/core/action-details.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/imask/esm/core/action-details.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ActionDetails)
+/* harmony export */ });
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ "./node_modules/imask/esm/core/utils.js");
+
+
+/** Provides details of changing input */
+class ActionDetails {
+  /** Current input value */
+
+  /** Current cursor position */
+
+  /** Old input value */
+
+  /** Old selection */
+
+  constructor(opts) {
+    Object.assign(this, opts);
+
+    // double check if left part was changed (autofilling, other non-standard input triggers)
+    while (this.value.slice(0, this.startChangePos) !== this.oldValue.slice(0, this.startChangePos)) {
+      --this.oldSelection.start;
+    }
+
+    // double check right part
+    while (this.value.slice(this.cursorPos) !== this.oldValue.slice(this.oldSelection.end)) {
+      if (this.value.length - this.cursorPos < this.oldValue.length - this.oldSelection.end) ++this.oldSelection.end;else ++this.cursorPos;
+    }
+  }
+
+  /** Start changing position */
+  get startChangePos() {
+    return Math.min(this.cursorPos, this.oldSelection.start);
+  }
+
+  /** Inserted symbols count */
+  get insertedCount() {
+    return this.cursorPos - this.startChangePos;
+  }
+
+  /** Inserted symbols */
+  get inserted() {
+    return this.value.substr(this.startChangePos, this.insertedCount);
+  }
+
+  /** Removed symbols count */
+  get removedCount() {
+    // Math.max for opposite operation
+    return Math.max(this.oldSelection.end - this.startChangePos ||
+    // for Delete
+    this.oldValue.length - this.value.length, 0);
+  }
+
+  /** Removed symbols */
+  get removed() {
+    return this.oldValue.substr(this.startChangePos, this.removedCount);
+  }
+
+  /** Unchanged head symbols */
+  get head() {
+    return this.value.substring(0, this.startChangePos);
+  }
+
+  /** Unchanged tail symbols */
+  get tail() {
+    return this.value.substring(this.startChangePos + this.insertedCount);
+  }
+
+  /** Remove direction */
+  get removeDirection() {
+    if (!this.removedCount || this.insertedCount) return _utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.NONE;
+
+    // align right if delete at right
+    return (this.oldSelection.end === this.cursorPos || this.oldSelection.start === this.cursorPos) &&
+    // if not range removed (event with backspace)
+    this.oldSelection.end === this.oldSelection.start ? _utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.RIGHT : _utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.LEFT;
+  }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/core/change-details.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/imask/esm/core/change-details.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ChangeDetails)
+/* harmony export */ });
+/* harmony import */ var _holder_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./holder.js */ "./node_modules/imask/esm/core/holder.js");
+
+
+/** Provides details of changing model value */
+class ChangeDetails {
+  /** Inserted symbols */
+
+  /** Can skip chars */
+
+  /** Additional offset if any changes occurred before tail */
+
+  /** Raw inserted is used by dynamic mask */
+
+  static normalize(prep) {
+    return Array.isArray(prep) ? prep : [prep, new ChangeDetails()];
+  }
+  constructor(details) {
+    Object.assign(this, {
+      inserted: '',
+      rawInserted: '',
+      skip: false,
+      tailShift: 0
+    }, details);
+  }
+
+  /** Aggregate changes */
+  aggregate(details) {
+    this.rawInserted += details.rawInserted;
+    this.skip = this.skip || details.skip;
+    this.inserted += details.inserted;
+    this.tailShift += details.tailShift;
+    return this;
+  }
+
+  /** Total offset considering all changes */
+  get offset() {
+    return this.tailShift + this.inserted.length;
+  }
+}
+_holder_js__WEBPACK_IMPORTED_MODULE_0__["default"].ChangeDetails = ChangeDetails;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/core/continuous-tail-details.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/imask/esm/core/continuous-tail-details.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ContinuousTailDetails)
+/* harmony export */ });
+/** Provides details of continuous extracted tail */
+class ContinuousTailDetails {
+  /** Tail value as string */
+
+  /** Tail start position */
+
+  /** Start position */
+
+  constructor(value, from, stop) {
+    if (value === void 0) {
+      value = '';
+    }
+    if (from === void 0) {
+      from = 0;
+    }
+    this.value = value;
+    this.from = from;
+    this.stop = stop;
+  }
+  toString() {
+    return this.value;
+  }
+  extend(tail) {
+    this.value += String(tail);
+  }
+  appendTo(masked) {
+    return masked.append(this.toString(), {
+      tail: true
+    }).aggregate(masked._appendPlaceholder());
+  }
+  get state() {
+    return {
+      value: this.value,
+      from: this.from,
+      stop: this.stop
+    };
+  }
+  set state(state) {
+    Object.assign(this, state);
+  }
+  unshift(beforePos) {
+    if (!this.value.length || beforePos != null && this.from >= beforePos) return '';
+    const shiftChar = this.value[0];
+    this.value = this.value.slice(1);
+    return shiftChar;
+  }
+  shift() {
+    if (!this.value.length) return '';
+    const shiftChar = this.value[this.value.length - 1];
+    this.value = this.value.slice(0, -1);
+    return shiftChar;
+  }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/core/holder.js":
+/*!***********************************************!*\
+  !*** ./node_modules/imask/esm/core/holder.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ IMask)
+/* harmony export */ });
+/** Applies mask on element */
+function IMask(el, opts) {
+  // currently available only for input-like elements
+  return new IMask.InputMask(el, opts);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/core/utils.js":
+/*!**********************************************!*\
+  !*** ./node_modules/imask/esm/core/utils.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DIRECTION: () => (/* binding */ DIRECTION),
+/* harmony export */   escapeRegExp: () => (/* binding */ escapeRegExp),
+/* harmony export */   forceDirection: () => (/* binding */ forceDirection),
+/* harmony export */   isObject: () => (/* binding */ isObject),
+/* harmony export */   isString: () => (/* binding */ isString),
+/* harmony export */   objectIncludes: () => (/* binding */ objectIncludes),
+/* harmony export */   pick: () => (/* binding */ pick)
+/* harmony export */ });
+/** Checks if value is string */
+function isString(str) {
+  return typeof str === 'string' || str instanceof String;
+}
+
+/** Checks if value is object */
+function isObject(obj) {
+  return typeof obj === 'object' && obj != null && obj?.constructor?.name === 'Object';
+}
+function pick(obj, keys) {
+  if (Array.isArray(keys)) return pick(obj, (_, k) => keys.includes(k));
+  return Object.entries(obj).reduce((acc, _ref) => {
+    let [k, v] = _ref;
+    if (keys(v, k)) acc[k] = v;
+    return acc;
+  }, {});
+}
+
+/** Direction */
+const DIRECTION = {
+  NONE: 'NONE',
+  LEFT: 'LEFT',
+  FORCE_LEFT: 'FORCE_LEFT',
+  RIGHT: 'RIGHT',
+  FORCE_RIGHT: 'FORCE_RIGHT'
+};
+
+/** Direction */
+
+function forceDirection(direction) {
+  switch (direction) {
+    case DIRECTION.LEFT:
+      return DIRECTION.FORCE_LEFT;
+    case DIRECTION.RIGHT:
+      return DIRECTION.FORCE_RIGHT;
+    default:
+      return direction;
+  }
+}
+
+/** Escapes regular expression control chars */
+function escapeRegExp(str) {
+  return str.replace(/([.*+?^=!:${}()|[\]/\\])/g, '\\$1');
+}
+
+// cloned from https://github.com/epoberezkin/fast-deep-equal with small changes
+function objectIncludes(b, a) {
+  if (a === b) return true;
+  const arrA = Array.isArray(a),
+    arrB = Array.isArray(b);
+  let i;
+  if (arrA && arrB) {
+    if (a.length != b.length) return false;
+    for (i = 0; i < a.length; i++) if (!objectIncludes(a[i], b[i])) return false;
+    return true;
+  }
+  if (arrA != arrB) return false;
+  if (a && b && typeof a === 'object' && typeof b === 'object') {
+    const dateA = a instanceof Date,
+      dateB = b instanceof Date;
+    if (dateA && dateB) return a.getTime() == b.getTime();
+    if (dateA != dateB) return false;
+    const regexpA = a instanceof RegExp,
+      regexpB = b instanceof RegExp;
+    if (regexpA && regexpB) return a.toString() == b.toString();
+    if (regexpA != regexpB) return false;
+    const keys = Object.keys(a);
+    // if (keys.length !== Object.keys(b).length) return false;
+
+    for (i = 0; i < keys.length; i++) if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+    for (i = 0; i < keys.length; i++) if (!objectIncludes(b[keys[i]], a[keys[i]])) return false;
+    return true;
+  } else if (a && b && typeof a === 'function' && typeof b === 'function') {
+    return a.toString() === b.toString();
+  }
+  return false;
+}
+
+/** Selection range */
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/imask/esm/index.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ChangeDetails: () => (/* reexport safe */ _core_change_details_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
+/* harmony export */   ChunksTailDetails: () => (/* reexport safe */ _masked_pattern_chunk_tail_details_js__WEBPACK_IMPORTED_MODULE_16__["default"]),
+/* harmony export */   DIRECTION: () => (/* reexport safe */ _core_utils_js__WEBPACK_IMPORTED_MODULE_7__.DIRECTION),
+/* harmony export */   HTMLContenteditableMaskElement: () => (/* reexport safe */ _controls_html_contenteditable_mask_element_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   HTMLInputMaskElement: () => (/* reexport safe */ _controls_html_input_mask_element_js__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   HTMLMaskElement: () => (/* reexport safe */ _controls_html_mask_element_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
+/* harmony export */   InputMask: () => (/* reexport safe */ _controls_input_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   MaskElement: () => (/* reexport safe */ _controls_mask_element_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   Masked: () => (/* reexport safe */ _masked_base_js__WEBPACK_IMPORTED_MODULE_8__["default"]),
+/* harmony export */   MaskedDate: () => (/* reexport safe */ _masked_date_js__WEBPACK_IMPORTED_MODULE_9__["default"]),
+/* harmony export */   MaskedDynamic: () => (/* reexport safe */ _masked_dynamic_js__WEBPACK_IMPORTED_MODULE_10__["default"]),
+/* harmony export */   MaskedEnum: () => (/* reexport safe */ _masked_enum_js__WEBPACK_IMPORTED_MODULE_11__["default"]),
+/* harmony export */   MaskedFunction: () => (/* reexport safe */ _masked_function_js__WEBPACK_IMPORTED_MODULE_13__["default"]),
+/* harmony export */   MaskedNumber: () => (/* reexport safe */ _masked_number_js__WEBPACK_IMPORTED_MODULE_14__["default"]),
+/* harmony export */   MaskedPattern: () => (/* reexport safe */ _masked_pattern_js__WEBPACK_IMPORTED_MODULE_15__["default"]),
+/* harmony export */   MaskedRange: () => (/* reexport safe */ _masked_range_js__WEBPACK_IMPORTED_MODULE_20__["default"]),
+/* harmony export */   MaskedRegExp: () => (/* reexport safe */ _masked_regexp_js__WEBPACK_IMPORTED_MODULE_21__["default"]),
+/* harmony export */   PIPE_TYPE: () => (/* reexport safe */ _masked_pipe_js__WEBPACK_IMPORTED_MODULE_19__.PIPE_TYPE),
+/* harmony export */   PatternFixedDefinition: () => (/* reexport safe */ _masked_pattern_fixed_definition_js__WEBPACK_IMPORTED_MODULE_17__["default"]),
+/* harmony export */   PatternInputDefinition: () => (/* reexport safe */ _masked_pattern_input_definition_js__WEBPACK_IMPORTED_MODULE_18__["default"]),
+/* harmony export */   RepeatBlock: () => (/* reexport safe */ _masked_repeat_js__WEBPACK_IMPORTED_MODULE_22__["default"]),
+/* harmony export */   createMask: () => (/* reexport safe */ _masked_factory_js__WEBPACK_IMPORTED_MODULE_12__["default"]),
+/* harmony export */   createPipe: () => (/* reexport safe */ _masked_pipe_js__WEBPACK_IMPORTED_MODULE_19__.createPipe),
+/* harmony export */   "default": () => (/* reexport safe */ _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   forceDirection: () => (/* reexport safe */ _core_utils_js__WEBPACK_IMPORTED_MODULE_7__.forceDirection),
+/* harmony export */   normalizeOpts: () => (/* reexport safe */ _masked_factory_js__WEBPACK_IMPORTED_MODULE_12__.normalizeOpts),
+/* harmony export */   pipe: () => (/* reexport safe */ _masked_pipe_js__WEBPACK_IMPORTED_MODULE_19__.pipe)
+/* harmony export */ });
+/* harmony import */ var _controls_input_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./controls/input.js */ "./node_modules/imask/esm/controls/input.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _controls_html_contenteditable_mask_element_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./controls/html-contenteditable-mask-element.js */ "./node_modules/imask/esm/controls/html-contenteditable-mask-element.js");
+/* harmony import */ var _controls_html_input_mask_element_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./controls/html-input-mask-element.js */ "./node_modules/imask/esm/controls/html-input-mask-element.js");
+/* harmony import */ var _controls_html_mask_element_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./controls/html-mask-element.js */ "./node_modules/imask/esm/controls/html-mask-element.js");
+/* harmony import */ var _controls_mask_element_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./controls/mask-element.js */ "./node_modules/imask/esm/controls/mask-element.js");
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _masked_base_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./masked/base.js */ "./node_modules/imask/esm/masked/base.js");
+/* harmony import */ var _masked_date_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./masked/date.js */ "./node_modules/imask/esm/masked/date.js");
+/* harmony import */ var _masked_dynamic_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./masked/dynamic.js */ "./node_modules/imask/esm/masked/dynamic.js");
+/* harmony import */ var _masked_enum_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./masked/enum.js */ "./node_modules/imask/esm/masked/enum.js");
+/* harmony import */ var _masked_factory_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./masked/factory.js */ "./node_modules/imask/esm/masked/factory.js");
+/* harmony import */ var _masked_function_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./masked/function.js */ "./node_modules/imask/esm/masked/function.js");
+/* harmony import */ var _masked_number_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./masked/number.js */ "./node_modules/imask/esm/masked/number.js");
+/* harmony import */ var _masked_pattern_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./masked/pattern.js */ "./node_modules/imask/esm/masked/pattern.js");
+/* harmony import */ var _masked_pattern_chunk_tail_details_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./masked/pattern/chunk-tail-details.js */ "./node_modules/imask/esm/masked/pattern/chunk-tail-details.js");
+/* harmony import */ var _masked_pattern_fixed_definition_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./masked/pattern/fixed-definition.js */ "./node_modules/imask/esm/masked/pattern/fixed-definition.js");
+/* harmony import */ var _masked_pattern_input_definition_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./masked/pattern/input-definition.js */ "./node_modules/imask/esm/masked/pattern/input-definition.js");
+/* harmony import */ var _masked_pipe_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./masked/pipe.js */ "./node_modules/imask/esm/masked/pipe.js");
+/* harmony import */ var _masked_range_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./masked/range.js */ "./node_modules/imask/esm/masked/range.js");
+/* harmony import */ var _masked_regexp_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./masked/regexp.js */ "./node_modules/imask/esm/masked/regexp.js");
+/* harmony import */ var _masked_repeat_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./masked/repeat.js */ "./node_modules/imask/esm/masked/repeat.js");
+/* harmony import */ var _core_action_details_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./core/action-details.js */ "./node_modules/imask/esm/core/action-details.js");
+/* harmony import */ var _controls_input_history_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./controls/input-history.js */ "./node_modules/imask/esm/controls/input-history.js");
+/* harmony import */ var _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./core/continuous-tail-details.js */ "./node_modules/imask/esm/core/continuous-tail-details.js");
+/* harmony import */ var _masked_pattern_cursor_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./masked/pattern/cursor.js */ "./node_modules/imask/esm/masked/pattern/cursor.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+try {
+  globalThis.IMask = _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"];
+} catch {}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/base.js":
+/*!***********************************************!*\
+  !*** ./node_modules/imask/esm/masked/base.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Masked)
+/* harmony export */ });
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/continuous-tail-details.js */ "./node_modules/imask/esm/core/continuous-tail-details.js");
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+
+
+
+
+
+/** Append flags */
+
+/** Extract flags */
+
+// see https://github.com/microsoft/TypeScript/issues/6223
+
+/** Provides common masking stuff */
+class Masked {
+  static DEFAULTS = {
+    skipInvalid: true
+  };
+  static EMPTY_VALUES = [undefined, null, ''];
+
+  /** */
+
+  /** */
+
+  /** Transforms value before mask processing */
+
+  /** Transforms each char before mask processing */
+
+  /** Validates if value is acceptable */
+
+  /** Does additional processing at the end of editing */
+
+  /** Format typed value to string */
+
+  /** Parse string to get typed value */
+
+  /** Enable characters overwriting */
+
+  /** */
+
+  /** */
+
+  /** */
+
+  constructor(opts) {
+    this._value = '';
+    this._update({
+      ...Masked.DEFAULTS,
+      ...opts
+    });
+    this._initialized = true;
+  }
+
+  /** Sets and applies new options */
+  updateOptions(opts) {
+    if (!this.optionsIsChanged(opts)) return;
+    this.withValueRefresh(this._update.bind(this, opts));
+  }
+
+  /** Sets new options */
+  _update(opts) {
+    Object.assign(this, opts);
+  }
+
+  /** Mask state */
+  get state() {
+    return {
+      _value: this.value,
+      _rawInputValue: this.rawInputValue
+    };
+  }
+  set state(state) {
+    this._value = state._value;
+  }
+
+  /** Resets value */
+  reset() {
+    this._value = '';
+  }
+  get value() {
+    return this._value;
+  }
+  set value(value) {
+    this.resolve(value, {
+      input: true
+    });
+  }
+
+  /** Resolve new value */
+  resolve(value, flags) {
+    if (flags === void 0) {
+      flags = {
+        input: true
+      };
+    }
+    this.reset();
+    this.append(value, flags, '');
+    this.doCommit();
+  }
+  get unmaskedValue() {
+    return this.value;
+  }
+  set unmaskedValue(value) {
+    this.resolve(value, {});
+  }
+  get typedValue() {
+    return this.parse ? this.parse(this.value, this) : this.unmaskedValue;
+  }
+  set typedValue(value) {
+    if (this.format) {
+      this.value = this.format(value, this);
+    } else {
+      this.unmaskedValue = String(value);
+    }
+  }
+
+  /** Value that includes raw user input */
+  get rawInputValue() {
+    return this.extractInput(0, this.displayValue.length, {
+      raw: true
+    });
+  }
+  set rawInputValue(value) {
+    this.resolve(value, {
+      raw: true
+    });
+  }
+  get displayValue() {
+    return this.value;
+  }
+  get isComplete() {
+    return true;
+  }
+  get isFilled() {
+    return this.isComplete;
+  }
+
+  /** Finds nearest input position in direction */
+  nearestInputPos(cursorPos, direction) {
+    return cursorPos;
+  }
+  totalInputPositions(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.displayValue.length;
+    }
+    return Math.min(this.displayValue.length, toPos - fromPos);
+  }
+
+  /** Extracts value in range considering flags */
+  extractInput(fromPos, toPos, flags) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.displayValue.length;
+    }
+    return this.displayValue.slice(fromPos, toPos);
+  }
+
+  /** Extracts tail in range */
+  extractTail(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.displayValue.length;
+    }
+    return new _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.extractInput(fromPos, toPos), fromPos);
+  }
+
+  /** Appends tail */
+  appendTail(tail) {
+    if ((0,_core_utils_js__WEBPACK_IMPORTED_MODULE_2__.isString)(tail)) tail = new _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_1__["default"](String(tail));
+    return tail.appendTo(this);
+  }
+
+  /** Appends char */
+  _appendCharRaw(ch, flags) {
+    if (!ch) return new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    this._value += ch;
+    return new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
+      inserted: ch,
+      rawInserted: ch
+    });
+  }
+
+  /** Appends char */
+  _appendChar(ch, flags, checkTail) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    const consistentState = this.state;
+    let details;
+    [ch, details] = this.doPrepareChar(ch, flags);
+    if (ch) details = details.aggregate(this._appendCharRaw(ch, flags));
+    if (details.inserted) {
+      let consistentTail;
+      let appended = this.doValidate(flags) !== false;
+      if (appended && checkTail != null) {
+        // validation ok, check tail
+        const beforeTailState = this.state;
+        if (this.overwrite === true) {
+          consistentTail = checkTail.state;
+          for (let i = 0; i < details.rawInserted.length; ++i) {
+            checkTail.unshift(this.displayValue.length - details.tailShift);
+          }
+        }
+        let tailDetails = this.appendTail(checkTail);
+        appended = tailDetails.rawInserted.length === checkTail.toString().length;
+
+        // not ok, try shift
+        if (!(appended && tailDetails.inserted) && this.overwrite === 'shift') {
+          this.state = beforeTailState;
+          consistentTail = checkTail.state;
+          for (let i = 0; i < details.rawInserted.length; ++i) {
+            checkTail.shift();
+          }
+          tailDetails = this.appendTail(checkTail);
+          appended = tailDetails.rawInserted.length === checkTail.toString().length;
+        }
+
+        // if ok, rollback state after tail
+        if (appended && tailDetails.inserted) this.state = beforeTailState;
+      }
+
+      // revert all if something went wrong
+      if (!appended) {
+        details = new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+        this.state = consistentState;
+        if (checkTail && consistentTail) checkTail.state = consistentTail;
+      }
+    }
+    return details;
+  }
+
+  /** Appends optional placeholder at the end */
+  _appendPlaceholder() {
+    return new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  }
+
+  /** Appends optional eager placeholder at the end */
+  _appendEager() {
+    return new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  }
+
+  /** Appends symbols considering flags */
+  append(str, flags, tail) {
+    if (!(0,_core_utils_js__WEBPACK_IMPORTED_MODULE_2__.isString)(str)) throw new Error('value should be string');
+    const checkTail = (0,_core_utils_js__WEBPACK_IMPORTED_MODULE_2__.isString)(tail) ? new _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_1__["default"](String(tail)) : tail;
+    if (flags?.tail) flags._beforeTailState = this.state;
+    let details;
+    [str, details] = this.doPrepare(str, flags);
+    for (let ci = 0; ci < str.length; ++ci) {
+      const d = this._appendChar(str[ci], flags, checkTail);
+      if (!d.rawInserted && !this.doSkipInvalid(str[ci], flags, checkTail)) break;
+      details.aggregate(d);
+    }
+    if ((this.eager === true || this.eager === 'append') && flags?.input && str) {
+      details.aggregate(this._appendEager());
+    }
+
+    // append tail but aggregate only tailShift
+    if (checkTail != null) {
+      details.tailShift += this.appendTail(checkTail).tailShift;
+      // TODO it's a good idea to clear state after appending ends
+      // but it causes bugs when one append calls another (when dynamic dispatch set rawInputValue)
+      // this._resetBeforeTailState();
+    }
+    return details;
+  }
+  remove(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.displayValue.length;
+    }
+    this._value = this.displayValue.slice(0, fromPos) + this.displayValue.slice(toPos);
+    return new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  }
+
+  /** Calls function and reapplies current value */
+  withValueRefresh(fn) {
+    if (this._refreshing || !this._initialized) return fn();
+    this._refreshing = true;
+    const rawInput = this.rawInputValue;
+    const value = this.value;
+    const ret = fn();
+    this.rawInputValue = rawInput;
+    // append lost trailing chars at the end
+    if (this.value && this.value !== value && value.indexOf(this.value) === 0) {
+      this.append(value.slice(this.displayValue.length), {}, '');
+      this.doCommit();
+    }
+    delete this._refreshing;
+    return ret;
+  }
+  runIsolated(fn) {
+    if (this._isolated || !this._initialized) return fn(this);
+    this._isolated = true;
+    const state = this.state;
+    const ret = fn(this);
+    this.state = state;
+    delete this._isolated;
+    return ret;
+  }
+  doSkipInvalid(ch, flags, checkTail) {
+    return Boolean(this.skipInvalid);
+  }
+
+  /** Prepares string before mask processing */
+  doPrepare(str, flags) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    return _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"].normalize(this.prepare ? this.prepare(str, this, flags) : str);
+  }
+
+  /** Prepares each char before mask processing */
+  doPrepareChar(str, flags) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    return _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"].normalize(this.prepareChar ? this.prepareChar(str, this, flags) : str);
+  }
+
+  /** Validates if value is acceptable */
+  doValidate(flags) {
+    return (!this.validate || this.validate(this.value, this, flags)) && (!this.parent || this.parent.doValidate(flags));
+  }
+
+  /** Does additional processing at the end of editing */
+  doCommit() {
+    if (this.commit) this.commit(this.value, this);
+  }
+  splice(start, deleteCount, inserted, removeDirection, flags) {
+    if (removeDirection === void 0) {
+      removeDirection = _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.NONE;
+    }
+    if (flags === void 0) {
+      flags = {
+        input: true
+      };
+    }
+    const tailPos = start + deleteCount;
+    const tail = this.extractTail(tailPos);
+    const eagerRemove = this.eager === true || this.eager === 'remove';
+    let oldRawValue;
+    if (eagerRemove) {
+      removeDirection = (0,_core_utils_js__WEBPACK_IMPORTED_MODULE_2__.forceDirection)(removeDirection);
+      oldRawValue = this.extractInput(0, tailPos, {
+        raw: true
+      });
+    }
+    let startChangePos = start;
+    const details = new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+
+    // if it is just deletion without insertion
+    if (removeDirection !== _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.NONE) {
+      startChangePos = this.nearestInputPos(start, deleteCount > 1 && start !== 0 && !eagerRemove ? _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.NONE : removeDirection);
+
+      // adjust tailShift if start was aligned
+      details.tailShift = startChangePos - start;
+    }
+    details.aggregate(this.remove(startChangePos));
+    if (eagerRemove && removeDirection !== _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.NONE && oldRawValue === this.rawInputValue) {
+      if (removeDirection === _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.FORCE_LEFT) {
+        let valLength;
+        while (oldRawValue === this.rawInputValue && (valLength = this.displayValue.length)) {
+          details.aggregate(new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
+            tailShift: -1
+          })).aggregate(this.remove(valLength - 1));
+        }
+      } else if (removeDirection === _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.FORCE_RIGHT) {
+        tail.unshift();
+      }
+    }
+    return details.aggregate(this.append(inserted, flags, tail));
+  }
+  maskEquals(mask) {
+    return this.mask === mask;
+  }
+  optionsIsChanged(opts) {
+    return !(0,_core_utils_js__WEBPACK_IMPORTED_MODULE_2__.objectIncludes)(this, opts);
+  }
+  typedValueEquals(value) {
+    const tval = this.typedValue;
+    return value === tval || Masked.EMPTY_VALUES.includes(value) && Masked.EMPTY_VALUES.includes(tval) || (this.format ? this.format(value, this) === this.format(this.typedValue, this) : false);
+  }
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_3__["default"].Masked = Masked;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/date.js":
+/*!***********************************************!*\
+  !*** ./node_modules/imask/esm/masked/date.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MaskedDate)
+/* harmony export */ });
+/* harmony import */ var _pattern_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pattern.js */ "./node_modules/imask/esm/masked/pattern.js");
+/* harmony import */ var _range_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./range.js */ "./node_modules/imask/esm/masked/range.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _base_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./base.js */ "./node_modules/imask/esm/masked/base.js");
+/* harmony import */ var _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../core/continuous-tail-details.js */ "./node_modules/imask/esm/core/continuous-tail-details.js");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./factory.js */ "./node_modules/imask/esm/masked/factory.js");
+/* harmony import */ var _pattern_chunk_tail_details_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pattern/chunk-tail-details.js */ "./node_modules/imask/esm/masked/pattern/chunk-tail-details.js");
+/* harmony import */ var _pattern_cursor_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pattern/cursor.js */ "./node_modules/imask/esm/masked/pattern/cursor.js");
+/* harmony import */ var _pattern_fixed_definition_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pattern/fixed-definition.js */ "./node_modules/imask/esm/masked/pattern/fixed-definition.js");
+/* harmony import */ var _pattern_input_definition_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pattern/input-definition.js */ "./node_modules/imask/esm/masked/pattern/input-definition.js");
+/* harmony import */ var _regexp_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./regexp.js */ "./node_modules/imask/esm/masked/regexp.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/** Date mask */
+class MaskedDate extends _pattern_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  static GET_DEFAULT_BLOCKS = () => ({
+    d: {
+      mask: _range_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+      from: 1,
+      to: 31,
+      maxLength: 2
+    },
+    m: {
+      mask: _range_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+      from: 1,
+      to: 12,
+      maxLength: 2
+    },
+    Y: {
+      mask: _range_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+      from: 1900,
+      to: 9999
+    }
+  });
+  static DEFAULTS = {
+    mask: Date,
+    pattern: 'd{.}`m{.}`Y',
+    format: (date, masked) => {
+      if (!date) return '';
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      return [day, month, year].join('.');
+    },
+    parse: (str, masked) => {
+      const [day, month, year] = str.split('.').map(Number);
+      return new Date(year, month - 1, day);
+    }
+  };
+  static extractPatternOptions(opts) {
+    const {
+      mask,
+      pattern,
+      ...patternOpts
+    } = opts;
+    return {
+      ...patternOpts,
+      mask: (0,_core_utils_js__WEBPACK_IMPORTED_MODULE_3__.isString)(mask) ? mask : pattern
+    };
+  }
+
+  /** Pattern mask for date according to {@link MaskedDate#format} */
+
+  /** Start date */
+
+  /** End date */
+
+  /** */
+
+  /** Format typed value to string */
+
+  /** Parse string to get typed value */
+
+  constructor(opts) {
+    super(MaskedDate.extractPatternOptions({
+      ...MaskedDate.DEFAULTS,
+      ...opts
+    }));
+  }
+  updateOptions(opts) {
+    super.updateOptions(opts);
+  }
+  _update(opts) {
+    const {
+      mask,
+      pattern,
+      blocks,
+      ...patternOpts
+    } = {
+      ...MaskedDate.DEFAULTS,
+      ...opts
+    };
+    const patternBlocks = Object.assign({}, MaskedDate.GET_DEFAULT_BLOCKS());
+    // adjust year block
+    if (opts.min) patternBlocks.Y.from = opts.min.getFullYear();
+    if (opts.max) patternBlocks.Y.to = opts.max.getFullYear();
+    if (opts.min && opts.max && patternBlocks.Y.from === patternBlocks.Y.to) {
+      patternBlocks.m.from = opts.min.getMonth() + 1;
+      patternBlocks.m.to = opts.max.getMonth() + 1;
+      if (patternBlocks.m.from === patternBlocks.m.to) {
+        patternBlocks.d.from = opts.min.getDate();
+        patternBlocks.d.to = opts.max.getDate();
+      }
+    }
+    Object.assign(patternBlocks, this.blocks, blocks);
+
+    // add autofix
+    Object.keys(patternBlocks).forEach(bk => {
+      const b = patternBlocks[bk];
+      if (!('autofix' in b) && 'autofix' in opts) b.autofix = opts.autofix;
+    });
+    super._update({
+      ...patternOpts,
+      mask: (0,_core_utils_js__WEBPACK_IMPORTED_MODULE_3__.isString)(mask) ? mask : pattern,
+      blocks: patternBlocks
+    });
+  }
+  doValidate(flags) {
+    const date = this.date;
+    return super.doValidate(flags) && (!this.isComplete || this.isDateExist(this.value) && date != null && (this.min == null || this.min <= date) && (this.max == null || date <= this.max));
+  }
+
+  /** Checks if date is exists */
+  isDateExist(str) {
+    return this.format(this.parse(str, this), this).indexOf(str) >= 0;
+  }
+
+  /** Parsed Date */
+  get date() {
+    return this.typedValue;
+  }
+  set date(date) {
+    this.typedValue = date;
+  }
+  get typedValue() {
+    return this.isComplete ? super.typedValue : null;
+  }
+  set typedValue(value) {
+    super.typedValue = value;
+  }
+  maskEquals(mask) {
+    return mask === Date || super.maskEquals(mask);
+  }
+  optionsIsChanged(opts) {
+    return super.optionsIsChanged(MaskedDate.extractPatternOptions(opts));
+  }
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_2__["default"].MaskedDate = MaskedDate;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/dynamic.js":
+/*!**************************************************!*\
+  !*** ./node_modules/imask/esm/masked/dynamic.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MaskedDynamic)
+/* harmony export */ });
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./factory.js */ "./node_modules/imask/esm/masked/factory.js");
+/* harmony import */ var _base_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base.js */ "./node_modules/imask/esm/masked/base.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../core/continuous-tail-details.js */ "./node_modules/imask/esm/core/continuous-tail-details.js");
+
+
+
+
+
+
+
+/** Dynamic mask for choosing appropriate mask in run-time */
+class MaskedDynamic extends _base_js__WEBPACK_IMPORTED_MODULE_3__["default"] {
+  static DEFAULTS;
+
+  /** Currently chosen mask */
+
+  /** Currently chosen mask */
+
+  /** Compliled {@link Masked} options */
+
+  /** Chooses {@link Masked} depending on input value */
+
+  constructor(opts) {
+    super({
+      ...MaskedDynamic.DEFAULTS,
+      ...opts
+    });
+    this.currentMask = undefined;
+  }
+  updateOptions(opts) {
+    super.updateOptions(opts);
+  }
+  _update(opts) {
+    super._update(opts);
+    if ('mask' in opts) {
+      this.exposeMask = undefined;
+      // mask could be totally dynamic with only `dispatch` option
+      this.compiledMasks = Array.isArray(opts.mask) ? opts.mask.map(m => {
+        const {
+          expose,
+          ...maskOpts
+        } = (0,_factory_js__WEBPACK_IMPORTED_MODULE_2__.normalizeOpts)(m);
+        const masked = (0,_factory_js__WEBPACK_IMPORTED_MODULE_2__["default"])({
+          overwrite: this._overwrite,
+          eager: this._eager,
+          skipInvalid: this._skipInvalid,
+          ...maskOpts
+        });
+        if (expose) this.exposeMask = masked;
+        return masked;
+      }) : [];
+
+      // this.currentMask = this.doDispatch(''); // probably not needed but lets see
+    }
+  }
+  _appendCharRaw(ch, flags) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    const details = this._applyDispatch(ch, flags);
+    if (this.currentMask) {
+      details.aggregate(this.currentMask._appendChar(ch, this.currentMaskFlags(flags)));
+    }
+    return details;
+  }
+  _applyDispatch(appended, flags, tail) {
+    if (appended === void 0) {
+      appended = '';
+    }
+    if (flags === void 0) {
+      flags = {};
+    }
+    if (tail === void 0) {
+      tail = '';
+    }
+    const prevValueBeforeTail = flags.tail && flags._beforeTailState != null ? flags._beforeTailState._value : this.value;
+    const inputValue = this.rawInputValue;
+    const insertValue = flags.tail && flags._beforeTailState != null ? flags._beforeTailState._rawInputValue : inputValue;
+    const tailValue = inputValue.slice(insertValue.length);
+    const prevMask = this.currentMask;
+    const details = new _core_change_details_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    const prevMaskState = prevMask?.state;
+
+    // clone flags to prevent overwriting `_beforeTailState`
+    this.currentMask = this.doDispatch(appended, {
+      ...flags
+    }, tail);
+
+    // restore state after dispatch
+    if (this.currentMask) {
+      if (this.currentMask !== prevMask) {
+        // if mask changed reapply input
+        this.currentMask.reset();
+        if (insertValue) {
+          const d = this.currentMask.append(insertValue, {
+            raw: true
+          });
+          details.tailShift = d.inserted.length - prevValueBeforeTail.length;
+        }
+        if (tailValue) {
+          details.tailShift += this.currentMask.append(tailValue, {
+            raw: true,
+            tail: true
+          }).tailShift;
+        }
+      } else if (prevMaskState) {
+        // Dispatch can do something bad with state, so
+        // restore prev mask state
+        this.currentMask.state = prevMaskState;
+      }
+    }
+    return details;
+  }
+  _appendPlaceholder() {
+    const details = this._applyDispatch();
+    if (this.currentMask) {
+      details.aggregate(this.currentMask._appendPlaceholder());
+    }
+    return details;
+  }
+  _appendEager() {
+    const details = this._applyDispatch();
+    if (this.currentMask) {
+      details.aggregate(this.currentMask._appendEager());
+    }
+    return details;
+  }
+  appendTail(tail) {
+    const details = new _core_change_details_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    if (tail) details.aggregate(this._applyDispatch('', {}, tail));
+    return details.aggregate(this.currentMask ? this.currentMask.appendTail(tail) : super.appendTail(tail));
+  }
+  currentMaskFlags(flags) {
+    return {
+      ...flags,
+      _beforeTailState: flags._beforeTailState?.currentMaskRef === this.currentMask && flags._beforeTailState?.currentMask || flags._beforeTailState
+    };
+  }
+  doDispatch(appended, flags, tail) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    if (tail === void 0) {
+      tail = '';
+    }
+    return this.dispatch(appended, this, flags, tail);
+  }
+  doValidate(flags) {
+    return super.doValidate(flags) && (!this.currentMask || this.currentMask.doValidate(this.currentMaskFlags(flags)));
+  }
+  doPrepare(str, flags) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    let [s, details] = super.doPrepare(str, flags);
+    if (this.currentMask) {
+      let currentDetails;
+      [s, currentDetails] = super.doPrepare(s, this.currentMaskFlags(flags));
+      details = details.aggregate(currentDetails);
+    }
+    return [s, details];
+  }
+  doPrepareChar(str, flags) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    let [s, details] = super.doPrepareChar(str, flags);
+    if (this.currentMask) {
+      let currentDetails;
+      [s, currentDetails] = super.doPrepareChar(s, this.currentMaskFlags(flags));
+      details = details.aggregate(currentDetails);
+    }
+    return [s, details];
+  }
+  reset() {
+    this.currentMask?.reset();
+    this.compiledMasks.forEach(m => m.reset());
+  }
+  get value() {
+    return this.exposeMask ? this.exposeMask.value : this.currentMask ? this.currentMask.value : '';
+  }
+  set value(value) {
+    if (this.exposeMask) {
+      this.exposeMask.value = value;
+      this.currentMask = this.exposeMask;
+      this._applyDispatch();
+    } else super.value = value;
+  }
+  get unmaskedValue() {
+    return this.exposeMask ? this.exposeMask.unmaskedValue : this.currentMask ? this.currentMask.unmaskedValue : '';
+  }
+  set unmaskedValue(unmaskedValue) {
+    if (this.exposeMask) {
+      this.exposeMask.unmaskedValue = unmaskedValue;
+      this.currentMask = this.exposeMask;
+      this._applyDispatch();
+    } else super.unmaskedValue = unmaskedValue;
+  }
+  get typedValue() {
+    return this.exposeMask ? this.exposeMask.typedValue : this.currentMask ? this.currentMask.typedValue : '';
+  }
+  set typedValue(typedValue) {
+    if (this.exposeMask) {
+      this.exposeMask.typedValue = typedValue;
+      this.currentMask = this.exposeMask;
+      this._applyDispatch();
+      return;
+    }
+    let unmaskedValue = String(typedValue);
+
+    // double check it
+    if (this.currentMask) {
+      this.currentMask.typedValue = typedValue;
+      unmaskedValue = this.currentMask.unmaskedValue;
+    }
+    this.unmaskedValue = unmaskedValue;
+  }
+  get displayValue() {
+    return this.currentMask ? this.currentMask.displayValue : '';
+  }
+  get isComplete() {
+    return Boolean(this.currentMask?.isComplete);
+  }
+  get isFilled() {
+    return Boolean(this.currentMask?.isFilled);
+  }
+  remove(fromPos, toPos) {
+    const details = new _core_change_details_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    if (this.currentMask) {
+      details.aggregate(this.currentMask.remove(fromPos, toPos))
+      // update with dispatch
+      .aggregate(this._applyDispatch());
+    }
+    return details;
+  }
+  get state() {
+    return {
+      ...super.state,
+      _rawInputValue: this.rawInputValue,
+      compiledMasks: this.compiledMasks.map(m => m.state),
+      currentMaskRef: this.currentMask,
+      currentMask: this.currentMask?.state
+    };
+  }
+  set state(state) {
+    const {
+      compiledMasks,
+      currentMaskRef,
+      currentMask,
+      ...maskedState
+    } = state;
+    if (compiledMasks) this.compiledMasks.forEach((m, mi) => m.state = compiledMasks[mi]);
+    if (currentMaskRef != null) {
+      this.currentMask = currentMaskRef;
+      this.currentMask.state = currentMask;
+    }
+    super.state = maskedState;
+  }
+  extractInput(fromPos, toPos, flags) {
+    return this.currentMask ? this.currentMask.extractInput(fromPos, toPos, flags) : '';
+  }
+  extractTail(fromPos, toPos) {
+    return this.currentMask ? this.currentMask.extractTail(fromPos, toPos) : super.extractTail(fromPos, toPos);
+  }
+  doCommit() {
+    if (this.currentMask) this.currentMask.doCommit();
+    super.doCommit();
+  }
+  nearestInputPos(cursorPos, direction) {
+    return this.currentMask ? this.currentMask.nearestInputPos(cursorPos, direction) : super.nearestInputPos(cursorPos, direction);
+  }
+  get overwrite() {
+    return this.currentMask ? this.currentMask.overwrite : this._overwrite;
+  }
+  set overwrite(overwrite) {
+    this._overwrite = overwrite;
+  }
+  get eager() {
+    return this.currentMask ? this.currentMask.eager : this._eager;
+  }
+  set eager(eager) {
+    this._eager = eager;
+  }
+  get skipInvalid() {
+    return this.currentMask ? this.currentMask.skipInvalid : this._skipInvalid;
+  }
+  set skipInvalid(skipInvalid) {
+    this._skipInvalid = skipInvalid;
+  }
+  maskEquals(mask) {
+    return Array.isArray(mask) ? this.compiledMasks.every((m, mi) => {
+      if (!mask[mi]) return;
+      const {
+        mask: oldMask,
+        ...restOpts
+      } = mask[mi];
+      return (0,_core_utils_js__WEBPACK_IMPORTED_MODULE_0__.objectIncludes)(m, restOpts) && m.maskEquals(oldMask);
+    }) : super.maskEquals(mask);
+  }
+  typedValueEquals(value) {
+    return Boolean(this.currentMask?.typedValueEquals(value));
+  }
+}
+MaskedDynamic.DEFAULTS = {
+  dispatch: (appended, masked, flags, tail) => {
+    if (!masked.compiledMasks.length) return;
+    const inputValue = masked.rawInputValue;
+
+    // simulate input
+    const inputs = masked.compiledMasks.map((m, index) => {
+      const isCurrent = masked.currentMask === m;
+      const startInputPos = isCurrent ? m.displayValue.length : m.nearestInputPos(m.displayValue.length, _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.FORCE_LEFT);
+      if (m.rawInputValue !== inputValue) {
+        m.reset();
+        m.append(inputValue, {
+          raw: true
+        });
+      } else if (!isCurrent) {
+        m.remove(startInputPos);
+      }
+      m.append(appended, masked.currentMaskFlags(flags));
+      m.appendTail(tail);
+      return {
+        index,
+        weight: m.rawInputValue.length,
+        totalInputPositions: m.totalInputPositions(0, Math.max(startInputPos, m.nearestInputPos(m.displayValue.length, _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.FORCE_LEFT)))
+      };
+    });
+
+    // pop masks with longer values first
+    inputs.sort((i1, i2) => i2.weight - i1.weight || i2.totalInputPositions - i1.totalInputPositions);
+    return masked.compiledMasks[inputs[0].index];
+  }
+};
+_core_holder_js__WEBPACK_IMPORTED_MODULE_4__["default"].MaskedDynamic = MaskedDynamic;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/enum.js":
+/*!***********************************************!*\
+  !*** ./node_modules/imask/esm/masked/enum.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MaskedEnum)
+/* harmony export */ });
+/* harmony import */ var _pattern_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pattern.js */ "./node_modules/imask/esm/masked/pattern.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _base_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./base.js */ "./node_modules/imask/esm/masked/base.js");
+/* harmony import */ var _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../core/continuous-tail-details.js */ "./node_modules/imask/esm/core/continuous-tail-details.js");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./factory.js */ "./node_modules/imask/esm/masked/factory.js");
+/* harmony import */ var _pattern_chunk_tail_details_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pattern/chunk-tail-details.js */ "./node_modules/imask/esm/masked/pattern/chunk-tail-details.js");
+/* harmony import */ var _pattern_cursor_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pattern/cursor.js */ "./node_modules/imask/esm/masked/pattern/cursor.js");
+/* harmony import */ var _pattern_fixed_definition_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pattern/fixed-definition.js */ "./node_modules/imask/esm/masked/pattern/fixed-definition.js");
+/* harmony import */ var _pattern_input_definition_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pattern/input-definition.js */ "./node_modules/imask/esm/masked/pattern/input-definition.js");
+/* harmony import */ var _regexp_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./regexp.js */ "./node_modules/imask/esm/masked/regexp.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+/** Pattern which validates enum values */
+class MaskedEnum extends _pattern_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor(opts) {
+    super(opts); // mask will be created in _update
+  }
+  updateOptions(opts) {
+    super.updateOptions(opts);
+  }
+  _update(opts) {
+    const {
+      enum: _enum,
+      ...eopts
+    } = opts;
+    if (_enum) {
+      const lengths = _enum.map(e => e.length);
+      const requiredLength = Math.min(...lengths);
+      const optionalLength = Math.max(...lengths) - requiredLength;
+      eopts.mask = '*'.repeat(requiredLength);
+      if (optionalLength) eopts.mask += '[' + '*'.repeat(optionalLength) + ']';
+      this.enum = _enum;
+    }
+    super._update(eopts);
+  }
+  doValidate(flags) {
+    return this.enum.some(e => e.indexOf(this.unmaskedValue) === 0) && super.doValidate(flags);
+  }
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].MaskedEnum = MaskedEnum;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/factory.js":
+/*!**************************************************!*\
+  !*** ./node_modules/imask/esm/masked/factory.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ createMask),
+/* harmony export */   maskedClass: () => (/* binding */ maskedClass),
+/* harmony export */   normalizeOpts: () => (/* binding */ normalizeOpts)
+/* harmony export */ });
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+
+
+
+// TODO can't use overloads here because of https://github.com/microsoft/TypeScript/issues/50754
+// export function maskedClass(mask: string): typeof MaskedPattern;
+// export function maskedClass(mask: DateConstructor): typeof MaskedDate;
+// export function maskedClass(mask: NumberConstructor): typeof MaskedNumber;
+// export function maskedClass(mask: Array<any> | ArrayConstructor): typeof MaskedDynamic;
+// export function maskedClass(mask: MaskedDate): typeof MaskedDate;
+// export function maskedClass(mask: MaskedNumber): typeof MaskedNumber;
+// export function maskedClass(mask: MaskedEnum): typeof MaskedEnum;
+// export function maskedClass(mask: MaskedRange): typeof MaskedRange;
+// export function maskedClass(mask: MaskedRegExp): typeof MaskedRegExp;
+// export function maskedClass(mask: MaskedFunction): typeof MaskedFunction;
+// export function maskedClass(mask: MaskedPattern): typeof MaskedPattern;
+// export function maskedClass(mask: MaskedDynamic): typeof MaskedDynamic;
+// export function maskedClass(mask: Masked): typeof Masked;
+// export function maskedClass(mask: typeof Masked): typeof Masked;
+// export function maskedClass(mask: typeof MaskedDate): typeof MaskedDate;
+// export function maskedClass(mask: typeof MaskedNumber): typeof MaskedNumber;
+// export function maskedClass(mask: typeof MaskedEnum): typeof MaskedEnum;
+// export function maskedClass(mask: typeof MaskedRange): typeof MaskedRange;
+// export function maskedClass(mask: typeof MaskedRegExp): typeof MaskedRegExp;
+// export function maskedClass(mask: typeof MaskedFunction): typeof MaskedFunction;
+// export function maskedClass(mask: typeof MaskedPattern): typeof MaskedPattern;
+// export function maskedClass(mask: typeof MaskedDynamic): typeof MaskedDynamic;
+// export function maskedClass<Mask extends typeof Masked> (mask: Mask): Mask;
+// export function maskedClass(mask: RegExp): typeof MaskedRegExp;
+// export function maskedClass(mask: (value: string, ...args: any[]) => boolean): typeof MaskedFunction;
+
+/** Get Masked class by mask type */
+function maskedClass(mask) /* TODO */{
+  if (mask == null) throw new Error('mask property should be defined');
+  if (mask instanceof RegExp) return _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].MaskedRegExp;
+  if ((0,_core_utils_js__WEBPACK_IMPORTED_MODULE_0__.isString)(mask)) return _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].MaskedPattern;
+  if (mask === Date) return _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].MaskedDate;
+  if (mask === Number) return _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].MaskedNumber;
+  if (Array.isArray(mask) || mask === Array) return _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].MaskedDynamic;
+  if (_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].Masked && mask.prototype instanceof _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].Masked) return mask;
+  if (_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].Masked && mask instanceof _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].Masked) return mask.constructor;
+  if (mask instanceof Function) return _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].MaskedFunction;
+  console.warn('Mask not found for mask', mask); // eslint-disable-line no-console
+  return _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].Masked;
+}
+function normalizeOpts(opts) {
+  if (!opts) throw new Error('Options in not defined');
+  if (_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].Masked) {
+    if (opts.prototype instanceof _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].Masked) return {
+      mask: opts
+    };
+
+    /*
+      handle cases like:
+      1) opts = Masked
+      2) opts = { mask: Masked, ...instanceOpts }
+    */
+    const {
+      mask = undefined,
+      ...instanceOpts
+    } = opts instanceof _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].Masked ? {
+      mask: opts
+    } : (0,_core_utils_js__WEBPACK_IMPORTED_MODULE_0__.isObject)(opts) && opts.mask instanceof _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].Masked ? opts : {};
+    if (mask) {
+      const _mask = mask.mask;
+      return {
+        ...(0,_core_utils_js__WEBPACK_IMPORTED_MODULE_0__.pick)(mask, (_, k) => !k.startsWith('_')),
+        mask: mask.constructor,
+        _mask,
+        ...instanceOpts
+      };
+    }
+  }
+  if (!(0,_core_utils_js__WEBPACK_IMPORTED_MODULE_0__.isObject)(opts)) return {
+    mask: opts
+  };
+  return {
+    ...opts
+  };
+}
+
+// TODO can't use overloads here because of https://github.com/microsoft/TypeScript/issues/50754
+
+// From masked
+// export default function createMask<Opts extends Masked, ReturnMasked=Opts> (opts: Opts): ReturnMasked;
+// // From masked class
+// export default function createMask<Opts extends MaskedOptions<typeof Masked>, ReturnMasked extends Masked=InstanceType<Opts['mask']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedOptions<typeof MaskedDate>, ReturnMasked extends MaskedDate=MaskedDate<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedOptions<typeof MaskedNumber>, ReturnMasked extends MaskedNumber=MaskedNumber<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedOptions<typeof MaskedEnum>, ReturnMasked extends MaskedEnum=MaskedEnum<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedOptions<typeof MaskedRange>, ReturnMasked extends MaskedRange=MaskedRange<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedOptions<typeof MaskedRegExp>, ReturnMasked extends MaskedRegExp=MaskedRegExp<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedOptions<typeof MaskedFunction>, ReturnMasked extends MaskedFunction=MaskedFunction<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedOptions<typeof MaskedPattern>, ReturnMasked extends MaskedPattern=MaskedPattern<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedOptions<typeof MaskedDynamic>, ReturnMasked extends MaskedDynamic=MaskedDynamic<Opts['parent']>> (opts: Opts): ReturnMasked;
+// // From mask opts
+// export default function createMask<Opts extends MaskedOptions<Masked>, ReturnMasked=Opts extends MaskedOptions<infer M> ? M : never> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedNumberOptions, ReturnMasked extends MaskedNumber=MaskedNumber<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedDateFactoryOptions, ReturnMasked extends MaskedDate=MaskedDate<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedEnumOptions, ReturnMasked extends MaskedEnum=MaskedEnum<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedRangeOptions, ReturnMasked extends MaskedRange=MaskedRange<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedPatternOptions, ReturnMasked extends MaskedPattern=MaskedPattern<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedDynamicOptions, ReturnMasked extends MaskedDynamic=MaskedDynamic<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedOptions<RegExp>, ReturnMasked extends MaskedRegExp=MaskedRegExp<Opts['parent']>> (opts: Opts): ReturnMasked;
+// export default function createMask<Opts extends MaskedOptions<Function>, ReturnMasked extends MaskedFunction=MaskedFunction<Opts['parent']>> (opts: Opts): ReturnMasked;
+
+/** Creates new {@link Masked} depending on mask type */
+function createMask(opts) {
+  if (_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].Masked && opts instanceof _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].Masked) return opts;
+  const nOpts = normalizeOpts(opts);
+  const MaskedClass = maskedClass(nOpts.mask);
+  if (!MaskedClass) throw new Error(`Masked class is not found for provided mask ${nOpts.mask}, appropriate module needs to be imported manually before creating mask.`);
+  if (nOpts.mask === MaskedClass) delete nOpts.mask;
+  if (nOpts._mask) {
+    nOpts.mask = nOpts._mask;
+    delete nOpts._mask;
+  }
+  return new MaskedClass(nOpts);
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].createMask = createMask;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/function.js":
+/*!***************************************************!*\
+  !*** ./node_modules/imask/esm/masked/function.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MaskedFunction)
+/* harmony export */ });
+/* harmony import */ var _base_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base.js */ "./node_modules/imask/esm/masked/base.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/continuous-tail-details.js */ "./node_modules/imask/esm/core/continuous-tail-details.js");
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+
+
+
+
+
+
+/** Masking by custom Function */
+class MaskedFunction extends _base_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  /** */
+
+  /** Enable characters overwriting */
+
+  /** */
+
+  /** */
+
+  updateOptions(opts) {
+    super.updateOptions(opts);
+  }
+  _update(opts) {
+    super._update({
+      ...opts,
+      validate: opts.mask
+    });
+  }
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].MaskedFunction = MaskedFunction;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/number.js":
+/*!*************************************************!*\
+  !*** ./node_modules/imask/esm/masked/number.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MaskedNumber)
+/* harmony export */ });
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _base_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base.js */ "./node_modules/imask/esm/masked/base.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../core/continuous-tail-details.js */ "./node_modules/imask/esm/core/continuous-tail-details.js");
+
+
+
+
+
+
+/** Number mask */
+class MaskedNumber extends _base_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
+  static UNMASKED_RADIX = '.';
+  static EMPTY_VALUES = [..._base_js__WEBPACK_IMPORTED_MODULE_2__["default"].EMPTY_VALUES, 0];
+  static DEFAULTS = {
+    mask: Number,
+    radix: ',',
+    thousandsSeparator: '',
+    mapToRadix: [MaskedNumber.UNMASKED_RADIX],
+    min: Number.MIN_SAFE_INTEGER,
+    max: Number.MAX_SAFE_INTEGER,
+    scale: 2,
+    normalizeZeros: true,
+    padFractionalZeros: false,
+    parse: Number,
+    format: n => n.toLocaleString('en-US', {
+      useGrouping: false,
+      maximumFractionDigits: 20
+    })
+  };
+
+  /** Single char */
+
+  /** Single char */
+
+  /** Array of single chars */
+
+  /** */
+
+  /** */
+
+  /** Digits after point */
+
+  /** Flag to remove leading and trailing zeros in the end of editing */
+
+  /** Flag to pad trailing zeros after point in the end of editing */
+
+  /** Enable characters overwriting */
+
+  /** */
+
+  /** */
+
+  /** Format typed value to string */
+
+  /** Parse string to get typed value */
+
+  constructor(opts) {
+    super({
+      ...MaskedNumber.DEFAULTS,
+      ...opts
+    });
+  }
+  updateOptions(opts) {
+    super.updateOptions(opts);
+  }
+  _update(opts) {
+    super._update(opts);
+    this._updateRegExps();
+  }
+  _updateRegExps() {
+    const start = '^' + (this.allowNegative ? '[+|\\-]?' : '');
+    const mid = '\\d*';
+    const end = (this.scale ? `(${(0,_core_utils_js__WEBPACK_IMPORTED_MODULE_0__.escapeRegExp)(this.radix)}\\d{0,${this.scale}})?` : '') + '$';
+    this._numberRegExp = new RegExp(start + mid + end);
+    this._mapToRadixRegExp = new RegExp(`[${this.mapToRadix.map(_core_utils_js__WEBPACK_IMPORTED_MODULE_0__.escapeRegExp).join('')}]`, 'g');
+    this._thousandsSeparatorRegExp = new RegExp((0,_core_utils_js__WEBPACK_IMPORTED_MODULE_0__.escapeRegExp)(this.thousandsSeparator), 'g');
+  }
+  _removeThousandsSeparators(value) {
+    return value.replace(this._thousandsSeparatorRegExp, '');
+  }
+  _insertThousandsSeparators(value) {
+    // https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+    const parts = value.split(this.radix);
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, this.thousandsSeparator);
+    return parts.join(this.radix);
+  }
+  doPrepareChar(ch, flags) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    const [prepCh, details] = super.doPrepareChar(this._removeThousandsSeparators(this.scale && this.mapToRadix.length && (
+    /*
+      radix should be mapped when
+      1) input is done from keyboard = flags.input && flags.raw
+      2) unmasked value is set = !flags.input && !flags.raw
+      and should not be mapped when
+      1) value is set = flags.input && !flags.raw
+      2) raw value is set = !flags.input && flags.raw
+    */
+    flags.input && flags.raw || !flags.input && !flags.raw) ? ch.replace(this._mapToRadixRegExp, this.radix) : ch), flags);
+    if (ch && !prepCh) details.skip = true;
+    if (prepCh && !this.allowPositive && !this.value && prepCh !== '-') details.aggregate(this._appendChar('-'));
+    return [prepCh, details];
+  }
+  _separatorsCount(to, extendOnSeparators) {
+    if (extendOnSeparators === void 0) {
+      extendOnSeparators = false;
+    }
+    let count = 0;
+    for (let pos = 0; pos < to; ++pos) {
+      if (this._value.indexOf(this.thousandsSeparator, pos) === pos) {
+        ++count;
+        if (extendOnSeparators) to += this.thousandsSeparator.length;
+      }
+    }
+    return count;
+  }
+  _separatorsCountFromSlice(slice) {
+    if (slice === void 0) {
+      slice = this._value;
+    }
+    return this._separatorsCount(this._removeThousandsSeparators(slice).length, true);
+  }
+  extractInput(fromPos, toPos, flags) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.displayValue.length;
+    }
+    [fromPos, toPos] = this._adjustRangeWithSeparators(fromPos, toPos);
+    return this._removeThousandsSeparators(super.extractInput(fromPos, toPos, flags));
+  }
+  _appendCharRaw(ch, flags) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    if (!this.thousandsSeparator) return super._appendCharRaw(ch, flags);
+    const prevBeforeTailValue = flags.tail && flags._beforeTailState ? flags._beforeTailState._value : this._value;
+    const prevBeforeTailSeparatorsCount = this._separatorsCountFromSlice(prevBeforeTailValue);
+    this._value = this._removeThousandsSeparators(this.value);
+    const appendDetails = super._appendCharRaw(ch, flags);
+    this._value = this._insertThousandsSeparators(this._value);
+    const beforeTailValue = flags.tail && flags._beforeTailState ? flags._beforeTailState._value : this._value;
+    const beforeTailSeparatorsCount = this._separatorsCountFromSlice(beforeTailValue);
+    appendDetails.tailShift += (beforeTailSeparatorsCount - prevBeforeTailSeparatorsCount) * this.thousandsSeparator.length;
+    appendDetails.skip = !appendDetails.rawInserted && ch === this.thousandsSeparator;
+    return appendDetails;
+  }
+  _findSeparatorAround(pos) {
+    if (this.thousandsSeparator) {
+      const searchFrom = pos - this.thousandsSeparator.length + 1;
+      const separatorPos = this.value.indexOf(this.thousandsSeparator, searchFrom);
+      if (separatorPos <= pos) return separatorPos;
+    }
+    return -1;
+  }
+  _adjustRangeWithSeparators(from, to) {
+    const separatorAroundFromPos = this._findSeparatorAround(from);
+    if (separatorAroundFromPos >= 0) from = separatorAroundFromPos;
+    const separatorAroundToPos = this._findSeparatorAround(to);
+    if (separatorAroundToPos >= 0) to = separatorAroundToPos + this.thousandsSeparator.length;
+    return [from, to];
+  }
+  remove(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.displayValue.length;
+    }
+    [fromPos, toPos] = this._adjustRangeWithSeparators(fromPos, toPos);
+    const valueBeforePos = this.value.slice(0, fromPos);
+    const valueAfterPos = this.value.slice(toPos);
+    const prevBeforeTailSeparatorsCount = this._separatorsCount(valueBeforePos.length);
+    this._value = this._insertThousandsSeparators(this._removeThousandsSeparators(valueBeforePos + valueAfterPos));
+    const beforeTailSeparatorsCount = this._separatorsCountFromSlice(valueBeforePos);
+    return new _core_change_details_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
+      tailShift: (beforeTailSeparatorsCount - prevBeforeTailSeparatorsCount) * this.thousandsSeparator.length
+    });
+  }
+  nearestInputPos(cursorPos, direction) {
+    if (!this.thousandsSeparator) return cursorPos;
+    switch (direction) {
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.NONE:
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.LEFT:
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.FORCE_LEFT:
+        {
+          const separatorAtLeftPos = this._findSeparatorAround(cursorPos - 1);
+          if (separatorAtLeftPos >= 0) {
+            const separatorAtLeftEndPos = separatorAtLeftPos + this.thousandsSeparator.length;
+            if (cursorPos < separatorAtLeftEndPos || this.value.length <= separatorAtLeftEndPos || direction === _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.FORCE_LEFT) {
+              return separatorAtLeftPos;
+            }
+          }
+          break;
+        }
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.RIGHT:
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.FORCE_RIGHT:
+        {
+          const separatorAtRightPos = this._findSeparatorAround(cursorPos);
+          if (separatorAtRightPos >= 0) {
+            return separatorAtRightPos + this.thousandsSeparator.length;
+          }
+        }
+    }
+    return cursorPos;
+  }
+  doValidate(flags) {
+    // validate as string
+    let valid = Boolean(this._removeThousandsSeparators(this.value).match(this._numberRegExp));
+    if (valid) {
+      // validate as number
+      const number = this.number;
+      valid = valid && !isNaN(number) && (
+      // check min bound for negative values
+      this.min == null || this.min >= 0 || this.min <= this.number) && (
+      // check max bound for positive values
+      this.max == null || this.max <= 0 || this.number <= this.max);
+    }
+    return valid && super.doValidate(flags);
+  }
+  doCommit() {
+    if (this.value) {
+      const number = this.number;
+      let validnum = number;
+
+      // check bounds
+      if (this.min != null) validnum = Math.max(validnum, this.min);
+      if (this.max != null) validnum = Math.min(validnum, this.max);
+      if (validnum !== number) this.unmaskedValue = this.format(validnum, this);
+      let formatted = this.value;
+      if (this.normalizeZeros) formatted = this._normalizeZeros(formatted);
+      if (this.padFractionalZeros && this.scale > 0) formatted = this._padFractionalZeros(formatted);
+      this._value = formatted;
+    }
+    super.doCommit();
+  }
+  _normalizeZeros(value) {
+    const parts = this._removeThousandsSeparators(value).split(this.radix);
+
+    // remove leading zeros
+    parts[0] = parts[0].replace(/^(\D*)(0*)(\d*)/, (match, sign, zeros, num) => sign + num);
+    // add leading zero
+    if (value.length && !/\d$/.test(parts[0])) parts[0] = parts[0] + '0';
+    if (parts.length > 1) {
+      parts[1] = parts[1].replace(/0*$/, ''); // remove trailing zeros
+      if (!parts[1].length) parts.length = 1; // remove fractional
+    }
+    return this._insertThousandsSeparators(parts.join(this.radix));
+  }
+  _padFractionalZeros(value) {
+    if (!value) return value;
+    const parts = value.split(this.radix);
+    if (parts.length < 2) parts.push('');
+    parts[1] = parts[1].padEnd(this.scale, '0');
+    return parts.join(this.radix);
+  }
+  doSkipInvalid(ch, flags, checkTail) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    const dropFractional = this.scale === 0 && ch !== this.thousandsSeparator && (ch === this.radix || ch === MaskedNumber.UNMASKED_RADIX || this.mapToRadix.includes(ch));
+    return super.doSkipInvalid(ch, flags, checkTail) && !dropFractional;
+  }
+  get unmaskedValue() {
+    return this._removeThousandsSeparators(this._normalizeZeros(this.value)).replace(this.radix, MaskedNumber.UNMASKED_RADIX);
+  }
+  set unmaskedValue(unmaskedValue) {
+    super.unmaskedValue = unmaskedValue;
+  }
+  get typedValue() {
+    return this.parse(this.unmaskedValue, this);
+  }
+  set typedValue(n) {
+    this.rawInputValue = this.format(n, this).replace(MaskedNumber.UNMASKED_RADIX, this.radix);
+  }
+
+  /** Parsed Number */
+  get number() {
+    return this.typedValue;
+  }
+  set number(number) {
+    this.typedValue = number;
+  }
+  get allowNegative() {
+    return this.min != null && this.min < 0 || this.max != null && this.max < 0;
+  }
+  get allowPositive() {
+    return this.min != null && this.min > 0 || this.max != null && this.max > 0;
+  }
+  typedValueEquals(value) {
+    // handle  0 -> '' case (typed = 0 even if value = '')
+    // for details see https://github.com/uNmAnNeR/imaskjs/issues/134
+    return (super.typedValueEquals(value) || MaskedNumber.EMPTY_VALUES.includes(value) && MaskedNumber.EMPTY_VALUES.includes(this.typedValue)) && !(value === 0 && this.value === '');
+  }
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_3__["default"].MaskedNumber = MaskedNumber;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/pattern.js":
+/*!**************************************************!*\
+  !*** ./node_modules/imask/esm/masked/pattern.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MaskedPattern)
+/* harmony export */ });
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _base_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base.js */ "./node_modules/imask/esm/masked/base.js");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./factory.js */ "./node_modules/imask/esm/masked/factory.js");
+/* harmony import */ var _pattern_chunk_tail_details_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pattern/chunk-tail-details.js */ "./node_modules/imask/esm/masked/pattern/chunk-tail-details.js");
+/* harmony import */ var _pattern_cursor_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pattern/cursor.js */ "./node_modules/imask/esm/masked/pattern/cursor.js");
+/* harmony import */ var _pattern_fixed_definition_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pattern/fixed-definition.js */ "./node_modules/imask/esm/masked/pattern/fixed-definition.js");
+/* harmony import */ var _pattern_input_definition_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pattern/input-definition.js */ "./node_modules/imask/esm/masked/pattern/input-definition.js");
+/* harmony import */ var _regexp_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./regexp.js */ "./node_modules/imask/esm/masked/regexp.js");
+/* harmony import */ var _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../core/continuous-tail-details.js */ "./node_modules/imask/esm/core/continuous-tail-details.js");
+
+
+
+
+
+
+
+
+
+
+
+
+/** Pattern mask */
+class MaskedPattern extends _base_js__WEBPACK_IMPORTED_MODULE_3__["default"] {
+  static DEFAULTS = {
+    lazy: true,
+    placeholderChar: '_'
+  };
+  static STOP_CHAR = '`';
+  static ESCAPE_CHAR = '\\';
+  static InputDefinition = _pattern_input_definition_js__WEBPACK_IMPORTED_MODULE_8__["default"];
+  static FixedDefinition = _pattern_fixed_definition_js__WEBPACK_IMPORTED_MODULE_7__["default"];
+
+  /** */
+
+  /** */
+
+  /** Single char for empty input */
+
+  /** Single char for filled input */
+
+  /** Show placeholder only when needed */
+
+  /** Enable characters overwriting */
+
+  /** */
+
+  /** */
+
+  constructor(opts) {
+    super({
+      ...MaskedPattern.DEFAULTS,
+      ...opts,
+      definitions: Object.assign({}, _pattern_input_definition_js__WEBPACK_IMPORTED_MODULE_8__["default"].DEFAULT_DEFINITIONS, opts?.definitions)
+    });
+  }
+  updateOptions(opts) {
+    super.updateOptions(opts);
+  }
+  _update(opts) {
+    opts.definitions = Object.assign({}, this.definitions, opts.definitions);
+    super._update(opts);
+    this._rebuildMask();
+  }
+  _rebuildMask() {
+    const defs = this.definitions;
+    this._blocks = [];
+    this.exposeBlock = undefined;
+    this._stops = [];
+    this._maskedBlocks = {};
+    const pattern = this.mask;
+    if (!pattern || !defs) return;
+    let unmaskingBlock = false;
+    let optionalBlock = false;
+    for (let i = 0; i < pattern.length; ++i) {
+      if (this.blocks) {
+        const p = pattern.slice(i);
+        const bNames = Object.keys(this.blocks).filter(bName => p.indexOf(bName) === 0);
+        // order by key length
+        bNames.sort((a, b) => b.length - a.length);
+        // use block name with max length
+        const bName = bNames[0];
+        if (bName) {
+          const {
+            expose,
+            repeat,
+            ...bOpts
+          } = (0,_factory_js__WEBPACK_IMPORTED_MODULE_4__.normalizeOpts)(this.blocks[bName]); // TODO type Opts<Arg & Extra>
+          const blockOpts = {
+            lazy: this.lazy,
+            eager: this.eager,
+            placeholderChar: this.placeholderChar,
+            displayChar: this.displayChar,
+            overwrite: this.overwrite,
+            ...bOpts,
+            repeat,
+            parent: this
+          };
+          const maskedBlock = repeat != null ? new _core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].RepeatBlock(blockOpts /* TODO */) : (0,_factory_js__WEBPACK_IMPORTED_MODULE_4__["default"])(blockOpts);
+          if (maskedBlock) {
+            this._blocks.push(maskedBlock);
+            if (expose) this.exposeBlock = maskedBlock;
+
+            // store block index
+            if (!this._maskedBlocks[bName]) this._maskedBlocks[bName] = [];
+            this._maskedBlocks[bName].push(this._blocks.length - 1);
+          }
+          i += bName.length - 1;
+          continue;
+        }
+      }
+      let char = pattern[i];
+      let isInput = (char in defs);
+      if (char === MaskedPattern.STOP_CHAR) {
+        this._stops.push(this._blocks.length);
+        continue;
+      }
+      if (char === '{' || char === '}') {
+        unmaskingBlock = !unmaskingBlock;
+        continue;
+      }
+      if (char === '[' || char === ']') {
+        optionalBlock = !optionalBlock;
+        continue;
+      }
+      if (char === MaskedPattern.ESCAPE_CHAR) {
+        ++i;
+        char = pattern[i];
+        if (!char) break;
+        isInput = false;
+      }
+      const def = isInput ? new _pattern_input_definition_js__WEBPACK_IMPORTED_MODULE_8__["default"]({
+        isOptional: optionalBlock,
+        lazy: this.lazy,
+        eager: this.eager,
+        placeholderChar: this.placeholderChar,
+        displayChar: this.displayChar,
+        ...(0,_factory_js__WEBPACK_IMPORTED_MODULE_4__.normalizeOpts)(defs[char]),
+        parent: this
+      }) : new _pattern_fixed_definition_js__WEBPACK_IMPORTED_MODULE_7__["default"]({
+        char,
+        eager: this.eager,
+        isUnmasking: unmaskingBlock
+      });
+      this._blocks.push(def);
+    }
+  }
+  get state() {
+    return {
+      ...super.state,
+      _blocks: this._blocks.map(b => b.state)
+    };
+  }
+  set state(state) {
+    if (!state) {
+      this.reset();
+      return;
+    }
+    const {
+      _blocks,
+      ...maskedState
+    } = state;
+    this._blocks.forEach((b, bi) => b.state = _blocks[bi]);
+    super.state = maskedState;
+  }
+  reset() {
+    super.reset();
+    this._blocks.forEach(b => b.reset());
+  }
+  get isComplete() {
+    return this.exposeBlock ? this.exposeBlock.isComplete : this._blocks.every(b => b.isComplete);
+  }
+  get isFilled() {
+    return this._blocks.every(b => b.isFilled);
+  }
+  get isFixed() {
+    return this._blocks.every(b => b.isFixed);
+  }
+  get isOptional() {
+    return this._blocks.every(b => b.isOptional);
+  }
+  doCommit() {
+    this._blocks.forEach(b => b.doCommit());
+    super.doCommit();
+  }
+  get unmaskedValue() {
+    return this.exposeBlock ? this.exposeBlock.unmaskedValue : this._blocks.reduce((str, b) => str += b.unmaskedValue, '');
+  }
+  set unmaskedValue(unmaskedValue) {
+    if (this.exposeBlock) {
+      const tail = this.extractTail(this._blockStartPos(this._blocks.indexOf(this.exposeBlock)) + this.exposeBlock.displayValue.length);
+      this.exposeBlock.unmaskedValue = unmaskedValue;
+      this.appendTail(tail);
+      this.doCommit();
+    } else super.unmaskedValue = unmaskedValue;
+  }
+  get value() {
+    return this.exposeBlock ? this.exposeBlock.value :
+    // TODO return _value when not in change?
+    this._blocks.reduce((str, b) => str += b.value, '');
+  }
+  set value(value) {
+    if (this.exposeBlock) {
+      const tail = this.extractTail(this._blockStartPos(this._blocks.indexOf(this.exposeBlock)) + this.exposeBlock.displayValue.length);
+      this.exposeBlock.value = value;
+      this.appendTail(tail);
+      this.doCommit();
+    } else super.value = value;
+  }
+  get typedValue() {
+    return this.exposeBlock ? this.exposeBlock.typedValue : super.typedValue;
+  }
+  set typedValue(value) {
+    if (this.exposeBlock) {
+      const tail = this.extractTail(this._blockStartPos(this._blocks.indexOf(this.exposeBlock)) + this.exposeBlock.displayValue.length);
+      this.exposeBlock.typedValue = value;
+      this.appendTail(tail);
+      this.doCommit();
+    } else super.typedValue = value;
+  }
+  get displayValue() {
+    return this._blocks.reduce((str, b) => str += b.displayValue, '');
+  }
+  appendTail(tail) {
+    return super.appendTail(tail).aggregate(this._appendPlaceholder());
+  }
+  _appendEager() {
+    const details = new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    let startBlockIndex = this._mapPosToBlock(this.displayValue.length)?.index;
+    if (startBlockIndex == null) return details;
+
+    // TODO test if it works for nested pattern masks
+    if (this._blocks[startBlockIndex].isFilled) ++startBlockIndex;
+    for (let bi = startBlockIndex; bi < this._blocks.length; ++bi) {
+      const d = this._blocks[bi]._appendEager();
+      if (!d.inserted) break;
+      details.aggregate(d);
+    }
+    return details;
+  }
+  _appendCharRaw(ch, flags) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    const blockIter = this._mapPosToBlock(this.displayValue.length);
+    const details = new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    if (!blockIter) return details;
+    for (let bi = blockIter.index, block; block = this._blocks[bi]; ++bi) {
+      const blockDetails = block._appendChar(ch, {
+        ...flags,
+        _beforeTailState: flags._beforeTailState?._blocks?.[bi]
+      });
+      details.aggregate(blockDetails);
+      if (blockDetails.skip || blockDetails.rawInserted) break; // go next char
+    }
+    return details;
+  }
+  extractTail(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.displayValue.length;
+    }
+    const chunkTail = new _pattern_chunk_tail_details_js__WEBPACK_IMPORTED_MODULE_5__["default"]();
+    if (fromPos === toPos) return chunkTail;
+    this._forEachBlocksInRange(fromPos, toPos, (b, bi, bFromPos, bToPos) => {
+      const blockChunk = b.extractTail(bFromPos, bToPos);
+      blockChunk.stop = this._findStopBefore(bi);
+      blockChunk.from = this._blockStartPos(bi);
+      if (blockChunk instanceof _pattern_chunk_tail_details_js__WEBPACK_IMPORTED_MODULE_5__["default"]) blockChunk.blockIndex = bi;
+      chunkTail.extend(blockChunk);
+    });
+    return chunkTail;
+  }
+  extractInput(fromPos, toPos, flags) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.displayValue.length;
+    }
+    if (flags === void 0) {
+      flags = {};
+    }
+    if (fromPos === toPos) return '';
+    let input = '';
+    this._forEachBlocksInRange(fromPos, toPos, (b, _, fromPos, toPos) => {
+      input += b.extractInput(fromPos, toPos, flags);
+    });
+    return input;
+  }
+  _findStopBefore(blockIndex) {
+    let stopBefore;
+    for (let si = 0; si < this._stops.length; ++si) {
+      const stop = this._stops[si];
+      if (stop <= blockIndex) stopBefore = stop;else break;
+    }
+    return stopBefore;
+  }
+
+  /** Appends placeholder depending on laziness */
+  _appendPlaceholder(toBlockIndex) {
+    const details = new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    if (this.lazy && toBlockIndex == null) return details;
+    const startBlockIter = this._mapPosToBlock(this.displayValue.length);
+    if (!startBlockIter) return details;
+    const startBlockIndex = startBlockIter.index;
+    const endBlockIndex = toBlockIndex != null ? toBlockIndex : this._blocks.length;
+    this._blocks.slice(startBlockIndex, endBlockIndex).forEach(b => {
+      if (!b.lazy || toBlockIndex != null) {
+        const bDetails = b._appendPlaceholder(b._blocks?.length);
+        this._value += bDetails.inserted;
+        details.aggregate(bDetails);
+      }
+    });
+    return details;
+  }
+
+  /** Finds block in pos */
+  _mapPosToBlock(pos) {
+    let accVal = '';
+    for (let bi = 0; bi < this._blocks.length; ++bi) {
+      const block = this._blocks[bi];
+      const blockStartPos = accVal.length;
+      accVal += block.displayValue;
+      if (pos <= accVal.length) {
+        return {
+          index: bi,
+          offset: pos - blockStartPos
+        };
+      }
+    }
+  }
+  _blockStartPos(blockIndex) {
+    return this._blocks.slice(0, blockIndex).reduce((pos, b) => pos += b.displayValue.length, 0);
+  }
+  _forEachBlocksInRange(fromPos, toPos, fn) {
+    if (toPos === void 0) {
+      toPos = this.displayValue.length;
+    }
+    const fromBlockIter = this._mapPosToBlock(fromPos);
+    if (fromBlockIter) {
+      const toBlockIter = this._mapPosToBlock(toPos);
+      // process first block
+      const isSameBlock = toBlockIter && fromBlockIter.index === toBlockIter.index;
+      const fromBlockStartPos = fromBlockIter.offset;
+      const fromBlockEndPos = toBlockIter && isSameBlock ? toBlockIter.offset : this._blocks[fromBlockIter.index].displayValue.length;
+      fn(this._blocks[fromBlockIter.index], fromBlockIter.index, fromBlockStartPos, fromBlockEndPos);
+      if (toBlockIter && !isSameBlock) {
+        // process intermediate blocks
+        for (let bi = fromBlockIter.index + 1; bi < toBlockIter.index; ++bi) {
+          fn(this._blocks[bi], bi, 0, this._blocks[bi].displayValue.length);
+        }
+
+        // process last block
+        fn(this._blocks[toBlockIter.index], toBlockIter.index, 0, toBlockIter.offset);
+      }
+    }
+  }
+  remove(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.displayValue.length;
+    }
+    const removeDetails = super.remove(fromPos, toPos);
+    this._forEachBlocksInRange(fromPos, toPos, (b, _, bFromPos, bToPos) => {
+      removeDetails.aggregate(b.remove(bFromPos, bToPos));
+    });
+    return removeDetails;
+  }
+  nearestInputPos(cursorPos, direction) {
+    if (direction === void 0) {
+      direction = _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.NONE;
+    }
+    if (!this._blocks.length) return 0;
+    const cursor = new _pattern_cursor_js__WEBPACK_IMPORTED_MODULE_6__["default"](this, cursorPos);
+    if (direction === _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.NONE) {
+      // -------------------------------------------------
+      // NONE should only go out from fixed to the right!
+      // -------------------------------------------------
+      if (cursor.pushRightBeforeInput()) return cursor.pos;
+      cursor.popState();
+      if (cursor.pushLeftBeforeInput()) return cursor.pos;
+      return this.displayValue.length;
+    }
+
+    // FORCE is only about a|* otherwise is 0
+    if (direction === _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.LEFT || direction === _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.FORCE_LEFT) {
+      // try to break fast when *|a
+      if (direction === _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.LEFT) {
+        cursor.pushRightBeforeFilled();
+        if (cursor.ok && cursor.pos === cursorPos) return cursorPos;
+        cursor.popState();
+      }
+
+      // forward flow
+      cursor.pushLeftBeforeInput();
+      cursor.pushLeftBeforeRequired();
+      cursor.pushLeftBeforeFilled();
+
+      // backward flow
+      if (direction === _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.LEFT) {
+        cursor.pushRightBeforeInput();
+        cursor.pushRightBeforeRequired();
+        if (cursor.ok && cursor.pos <= cursorPos) return cursor.pos;
+        cursor.popState();
+        if (cursor.ok && cursor.pos <= cursorPos) return cursor.pos;
+        cursor.popState();
+      }
+      if (cursor.ok) return cursor.pos;
+      if (direction === _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.FORCE_LEFT) return 0;
+      cursor.popState();
+      if (cursor.ok) return cursor.pos;
+      cursor.popState();
+      if (cursor.ok) return cursor.pos;
+      return 0;
+    }
+    if (direction === _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.RIGHT || direction === _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.FORCE_RIGHT) {
+      // forward flow
+      cursor.pushRightBeforeInput();
+      cursor.pushRightBeforeRequired();
+      if (cursor.pushRightBeforeFilled()) return cursor.pos;
+      if (direction === _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.FORCE_RIGHT) return this.displayValue.length;
+
+      // backward flow
+      cursor.popState();
+      if (cursor.ok) return cursor.pos;
+      cursor.popState();
+      if (cursor.ok) return cursor.pos;
+      return this.nearestInputPos(cursorPos, _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.LEFT);
+    }
+    return cursorPos;
+  }
+  totalInputPositions(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.displayValue.length;
+    }
+    let total = 0;
+    this._forEachBlocksInRange(fromPos, toPos, (b, _, bFromPos, bToPos) => {
+      total += b.totalInputPositions(bFromPos, bToPos);
+    });
+    return total;
+  }
+
+  /** Get block by name */
+  maskedBlock(name) {
+    return this.maskedBlocks(name)[0];
+  }
+
+  /** Get all blocks by name */
+  maskedBlocks(name) {
+    const indices = this._maskedBlocks[name];
+    if (!indices) return [];
+    return indices.map(gi => this._blocks[gi]);
+  }
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].MaskedPattern = MaskedPattern;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/pattern/chunk-tail-details.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/imask/esm/masked/pattern/chunk-tail-details.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ChunksTailDetails)
+/* harmony export */ });
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../core/continuous-tail-details.js */ "./node_modules/imask/esm/core/continuous-tail-details.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+
+
+
+
+
+class ChunksTailDetails {
+  /** */
+
+  constructor(chunks, from) {
+    if (chunks === void 0) {
+      chunks = [];
+    }
+    if (from === void 0) {
+      from = 0;
+    }
+    this.chunks = chunks;
+    this.from = from;
+  }
+  toString() {
+    return this.chunks.map(String).join('');
+  }
+  extend(tailChunk) {
+    if (!String(tailChunk)) return;
+    tailChunk = (0,_core_utils_js__WEBPACK_IMPORTED_MODULE_1__.isString)(tailChunk) ? new _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_2__["default"](String(tailChunk)) : tailChunk;
+    const lastChunk = this.chunks[this.chunks.length - 1];
+    const extendLast = lastChunk && (
+    // if stops are same or tail has no stop
+    lastChunk.stop === tailChunk.stop || tailChunk.stop == null) &&
+    // if tail chunk goes just after last chunk
+    tailChunk.from === lastChunk.from + lastChunk.toString().length;
+    if (tailChunk instanceof _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_2__["default"]) {
+      // check the ability to extend previous chunk
+      if (extendLast) {
+        // extend previous chunk
+        lastChunk.extend(tailChunk.toString());
+      } else {
+        // append new chunk
+        this.chunks.push(tailChunk);
+      }
+    } else if (tailChunk instanceof ChunksTailDetails) {
+      if (tailChunk.stop == null) {
+        // unwrap floating chunks to parent, keeping `from` pos
+        let firstTailChunk;
+        while (tailChunk.chunks.length && tailChunk.chunks[0].stop == null) {
+          firstTailChunk = tailChunk.chunks.shift(); // not possible to be `undefined` because length was checked above
+          firstTailChunk.from += tailChunk.from;
+          this.extend(firstTailChunk);
+        }
+      }
+
+      // if tail chunk still has value
+      if (tailChunk.toString()) {
+        // if chunks contains stops, then popup stop to container
+        tailChunk.stop = tailChunk.blockIndex;
+        this.chunks.push(tailChunk);
+      }
+    }
+  }
+  appendTo(masked) {
+    if (!(masked instanceof _core_holder_js__WEBPACK_IMPORTED_MODULE_3__["default"].MaskedPattern)) {
+      const tail = new _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_2__["default"](this.toString());
+      return tail.appendTo(masked);
+    }
+    const details = new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    for (let ci = 0; ci < this.chunks.length && !details.skip; ++ci) {
+      const chunk = this.chunks[ci];
+      const lastBlockIter = masked._mapPosToBlock(masked.displayValue.length);
+      const stop = chunk.stop;
+      let chunkBlock;
+      if (stop != null && (
+      // if block not found or stop is behind lastBlock
+      !lastBlockIter || lastBlockIter.index <= stop)) {
+        if (chunk instanceof ChunksTailDetails ||
+        // for continuous block also check if stop is exist
+        masked._stops.indexOf(stop) >= 0) {
+          const phDetails = masked._appendPlaceholder(stop);
+          details.aggregate(phDetails);
+        }
+        chunkBlock = chunk instanceof ChunksTailDetails && masked._blocks[stop];
+      }
+      if (chunkBlock) {
+        const tailDetails = chunkBlock.appendTail(chunk);
+        tailDetails.skip = false; // always ignore skip, it will be set on last
+        details.aggregate(tailDetails);
+        masked._value += tailDetails.inserted;
+
+        // get not inserted chars
+        const remainChars = chunk.toString().slice(tailDetails.rawInserted.length);
+        if (remainChars) details.aggregate(masked.append(remainChars, {
+          tail: true
+        }));
+      } else {
+        details.aggregate(masked.append(chunk.toString(), {
+          tail: true
+        }));
+      }
+    }
+    return details;
+  }
+  get state() {
+    return {
+      chunks: this.chunks.map(c => c.state),
+      from: this.from,
+      stop: this.stop,
+      blockIndex: this.blockIndex
+    };
+  }
+  set state(state) {
+    const {
+      chunks,
+      ...props
+    } = state;
+    Object.assign(this, props);
+    this.chunks = chunks.map(cstate => {
+      const chunk = "chunks" in cstate ? new ChunksTailDetails() : new _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_2__["default"]();
+      chunk.state = cstate;
+      return chunk;
+    });
+  }
+  unshift(beforePos) {
+    if (!this.chunks.length || beforePos != null && this.from >= beforePos) return '';
+    const chunkShiftPos = beforePos != null ? beforePos - this.from : beforePos;
+    let ci = 0;
+    while (ci < this.chunks.length) {
+      const chunk = this.chunks[ci];
+      const shiftChar = chunk.unshift(chunkShiftPos);
+      if (chunk.toString()) {
+        // chunk still contains value
+        // but not shifted - means no more available chars to shift
+        if (!shiftChar) break;
+        ++ci;
+      } else {
+        // clean if chunk has no value
+        this.chunks.splice(ci, 1);
+      }
+      if (shiftChar) return shiftChar;
+    }
+    return '';
+  }
+  shift() {
+    if (!this.chunks.length) return '';
+    let ci = this.chunks.length - 1;
+    while (0 <= ci) {
+      const chunk = this.chunks[ci];
+      const shiftChar = chunk.shift();
+      if (chunk.toString()) {
+        // chunk still contains value
+        // but not shifted - means no more available chars to shift
+        if (!shiftChar) break;
+        --ci;
+      } else {
+        // clean if chunk has no value
+        this.chunks.splice(ci, 1);
+      }
+      if (shiftChar) return shiftChar;
+    }
+    return '';
+  }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/pattern/cursor.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/imask/esm/masked/pattern/cursor.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ PatternCursor)
+/* harmony export */ });
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+
+
+class PatternCursor {
+  constructor(masked, pos) {
+    this.masked = masked;
+    this._log = [];
+    const {
+      offset,
+      index
+    } = masked._mapPosToBlock(pos) || (pos < 0 ?
+    // first
+    {
+      index: 0,
+      offset: 0
+    } :
+    // last
+    {
+      index: this.masked._blocks.length,
+      offset: 0
+    });
+    this.offset = offset;
+    this.index = index;
+    this.ok = false;
+  }
+  get block() {
+    return this.masked._blocks[this.index];
+  }
+  get pos() {
+    return this.masked._blockStartPos(this.index) + this.offset;
+  }
+  get state() {
+    return {
+      index: this.index,
+      offset: this.offset,
+      ok: this.ok
+    };
+  }
+  set state(s) {
+    Object.assign(this, s);
+  }
+  pushState() {
+    this._log.push(this.state);
+  }
+  popState() {
+    const s = this._log.pop();
+    if (s) this.state = s;
+    return s;
+  }
+  bindBlock() {
+    if (this.block) return;
+    if (this.index < 0) {
+      this.index = 0;
+      this.offset = 0;
+    }
+    if (this.index >= this.masked._blocks.length) {
+      this.index = this.masked._blocks.length - 1;
+      this.offset = this.block.displayValue.length; // TODO this is stupid type error, `block` depends on index that was changed above
+    }
+  }
+  _pushLeft(fn) {
+    this.pushState();
+    for (this.bindBlock(); 0 <= this.index; --this.index, this.offset = this.block?.displayValue.length || 0) {
+      if (fn()) return this.ok = true;
+    }
+    return this.ok = false;
+  }
+  _pushRight(fn) {
+    this.pushState();
+    for (this.bindBlock(); this.index < this.masked._blocks.length; ++this.index, this.offset = 0) {
+      if (fn()) return this.ok = true;
+    }
+    return this.ok = false;
+  }
+  pushLeftBeforeFilled() {
+    return this._pushLeft(() => {
+      if (this.block.isFixed || !this.block.value) return;
+      this.offset = this.block.nearestInputPos(this.offset, _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.FORCE_LEFT);
+      if (this.offset !== 0) return true;
+    });
+  }
+  pushLeftBeforeInput() {
+    // cases:
+    // filled input: 00|
+    // optional empty input: 00[]|
+    // nested block: XX<[]>|
+    return this._pushLeft(() => {
+      if (this.block.isFixed) return;
+      this.offset = this.block.nearestInputPos(this.offset, _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.LEFT);
+      return true;
+    });
+  }
+  pushLeftBeforeRequired() {
+    return this._pushLeft(() => {
+      if (this.block.isFixed || this.block.isOptional && !this.block.value) return;
+      this.offset = this.block.nearestInputPos(this.offset, _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.LEFT);
+      return true;
+    });
+  }
+  pushRightBeforeFilled() {
+    return this._pushRight(() => {
+      if (this.block.isFixed || !this.block.value) return;
+      this.offset = this.block.nearestInputPos(this.offset, _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.FORCE_RIGHT);
+      if (this.offset !== this.block.value.length) return true;
+    });
+  }
+  pushRightBeforeInput() {
+    return this._pushRight(() => {
+      if (this.block.isFixed) return;
+
+      // const o = this.offset;
+      this.offset = this.block.nearestInputPos(this.offset, _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.NONE);
+      // HACK cases like (STILL DOES NOT WORK FOR NESTED)
+      // aa|X
+      // aa<X|[]>X_    - this will not work
+      // if (o && o === this.offset && this.block instanceof PatternInputDefinition) continue;
+      return true;
+    });
+  }
+  pushRightBeforeRequired() {
+    return this._pushRight(() => {
+      if (this.block.isFixed || this.block.isOptional && !this.block.value) return;
+
+      // TODO check |[*]XX_
+      this.offset = this.block.nearestInputPos(this.offset, _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.DIRECTION.NONE);
+      return true;
+    });
+  }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/pattern/fixed-definition.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/imask/esm/masked/pattern/fixed-definition.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ PatternFixedDefinition)
+/* harmony export */ });
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../core/continuous-tail-details.js */ "./node_modules/imask/esm/core/continuous-tail-details.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+
+
+
+
+
+class PatternFixedDefinition {
+  /** */
+
+  /** */
+
+  /** */
+
+  /** */
+
+  /** */
+
+  /** */
+
+  constructor(opts) {
+    Object.assign(this, opts);
+    this._value = '';
+    this.isFixed = true;
+  }
+  get value() {
+    return this._value;
+  }
+  get unmaskedValue() {
+    return this.isUnmasking ? this.value : '';
+  }
+  get rawInputValue() {
+    return this._isRawInput ? this.value : '';
+  }
+  get displayValue() {
+    return this.value;
+  }
+  reset() {
+    this._isRawInput = false;
+    this._value = '';
+  }
+  remove(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this._value.length;
+    }
+    this._value = this._value.slice(0, fromPos) + this._value.slice(toPos);
+    if (!this._value) this._isRawInput = false;
+    return new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  }
+  nearestInputPos(cursorPos, direction) {
+    if (direction === void 0) {
+      direction = _core_utils_js__WEBPACK_IMPORTED_MODULE_1__.DIRECTION.NONE;
+    }
+    const minPos = 0;
+    const maxPos = this._value.length;
+    switch (direction) {
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_1__.DIRECTION.LEFT:
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_1__.DIRECTION.FORCE_LEFT:
+        return minPos;
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_1__.DIRECTION.NONE:
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_1__.DIRECTION.RIGHT:
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_1__.DIRECTION.FORCE_RIGHT:
+      default:
+        return maxPos;
+    }
+  }
+  totalInputPositions(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this._value.length;
+    }
+    return this._isRawInput ? toPos - fromPos : 0;
+  }
+  extractInput(fromPos, toPos, flags) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this._value.length;
+    }
+    if (flags === void 0) {
+      flags = {};
+    }
+    return flags.raw && this._isRawInput && this._value.slice(fromPos, toPos) || '';
+  }
+  get isComplete() {
+    return true;
+  }
+  get isFilled() {
+    return Boolean(this._value);
+  }
+  _appendChar(ch, flags) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    const details = new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    if (this.isFilled) return details;
+    const appendEager = this.eager === true || this.eager === 'append';
+    const appended = this.char === ch;
+    const isResolved = appended && (this.isUnmasking || flags.input || flags.raw) && (!flags.raw || !appendEager) && !flags.tail;
+    if (isResolved) details.rawInserted = this.char;
+    this._value = details.inserted = this.char;
+    this._isRawInput = isResolved && (flags.raw || flags.input);
+    return details;
+  }
+  _appendEager() {
+    return this._appendChar(this.char, {
+      tail: true
+    });
+  }
+  _appendPlaceholder() {
+    const details = new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    if (this.isFilled) return details;
+    this._value = details.inserted = this.char;
+    return details;
+  }
+  extractTail() {
+    return new _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_2__["default"]('');
+  }
+  appendTail(tail) {
+    if ((0,_core_utils_js__WEBPACK_IMPORTED_MODULE_1__.isString)(tail)) tail = new _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_2__["default"](String(tail));
+    return tail.appendTo(this);
+  }
+  append(str, flags, tail) {
+    const details = this._appendChar(str[0], flags);
+    if (tail != null) {
+      details.tailShift += this.appendTail(tail).tailShift;
+    }
+    return details;
+  }
+  doCommit() {}
+  get state() {
+    return {
+      _value: this._value,
+      _rawInputValue: this.rawInputValue
+    };
+  }
+  set state(state) {
+    this._value = state._value;
+    this._isRawInput = Boolean(state._rawInputValue);
+  }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/pattern/input-definition.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/imask/esm/masked/pattern/input-definition.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ PatternInputDefinition)
+/* harmony export */ });
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../factory.js */ "./node_modules/imask/esm/masked/factory.js");
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+
+
+
+
+
+class PatternInputDefinition {
+  static DEFAULT_DEFINITIONS = {
+    '0': /\d/,
+    'a': /[\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0370-\u0374\u0376\u0377\u037A-\u037D\u0386\u0388-\u038A\u038C\u038E-\u03A1\u03A3-\u03F5\u03F7-\u0481\u048A-\u0527\u0531-\u0556\u0559\u0561-\u0587\u05D0-\u05EA\u05F0-\u05F2\u0620-\u064A\u066E\u066F\u0671-\u06D3\u06D5\u06E5\u06E6\u06EE\u06EF\u06FA-\u06FC\u06FF\u0710\u0712-\u072F\u074D-\u07A5\u07B1\u07CA-\u07EA\u07F4\u07F5\u07FA\u0800-\u0815\u081A\u0824\u0828\u0840-\u0858\u08A0\u08A2-\u08AC\u0904-\u0939\u093D\u0950\u0958-\u0961\u0971-\u0977\u0979-\u097F\u0985-\u098C\u098F\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD\u09CE\u09DC\u09DD\u09DF-\u09E1\u09F0\u09F1\u0A05-\u0A0A\u0A0F\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32\u0A33\u0A35\u0A36\u0A38\u0A39\u0A59-\u0A5C\u0A5E\u0A72-\u0A74\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\u0AB3\u0AB5-\u0AB9\u0ABD\u0AD0\u0AE0\u0AE1\u0B05-\u0B0C\u0B0F\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32\u0B33\u0B35-\u0B39\u0B3D\u0B5C\u0B5D\u0B5F-\u0B61\u0B71\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99\u0B9A\u0B9C\u0B9E\u0B9F\u0BA3\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BD0\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C33\u0C35-\u0C39\u0C3D\u0C58\u0C59\u0C60\u0C61\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CDE\u0CE0\u0CE1\u0CF1\u0CF2\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D\u0D4E\u0D60\u0D61\u0D7A-\u0D7F\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0E01-\u0E30\u0E32\u0E33\u0E40-\u0E46\u0E81\u0E82\u0E84\u0E87\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA\u0EAB\u0EAD-\u0EB0\u0EB2\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6\u0EDC-\u0EDF\u0F00\u0F40-\u0F47\u0F49-\u0F6C\u0F88-\u0F8C\u1000-\u102A\u103F\u1050-\u1055\u105A-\u105D\u1061\u1065\u1066\u106E-\u1070\u1075-\u1081\u108E\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FC-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1380-\u138F\u13A0-\u13F4\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17D7\u17DC\u1820-\u1877\u1880-\u18A8\u18AA\u18B0-\u18F5\u1900-\u191C\u1950-\u196D\u1970-\u1974\u1980-\u19AB\u19C1-\u19C7\u1A00-\u1A16\u1A20-\u1A54\u1AA7\u1B05-\u1B33\u1B45-\u1B4B\u1B83-\u1BA0\u1BAE\u1BAF\u1BBA-\u1BE5\u1C00-\u1C23\u1C4D-\u1C4F\u1C5A-\u1C7D\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF5\u1CF6\u1D00-\u1DBF\u1E00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u212F-\u2139\u213C-\u213F\u2145-\u2149\u214E\u2183\u2184\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2CE4\u2CEB-\u2CEE\u2CF2\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u2E2F\u3005\u3006\u3031-\u3035\u303B\u303C\u3041-\u3096\u309D-\u309F\u30A1-\u30FA\u30FC-\u30FF\u3105-\u312D\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FCC\uA000-\uA48C\uA4D0-\uA4FD\uA500-\uA60C\uA610-\uA61F\uA62A\uA62B\uA640-\uA66E\uA67F-\uA697\uA6A0-\uA6E5\uA717-\uA71F\uA722-\uA788\uA78B-\uA78E\uA790-\uA793\uA7A0-\uA7AA\uA7F8-\uA801\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA840-\uA873\uA882-\uA8B3\uA8F2-\uA8F7\uA8FB\uA90A-\uA925\uA930-\uA946\uA960-\uA97C\uA984-\uA9B2\uA9CF\uAA00-\uAA28\uAA40-\uAA42\uAA44-\uAA4B\uAA60-\uAA76\uAA7A\uAA80-\uAAAF\uAAB1\uAAB5\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADD\uAAE0-\uAAEA\uAAF2-\uAAF4\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uABC0-\uABE2\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE70-\uFE74\uFE76-\uFEFC\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC]/,
+    // http://stackoverflow.com/a/22075070
+    '*': /./
+  };
+
+  /** */
+
+  /** */
+
+  /** */
+
+  /** */
+
+  /** */
+
+  /** */
+
+  /** */
+
+  /** */
+
+  constructor(opts) {
+    const {
+      parent,
+      isOptional,
+      placeholderChar,
+      displayChar,
+      lazy,
+      eager,
+      ...maskOpts
+    } = opts;
+    this.masked = (0,_factory_js__WEBPACK_IMPORTED_MODULE_0__["default"])(maskOpts);
+    Object.assign(this, {
+      parent,
+      isOptional,
+      placeholderChar,
+      displayChar,
+      lazy,
+      eager
+    });
+  }
+  reset() {
+    this.isFilled = false;
+    this.masked.reset();
+  }
+  remove(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.value.length;
+    }
+    if (fromPos === 0 && toPos >= 1) {
+      this.isFilled = false;
+      return this.masked.remove(fromPos, toPos);
+    }
+    return new _core_change_details_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
+  }
+  get value() {
+    return this.masked.value || (this.isFilled && !this.isOptional ? this.placeholderChar : '');
+  }
+  get unmaskedValue() {
+    return this.masked.unmaskedValue;
+  }
+  get rawInputValue() {
+    return this.masked.rawInputValue;
+  }
+  get displayValue() {
+    return this.masked.value && this.displayChar || this.value;
+  }
+  get isComplete() {
+    return Boolean(this.masked.value) || this.isOptional;
+  }
+  _appendChar(ch, flags) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    if (this.isFilled) return new _core_change_details_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    const state = this.masked.state;
+    // simulate input
+    const details = this.masked._appendChar(ch, this.currentMaskFlags(flags));
+    if (details.inserted && this.doValidate(flags) === false) {
+      details.inserted = details.rawInserted = '';
+      this.masked.state = state;
+    }
+    if (!details.inserted && !this.isOptional && !this.lazy && !flags.input) {
+      details.inserted = this.placeholderChar;
+    }
+    details.skip = !details.inserted && !this.isOptional;
+    this.isFilled = Boolean(details.inserted);
+    return details;
+  }
+  append(str, flags, tail) {
+    // TODO probably should be done via _appendChar
+    return this.masked.append(str, this.currentMaskFlags(flags), tail);
+  }
+  _appendPlaceholder() {
+    const details = new _core_change_details_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    if (this.isFilled || this.isOptional) return details;
+    this.isFilled = true;
+    details.inserted = this.placeholderChar;
+    return details;
+  }
+  _appendEager() {
+    return new _core_change_details_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
+  }
+  extractTail(fromPos, toPos) {
+    return this.masked.extractTail(fromPos, toPos);
+  }
+  appendTail(tail) {
+    return this.masked.appendTail(tail);
+  }
+  extractInput(fromPos, toPos, flags) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.value.length;
+    }
+    return this.masked.extractInput(fromPos, toPos, flags);
+  }
+  nearestInputPos(cursorPos, direction) {
+    if (direction === void 0) {
+      direction = _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.NONE;
+    }
+    const minPos = 0;
+    const maxPos = this.value.length;
+    const boundPos = Math.min(Math.max(cursorPos, minPos), maxPos);
+    switch (direction) {
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.LEFT:
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.FORCE_LEFT:
+        return this.isComplete ? boundPos : minPos;
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.RIGHT:
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.FORCE_RIGHT:
+        return this.isComplete ? boundPos : maxPos;
+      case _core_utils_js__WEBPACK_IMPORTED_MODULE_2__.DIRECTION.NONE:
+      default:
+        return boundPos;
+    }
+  }
+  totalInputPositions(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.value.length;
+    }
+    return this.value.slice(fromPos, toPos).length;
+  }
+  doValidate(flags) {
+    return this.masked.doValidate(this.currentMaskFlags(flags)) && (!this.parent || this.parent.doValidate(this.currentMaskFlags(flags)));
+  }
+  doCommit() {
+    this.masked.doCommit();
+  }
+  get state() {
+    return {
+      _value: this.value,
+      _rawInputValue: this.rawInputValue,
+      masked: this.masked.state,
+      isFilled: this.isFilled
+    };
+  }
+  set state(state) {
+    this.masked.state = state.masked;
+    this.isFilled = state.isFilled;
+  }
+  currentMaskFlags(flags) {
+    return {
+      ...flags,
+      _beforeTailState: flags?._beforeTailState?.masked || flags?._beforeTailState
+    };
+  }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/pipe.js":
+/*!***********************************************!*\
+  !*** ./node_modules/imask/esm/masked/pipe.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PIPE_TYPE: () => (/* binding */ PIPE_TYPE),
+/* harmony export */   createPipe: () => (/* binding */ createPipe),
+/* harmony export */   pipe: () => (/* binding */ pipe)
+/* harmony export */ });
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./factory.js */ "./node_modules/imask/esm/masked/factory.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+
+
+
+
+/** Mask pipe source and destination types */
+const PIPE_TYPE = {
+  MASKED: 'value',
+  UNMASKED: 'unmaskedValue',
+  TYPED: 'typedValue'
+};
+/** Creates new pipe function depending on mask type, source and destination options */
+function createPipe(arg, from, to) {
+  if (from === void 0) {
+    from = PIPE_TYPE.MASKED;
+  }
+  if (to === void 0) {
+    to = PIPE_TYPE.MASKED;
+  }
+  const masked = (0,_factory_js__WEBPACK_IMPORTED_MODULE_0__["default"])(arg);
+  return value => masked.runIsolated(m => {
+    m[from] = value;
+    return m[to];
+  });
+}
+
+/** Pipes value through mask depending on mask type, source and destination options */
+function pipe(value, mask, from, to) {
+  return createPipe(mask, from, to)(value);
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].PIPE_TYPE = PIPE_TYPE;
+_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].createPipe = createPipe;
+_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].pipe = pipe;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/range.js":
+/*!************************************************!*\
+  !*** ./node_modules/imask/esm/masked/range.js ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MaskedRange)
+/* harmony export */ });
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _pattern_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pattern.js */ "./node_modules/imask/esm/masked/pattern.js");
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _base_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./base.js */ "./node_modules/imask/esm/masked/base.js");
+/* harmony import */ var _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../core/continuous-tail-details.js */ "./node_modules/imask/esm/core/continuous-tail-details.js");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./factory.js */ "./node_modules/imask/esm/masked/factory.js");
+/* harmony import */ var _pattern_chunk_tail_details_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pattern/chunk-tail-details.js */ "./node_modules/imask/esm/masked/pattern/chunk-tail-details.js");
+/* harmony import */ var _pattern_cursor_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pattern/cursor.js */ "./node_modules/imask/esm/masked/pattern/cursor.js");
+/* harmony import */ var _pattern_fixed_definition_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pattern/fixed-definition.js */ "./node_modules/imask/esm/masked/pattern/fixed-definition.js");
+/* harmony import */ var _pattern_input_definition_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pattern/input-definition.js */ "./node_modules/imask/esm/masked/pattern/input-definition.js");
+/* harmony import */ var _regexp_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./regexp.js */ "./node_modules/imask/esm/masked/regexp.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+/** Pattern which accepts ranges */
+class MaskedRange extends _pattern_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
+  /**
+    Optionally sets max length of pattern.
+    Used when pattern length is longer then `to` param length. Pads zeros at start in this case.
+  */
+
+  /** Min bound */
+
+  /** Max bound */
+
+  /** */
+
+  get _matchFrom() {
+    return this.maxLength - String(this.from).length;
+  }
+  constructor(opts) {
+    super(opts); // mask will be created in _update
+  }
+  updateOptions(opts) {
+    super.updateOptions(opts);
+  }
+  _update(opts) {
+    const {
+      to = this.to || 0,
+      from = this.from || 0,
+      maxLength = this.maxLength || 0,
+      autofix = this.autofix,
+      ...patternOpts
+    } = opts;
+    this.to = to;
+    this.from = from;
+    this.maxLength = Math.max(String(to).length, maxLength);
+    this.autofix = autofix;
+    const fromStr = String(this.from).padStart(this.maxLength, '0');
+    const toStr = String(this.to).padStart(this.maxLength, '0');
+    let sameCharsCount = 0;
+    while (sameCharsCount < toStr.length && toStr[sameCharsCount] === fromStr[sameCharsCount]) ++sameCharsCount;
+    patternOpts.mask = toStr.slice(0, sameCharsCount).replace(/0/g, '\\0') + '0'.repeat(this.maxLength - sameCharsCount);
+    super._update(patternOpts);
+  }
+  get isComplete() {
+    return super.isComplete && Boolean(this.value);
+  }
+  boundaries(str) {
+    let minstr = '';
+    let maxstr = '';
+    const [, placeholder, num] = str.match(/^(\D*)(\d*)(\D*)/) || [];
+    if (num) {
+      minstr = '0'.repeat(placeholder.length) + num;
+      maxstr = '9'.repeat(placeholder.length) + num;
+    }
+    minstr = minstr.padEnd(this.maxLength, '0');
+    maxstr = maxstr.padEnd(this.maxLength, '9');
+    return [minstr, maxstr];
+  }
+  doPrepareChar(ch, flags) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    let details;
+    [ch, details] = super.doPrepareChar(ch.replace(/\D/g, ''), flags);
+    if (!this.autofix || !ch) {
+      details.skip = !this.isComplete;
+      return [ch, details];
+    }
+    const fromStr = String(this.from).padStart(this.maxLength, '0');
+    const toStr = String(this.to).padStart(this.maxLength, '0');
+    const nextVal = this.value + ch;
+    if (nextVal.length > this.maxLength) return ['', details];
+    const [minstr, maxstr] = this.boundaries(nextVal);
+    if (Number(maxstr) < this.from) return [fromStr[nextVal.length - 1], details];
+    if (Number(minstr) > this.to) {
+      if (this.autofix === 'pad' && nextVal.length < this.maxLength) {
+        return ['', details.aggregate(this.append(fromStr[nextVal.length - 1] + ch, flags))];
+      }
+      return [toStr[nextVal.length - 1], details];
+    }
+    return [ch, details];
+  }
+  doValidate(flags) {
+    const str = this.value;
+    const firstNonZero = str.search(/[^0]/);
+    if (firstNonZero === -1 && str.length <= this._matchFrom) return true;
+    const [minstr, maxstr] = this.boundaries(str);
+    return this.from <= Number(maxstr) && Number(minstr) <= this.to && super.doValidate(flags);
+  }
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_0__["default"].MaskedRange = MaskedRange;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/regexp.js":
+/*!*************************************************!*\
+  !*** ./node_modules/imask/esm/masked/regexp.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MaskedRegExp)
+/* harmony export */ });
+/* harmony import */ var _base_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base.js */ "./node_modules/imask/esm/masked/base.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/continuous-tail-details.js */ "./node_modules/imask/esm/core/continuous-tail-details.js");
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+
+
+
+
+
+
+/** Masking by RegExp */
+class MaskedRegExp extends _base_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  /** */
+
+  /** Enable characters overwriting */
+
+  /** */
+
+  /** */
+
+  updateOptions(opts) {
+    super.updateOptions(opts);
+  }
+  _update(opts) {
+    const mask = opts.mask;
+    if (mask) opts.validate = value => value.search(mask) >= 0;
+    super._update(opts);
+  }
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].MaskedRegExp = MaskedRegExp;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/imask/esm/masked/repeat.js":
+/*!*************************************************!*\
+  !*** ./node_modules/imask/esm/masked/repeat.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ RepeatBlock)
+/* harmony export */ });
+/* harmony import */ var _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/change-details.js */ "./node_modules/imask/esm/core/change-details.js");
+/* harmony import */ var _core_holder_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/holder.js */ "./node_modules/imask/esm/core/holder.js");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./factory.js */ "./node_modules/imask/esm/masked/factory.js");
+/* harmony import */ var _pattern_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pattern.js */ "./node_modules/imask/esm/masked/pattern.js");
+/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../core/utils.js */ "./node_modules/imask/esm/core/utils.js");
+/* harmony import */ var _base_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./base.js */ "./node_modules/imask/esm/masked/base.js");
+/* harmony import */ var _core_continuous_tail_details_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../core/continuous-tail-details.js */ "./node_modules/imask/esm/core/continuous-tail-details.js");
+/* harmony import */ var _pattern_chunk_tail_details_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pattern/chunk-tail-details.js */ "./node_modules/imask/esm/masked/pattern/chunk-tail-details.js");
+/* harmony import */ var _pattern_cursor_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pattern/cursor.js */ "./node_modules/imask/esm/masked/pattern/cursor.js");
+/* harmony import */ var _pattern_fixed_definition_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pattern/fixed-definition.js */ "./node_modules/imask/esm/masked/pattern/fixed-definition.js");
+/* harmony import */ var _pattern_input_definition_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pattern/input-definition.js */ "./node_modules/imask/esm/masked/pattern/input-definition.js");
+/* harmony import */ var _regexp_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./regexp.js */ "./node_modules/imask/esm/masked/regexp.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+/** Pattern mask */
+class RepeatBlock extends _pattern_js__WEBPACK_IMPORTED_MODULE_3__["default"] {
+  get repeatFrom() {
+    return (Array.isArray(this.repeat) ? this.repeat[0] : this.repeat === Infinity ? 0 : this.repeat) ?? 0;
+  }
+  get repeatTo() {
+    return (Array.isArray(this.repeat) ? this.repeat[1] : this.repeat) ?? Infinity;
+  }
+  constructor(opts) {
+    super(opts);
+  }
+  updateOptions(opts) {
+    super.updateOptions(opts);
+  }
+  _update(opts) {
+    const {
+      repeat,
+      ...blockOpts
+    } = (0,_factory_js__WEBPACK_IMPORTED_MODULE_2__.normalizeOpts)(opts); // TODO type
+    this._blockOpts = Object.assign({}, this._blockOpts, blockOpts);
+    const block = (0,_factory_js__WEBPACK_IMPORTED_MODULE_2__["default"])(this._blockOpts);
+    this.repeat = repeat ?? block.repeat ?? this.repeat ?? Infinity; // TODO type
+
+    super._update({
+      mask: 'm'.repeat(Math.max(this.repeatTo === Infinity && this._blocks?.length || 0, this.repeatFrom)),
+      blocks: {
+        m: block
+      },
+      eager: block.eager,
+      overwrite: block.overwrite,
+      skipInvalid: block.skipInvalid,
+      lazy: block.lazy,
+      placeholderChar: block.placeholderChar,
+      displayChar: block.displayChar
+    });
+  }
+  _allocateBlock(bi) {
+    if (bi < this._blocks.length) return this._blocks[bi];
+    if (this.repeatTo === Infinity || this._blocks.length < this.repeatTo) {
+      this._blocks.push((0,_factory_js__WEBPACK_IMPORTED_MODULE_2__["default"])(this._blockOpts));
+      this.mask += 'm';
+      return this._blocks[this._blocks.length - 1];
+    }
+  }
+  _appendCharRaw(ch, flags) {
+    if (flags === void 0) {
+      flags = {};
+    }
+    const details = new _core_change_details_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    for (let bi = this._mapPosToBlock(this.displayValue.length)?.index ?? Math.max(this._blocks.length - 1, 0), block, allocated;
+    // try to get a block or
+    // try to allocate a new block if not allocated already
+    block = this._blocks[bi] ?? (allocated = !allocated && this._allocateBlock(bi)); ++bi) {
+      const blockDetails = block._appendChar(ch, {
+        ...flags,
+        _beforeTailState: flags._beforeTailState?._blocks?.[bi]
+      });
+      if (blockDetails.skip && allocated) {
+        // remove the last allocated block and break
+        this._blocks.pop();
+        this.mask = this.mask.slice(1);
+        break;
+      }
+      details.aggregate(blockDetails);
+      if (blockDetails.skip || blockDetails.rawInserted) break; // go next char
+    }
+    return details;
+  }
+  _trimEmptyTail(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    const firstBlockIndex = Math.max(this._mapPosToBlock(fromPos)?.index || 0, this.repeatFrom, 0);
+    let lastBlockIndex;
+    if (toPos != null) lastBlockIndex = this._mapPosToBlock(toPos)?.index;
+    if (lastBlockIndex == null) lastBlockIndex = this._blocks.length - 1;
+    let removeCount = 0;
+    for (let blockIndex = lastBlockIndex; firstBlockIndex <= blockIndex; --blockIndex, ++removeCount) {
+      if (this._blocks[blockIndex].unmaskedValue) break;
+    }
+    if (removeCount) {
+      this._blocks.splice(lastBlockIndex - removeCount + 1, removeCount);
+      this.mask = this.mask.slice(removeCount);
+    }
+  }
+  reset() {
+    super.reset();
+    this._trimEmptyTail();
+  }
+  remove(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos === void 0) {
+      toPos = this.displayValue.length;
+    }
+    const removeDetails = super.remove(fromPos, toPos);
+    this._trimEmptyTail(fromPos, toPos);
+    return removeDetails;
+  }
+  totalInputPositions(fromPos, toPos) {
+    if (fromPos === void 0) {
+      fromPos = 0;
+    }
+    if (toPos == null && this.repeatTo === Infinity) return Infinity;
+    return super.totalInputPositions(fromPos, toPos);
+  }
+  get state() {
+    return super.state;
+  }
+  set state(state) {
+    this._blocks.length = state._blocks.length;
+    this.mask = this.mask.slice(0, this._blocks.length);
+    super.state = state;
+  }
+}
+_core_holder_js__WEBPACK_IMPORTED_MODULE_1__["default"].RepeatBlock = RepeatBlock;
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/swiper/modules/a11y.mjs":
 /*!**********************************************!*\
   !*** ./node_modules/swiper/modules/a11y.mjs ***!
@@ -41224,12 +46259,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _libs_simplebar_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./libs/simplebar.js */ "./src/js/libs/simplebar.js");
 /* harmony import */ var _libs_da_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./libs/da.js */ "./src/js/libs/da.js");
 /* harmony import */ var _libs_da_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_libs_da_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _utils_select_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/select.js */ "./src/js/utils/select.js");
-/* harmony import */ var _dev_vzmsk1_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./dev/vzmsk1.js */ "./src/js/dev/vzmsk1.js");
-/* harmony import */ var _dev_markusDM_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./dev/markusDM.js */ "./src/js/dev/markusDM.js");
-/* harmony import */ var _dev_markusDM_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_dev_markusDM_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _dev_ukik0_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./dev/ukik0.js */ "./src/js/dev/ukik0.js");
-/* harmony import */ var _dev_kie6er_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./dev/kie6er.js */ "./src/js/dev/kie6er.js");
+/* harmony import */ var _libs_modals_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./libs/modals.js */ "./src/js/libs/modals.js");
+/* harmony import */ var _libs_phone_mask_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./libs/phone-mask.js */ "./src/js/libs/phone-mask.js");
+/* harmony import */ var _utils_select_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/select.js */ "./src/js/utils/select.js");
+/* harmony import */ var _dev_vzmsk1_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./dev/vzmsk1.js */ "./src/js/dev/vzmsk1.js");
+/* harmony import */ var _dev_markusDM_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./dev/markusDM.js */ "./src/js/dev/markusDM.js");
+/* harmony import */ var _dev_markusDM_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_dev_markusDM_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _dev_ukik0_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./dev/ukik0.js */ "./src/js/dev/ukik0.js");
+/* harmony import */ var _dev_kie6er_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./dev/kie6er.js */ "./src/js/dev/kie6er.js");
 // ---------------------------------- styles ---------------------------------
 
 
@@ -41262,6 +46299,14 @@ _utils_forms_js__WEBPACK_IMPORTED_MODULE_1__.formSubmit();
 
 
 
+// --------------------------------- modals ---------------------------------
+
+
+
+// ------------------------------- phone mask -------------------------------
+
+
+
 // --------------------------------- select ---------------------------------
 
 
@@ -41276,4 +46321,4 @@ _utils_forms_js__WEBPACK_IMPORTED_MODULE_1__.formSubmit();
 
 /******/ })()
 ;
-//# sourceMappingURL=article-detailed2f19693f5c5f68870632.js.map
+//# sourceMappingURL=services974d21c8d685508320ed.js.map

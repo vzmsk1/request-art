@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Услуги</title>
-    <script defer src="services2f19693f5c5f68870632.js"></script></head>
+    <script defer src="services974d21c8d685508320ed.js"></script></head>
     <body>
         <div class="wrapper">
             <header class="header">
@@ -463,6 +463,209 @@
         </div>
     </div>
 </footer>
+
+            <!-- заполнить заявку -->
+<div id="applicationModal" aria-hidden="true" class="modal modal_fs application-modal">
+    <div class="modal__wrapper">
+        <div class="modal__content">
+            <div class="modal__body">
+                <div class="application-modal__inner">
+                    <button data-close type="button" class="modal__close">
+                        <img src="./assets/images/icons/cross.svg" alt="" class="modal__close-icon" />
+                    </button>
+                    <span class="application-modal__title tl2">ЗАПОЛНИТЕ ЗАЯВКУ</span>
+                    <p class="application-modal__text txt20">Заполните заявку и мы вам перезвоним</p>
+                    <form data-dev action="#" class="application-modal__form">
+                        <div class="application-modal__options">
+                            <div class="application-modal__option badge badge_white">
+                                <input
+                                    id="ap-type_1"
+                                    class="options__input"
+                                    type="radio"
+                                    value="1"
+                                    name="ap-type"
+                                />
+                                <label for="ap-type_1" class="options__label"
+                                    ><span class="options__text txt20 txt20_caps">WEB</span></label
+                                >
+                            </div>
+                            <div class="application-modal__option badge badge_white">
+                                <input
+                                    id="ap-type_2"
+                                    class="options__input"
+                                    type="radio"
+                                    value="2"
+                                    name="ap-type"
+                                />
+                                <label for="ap-type_2" class="options__label"
+                                    ><span class="options__text txt20 txt20_caps">КОММЕРЧЕСКАЯ</span></label
+                                >
+                            </div>
+                            <div class="application-modal__option badge badge_white">
+                                <input
+                                    id="ap-type_3"
+                                    class="options__input"
+                                    type="radio"
+                                    value="3"
+                                    name="ap-type"
+                                />
+                                <label for="ap-type_3" class="options__label"
+                                    ><span class="options__text txt20 txt20_caps">gamedev</span></label
+                                >
+                            </div>
+                            <div class="application-modal__option badge badge_white">
+                                <input
+                                    id="ap-type_4"
+                                    class="options__input"
+                                    type="radio"
+                                    value="4"
+                                    name="ap-type"
+                                />
+                                <label for="ap-type_4" class="options__label"
+                                    ><span class="options__text txt20 txt20_caps">Логотип</span></label
+                                >
+                            </div>
+                            <div class="application-modal__option badge badge_white">
+                                <input
+                                    id="ap-type_5"
+                                    class="options__input"
+                                    type="radio"
+                                    value="5"
+                                    name="ap-type"
+                                />
+                                <label for="ap-type_5" class="options__label"
+                                    ><span class="options__text txt20 txt20_caps">Логотип</span></label
+                                >
+                            </div>
+                            <div class="application-modal__option badge badge_white">
+                                <input
+                                    id="ap-type_6"
+                                    class="options__input"
+                                    type="radio"
+                                    value="6"
+                                    name="ap-type"
+                                />
+                                <label for="ap-type_6" class="options__label"
+                                    ><span class="options__text txt20 txt20_caps">другое</span></label
+                                >
+                            </div>
+                        </div>
+                        <div class="application-modal__fields">
+                            <div class="application-modal__input input">
+                                <input
+                                    data-validate
+                                    data-required
+                                    autocomplete="off"
+                                    type="text"
+                                    name="form[]"
+                                    data-error="Подсказка"
+                                    placeholder="Имя *"
+                                    class="input__field txt20 txt20_md"
+                                />
+                            </div>
+                            <div class="application-modal__input input">
+                                <input
+                                    data-phone-mask
+                                    data-validate
+                                    data-required
+                                    autocomplete="off"
+                                    type="tel"
+                                    name="form[]"
+                                    data-error="Подсказка"
+                                    placeholder="Телефон *"
+                                    class="input__field txt20 txt20_md"
+                                />
+                            </div>
+                        </div>
+                        <div class="application-modal__file-input file-input">
+                            <div class="file-input__content">
+                                <div class="file-input__content-inner">
+                                    <div class="file-input__icon-wrap">
+                                        <img
+                                            src="./assets/images/icons/document-upload.svg"
+                                            alt=""
+                                            class="file-input__icon"
+                                        />
+                                    </div>
+                                    <span class="file-input__title txt20 txt20_caps"
+                                        >прикрепите изображение</span
+                                    >
+                                    <input data-file-input="10" type="file" class="file-input__input" />
+                                </div>
+                                <p data-file-txt class="file-input__text txt16">
+                                    Максимальный размер файла - 10 мб
+                                </p>
+                            </div>
+                            <div class="file-input__info">
+                                <div class="file-input__image-container">
+                                    <img data-file-img class="file-input__image" src="" alt="" />
+                                </div>
+                                <div class="file-input__info-text">
+                                    <span class="file-input__name txt16"
+                                        ><span data-file-name>scrin_24334r3r3r</span>.<span
+                                            data-file-extension
+                                            >jpg</span
+                                        ></span
+                                    >
+                                    <span class="file-input__size txt16"
+                                        ><span data-file-size>3.4</span> мб</span
+                                    >
+                                    <button data-remove-file-btn type="button" class="file-input__remove-btn">
+                                        <img
+                                            src="./assets/images/icons/cross-white.svg"
+                                            alt=""
+                                            class="file-input__remove-btn-icon"
+                                        />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="application-modal__footer">
+                            <button type="submit" class="application-modal__btn btn btn_black">
+                                <span class="btn__text txt20 txt20_caps">отправить</span>
+                                <svg
+                                    class="btn__icon"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                >
+                                    <path
+                                        d="M6.75952 19.2442V5.11621L17.1201 12.1802L6.75952 19.2442Z"
+                                        fill="#1F1F22"
+                                    ></path>
+                                </svg>
+                            </button>
+                            <p class="application-modal__footer-text txt16">
+                                Нажимая "Отправить", я даю согласие на обработку персональных данных.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- заявка отправлена -->
+<div id="applicationSentModal" aria-hidden="true" class="modal modal_fs application-modal">
+    <div class="modal__wrapper">
+        <div class="modal__content">
+            <div class="modal__body">
+                <div class="application-modal__inner">
+                    <button data-close type="button" class="modal__close">
+                        <img src="./assets/images/icons/cross.svg" alt="" class="modal__close-icon" />
+                    </button>
+                    <span class="application-modal__title tl2">заявка отправлена</span>
+                    <p class="application-modal__text txt20">
+                        Ваша заявка успешно отправлена. Наш менеджер свяжется с вами в ближайшее время.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
         </div>
         
