@@ -28,6 +28,14 @@ import './libs/simplebar.js';
 
 import './libs/da.js';
 
+// --------------------------------- modals ---------------------------------
+
+import './libs/modals.js';
+
+// ------------------------------- phone mask -------------------------------
+
+import './libs/phone-mask.js';
+
 // --------------------------------- select ---------------------------------
 
 import './utils/select.js';
