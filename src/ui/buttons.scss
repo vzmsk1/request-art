@@ -14,13 +14,28 @@
             color: $black;
         }
     }
+    &_white {
+        border: 1px solid $white;
+        .btn__text {
+            color: $white;
+        }
+    }
     @media (any-hover: hover) {
         &:hover {
-            &:not(&.btn_black) {
+            &:not(&.btn_black, &.btn_white) {
                 background-color: $green;
             }
             &.btn_black {
                 background-color: $black;
+            }
+            &.btn_white {
+                background-color: $white;
+                .btn__text {
+                    color: $black;
+                }
+                svg path {
+                    fill: $black;
+                }
             }
             .btn__text {
                 color: $white;
