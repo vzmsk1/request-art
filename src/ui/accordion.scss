@@ -1,68 +1,76 @@
 .accordion {
-  // .accordion__item
+    // .accordion__item
 
-  &__item {
-    border-radius: 4rem;
-    background-color: $green;
-  }
-
-  // .accordion__title
-
-  &__title {
-    padding: 3.2rem 3.2rem 3.2rem 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    &._accordion-active {
-      .accordion__title-icon {
-        transform: rotate(-180deg);
-      }
+    &__item {
+        border-radius: 4rem;
+        color: $black;
+        background-color: $green;
+        &_violet {
+            background-color: $violet;
+        }
+        &_pink {
+            background-color: $pink;
+        }
     }
-    @media (max-width: 48em) {
-      padding: 4rem;
+
+    // .accordion__title
+
+    &__title {
+        padding: 3rem 3.2rem 3rem 4rem;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        &._accordion-active {
+            .accordion__title-icon {
+                transform: rotate(-180deg);
+            }
+        }
+        @media (max-width: 48em) {
+            padding: 4rem;
+        }
     }
-  }
 
-  // .accordion__title-icon
+    // .accordion__title-icon
 
-  &__title-icon {
-    flex: 0 0 5rem;
-    width: 5rem;
-    height: 5rem;
-    transition: transform 0.3s ease;
-    @media (max-width: 48em) {
-      flex: 0 0 8rem;
-      width: 8rem;
-      height: 8rem;
+    &__title-icon {
+        flex: 0 0 5rem;
+        width: 5rem;
+        height: 5rem;
+        transition: transform 0.3s ease;
+        @media (max-width: 48em) {
+            flex: 0 0 8rem;
+            width: 8rem;
+            height: 8rem;
+        }
     }
-  }
 
-  // .accordion__title-txt
+    // .accordion__title-txt
 
-  &__title-txt {
-  }
-
-  // .accordion__body
-
-  &__body {
-    padding: 4rem 3.2rem;
-    padding-top: 0;
-    @media (max-width: 48em) {
-      padding: 4rem;
-      padding-top: 0;
+    &__title-txt {
     }
-  }
 
-  // .accordion__text
+    // .accordion__body
 
-  &__text {
-    font-family: EuclidCircularA;
-    max-width: 72.6rem;
-    @media (max-width: 48em) {
-      max-width: 62.2rem;
+    &__body {
+        padding: 4rem 3.2rem;
+        padding-top: 0;
+        @media (max-width: 48em) {
+            padding: 4rem;
+            padding-top: 0;
+        }
     }
-  }
+
+    // .accordion__text
+
+    &__text {
+        font-family: EuclidCircularA;
+        max-width: 72.6rem;
+        @media (max-width: 48em) {
+            max-width: 62.2rem;
+        }
+    }
 }
 
 // <div data-accordion data-accordion-one-active class="accordion">
