@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>О нас</title>
-    <script defer src="aboute889a6799094bb67cba1.js"></script></head>
+        <title>Контакты</title>
+    <script defer src="contactse889a6799094bb67cba1.js"></script></head>
     <body>
         <div class="wrapper">
             <header class="header">
@@ -95,82 +95,93 @@
 </header>
 
             <main>
-                <section class="team">
-    <div class="container">
-        <div class="team__content">
-            <div class="team__text">
-                <h2 class="team__title">наша команда</h2>
-
-                <figure class="team__text-image">
-                    <img src="../assets/images/our-team/team-image.webp" alt="" />
-                </figure>
-            </div>
-
-            <div class="team__info">
-                <h3 class="team__info-title">
-                    Мы - команда творческих душ, которые стремятся приносить красоту и вдохновение  в мир
-                    через искусство.
-                </h3>
-
-                <p class="team__info-description">
-                    Мы гордимся нашей командой  и с нетерпением ждем возможности сотрудничества с вами
-                </p>
-
-                <div class="team__info-figures">
-                    <figure class="team__info-figure-icon">
-                        <img src="../assets/images/our-team/team-info-icon.svg" alt="" />
-                    </figure>
-
-                    <figure class="team__info-figure-image">
-                        <img src="../assets/images/our-team/team-info-image.webp" alt="" />
-                    </figure>
+                <section class="application">
+    <div class="application__container container">
+        <span class="application__title tl2">ЗАПОЛНИТЕ ЗАЯВКУ</span>
+        <p class="application__text txt20">Заполните заявку и мы вам перезвоним</p>
+        <form data-dev action="#" class="application__form">
+            <div class="application__fields">
+                <div class="application__input input input_white">
+                    <input
+                        data-validate
+                        data-required
+                        autocomplete="off"
+                        type="text"
+                        name="form[]"
+                        data-error="Подсказка"
+                        placeholder="Имя *"
+                        class="input__field txt20 txt20_md"
+                    />
+                </div>
+                <div class="application__input input input_white">
+                    <input
+                        data-phone-mask
+                        data-validate
+                        data-required
+                        autocomplete="off"
+                        type="tel"
+                        name="form[]"
+                        data-error="Подсказка"
+                        placeholder="Телефон *"
+                        class="input__field txt20 txt20_md"
+                    />
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-                <section class="achievements">
-    <div class="container">
-        <div class="achievements__content">
-            <h2 class="achievements__title">мы в цифрах</h2>
-
-            <div class="achievements__heading">
-                <p class="achievements__description">
-                    Процесс создания иллюстрации для gamedev сопровождается не только техническими задачами,
-                     но и творческими решениями.
-                </p>
-
-                <ul class="achievements__heading-list">
-                    <li class="achievements__heading-item">
-                        <span class="achievements__heading-item-digit"> 900 </span>
-                        <p class="achievements__heading-item-description">Социальных проектов</p>
-                    </li>
-                    <li class="achievements__heading-item">
-                        <span class="achievements__heading-item-digit"> 1100 </span>
-                        <p class="achievements__heading-item-description">Отзывов  от клиентов</p>
-                    </li>
-                    <li class="achievements__heading-item">
-                        <span class="achievements__heading-item-digit">7</span>
-                        <p class="achievements__heading-item-description">Лет  на рынке</p>
-                    </li>
-                    <li class="achievements__heading-item">
-                        <span class="achievements__heading-item-digit"> 60 </span>
-                        <p class="achievements__heading-item-description">Сотрудников в компании</p>
-                    </li>
-                </ul>
+            <div class="application__file-input file-input file-input_white">
+                <div class="file-input__content">
+                    <div class="file-input__content-inner">
+                        <div class="file-input__icon-wrap">
+                            <img
+                                src="./assets/images/icons/document-upload-black.svg"
+                                alt=""
+                                class="file-input__icon"
+                            />
+                        </div>
+                        <span class="file-input__title txt20 txt20_caps">прикрепите изображение</span>
+                        <input data-file-input="10" type="file" class="file-input__input" />
+                    </div>
+                    <p data-file-txt class="file-input__text txt16">Максимальный размер файла - 10 мб</p>
+                </div>
+                <div class="file-input__info">
+                    <div class="file-input__image-container">
+                        <img data-file-img class="file-input__image" src="" alt="" />
+                    </div>
+                    <div class="file-input__info-text">
+                        <span class="file-input__name txt16"
+                            ><span data-file-name>scrin_24334r3r3r</span>.<span data-file-extension
+                                >jpg</span
+                            ></span
+                        >
+                        <span class="file-input__size txt16"><span data-file-size>3.4</span> мб</span>
+                        <button data-remove-file-btn type="button" class="file-input__remove-btn">
+                            <img
+                                src="./assets/images/icons/cross-white.svg"
+                                alt=""
+                                class="file-input__remove-btn-icon"
+                            />
+                        </button>
+                    </div>
+                </div>
             </div>
-
-            <figure class="achievements__banner">
-                <img src="../assets/images/achievements/achievements-banner.webp" alt="" />
-            </figure>
-        </div>
-    </div>
-</section>
-
-                <section class="feedback">
-    <div class="feedback__content">
-        <a href="./">ФОРМА ОБРАТНОЙ СВЯЗИ</a>
+            <div class="application__footer">
+                <button type="submit" class="application__btn btn btn_white">
+                    <span class="btn__text txt20 txt20_caps">отправить</span>
+                    <svg
+                        class="btn__icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                    >
+                        <path d="M6.75586 19.2442V5.11621L17.1164 12.1802L6.75586 19.2442Z" fill="white" />
+                    </svg>
+                </button>
+                <p class="application__footer-text txt16">
+                    Нажимая "Отправить", я даю согласие на обработку персональных данных.
+                </p>
+            </div>
+        </form>
     </div>
 </section>
 
