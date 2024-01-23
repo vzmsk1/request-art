@@ -2,6 +2,7 @@ import Swiper from 'swiper';
 import 'swiper/css';
 import { Navigation } from 'swiper/modules';
 import { remToPx } from '../utils/utils';
+import gsap from 'gsap';
 
 // --------------------------------------------------------------------------
 
@@ -43,6 +44,23 @@ const initSliders = () => {
     }
 };
 initSliders();
+
+/**
+ * creates marquee animation
+ */
+const createMarquee = () => {
+    let curScroll = 0;
+    const tween = gsap
+        .to('[data-marquee-part]', {
+            xPercent: -100,
+            repeat: -1,
+            duration: 5,
+            ease: 'linear'
+        })
+        .totalProgress(0.5);
+    gsap.set('[data-marquee-inner]');
+};
+createMarquee();
 
 // ------------------------------ hero gallery ------------------------------
 
