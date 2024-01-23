@@ -209,6 +209,7 @@
         width: 100vw;
         height: auto;
         overflow: visible;
+        user-select: none;
         path {
             fill: transparent;
             stroke: $violet;

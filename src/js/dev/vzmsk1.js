@@ -14,12 +14,21 @@ const changeWaveAnimDur = () => {
         document.querySelectorAll('[data-wave-line]').forEach((waveLine) => {
             const data = waveLine.dataset.waveLine.trim().split(',');
             const animEl = waveLine.querySelector('animate');
+            const textPath = animEl.closest('textPath');
+            const deskPath = waveLine.querySelector('#wavepath');
+            const mobPath = waveLine.querySelector('#wavepath-m');
             const props = {
                 desk: `${data[0]}s`,
                 mob: `${data[1]}s`
             };
 
             animEl.setAttribute('dur', `${window.innerWidth > 768 ? props.desk : props.mob}`);
+
+            if (mobPath)
+                textPath.setAttribute(
+                    'href',
+                    `${window.innerWidth > 768 ? '#' + deskPath.id : '#' + mobPath.id}`
+                );
         });
     }
 };
