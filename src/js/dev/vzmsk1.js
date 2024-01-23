@@ -49,16 +49,14 @@ initSliders();
  * creates marquee animation
  */
 const createMarquee = () => {
-    let curScroll = 0;
-    const tween = gsap
-        .to('[data-marquee-part]', {
+    if (document.querySelectorAll('[data-marquee-part]').length) {
+        gsap.to('[data-marquee-part]', {
             xPercent: -100,
             repeat: -1,
             duration: 5,
             ease: 'linear'
-        })
-        .totalProgress(0.5);
-    gsap.set('[data-marquee-inner]');
+        }).totalProgress(0.5);
+    }
 };
 createMarquee();
 
