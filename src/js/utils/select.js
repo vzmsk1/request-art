@@ -1,4 +1,5 @@
 import { _slideUp, _slideDown, _slideToggle } from './utils.js';
+import $ from 'jquery';
 
 class Select {
     // setup ------------------------------------------------------------------
@@ -109,9 +110,13 @@ class Select {
         }
         select.insertAdjacentHTML(
             'beforeend',
-            `<div class="${this.classes.body}"><div ${
-                !relativeSel.hasAttribute('data-no-slide') ? 'hidden' : ''
-            }  class="${this.classes.options}"></div></div>`
+            `<div class="${this.classes.body}">
+                    <div ${!relativeSel.hasAttribute('data-no-slide') ? 'hidden' : ''}  class="${
+                        this.classes.options
+                    }">
+                    
+                    </div>
+                </div>`
         );
 
         this.build(relativeSel);
@@ -176,8 +181,11 @@ class Select {
     // set twin select options
     setOptions(select, relativeSel) {
         const options = this.getSelect(select, this.classes.options).twinSel;
-
+        const relativeSelOptions = this.getSelect(select, this.classes.options).relativeSel;
         options.innerHTML = this.getOptions(relativeSel);
+        if (relativeSelOptions.querySelector('[selected]')) {
+            options.querySelector(`.${this.classes.option}`).classList.add(this.classes.selected);
+        }
     }
     // disable select
     disableSelect(select, relativeSel) {
@@ -219,10 +227,12 @@ class Select {
                         this.setOptionAction(select, relativeSel, selOption);
                     } else if (target.closest(this.getClass(this.classes.title))) {
                         this.setAction(select);
+
                     } else if (target.closest(this.getClass(this.classes.option))) {
                         const selOption = target.closest(this.getClass(this.classes.option));
                         this.setOptionAction(select, relativeSel, selOption);
                     }
+
                 }
             } else if (type === 'focusin' || type === 'focusout') {
                 if (target.closest(this.getClass(this.classes.sel))) {
@@ -400,8 +410,8 @@ class Select {
         titleVal = titleVal.length
             ? titleVal
             : relativeSel.dataset.selLabel
-            ? relativeSel.dataset.selLabel
-            : '';
+              ? relativeSel.dataset.selLabel
+              : '';
 
         // set active class to select if it contains any values
         if (this.getData(relativeSel).values.length) {
