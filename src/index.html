@@ -16,6 +16,9 @@
                     <a target="_blank" href="./services.html">Услуги</a>
                 </li>
                 <li>
+                    <a target="_blank" href="./services-detailed.html">Детальная услуги</a>
+                </li>
+                <li>
                     <a target="_blank" href="./articles.html">статьи</a>
                 </li>
                 <li>
@@ -25,7 +28,16 @@
                     <a target="_blank" href="./about.html">О нас</a>
                 </li>
                 <li>
-                    <a target="_blank" href="./contacts.html">Контакты</a>
+                    <a target="_blank" href="./contacts.html">контакты</a>
+                </li>
+            </ol>
+            <h2>модалки:</h2>
+            <ol>
+                <li>
+                    <button type="button" data-modal="#applicationModal">оставить заявку</button>
+                </li>
+                <li>
+                    <button type="button" data-modal="#applicationSentModal">заявка отправлена</button>
                 </li>
             </ol>
         </div>
@@ -53,11 +65,13 @@
             }
             body {
                 padding: 5rem 0;
-                font-family: 'Source Code Pro';
                 font-size: 100%;
                 line-height: 1;
                 font-size: 2.5rem;
                 user-select: none;
+            }
+            .root {
+                font-family: 'Source Code Pro';
             }
             ul,
             ol {
@@ -110,5 +124,6 @@
                 }
             }
         </style>
+        <include src="./components/modals.html"></include>
     </body>
 </html>

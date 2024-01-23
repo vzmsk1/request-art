@@ -232,11 +232,7 @@ if (document.getElementById('gallerySection')) {
                 if (popup) {
                     // events
                     this.gallerySection.addEventListener('mouseover', function (e) {
-                        if (
-                            !popup.classList.contains('_active') &&
-                            e.target.closest('.hero-gallery__item') &&
-                            !document.querySelector('._dragging')
-                        ) {
+                        if (!popup.classList.contains('_active') && e.target.closest('.hero-gallery__item')) {
                             const target = e.target.closest('.hero-gallery__item');
 
                             showPopup(target);

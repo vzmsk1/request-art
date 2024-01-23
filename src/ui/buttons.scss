@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     column-gap: 2.2rem;
+    min-width: 16.4rem;
     border-radius: 9.5rem;
     border: 1px solid $green;
     transition: background-color 0.3s ease;
@@ -13,13 +14,28 @@
             color: $black;
         }
     }
+    &_white {
+        border: 1px solid $white;
+        .btn__text {
+            color: $white;
+        }
+    }
     @media (any-hover: hover) {
         &:hover {
-            &:not(&.btn_black) {
+            &:not(&.btn_black, &.btn_white) {
                 background-color: $green;
             }
             &.btn_black {
                 background-color: $black;
+            }
+            &.btn_white {
+                background-color: $white;
+                .btn__text {
+                    color: $black;
+                }
+                svg path {
+                    fill: $black;
+                }
             }
             .btn__text {
                 color: $white;
@@ -176,3 +192,19 @@
 // <a href="#" class="link"
 // ><span class="link__text txt20 txt20_caps">ЗАГРУЗИТЬ ЕЩЕ</span></a
 // >
+
+// --------------------------------------------------------------------------
+
+.sl-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background-color: $gray-darken;
+    svg {
+        width: 3rem;
+        height: 3rem;
+    }
+}
