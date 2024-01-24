@@ -165,7 +165,8 @@ module.exports = {
         about: path.resolve(__dirname, 'src/js', 'app.js'),
         articles: path.resolve(__dirname, 'src/js', 'app.js'),
         'services-detailed': path.resolve(__dirname, 'src/js', 'app.js'),
-        contacts: path.resolve(__dirname, 'src/js', 'app.js')
+        contacts: path.resolve(__dirname, 'src/js', 'app.js'),
+        portfolio: path.resolve(__dirname, 'src/js', 'app.js')
     },
     // entry: getEntries(),
     output: {

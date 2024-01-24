@@ -467,10 +467,11 @@ export class Select {
     // get options
     getOptions(relativeSel) {
         const selScroll = relativeSel.hasAttribute('data-sel-scroll') ? `data-simplebar` : '';
-        const data = relativeSel.dataset.selScroll.trim().split(',');
-        let selScrollHeight = relativeSel.dataset.selScroll
-            ? `style="max-height:${window.innerWidth > 768 ? data[0] : data[1]}rem"`
-            : '';
+        const data = selScroll ? relativeSel.dataset.selScroll.trim().split(',') : null;
+        let selScrollHeight =
+            relativeSel.dataset.selScroll && data
+                ? `style="max-height:${window.innerWidth > 768 ? data[0] : data[1]}rem"`
+                : '';
         let selOptions = Array.from(relativeSel.options);
 
         if (selOptions.length) {

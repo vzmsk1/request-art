@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Контакты</title>
-    <script defer src="contacts2e360f8eb7bf0961c31c.js"></script></head>
+        <title>Наше портфолио</title>
+    <script defer src="portfolio2e360f8eb7bf0961c31c.js"></script></head>
     <body>
         <div class="wrapper">
             <header class="header">
@@ -94,128 +94,219 @@
     </div>
 </header>
 
+
             <main>
-                <section class="location">
-    <div class="container">
-        <div class="location__content">
-            <div class="location__map">
-                <div id="location-map"></div>
+                <section id="portfolioHero" class="portfolio-hero">
+    <div class="portfolio-hero__container container">
+        <div class="portfolio-hero__content">
+            <span class="portfolio-hero__title tl1">НАШЕ ПОРТФОЛИО</span>
+            <button type="button" class="portfolio-hero__btn btn">
+                <span class="btn__text txt20 txt20_caps">ОСТАВИТЬ ЗАЯВКУ</span>
+                <svg
+                    class="btn__icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                >
+                    <path d="M6.75586 19.2442V5.11624L17.1164 12.1802L6.75586 19.2442Z" fill="#C9FB40" />
+                </svg>
+            </button>
+            <div id="PHEllipse" class="portfolio-hero__ellipse"></div>
+        </div>
+        <div class="portfolio-hero__grid">
+            <div class="portfolio-hero__group">
+                <span class="portfolio-hero__subtitle tl3">900</span>
+                <span class="portfolio-hero__text txt20">Социальных проектов</span>
             </div>
-
-            <div class="location__info">
-                <h1 class="location__title">МОСКВА</h1>
-
-                <div class="location__contacts">
-                    <address class="location__contacts-address">
-                        Кутузовский проспект, д. 2/1, строение 6 Конгресс-парк, гост. Украина Этаж - 3
-                    </address>
-
-                    <ul class="location__contacts-list">
-                        <li class="location__contacts-item">
-                            <a href="mailto:RD@requestdesign.ru"> RD@requestdesign.ru </a>
-                        </li>
-
-                        <li class="location__contacts-item">
-                            <a href="tel:+7 (495) 859-21-36"> +7 (495) 859-21-36 </a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="portfolio-hero__group">
+                <span class="portfolio-hero__subtitle tl3">1100</span>
+                <span class="portfolio-hero__text txt20">Отзывов от клиентов</span>
+            </div>
+            <div class="portfolio-hero__group portfolio-hero__group_align-right">
+                <span class="portfolio-hero__subtitle tl3">7</span>
+                <span class="portfolio-hero__text txt20">Лет на рынке</span>
+            </div>
+            <div class="portfolio-hero__group portfolio-hero__group_align-right">
+                <span class="portfolio-hero__subtitle tl3">30</span>
+                <span class="portfolio-hero__text txt20">Наград получено</span>
             </div>
         </div>
     </div>
 </section>
 
-                <section class="application">
-    <div class="application__container container">
-        <span class="application__title tl2">ЗАПОЛНИТЕ ЗАЯВКУ</span>
-        <p class="application__text txt20">Заполните заявку и мы вам перезвоним</p>
-        <form data-dev action="#" class="application__form">
-            <div class="application__fields">
-                <div class="application__input input input_white">
+                <button id="showFiltersBtn" type="button" class="filters-btn tl3">Фильтры</button>
+<div class="filters">
+    <form action="#" class="filters__inner">
+        <div class="filters__head">
+            <button id="hideFiltersBtn" type="button" class="filters__close-btn">
+                <img src="./assets/images/icons/cross-gray.svg" alt="" class="filters__close-btn-icon" />
+            </button>
+            <span class="filters__title txt19">Фильтры</span>
+        </div>
+        <div class="filters__group">
+            <span class="filters__subtitle txt15">Категория</span>
+            <div class="filters__tabs">
+                <div class="filters__badge badge">
                     <input
-                        data-validate
-                        data-required
-                        autocomplete="off"
-                        type="text"
-                        name="form[]"
-                        data-error="Подсказка"
-                        placeholder="Имя *"
-                        class="input__field txt20 txt20_md"
+                        id="categoryOpt_1"
+                        class="options__input"
+                        type="radio"
+                        value="1"
+                        name="categoryOpt"
                     />
-                </div>
-                <div class="application__input input input_white">
-                    <input
-                        data-phone-mask
-                        data-validate
-                        data-required
-                        autocomplete="off"
-                        type="tel"
-                        name="form[]"
-                        data-error="Подсказка"
-                        placeholder="Телефон *"
-                        class="input__field txt20 txt20_md"
-                    />
-                </div>
-            </div>
-            <div class="application__file-input file-input file-input_white">
-                <div class="file-input__content">
-                    <div class="file-input__content-inner">
-                        <div class="file-input__icon-wrap">
-                            <img
-                                src="./assets/images/icons/document-upload-black.svg"
-                                alt=""
-                                class="file-input__icon"
-                            />
-                        </div>
-                        <span class="file-input__title txt20 txt20_caps">прикрепите изображение</span>
-                        <input data-file-input="10" type="file" class="file-input__input" />
-                    </div>
-                    <p data-file-txt class="file-input__text txt16">Максимальный размер файла - 10 мб</p>
-                </div>
-                <div class="file-input__info">
-                    <div class="file-input__image-container">
-                        <img data-file-img class="file-input__image" src="" alt="" />
-                    </div>
-                    <div class="file-input__info-text">
-                        <span class="file-input__name txt16"
-                            ><span data-file-name>scrin_24334r3r3r</span>.<span data-file-extension
-                                >jpg</span
-                            ></span
-                        >
-                        <span class="file-input__size txt16"><span data-file-size>3.4</span> мб</span>
-                        <button data-remove-file-btn type="button" class="file-input__remove-btn">
-                            <img
-                                src="./assets/images/icons/cross-white.svg"
-                                alt=""
-                                class="file-input__remove-btn-icon"
-                            />
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="application__footer">
-                <button type="submit" class="application__btn btn btn_white">
-                    <span class="btn__text txt20 txt20_caps">отправить</span>
-                    <svg
-                        class="btn__icon"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
+                    <label for="categoryOpt_1" class="options__label"
+                        ><span class="options__text txt20 txt20_caps">WEB</span></label
                     >
-                        <path d="M6.75586 19.2442V5.11621L17.1164 12.1802L6.75586 19.2442Z" fill="white" />
-                    </svg>
-                </button>
-                <p class="application__footer-text txt16">
-                    Нажимая "Отправить", я даю согласие на обработку персональных данных.
-                </p>
+                </div>
+                <div class="filters__badge badge">
+                    <input
+                        id="categoryOpt_2"
+                        class="options__input"
+                        type="radio"
+                        value="2"
+                        name="categoryOpt"
+                    />
+                    <label for="categoryOpt_2" class="options__label"
+                        ><span class="options__text txt20 txt20_caps">коммерческая</span></label
+                    >
+                </div>
+                <div class="filters__badge badge">
+                    <input
+                        checked
+                        id="categoryOpt_3"
+                        class="options__input"
+                        type="radio"
+                        value="3"
+                        name="categoryOpt"
+                    />
+                    <label for="categoryOpt_3" class="options__label"
+                        ><span class="options__text txt20 txt20_caps">gamedev</span></label
+                    >
+                </div>
+                <div class="filters__badge badge">
+                    <input
+                        id="categoryOpt_4"
+                        class="options__input"
+                        type="radio"
+                        value="4"
+                        name="categoryOpt"
+                    />
+                    <label for="categoryOpt_4" class="options__label"
+                        ><span class="options__text txt20 txt20_caps">логотип</span></label
+                    >
+                </div>
+                <div class="filters__badge badge">
+                    <input
+                        id="categoryOpt_5"
+                        class="options__input"
+                        type="radio"
+                        value="5"
+                        name="categoryOpt"
+                    />
+                    <label for="categoryOpt_5" class="options__label"
+                        ><span class="options__text txt20 txt20_caps">логотип</span></label
+                    >
+                </div>
+                <div class="filters__badge badge">
+                    <input
+                        id="categoryOpt_6"
+                        class="options__input"
+                        type="radio"
+                        value="6"
+                        name="categoryOpt"
+                    />
+                    <label for="categoryOpt_6" class="options__label"
+                        ><span class="options__text txt20 txt20_caps">другое</span></label
+                    >
+                </div>
             </div>
-        </form>
-    </div>
-</section>
+        </div>
+        <div class="filters__group filters__group_sort">
+            <span class="filters__subtitle txt15">Сортировка</span>
+            <div class="filters__options">
+                <div class="filters__option option">
+                    <input
+                        hidden
+                        id="sortOpt_1"
+                        class="option__input"
+                        type="radio"
+                        value="1"
+                        name="sortOpt"
+                    />
+                    <label for="sortOpt_1" class="option__label"
+                        ><span class="option__text tl3">по дате</span></label
+                    >
+                </div>
+                <div class="filters__option option">
+                    <input
+                        hidden
+                        id="sortOpt_2"
+                        class="option__input"
+                        checked
+                        type="radio"
+                        value="2"
+                        name="sortOpt"
+                    />
+                    <label for="sortOpt_2" class="option__label"
+                        ><span class="option__text tl3">по дате</span></label
+                    >
+                </div>
+                <div class="filters__option option">
+                    <input
+                        hidden
+                        id="sortOpt_3"
+                        class="option__input"
+                        type="radio"
+                        value="3"
+                        name="sortOpt"
+                    />
+                    <label for="sortOpt_3" class="option__label"
+                        ><span class="option__text tl3">по дате</span></label
+                    >
+                </div>
+                <div class="filters__option option">
+                    <input
+                        hidden
+                        id="sortOpt_4"
+                        class="option__input"
+                        type="radio"
+                        value="4"
+                        name="sortOpt"
+                    />
+                    <label for="sortOpt_4" class="option__label"
+                        ><span class="option__text tl3">по дате</span></label
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="filters__dropdown dropdown dropdown_sort">
+            <select data-show-selection>
+                <option value="1" selected>ПО ДАТЕ</option>
+                <option value="2">ПО ДАТЕ</option>
+                <option value="3">ПО ДАТЕ</option>
+                <option value="4">ПО ДАТЕ</option>
+            </select>
+        </div>
+        <button type="submit" class="filters__btn btn btn_black">
+            <span class="btn__text txt20 txt20_caps">применить</span>
+            <svg
+                class="btn__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+            >
+                <path d="M6.63965 19.0001L6.63965 4.87207L17.0002 11.9361L6.63965 19.0001Z" fill="#1F1F22" />
+            </svg>
+        </button>
+    </form>
+</div>
 
             </main>
+
             <footer class="footer">
     <div class="footer__container container">
         <div class="footer__inner">
@@ -527,6 +618,5 @@
         </div>
         
 
-        <script defer src="https://api-maps.yandex.ru/2.1/?apikey=2f05284c-b75c-4b38-b0b5-f937b605d568&amp;lang=ru_RU"></script>
     </body>
 </html>
