@@ -15,10 +15,14 @@
         }
     }
     &_white {
-<<<<<<< HEAD
-        border: 1px solid $white;
+        border: 0.1rem solid $white;
         .btn__text {
             color: $white;
+        }
+        .btn__icon {
+            path {
+                fill: $white;
+            }
         }
     }
     @media (any-hover: hover) {
