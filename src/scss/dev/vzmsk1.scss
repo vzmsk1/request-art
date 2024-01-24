@@ -4,6 +4,68 @@
     }
 }
 
+.wave-container {
+    position: absolute;
+    left: 50%;
+    height: 0;
+    transform: translateX(-50%);
+    @media (min-width: 1940px) {
+        padding-top: calc((1080 / 1920) * 1920px);
+        width: 1920px;
+        overflow: hidden;
+    }
+
+    // .wave-container__inner
+
+    &__inner {
+        position: absolute;
+        left: 0;
+        overflow: visible;
+        user-select: none;
+        path {
+            fill: transparent;
+            stroke-width: 100px;
+        }
+        text {
+            fill: $white;
+            font-family: 'DrukCyr';
+            font-size: 60px;
+            font-weight: 500;
+            line-height: 110%;
+            text-transform: uppercase;
+            transform: translateY(25px);
+        }
+        textPath {
+            word-spacing: 40px;
+        }
+        @media (max-width: 48em) {
+            path {
+                stroke-width: 40px;
+                &:not(&._mobile-only) {
+                    display: none;
+                }
+            }
+            text {
+                font-size: 25px;
+                letter-spacing: 0.32rem;
+                transform: translateY(10px);
+            }
+            textPath {
+                word-spacing: 10px;
+            }
+        }
+        @media (min-width: 1940px) {
+            path {
+                stroke-width: 8rem;
+            }
+            text {
+                font-size: 4rem;
+                transform: translateY(1.5rem);
+            }
+        }
+    }
+}
+
 @import '../sections/hero-gallery';
 @import '../sections/articles-hero';
 @import '../sections/stages';
