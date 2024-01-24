@@ -1,7 +1,6 @@
 import { _slideUp, _slideDown, _slideToggle } from './utils.js';
-import $ from 'jquery';
 
-class Select {
+export class Select {
     // setup ------------------------------------------------------------------
 
     constructor() {
@@ -112,9 +111,9 @@ class Select {
             'beforeend',
             `<div class="${this.classes.body}">
                     <div ${!relativeSel.hasAttribute('data-no-slide') ? 'hidden' : ''}  class="${
-                        this.classes.options
-                    }">
-                    
+                this.classes.options
+            }">
+
                     </div>
                 </div>`
         );
@@ -180,9 +179,13 @@ class Select {
     }
     // set twin select options
     setOptions(select, relativeSel) {
+        const _this = this;
         const options = this.getSelect(select, this.classes.options).twinSel;
         const relativeSelOptions = this.getSelect(select, this.classes.options).relativeSel;
         options.innerHTML = this.getOptions(relativeSel);
+        window.addEventListener('resize', function () {
+            _this.getOptions(relativeSel);
+        });
         if (relativeSelOptions.querySelector('[selected]')) {
             options.querySelector(`.${this.classes.option}`).classList.add(this.classes.selected);
         }
@@ -227,12 +230,10 @@ class Select {
                         this.setOptionAction(select, relativeSel, selOption);
                     } else if (target.closest(this.getClass(this.classes.title))) {
                         this.setAction(select);
-
                     } else if (target.closest(this.getClass(this.classes.option))) {
                         const selOption = target.closest(this.getClass(this.classes.option));
                         this.setOptionAction(select, relativeSel, selOption);
                     }
-
                 }
             } else if (type === 'focusin' || type === 'focusout') {
                 if (target.closest(this.getClass(this.classes.sel))) {
@@ -263,7 +264,7 @@ class Select {
 
         if (relativeSel.closest('[data-one-select]')) {
             const selectOneGroup = relativeSel.closest('[data-one-select]');
-            this.closeGroup(selectOneGroup);
+            this.closeGroup(selectOneGroup, relativeSel);
         }
 
         if (!selOptions.classList.contains('_slide')) {
@@ -280,14 +281,16 @@ class Select {
         }
     }
     // close single select group
-    closeGroup(group) {
+    closeGroup(group, select) {
         const selGroup = group ? group : document;
         const selections = selGroup.querySelectorAll(
             `${this.getClass(this.classes.sel)}${this.getClass(this.classes.opened)}`
         );
         if (selections.length) {
             selections.forEach((selection) => {
-                this.closeItem(selection);
+                if (!select || (select && selection.dataset.selId !== select.dataset.selId)) {
+                    this.closeItem(selection);
+                }
             });
         }
     }
@@ -410,8 +413,8 @@ class Select {
         titleVal = titleVal.length
             ? titleVal
             : relativeSel.dataset.selLabel
-              ? relativeSel.dataset.selLabel
-              : '';
+            ? relativeSel.dataset.selLabel
+            : '';
 
         // set active class to select if it contains any values
         if (this.getData(relativeSel).values.length) {
@@ -464,8 +467,9 @@ class Select {
     // get options
     getOptions(relativeSel) {
         const selScroll = relativeSel.hasAttribute('data-sel-scroll') ? `data-simplebar` : '';
+        const data = relativeSel.dataset.selScroll.trim().split(',');
         let selScrollHeight = relativeSel.dataset.selScroll
-            ? `style="max-height:${window.innerWidth > 768 ? relativeSel.dataset.selScroll : 150}px"`
+            ? `style="max-height:${window.innerWidth > 768 ? data[0] : data[1]}rem"`
             : '';
         let selOptions = Array.from(relativeSel.options);
 
