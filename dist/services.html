@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Контакты</title>
-    <script defer src="contacts0a87ea5c7c1d40636e41.js"></script></head>
+        <title>Услуги</title>
+    <script defer src="services0a87ea5c7c1d40636e41.js"></script></head>
     <body>
         <div class="wrapper">
             <header class="header">
@@ -95,123 +95,266 @@
 </header>
 
             <main>
-                <section class="location">
+                <section class="services">
     <div class="container">
-        <div class="location__content">
-            <div class="location__map">
-                <div id="location-map"></div>
+        <div class="services__content">
+            <div class="services__sentences">
+                <ul class="services__sentences-list">
+                    <li class="services__sentences-item">
+                        <p class="services__sentences-text">фотореалистичные изображения</p>
+                    </li>
+                    <li class="services__sentences-item">
+                        <p class="services__sentences-text">web - иллюстрации</p>
+                    </li>
+                    <li class="services__sentences-item">
+                        <p class="services__sentences-text">стилизации под гравюры</p>
+                    </li>
+                    <li class="services__sentences-item">
+                        <p class="services__sentences-text">разработка логотипа</p>
+                    </li>
+                    <li class="services__sentences-item">
+                        <p class="services__sentences-text">создание nft-коллеекции</p>
+                    </li>
+                    <li class="services__sentences-item">
+                        <p class="services__sentences-text">сториборды</p>
+                    </li>
+                    <li class="services__sentences-item">
+                        <p class="services__sentences-text">gamedev</p>
+                    </li>
+                </ul>
             </div>
 
-            <div class="location__info">
-                <h1 class="location__title">МОСКВА</h1>
+            <div class="services__circular">
+                <figure class="services__circular-text-image">
+                    <img src="./assets/images/services/services-text-image.svg" alt="" />
+                </figure>
 
-                <div class="location__contacts">
-                    <address class="location__contacts-address">
-                        Кутузовский проспект, д. 2/1, строение 6 Конгресс-парк, гост. Украина Этаж - 3
-                    </address>
-
-                    <ul class="location__contacts-list">
-                        <li class="location__contacts-item">
-                            <a href="mailto:RD@requestdesign.ru"> RD@requestdesign.ru </a>
-                        </li>
-
-                        <li class="location__contacts-item">
-                            <a href="tel:+7 (495) 859-21-36"> +7 (495) 859-21-36 </a>
-                        </li>
-                    </ul>
-                </div>
+                <figure class="services__circular-image">
+                    <img src="./assets/images/services/services-image.webp" alt="" />
+                </figure>
             </div>
         </div>
     </div>
 </section>
 
-                <section class="application">
-    <div class="application__container container">
-        <span class="application__title tl2">ЗАПОЛНИТЕ ЗАЯВКУ</span>
-        <p class="application__text txt20">Заполните заявку и мы вам перезвоним</p>
-        <form data-dev action="#" class="application__form">
-            <div class="application__fields">
-                <div class="application__input input input_white">
-                    <input
-                        data-validate
-                        data-required
-                        autocomplete="off"
-                        type="text"
-                        name="form[]"
-                        data-error="Подсказка"
-                        placeholder="Имя *"
-                        class="input__field txt20 txt20_md"
-                    />
-                </div>
-                <div class="application__input input input_white">
-                    <input
-                        data-phone-mask
-                        data-validate
-                        data-required
-                        autocomplete="off"
-                        type="tel"
-                        name="form[]"
-                        data-error="Подсказка"
-                        placeholder="Телефон *"
-                        class="input__field txt20 txt20_md"
-                    />
-                </div>
-            </div>
-            <div class="application__file-input file-input file-input_white">
-                <div class="file-input__content">
-                    <div class="file-input__content-inner">
-                        <div class="file-input__icon-wrap">
-                            <img
-                                src="./assets/images/icons/document-upload-black.svg"
-                                alt=""
-                                class="file-input__icon"
-                            />
-                        </div>
-                        <span class="file-input__title txt20 txt20_caps">прикрепите изображение</span>
-                        <input data-file-input="10" type="file" class="file-input__input" />
+                <section class="collections">
+    <ul class="collections__articles-list">
+        <li class="collections__articles-item">
+            <a href="#" class="collections__articles-item-wrapper">
+                <span class="collections__articles-item-number"> #001</span>
+
+                <figure>
+                    <div class="collections__articles-item-image">
+                        <img src="./assets/images/collections/collections-image-1.webp" alt="" />
                     </div>
-                    <p data-file-txt class="file-input__text txt16">Максимальный размер файла - 10 мб</p>
-                </div>
-                <div class="file-input__info">
-                    <div class="file-input__image-container">
-                        <img data-file-img class="file-input__image" src="" alt="" />
+
+                    <figcaption class="collections__articles-item-text">создание NFT-КОЛЛЕКЦИИ</figcaption>
+                </figure>
+            </a>
+            <a href="#" class="collections__articles-item-wrapper --masking">
+                <span class="collections__articles-item-number"> #001</span>
+
+                <figure>
+                    <div class="collections__articles-item-image">
+                        <img src="./assets/images/collections/collections-image-1.webp" alt="" />
                     </div>
-                    <div class="file-input__info-text">
-                        <span class="file-input__name txt16"
-                            ><span data-file-name>scrin_24334r3r3r</span>.<span data-file-extension
-                                >jpg</span
-                            ></span
-                        >
-                        <span class="file-input__size txt16"><span data-file-size>3.4</span> мб</span>
-                        <button data-remove-file-btn type="button" class="file-input__remove-btn">
-                            <img
-                                src="./assets/images/icons/cross-white.svg"
-                                alt=""
-                                class="file-input__remove-btn-icon"
-                            />
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="application__footer">
-                <button type="submit" class="application__btn btn btn_white">
-                    <span class="btn__text txt20 txt20_caps">отправить</span>
+
+                    <figcaption class="collections__articles-item-text">создание NFT-КОЛЛЕКЦИИ</figcaption>
+                </figure>
+
+                <div class="collections__articles-item-link">
                     <svg
-                        class="btn__icon"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
+                        width="52"
+                        height="52"
+                        viewBox="0 0 52 52"
                         fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                     >
-                        <path d="M6.75586 19.2442V5.11621L17.1164 12.1802L6.75586 19.2442Z" fill="white" />
+                        <circle cx="26" cy="26" r="26" fill="#1F1F22" />
+                        <path
+                            d="M31.6912 24.995C32.1412 25.895 32.3737 26.8625 32.3737 27.875C32.3737 31.3925 29.5162 34.25 25.9987 34.25C22.4812 34.25 19.6237 31.3925 19.6237 27.875C19.6237 24.3575 22.4812 21.5 25.9987 21.5C26.0512 21.5 26.1787 21.5 26.3137 21.545C26.5687 21.6275 26.7562 21.845 26.8087 22.1075C27.1237 23.615 28.4662 24.7175 30.0112 24.7175C30.2962 24.7175 30.5737 24.68 30.8137 24.6125C31.1662 24.515 31.5262 24.68 31.6912 24.995ZM25.9987 17.75C20.8687 17.75 15.6112 22.25 14.7562 27.3725C14.6887 27.7775 14.9662 28.1675 15.3712 28.235C15.7762 28.3025 16.1662 28.025 16.2337 27.62C16.9012 23.6675 21.2137 19.25 25.9987 19.25C30.7837 19.25 35.0962 23.6675 35.7562 27.62C35.8162 27.9875 36.1387 28.25 36.4987 28.25C36.5362 28.25 36.5812 28.25 36.6262 28.2425C37.0312 28.175 37.3087 27.785 37.2412 27.38C36.3862 22.25 31.1287 17.75 25.9987 17.75Z"
+                            fill="white"
+                        />
                     </svg>
-                </button>
-                <p class="application__footer-text txt16">
-                    Нажимая "Отправить", я даю согласие на обработку персональных данных.
-                </p>
-            </div>
-        </form>
+
+                    <span>подробнее</span>
+                </div>
+            </a>
+        </li>
+        <li class="collections__articles-item">
+            <a href="#" class="collections__articles-item-wrapper">
+                <span class="collections__articles-item-number"> #002</span>
+
+                <figure>
+                    <div class="collections__articles-item-image">
+                        <img src="./assets/images/collections/collections-image-2.webp" alt="" />
+                    </div>
+
+                    <figcaption class="collections__articles-item-text">РАЗРАБОТКА ПЕРСОНАЖЕЙ</figcaption>
+                </figure>
+            </a>
+            <a href="#" class="collections__articles-item-wrapper --masking">
+                <span class="collections__articles-item-number"> #002</span>
+
+                <figure>
+                    <div class="collections__articles-item-image">
+                        <img src="./assets/images/collections/collections-image-2.webp" alt="" />
+                    </div>
+
+                    <figcaption class="collections__articles-item-text">РАЗРАБОТКА ПЕРСОНАЖЕЙ</figcaption>
+                </figure>
+
+                <div class="collections__articles-item-link">
+                    <svg
+                        width="52"
+                        height="52"
+                        viewBox="0 0 52 52"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle cx="26" cy="26" r="26" fill="#1F1F22" />
+                        <path
+                            d="M31.6912 24.995C32.1412 25.895 32.3737 26.8625 32.3737 27.875C32.3737 31.3925 29.5162 34.25 25.9987 34.25C22.4812 34.25 19.6237 31.3925 19.6237 27.875C19.6237 24.3575 22.4812 21.5 25.9987 21.5C26.0512 21.5 26.1787 21.5 26.3137 21.545C26.5687 21.6275 26.7562 21.845 26.8087 22.1075C27.1237 23.615 28.4662 24.7175 30.0112 24.7175C30.2962 24.7175 30.5737 24.68 30.8137 24.6125C31.1662 24.515 31.5262 24.68 31.6912 24.995ZM25.9987 17.75C20.8687 17.75 15.6112 22.25 14.7562 27.3725C14.6887 27.7775 14.9662 28.1675 15.3712 28.235C15.7762 28.3025 16.1662 28.025 16.2337 27.62C16.9012 23.6675 21.2137 19.25 25.9987 19.25C30.7837 19.25 35.0962 23.6675 35.7562 27.62C35.8162 27.9875 36.1387 28.25 36.4987 28.25C36.5362 28.25 36.5812 28.25 36.6262 28.2425C37.0312 28.175 37.3087 27.785 37.2412 27.38C36.3862 22.25 31.1287 17.75 25.9987 17.75Z"
+                            fill="white"
+                        />
+                    </svg>
+
+                    <span>подробнее</span>
+                </div>
+            </a>
+        </li>
+        <li class="collections__articles-item">
+            <a href="#" class="collections__articles-item-wrapper">
+                <span class="collections__articles-item-number"> #003</span>
+
+                <figure>
+                    <div class="collections__articles-item-image">
+                        <img src="./assets/images/collections/collections-image-3.webp" alt="" />
+                    </div>
+
+                    <figcaption class="collections__articles-item-text">ИКОНКИ, ЛОГОТИПЫ</figcaption>
+                </figure>
+            </a>
+            <a href="#" class="collections__articles-item-wrapper --masking">
+                <span class="collections__articles-item-number"> #003</span>
+
+                <figure>
+                    <div class="collections__articles-item-image">
+                        <img src="./assets/images/collections/collections-image-3.webp" alt="" />
+                    </div>
+
+                    <figcaption class="collections__articles-item-text">ИКОНКИ, ЛОГОТИПЫ</figcaption>
+                </figure>
+
+                <div class="collections__articles-item-link">
+                    <svg
+                        width="52"
+                        height="52"
+                        viewBox="0 0 52 52"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle cx="26" cy="26" r="26" fill="#1F1F22" />
+                        <path
+                            d="M31.6912 24.995C32.1412 25.895 32.3737 26.8625 32.3737 27.875C32.3737 31.3925 29.5162 34.25 25.9987 34.25C22.4812 34.25 19.6237 31.3925 19.6237 27.875C19.6237 24.3575 22.4812 21.5 25.9987 21.5C26.0512 21.5 26.1787 21.5 26.3137 21.545C26.5687 21.6275 26.7562 21.845 26.8087 22.1075C27.1237 23.615 28.4662 24.7175 30.0112 24.7175C30.2962 24.7175 30.5737 24.68 30.8137 24.6125C31.1662 24.515 31.5262 24.68 31.6912 24.995ZM25.9987 17.75C20.8687 17.75 15.6112 22.25 14.7562 27.3725C14.6887 27.7775 14.9662 28.1675 15.3712 28.235C15.7762 28.3025 16.1662 28.025 16.2337 27.62C16.9012 23.6675 21.2137 19.25 25.9987 19.25C30.7837 19.25 35.0962 23.6675 35.7562 27.62C35.8162 27.9875 36.1387 28.25 36.4987 28.25C36.5362 28.25 36.5812 28.25 36.6262 28.2425C37.0312 28.175 37.3087 27.785 37.2412 27.38C36.3862 22.25 31.1287 17.75 25.9987 17.75Z"
+                            fill="white"
+                        />
+                    </svg>
+
+                    <span>подробнее</span>
+                </div>
+            </a>
+        </li>
+        <li class="collections__articles-item">
+            <a href="#" class="collections__articles-item-wrapper">
+                <span class="collections__articles-item-number"> #004</span>
+
+                <figure>
+                    <div class="collections__articles-item-image">
+                        <img src="./assets/images/collections/collections-image-4.webp" alt="" />
+                    </div>
+
+                    <figcaption class="collections__articles-item-text">WEB - ИЛЛЮСТРАЦИИ</figcaption>
+                </figure>
+            </a>
+            <a href="#" class="collections__articles-item-wrapper --masking">
+                <span class="collections__articles-item-number"> #004</span>
+
+                <figure>
+                    <div class="collections__articles-item-image">
+                        <img src="./assets/images/collections/collections-image-4.webp" alt="" />
+                    </div>
+
+                    <figcaption class="collections__articles-item-text">WEB - ИЛЛЮСТРАЦИИ</figcaption>
+                </figure>
+
+                <div class="collections__articles-item-link">
+                    <svg
+                        width="52"
+                        height="52"
+                        viewBox="0 0 52 52"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle cx="26" cy="26" r="26" fill="#1F1F22" />
+                        <path
+                            d="M31.6912 24.995C32.1412 25.895 32.3737 26.8625 32.3737 27.875C32.3737 31.3925 29.5162 34.25 25.9987 34.25C22.4812 34.25 19.6237 31.3925 19.6237 27.875C19.6237 24.3575 22.4812 21.5 25.9987 21.5C26.0512 21.5 26.1787 21.5 26.3137 21.545C26.5687 21.6275 26.7562 21.845 26.8087 22.1075C27.1237 23.615 28.4662 24.7175 30.0112 24.7175C30.2962 24.7175 30.5737 24.68 30.8137 24.6125C31.1662 24.515 31.5262 24.68 31.6912 24.995ZM25.9987 17.75C20.8687 17.75 15.6112 22.25 14.7562 27.3725C14.6887 27.7775 14.9662 28.1675 15.3712 28.235C15.7762 28.3025 16.1662 28.025 16.2337 27.62C16.9012 23.6675 21.2137 19.25 25.9987 19.25C30.7837 19.25 35.0962 23.6675 35.7562 27.62C35.8162 27.9875 36.1387 28.25 36.4987 28.25C36.5362 28.25 36.5812 28.25 36.6262 28.2425C37.0312 28.175 37.3087 27.785 37.2412 27.38C36.3862 22.25 31.1287 17.75 25.9987 17.75Z"
+                            fill="white"
+                        />
+                    </svg>
+
+                    <span>подробнее</span>
+                </div>
+            </a>
+        </li>
+        <li class="collections__articles-item">
+            <a href="#" class="collections__articles-item-wrapper">
+                <span class="collections__articles-item-number"> #005</span>
+
+                <figure>
+                    <div class="collections__articles-item-image">
+                        <img src="./assets/images/collections/collections-image-5.webp" alt="" />
+                    </div>
+
+                    <figcaption class="collections__articles-item-text">Gamedev</figcaption>
+                </figure>
+            </a>
+            <a href="#" class="collections__articles-item-wrapper --masking">
+                <span class="collections__articles-item-number"> #005</span>
+
+                <figure>
+                    <div class="collections__articles-item-image">
+                        <img src="./assets/images/collections/collections-image-5.webp" alt="" />
+                    </div>
+
+                    <figcaption class="collections__articles-item-text">Gamedev</figcaption>
+                </figure>
+
+                <div class="collections__articles-item-link mobile">
+                    <svg
+                        width="52"
+                        height="52"
+                        viewBox="0 0 52 52"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle cx="26" cy="26" r="26" fill="#1F1F22" />
+                        <path
+                            d="M31.6912 24.995C32.1412 25.895 32.3737 26.8625 32.3737 27.875C32.3737 31.3925 29.5162 34.25 25.9987 34.25C22.4812 34.25 19.6237 31.3925 19.6237 27.875C19.6237 24.3575 22.4812 21.5 25.9987 21.5C26.0512 21.5 26.1787 21.5 26.3137 21.545C26.5687 21.6275 26.7562 21.845 26.8087 22.1075C27.1237 23.615 28.4662 24.7175 30.0112 24.7175C30.2962 24.7175 30.5737 24.68 30.8137 24.6125C31.1662 24.515 31.5262 24.68 31.6912 24.995ZM25.9987 17.75C20.8687 17.75 15.6112 22.25 14.7562 27.3725C14.6887 27.7775 14.9662 28.1675 15.3712 28.235C15.7762 28.3025 16.1662 28.025 16.2337 27.62C16.9012 23.6675 21.2137 19.25 25.9987 19.25C30.7837 19.25 35.0962 23.6675 35.7562 27.62C35.8162 27.9875 36.1387 28.25 36.4987 28.25C36.5362 28.25 36.5812 28.25 36.6262 28.2425C37.0312 28.175 37.3087 27.785 37.2412 27.38C36.3862 22.25 31.1287 17.75 25.9987 17.75Z"
+                            fill="white"
+                        />
+                    </svg>
+
+                    <span>подробнее</span>
+                </div>
+            </a>
+        </li>
+    </ul>
+</section>
+
+                <section class="feedback">
+    <div class="feedback__content">
+        <a href="./">ФОРМА ОБРАТНОЙ СВЯЗИ</a>
     </div>
 </section>
 
@@ -527,6 +670,5 @@
         </div>
         
 
-        <script defer src="https://api-maps.yandex.ru/2.1/?apikey=2f05284c-b75c-4b38-b0b5-f937b605d568&amp;lang=ru_RU"></script>
     </body>
 </html>
