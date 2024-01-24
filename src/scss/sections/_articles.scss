@@ -1,4 +1,6 @@
 .articles {
+    position: relative;
+    z-index: 2;
     margin-top: 7.2rem;
     margin-bottom: 16rem;
 
@@ -96,7 +98,7 @@
                     background: $white;
                     padding: 3.2rem;
                     z-index: 5;
-                    transition: .3s opacity ease;
+                    transition: 0.3s opacity ease;
                     opacity: 0;
                 }
 
@@ -166,7 +168,7 @@
                         letter-spacing: 0.32rem;
                         text-transform: uppercase;
                         margin-right: 1rem;
-                        transition: .3s background ease;
+                        transition: 0.3s background ease;
                     }
                 }
             }
@@ -402,9 +404,7 @@
             text-transform: uppercase;
             padding-bottom: 0.8rem;
             border-bottom: 0.2rem solid $white;
-            transition:
-                0.3s color ease,
-                0.3s border ease;
+            transition: 0.3s color ease, 0.3s border ease;
 
             &:hover {
                 color: $yellow;

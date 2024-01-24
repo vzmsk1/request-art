@@ -51,7 +51,7 @@
             ._select-opened & {
                 transform: rotate(-180deg);
 
-                @include small-tablet{
+                @include small-tablet {
                     transform: rotate(-90deg);
                 }
             }
@@ -70,7 +70,7 @@
             letter-spacing: 0.176rem;
             text-transform: uppercase;
 
-            @include small-tablet{
+            @include small-tablet {
                 font-size: 4rem;
                 font-style: normal;
                 font-weight: 500;
@@ -118,16 +118,14 @@
         z-index: 2;
         top: calc(100% + 0.4rem);
         left: 0;
-        padding: 1.2rem 2.8rem 2rem 1.2rem;
-        min-width: 100%;
+        padding: 1.2rem 1.8rem 2rem 1.2rem;
+        width: 100%;
         box-shadow: 0 0.8rem 2.5rem 0 rgba(99, 119, 156, 0.2);
         border-radius: 4rem;
         background-color: $violet;
         opacity: 0;
         visibility: hidden;
-        transition:
-            opacity 0.3s ease,
-            visibility 0.3s ease;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
         color: $bodyColor;
         font-family: $font-druk;
         font-size: 2.2rem;
@@ -136,7 +134,7 @@
         line-height: 2.4rem;
         letter-spacing: 0.176rem;
         text-transform: uppercase;
-        max-height: 24.5rem;
+        // max-height: 24.5rem;
         overflow-x: auto;
 
         .dropdown_sort & {
@@ -155,14 +153,14 @@
         overflow-x: hidden;
 
         // maximum height
-        max-height: 23.4rem;
+        // max-height: 23.4rem;
 
         // scrollbar styles
         &.simplebar-scrollable-y {
             .simplebar-track.simplebar-vertical {
                 top: 5rem;
                 right: 0;
-                width: 0.4rem;
+                width: 2px;
                 border-radius: 0.8rem;
                 background-color: rgba(255, 255, 255, 0.4);
             }
@@ -173,7 +171,7 @@
             }
         }
         @media (max-width: 48em) {
-            max-height: 40rem;
+            // max-height: 40rem;
         }
     }
     // .select__option

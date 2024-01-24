@@ -20,10 +20,6 @@ import './utils/tabs.js';
 
 import './utils/accordion.js';
 
-// -------------------------------- simplebar -------------------------------
-
-import './libs/simplebar.js';
-
 // ------------------------------- dynamic dom ------------------------------
 
 import './libs/da.js';
@@ -39,6 +35,10 @@ import './libs/phone-mask.js';
 // --------------------------------- select ---------------------------------
 
 import './utils/select.js';
+
+// -------------------------------- simplebar -------------------------------
+
+import './libs/simplebar.js';
 
 // ------------------------------- own scripts ------------------------------
 
