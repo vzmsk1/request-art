@@ -1,3 +1,17 @@
+[data-sel-popup] {
+    @media (max-width: 48em) {
+        .select__options,
+        ._select-opened .select__options {
+            opacity: 0;
+            visibility: hidden;
+        }
+        ._select-opened .select__value::after,
+        .select__value::after {
+            transform: none;
+        }
+    }
+}
+
 .select {
     position: relative;
     @media (min-width: 48em) {

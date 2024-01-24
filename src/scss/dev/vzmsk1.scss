@@ -66,6 +66,115 @@
     }
 }
 
+.select-popup {
+    position: fixed;
+    z-index: 2200;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    ._show-select-popup & {
+        opacity: 1;
+        visibility: visible;
+    }
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000000;
+        opacity: 0.3;
+    }
+
+    // .select-popup__inner
+
+    &__inner {
+        position: fixed;
+        z-index: 2201;
+        top: 50%;
+        left: 50%;
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        width: 63.8rem;
+        min-height: 48.4rem;
+        border-radius: 4rem;
+        background-color: $white;
+        color: $black;
+        transform: translate(-50%, -50%);
+    }
+
+    // .select-popup__head
+
+    &__head {
+        margin-bottom: 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 4rem;
+    }
+
+    // .select-popup__title
+
+    &__title {
+    }
+
+    // .select-popup__close-btn
+
+    &__close-btn {
+        width: 3.2rem;
+        height: 3.2rem;
+    }
+
+    // .select-popup__close-btn-icon
+
+    &__close-btn-icon {
+        height: 100%;
+        object-fit: contain;
+    }
+
+    // .select-popup__body
+
+    &__body {
+        position: relative;
+        .select__scroll.simplebar-scrollable-y .simplebar-track.simplebar-vertical,
+        .select__scroll.simplebar-scrollable-y .simplebar-scrollbar {
+            top: 0;
+            background-color: rgba(202, 210, 244, 0.4);
+        }
+        .select {
+            &__options {
+                top: 0;
+                left: 0;
+                padding: 0;
+                box-shadow: none;
+                border-radius: 0;
+                background-color: transparent;
+                opacity: 0;
+                visibility: hidden;
+                ._show-select-popup & {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+            &__option {
+                padding: 2rem 4rem;
+                &._select-selected {
+                    background-color: $violet;
+                }
+                &::after {
+                    content: none;
+                }
+            }
+        }
+    }
+}
+
 // --------------------------------------------------------------------------
 
 @import '../sections/hero-gallery';

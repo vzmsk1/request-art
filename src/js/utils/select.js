@@ -483,7 +483,7 @@ export class Select {
                 selOptions = selOptions.filter((option) => option.value);
             }
             selOptionsHTML += selScroll
-                ? `<div ${selScroll} ${selScrollHeight} class="${this.classes.scroll}">`
+                ? `<div ${selScroll} ${selScrollHeight} data-sel-scroll="${relativeSel.dataset.selScroll}" class="${this.classes.scroll}">`
                 : '';
             selOptions.forEach((option) => {
                 selOptionsHTML += this.getOption(option, relativeSel);

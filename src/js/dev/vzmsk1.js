@@ -1,15 +1,15 @@
 import Swiper from 'swiper';
 import 'swiper/css';
 import { Navigation } from 'swiper/modules';
-import { remToPx } from '../utils/utils';
+import { remToPx, bodyLockStatus, bodyLock, bodyUnlock, removeClasses } from '../utils/utils';
 import gsap from 'gsap';
 
 // --------------------------------------------------------------------------
 
 /**
- * changes the speed of wave animation
+ * changes properties (desk / mobile) for wave svg element
  */
-const changeWaveAnimDur = () => {
+const setWaveSvgProps = () => {
     if (document.querySelectorAll('[data-wave-line]').length) {
         document.querySelectorAll('[data-wave-line]').forEach((waveLine) => {
             const svg = waveLine.closest('svg');
@@ -42,7 +42,7 @@ const changeWaveAnimDur = () => {
         });
     }
 };
-changeWaveAnimDur();
+setWaveSvgProps();
 
 /**
  * initializes sliders
@@ -79,10 +79,97 @@ const createMarquee = () => {
 };
 createMarquee();
 
+/**
+ * initializes select modal
+ */
+const initSelectModal = () => {
+    if (document.querySelectorAll('[data-sel-popup]').length) {
+        const selectPopup = document.getElementById('selectPopup');
+        const popupTitle = document.getElementById('SPTitle');
+        const popupBody = document.getElementById('SPBody');
+
+        const showPopup = (title, options) => {
+            document.documentElement.classList.add('_show-select-popup');
+            popupTitle.innerHTML = title;
+            popupBody.innerHTML = options;
+            selectPopup.querySelector('.select__scroll').removeAttribute('data-simplebar');
+            selectPopup.querySelector('.select__scroll').setAttribute('data-simplebar', '');
+            bodyLock();
+        };
+        const hidePopup = () => {
+            document.documentElement.classList.remove('_show-select-popup');
+            bodyUnlock();
+        };
+
+        const setSelectData = () => {
+            document.querySelectorAll('[data-sel-popup]').forEach((dropdown) => {
+                const selectBtn = dropdown.querySelector('.select__title');
+                const data = dropdown.dataset.selPopup;
+                const title =
+                    data === 'date' ? 'Фильтр по дате' : data === 'category' ? 'Фильтр по категории' : '';
+
+                selectBtn.addEventListener('click', function () {
+                    if (window.innerWidth <= 768) {
+                        const parent = selectBtn.closest('.select');
+                        const options = parent.querySelector('.select__options').outerHTML;
+                        if (!selectBtn.closest('._select-opened') && bodyLockStatus) {
+                            showPopup(title, options);
+                        }
+                    }
+                });
+            });
+        };
+
+        const handleClickEvent = () => {
+            selectPopup.addEventListener('click', function (e) {
+                const target = e.target;
+
+                if (
+                    document.documentElement.classList.contains('_show-select-popup') &&
+                    bodyLockStatus &&
+                    window.innerWidth <= 768
+                ) {
+                    if (
+                        target.closest('.select-popup__close-btn') ||
+                        !target.closest('.select-popup__inner')
+                    ) {
+                        hidePopup();
+                    }
+                    if (target.closest('.select__option')) {
+                        removeClasses(selectPopup.querySelectorAll('.select__option'), '_select-selected');
+                        target.closest('.select__option').classList.add('_select-selected');
+                    }
+                }
+            });
+        };
+
+        setSelectData();
+        handleClickEvent();
+        if (window.innerWidth > 768) {
+            hidePopup();
+        }
+    }
+};
+initSelectModal();
+
+const changeScrollableHeight = () => {
+    if (document.querySelectorAll('.select__scroll').length) {
+        document.querySelectorAll('.select__scroll').forEach((el) => {
+            const data = el.dataset.selScroll.trim().split(',');
+            el.style.maxHeight = `${window.innerWidth > 768 ? data[0] : data[1]}rem`;
+        });
+    }
+};
+changeScrollableHeight();
+
 // ------------------------------ hero gallery ------------------------------
 
 import '../components/hero-gallery.js';
 
 // --------------------------------- events ---------------------------------
 
-window.addEventListener('resize', changeWaveAnimDur);
+window.addEventListener('resize', function () {
+    setWaveSvgProps();
+    initSelectModal();
+    changeScrollableHeight();
+});

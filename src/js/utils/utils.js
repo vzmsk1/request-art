@@ -225,3 +225,10 @@ export function remToPx(remValue) {
     // Округляем значение до целых пикселей (по желанию)
     return Math.round(pxValue) + 'px';
 }
+
+// remove class from all array elements
+export const removeClasses = (array, className) => {
+    for (var i = 0; i < array.length; i++) {
+        array[i].classList.remove(className);
+    }
+};
