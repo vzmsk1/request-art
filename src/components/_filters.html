@@ -1,0 +1,168 @@
+<button id="showFiltersBtn" type="button" class="filters-btn tl3">Фильтры</button>
+<div class="filters">
+    <form action="#" class="filters__inner">
+        <div class="filters__head">
+            <button id="hideFiltersBtn" type="button" class="filters__close-btn">
+                <img src="./assets/images/icons/cross-gray.svg" alt="" class="filters__close-btn-icon" />
+            </button>
+            <span class="filters__title txt19">Фильтры</span>
+        </div>
+        <div class="filters__group">
+            <span class="filters__subtitle txt15">Категория</span>
+            <div class="filters__tabs">
+                <div class="filters__badge badge">
+                    <input
+                        id="categoryOpt_1"
+                        class="options__input"
+                        type="radio"
+                        value="1"
+                        name="categoryOpt"
+                    />
+                    <label for="categoryOpt_1" class="options__label"
+                        ><span class="options__text txt20 txt20_caps">WEB</span></label
+                    >
+                </div>
+                <div class="filters__badge badge">
+                    <input
+                        id="categoryOpt_2"
+                        class="options__input"
+                        type="radio"
+                        value="2"
+                        name="categoryOpt"
+                    />
+                    <label for="categoryOpt_2" class="options__label"
+                        ><span class="options__text txt20 txt20_caps">коммерческая</span></label
+                    >
+                </div>
+                <div class="filters__badge badge">
+                    <input
+                        checked
+                        id="categoryOpt_3"
+                        class="options__input"
+                        type="radio"
+                        value="3"
+                        name="categoryOpt"
+                    />
+                    <label for="categoryOpt_3" class="options__label"
+                        ><span class="options__text txt20 txt20_caps">gamedev</span></label
+                    >
+                </div>
+                <div class="filters__badge badge">
+                    <input
+                        id="categoryOpt_4"
+                        class="options__input"
+                        type="radio"
+                        value="4"
+                        name="categoryOpt"
+                    />
+                    <label for="categoryOpt_4" class="options__label"
+                        ><span class="options__text txt20 txt20_caps">логотип</span></label
+                    >
+                </div>
+                <div class="filters__badge badge">
+                    <input
+                        id="categoryOpt_5"
+                        class="options__input"
+                        type="radio"
+                        value="5"
+                        name="categoryOpt"
+                    />
+                    <label for="categoryOpt_5" class="options__label"
+                        ><span class="options__text txt20 txt20_caps">логотип</span></label
+                    >
+                </div>
+                <div class="filters__badge badge">
+                    <input
+                        id="categoryOpt_6"
+                        class="options__input"
+                        type="radio"
+                        value="6"
+                        name="categoryOpt"
+                    />
+                    <label for="categoryOpt_6" class="options__label"
+                        ><span class="options__text txt20 txt20_caps">другое</span></label
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="filters__group filters__group_sort">
+            <span class="filters__subtitle txt15">Сортировка</span>
+            <div class="filters__options">
+                <div class="filters__option option">
+                    <input
+                        hidden
+                        id="sortOpt_1"
+                        class="option__input"
+                        type="radio"
+                        value="1"
+                        name="sortOpt"
+                    />
+                    <label for="sortOpt_1" class="option__label"
+                        ><span class="option__text tl3">по дате</span></label
+                    >
+                </div>
+                <div class="filters__option option">
+                    <input
+                        hidden
+                        id="sortOpt_2"
+                        class="option__input"
+                        checked
+                        type="radio"
+                        value="2"
+                        name="sortOpt"
+                    />
+                    <label for="sortOpt_2" class="option__label"
+                        ><span class="option__text tl3">по дате</span></label
+                    >
+                </div>
+                <div class="filters__option option">
+                    <input
+                        hidden
+                        id="sortOpt_3"
+                        class="option__input"
+                        type="radio"
+                        value="3"
+                        name="sortOpt"
+                    />
+                    <label for="sortOpt_3" class="option__label"
+                        ><span class="option__text tl3">по дате</span></label
+                    >
+                </div>
+                <div class="filters__option option">
+                    <input
+                        hidden
+                        id="sortOpt_4"
+                        class="option__input"
+                        type="radio"
+                        value="4"
+                        name="sortOpt"
+                    />
+                    <label for="sortOpt_4" class="option__label"
+                        ><span class="option__text tl3">по дате</span></label
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="filters__dropdown dropdown dropdown_sort">
+            <select data-show-selection>
+                <option value="1" selected>ПО ДАТЕ</option>
+                <option value="2">ПО ДАТЕ</option>
+                <option value="3">ПО ДАТЕ</option>
+                <option value="4">ПО ДАТЕ</option>
+            </select>
+        </div>
+        <button type="submit" class="filters__btn btn btn_black">
+            <span class="btn__text txt20 txt20_caps">применить</span>
+            <svg
+                class="btn__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+            >
+                <path d="M6.63965 19.0001L6.63965 4.87207L17.0002 11.9361L6.63965 19.0001Z" fill="#1F1F22" />
+            </svg>
+        </button>
+    </form>
+</div>

@@ -3,6 +3,8 @@ import 'swiper/css';
 import { Navigation } from 'swiper/modules';
 import { remToPx, bodyLockStatus, bodyLock, bodyUnlock, removeClasses } from '../utils/utils';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 
 // --------------------------------------------------------------------------
 
@@ -152,6 +154,9 @@ const initSelectModal = () => {
 };
 initSelectModal();
 
+/**
+ * changes scrollable dropdowns height (desk / mobile)
+ */
 const changeScrollableHeight = () => {
     if (document.querySelectorAll('.select__scroll').length) {
         document.querySelectorAll('.select__scroll').forEach((el) => {
@@ -161,6 +166,65 @@ const changeScrollableHeight = () => {
     }
 };
 changeScrollableHeight();
+
+/**
+ * animated portfolio hero ellipse on scroll
+ */
+const animateEllipse = () => {
+    if (document.getElementById('PHEllipse')) {
+        const mm = gsap.matchMedia();
+
+        mm.add('(min-width: 768px)', () => {
+            const tl = gsap
+                .timeline({
+                    scrollTrigger: {
+                        trigger: '#portfolioHero',
+                        scrub: !0,
+                        start: () => 'top top',
+                        end: () => 'bottom top',
+                        invalidateOnRefresh: !0,
+                        overwrite: 'auto'
+                    }
+                })
+                .fromTo(
+                    '#PHEllipse',
+                    {
+                        scale: 1
+                    },
+                    {
+                        scale: 1.88
+                    }
+                );
+        });
+
+        // mm.revert();
+    }
+};
+animateEllipse();
+
+/**
+ * toggles filters menu
+ */
+const toggleFiltersMenu = () => {
+    if (document.getElementById('showFiltersBtn') && bodyLockStatus) {
+        const showFiltersMenu = () => {
+            document.documentElement.classList.add('_show-filters-menu');
+            bodyLock();
+        };
+        const hideFiltersMenu = () => {
+            document.documentElement.classList.remove('_show-filters-menu');
+            bodyUnlock();
+        };
+
+        document.getElementById('showFiltersBtn').addEventListener('click', showFiltersMenu);
+        document.getElementById('hideFiltersBtn').addEventListener('click', hideFiltersMenu);
+
+        if (window.innerWidth > 768) {
+            hideFiltersMenu();
+        }
+    }
+};
+toggleFiltersMenu();
 
 // ------------------------------ hero gallery ------------------------------
 
@@ -172,4 +236,6 @@ window.addEventListener('resize', function () {
     setWaveSvgProps();
     initSelectModal();
     changeScrollableHeight();
+    animateEllipse();
+    toggleFiltersMenu();
 });
