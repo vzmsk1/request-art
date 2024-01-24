@@ -1,0 +1,247 @@
+.main-advantages {
+    margin-bottom: 17.8rem;
+    // .main-advantages__inner
+    &__inner {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+    }
+    // .main-advantages__info
+    &__info {
+        display: flex;
+        flex-direction: column;
+        max-width: 55.3rem;
+    }
+    // .main-advantages__title
+    &__title {
+        margin-bottom: 2rem;
+    }
+    // .main-advantages__description
+    &__description {
+        margin-bottom: 3rem;
+    }
+    // .main-advantages__cards
+    &__cards {
+        overflow: hidden;
+        height: 140.9rem;
+        width: 100%;
+    }
+    // .main-advantages__cards-wrapper
+    &__cards-wrapper.swiper-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        width: 100%;
+        height: 100%;
+    }
+    // .main-advantages__cards-slide
+    &__cards-slide.swiper-slide {
+        position: absolute;
+        width: 56rem;
+        height: 63.4rem;
+        border-radius: 4rem;
+    }
+}
+.advantages-card {
+    background-color: $bodyColor;
+    overflow: hidden;
+    &.tl {
+        top: 0;
+        left: 0;
+        border: 0.3rem solid $green;
+
+        .advantages-card__icon {
+            background: $green;
+        }
+    }
+    &.tr {
+        top: 12.2rem;
+        right: 0;
+        border: 0.3rem solid $pink;
+
+        .advantages-card__icon {
+            background: $pink;
+        }
+    }
+    &.bl {
+        left: 0;
+        bottom: 12.2rem;
+        border: 0.3rem solid $violet;
+
+        .advantages-card__icon {
+            background: $violet;
+        }
+    }
+    &.br {
+        bottom: 0;
+        right: 0;
+        border: 0.3rem solid $yellow;
+
+        .advantages-card__icon {
+            background: $yellow;
+        }
+    }
+    // .advantages-card__inner
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 6rem;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    // .advantages-card__info
+    &__info {
+        display: flex;
+        flex-direction: column;
+    }
+    // .advantages-card__small-icon
+    &__small-icon {
+        width: 3.4rem;
+        height: 3.4rem;
+        margin-bottom: 1.2rem;
+    }
+    // .advantages-card__icon
+    &__icon {
+        position: absolute;
+        left: 50%;
+        bottom: 15rem;
+        transform: translateX(-50%);
+        width: 10rem;
+        height: 10rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+
+        span {
+            display: block;
+            width: 3.4rem;
+            height: 3.4rem;
+
+            svg path {
+                fill: $white;
+            }
+        }
+    }
+    // .main-advantages__title
+    &__title {
+        margin-bottom: 1.6rem;
+    }
+    &__range {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 11.5rem;
+    }
+    // .main-advantages__description
+    &__description {
+        color: rgba(255, 255, 255, 0.8);
+    }
+    // .advantages-card__bg
+    &__bg {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 90%;
+        height: auto;
+        z-index: -1;
+    }
+}
+
+@media (max-width: 48em) {
+    .main-advantages {
+        margin-bottom: 24rem;
+        // .main-advantages__inner
+        &__inner {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6.4rem;
+        }
+        // .main-advantages__info
+        &__info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 100%;
+        }
+        // .main-advantages__title
+        &__title {
+            margin-bottom: 2.4rem;
+        }
+        // .main-advantages__description
+        &__description {
+            margin-bottom: 6.4rem;
+        }
+        // .main-advantages__cards
+        &__cards {
+            overflow: hidden;
+            height: 75.8rem;
+            width: 100%;
+        }
+        // .main-advantages__cards-wrapper
+        &__cards-wrapper.swiper-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            width: 100%;
+            height: 100%;
+        }
+        // .main-advantages__cards-slide
+        &__cards-slide.swiper-slide {
+            position: static;
+            width: 65.8rem;
+            height: 100%;
+            border-radius: 4rem;
+        }
+    }
+    .advantages-card {
+        // .advantages-card__inner
+        &__inner {
+            padding: 4rem;
+        }
+        // .advantages-card__small-icon
+        &__small-icon {
+            width: 4.8rem;
+            height: 4.8rem;
+            margin-bottom: 0.8rem;
+        }
+        // .advantages-card__icon
+        &__icon {
+            bottom: 17.8rem;
+
+            width: 12rem;
+            height: 12rem;
+            span {
+                width: 4.8rem;
+                height: 4.8rem;
+            }
+        }
+        &__range {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 13rem;
+            width: 35rem;
+        }
+        // .main-advantages__description
+        &__description {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        // .advantages-card__bg
+        &__bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 90%;
+            height: auto;
+            z-index: -1;
+        }
+    }
+}

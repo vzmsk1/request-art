@@ -6,19 +6,29 @@
     column-gap: 2.2rem;
     min-width: 16.4rem;
     border-radius: 9.5rem;
-    border: 1px solid $green;
-    transition: background-color 0.3s ease;
+    border: 0.1rem solid $green;
+    transition: background 0.3s ease;
     &_black {
-        border: 1px solid $black;
+        border: 0.1rem solid $black;
         .btn__text {
             color: $black;
         }
     }
+    &_white {
+        border: 0.1rem solid $white;
+        .btn__text {
+            color: $white;
+        }
+        .btn__icon {
+            path {
+                fill: $white;
+            }
+        }
+    }
     @media (any-hover: hover) {
         &:hover {
-            &:not(&.btn_black) {
-                background-color: $green;
-            }
+            transition: background 0.3s ease;
+            background-color: $green;
             &.btn_black {
                 background-color: $black;
             }
@@ -28,6 +38,18 @@
             .btn__icon {
                 path {
                     fill: $white;
+                }
+            }
+            &.btn_white {
+                background-color: $white;
+                border: 0.1rem solid $white;
+                .btn__text {
+                    color: $bodyColor;
+                }
+                .btn__icon {
+                    path {
+                        fill: $bodyColor;
+                    }
                 }
             }
         }
