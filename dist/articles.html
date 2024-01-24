@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Статьи</title>
-    <script defer src="articlesb989b7aeb6ca4409d85c.js"></script></head>
+    <script defer src="articles8dd8a3f1f66462f33533.js"></script></head>
     <body>
         <div class="wrapper">
             <header class="header">
@@ -173,8 +173,8 @@
                 <div class="articles__filters-field">
                     <span class="articles__filters-field-title"> По дате </span>
 
-                    <div class="dropdown dropdown_filters">
-                        <select data-no-slide data-show-selection data-sel-scroll="22.4,30">
+                    <div data-sel-popup="date" class="dropdown dropdown_filters">
+                        <select data-no-slide data-show-selection data-sel-scroll="22.4,37">
                             <option value="1" selected="">2023 г</option>
                             <option value="2">2022 г</option>
                             <option value="3">2022 г</option>
@@ -189,8 +189,8 @@
                 <div class="articles__filters-field">
                     <span class="articles__filters-field-title"> Категория </span>
 
-                    <div class="dropdown dropdown_filters">
-                        <select data-no-slide data-show-selection data-sel-scroll="22.4,30">
+                    <div data-sel-popup="category" class="dropdown dropdown_filters">
+                        <select data-no-slide data-show-selection data-sel-scroll="22.4,37">
                             <option value="1" selected="">2023 г</option>
                             <option value="2">2022 г</option>
                             <option value="3">2022 г</option>
@@ -654,6 +654,21 @@
 
                 <button class="articles__list-button">ЗАГРУЗИТЬ ЕЩЕ</button>
             </div>
+        </div>
+    </div>
+    <div id="selectPopup" class="select-popup _select-opened">
+        <div class="select-popup__inner">
+            <div class="select-popup__head">
+                <span id="SPTitle" class="select-popup__title tl3"></span>
+                <button type="button" class="select-popup__close-btn">
+                    <img
+                        src="./assets/images/icons/cross-solid.svg"
+                        alt=""
+                        class="select-popup__close-btn-icon"
+                    />
+                </button>
+            </div>
+            <div id="SPBody" class="select-popup__body"></div>
         </div>
     </div>
 </section>
