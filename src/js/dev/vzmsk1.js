@@ -12,23 +12,33 @@ import gsap from 'gsap';
 const changeWaveAnimDur = () => {
     if (document.querySelectorAll('[data-wave-line]').length) {
         document.querySelectorAll('[data-wave-line]').forEach((waveLine) => {
+            const svg = waveLine.closest('svg');
             const data = waveLine.dataset.waveLine.trim().split(',');
             const animEl = waveLine.querySelector('animate');
             const textPath = animEl.closest('textPath');
             const deskPath = waveLine.querySelector('#wavepath');
             const mobPath = waveLine.querySelector('#wavepath-m');
             const props = {
-                desk: `${data[0]}s`,
-                mob: `${data[1]}s`
+                widthD: `${data[0]}`,
+                heightD: `${data[1]}`,
+                widthM: `${data[2]}`,
+                heightM: `${data[3]}`
             };
 
-            animEl.setAttribute('dur', `${window.innerWidth > 768 ? props.desk : props.mob}`);
-
-            if (mobPath)
+            if (mobPath) {
                 textPath.setAttribute(
                     'href',
                     `${window.innerWidth > 768 ? '#' + deskPath.id : '#' + mobPath.id}`
                 );
+                svg.setAttribute(
+                    'viewBox',
+                    `${
+                        window.innerWidth > 768
+                            ? `0 0 ${props.widthD} ${props.heightD}`
+                            : `0 0 ${props.widthM} ${props.heightM}`
+                    }`
+                );
+            }
         });
     }
 };
