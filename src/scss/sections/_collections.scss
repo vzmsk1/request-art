@@ -1,7 +1,7 @@
 .collections {
     margin-bottom: 13rem;
 
-    @include small-tablet{
+    @include small-tablet {
         margin-bottom: 24rem;
     }
 
@@ -31,7 +31,7 @@
                 display: flex;
                 align-items: center;
 
-                @include small-tablet{
+                @include small-tablet {
                     padding: 2.3rem 2.2rem;
                 }
 
@@ -62,7 +62,7 @@
                 display: block;
                 width: 14rem;
 
-                @include small-tablet{
+                @include small-tablet {
                     display: none;
                 }
             }
@@ -73,7 +73,7 @@
                 gap: 6rem;
                 margin-left: 16rem;
 
-                @include small-tablet{
+                @include small-tablet {
                     margin-left: 0;
                     width: 100%;
                     align-items: center;
@@ -85,7 +85,7 @@
                 border-radius: 1.5rem;
                 @include sizes(25rem, 14rem);
 
-                @include small-tablet{
+                @include small-tablet {
                     display: none;
                 }
 
@@ -107,9 +107,9 @@
                 -webkit-background-clip: text;
                 background-clip: text;
                 background-size: 0;
-                transition: background-size cubic-bezier(.1,.5,.5,1) 0.5s;
+                transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;
 
-                @include small-tablet{
+                @include small-tablet {
                     font-size: 10rem;
                     font-style: normal;
                     font-weight: 500;
@@ -124,7 +124,7 @@
                 align-items: center;
                 gap: 1.6rem;
 
-                @include small-tablet{
+                @include small-tablet {
                     display: none;
                 }
 
