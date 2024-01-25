@@ -1,3 +1,4 @@
+import { msnry } from '../components/masonry.js';
 import Swiper from 'swiper';
 import 'swiper/css';
 import { Navigation } from 'swiper/modules';
@@ -226,9 +227,37 @@ const toggleFiltersMenu = () => {
 };
 toggleFiltersMenu();
 
+/**
+ * removes attribute from dom element
+ * @param {HTMLElement | HTMLCollection} node
+ */
+const removeAttribute = (node, attr) => {
+    const remove = (el) => {
+        el.removeAttribute(attr);
+    };
+
+    if (node.length > 1) {
+        node.forEach((el) => {
+            console.log(el);
+            remove(el);
+        });
+    } else if (node.length === 1) {
+        remove(el);
+    }
+};
+
+if (document.querySelector('.portfolio__cards') && window.innerWidth > 768) {
+    removeAttribute(document.querySelector('.portfolio__cards'), 'style');
+    removeAttribute(document.querySelectorAll('.portfolio__card'), 'style');
+}
+
 // ------------------------------ hero gallery ------------------------------
 
 import '../components/hero-gallery.js';
+
+// ---------------------------------- macy ----------------------------------
+
+import '../components/masonry.js';
 
 // --------------------------------- events ---------------------------------
 
@@ -238,4 +267,15 @@ window.addEventListener('resize', function () {
     changeScrollableHeight();
     animateEllipse();
     toggleFiltersMenu();
+    if (document.querySelector('.portfolio__cards') && window.innerWidth > 768) {
+        msnry.destroy();
+        setTimeout(() => {
+            removeAttribute(document.querySelector('.portfolio__cards'), 'style');
+            removeAttribute(document.querySelectorAll('.portfolio__card'), 'style');
+        }, 0);
+    } else {
+        msnry.initLayout = true;
+        msnry.reloadItems();
+        msnry.layout();
+    }
 });
