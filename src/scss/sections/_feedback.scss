@@ -1,23 +1,26 @@
 .feedback {
+    display: block;
+    width: 100%;
     @include small-tablet {
         margin-bottom: 3.2rem;
     }
 
-    a {
-        display: block;
+    &__content {
+        display: flex;
+        justify-content: center;
         width: 100%;
-        color: #fff;
+        color: $white;
         font-family: $font-druk;
         font-size: 19.9646rem;
         font-style: normal;
         font-weight: 500;
         line-height: 23.387rem;
         text-align: center;
-        transition:
-            background 0.3s linear,
-            color 0.3s linear;
+        background: $bodyColor;
+        transition: background 0.3s linear, color 0.3s linear;
 
         @include small-tablet {
+            padding: 3.2rem 0;
             font-size: 11rem;
             font-style: normal;
             font-weight: 500;
@@ -26,9 +29,7 @@
         }
 
         &:hover {
-            transition:
-                background 0.3s linear,
-                color 0.3s linear;
+            transition: background 0.3s linear, color 0.3s linear;
             background-color: $yellow;
             color: $main;
         }

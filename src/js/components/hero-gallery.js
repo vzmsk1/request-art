@@ -88,7 +88,7 @@ if (document.getElementById('gallerySection')) {
                 Observer.getAll().forEach((o) => o.disable());
 
                 // window
-                gsap.to(window, { scrollTo: 0 });
+                // gsap.to(window, { scrollTo: 0 });
                 // plane section
                 gsap.to(this.gallerySection, { paddingTop: 0, marginTop: 0 });
                 // plane body

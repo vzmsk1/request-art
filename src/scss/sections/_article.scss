@@ -1,10 +1,11 @@
 .article {
     margin-top: 6.8rem;
-    margin-bottom: 16rem;
+    padding-bottom: 16rem;
 
     @include small-tablet {
         margin-top: 9.6rem;
         margin-bottom: 24rem;
+        padding-bottom: 0;
     }
 
     &__heading {
@@ -250,9 +251,7 @@
                     align-items: center;
                     justify-content: center;
                     padding: 1.2rem;
-                    transition:
-                        0.3s background ease,
-                        0.3s border ease;
+                    transition: 0.3s background ease, 0.3s border ease;
                     border: 0.1rem solid $white;
                     border-radius: 50%;
 

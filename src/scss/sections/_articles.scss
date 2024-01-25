@@ -2,10 +2,11 @@
     position: relative;
     z-index: 2;
     margin-top: 7.2rem;
-    margin-bottom: 16rem;
+    padding-bottom: 16rem;
 
     @include small-tablet {
         margin-bottom: 24rem;
+        padding-bottom: 0;
     }
 
     &__content {

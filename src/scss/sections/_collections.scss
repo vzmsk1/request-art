@@ -1,8 +1,9 @@
 .collections {
-    margin-bottom: 13rem;
+    padding-bottom: 13rem;
 
     @include small-tablet {
-        margin-bottom: 24rem;
+        margin-bottom: 20rem;
+        padding-bottom: 0;
     }
 
     &__articles {
