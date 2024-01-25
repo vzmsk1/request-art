@@ -1,0 +1,194 @@
+.portfolio {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 16rem;
+    @media (max-width: 48em) {
+        margin-bottom: 24rem;
+    }
+
+    // .portfolio__container
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        @media (max-width: 48em) {
+            .portfolio__card,
+            .grid-sizer {
+                width: 48%;
+            }
+        }
+    }
+
+    // .portfolio__cards
+
+    &__cards {
+        margin-bottom: 10rem;
+        max-width: 100vw;
+        @media (min-width: 48em) {
+            margin-bottom: 8rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10rem;
+        }
+    }
+
+    // .portfolio__card
+
+    &__card {
+    }
+
+    // .portfolio__link
+
+    &__link {
+        align-self: center;
+    }
+}
+
+.project-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    &:last-child {
+        .project-card__image-wrap {
+            height: 42rem;
+        }
+    }
+    @media (any-hover: hover) {
+        &:hover {
+            transform: rotate(-2deg);
+            &:nth-child(2n + 2) {
+                transform: rotate(2deg);
+            }
+            .project-card__content {
+                &::after {
+                    opacity: 1;
+                }
+                .project-card__title,
+                .project-card__subtitle {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+    @media (min-width: 48em) {
+        flex-direction: row;
+        width: 75.8rem;
+        height: 63.6rem;
+        border-radius: 4rem;
+        overflow: hidden;
+        transition: transform 0.4s ease;
+        &:last-child {
+            .project-card__image-wrap {
+                height: 100%;
+            }
+        }
+        &_large {
+            width: 86.3rem;
+            height: 63.5rem;
+        }
+        &_small {
+            width: 60.6rem;
+            height: 50rem;
+            justify-self: center;
+            align-self: center;
+        }
+    }
+
+    // .project-card__content
+
+    &__content {
+        position: relative;
+        padding: 2.4rem;
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
+        border-radius: 3rem;
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            row-gap: 0.5rem;
+            width: 100%;
+            height: 100%;
+            border-radius: 3rem;
+            background-color: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(3rem);
+        }
+        @media (min-width: 48em) {
+            position: absolute;
+            left: 3.5rem;
+            bottom: 3.5rem;
+            padding: 3rem 5rem;
+            &::after {
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .project-card__title,
+            .project-card__subtitle {
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+            }
+        }
+    }
+
+    // .project-card__title
+
+    &__title {
+        position: relative;
+        z-index: 2;
+    }
+
+    // .project-card__subtitle
+
+    &__subtitle {
+        position: relative;
+        z-index: 2;
+        color: rgba(255, 255, 255, 0.8);
+        @media (max-width: 48em) {
+            font-size: 2.4rem;
+        }
+    }
+
+    // .project-card__image-wrap
+
+    &__image-wrap {
+        height: 100%;
+        width: 100%;
+        @media (max-width: 48em) {
+            height: 29rem;
+            transform: translateY(-1.2rem);
+            .project-card_large & {
+                height: 42rem;
+            }
+            .project-card_small & {
+                height: 35rem;
+            }
+        }
+    }
+
+    // .project-card__image
+
+    &__image {
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        @media (max-width: 48em) {
+            border-radius: 3rem;
+        }
+    }
+}
+
+@media (min-width: 48em) {
+    .grid-sizer,
+    .gutter-sizer {
+        display: none;
+    }
+}
+
+.gutter-sizer {
+    width: 2rem;
+}

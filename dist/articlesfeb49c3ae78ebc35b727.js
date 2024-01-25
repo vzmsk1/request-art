@@ -264,6 +264,32 @@ if (document.getElementById('gallerySection')) {
 
 /***/ }),
 
+/***/ "./src/js/components/masonry.js":
+/*!**************************************!*\
+  !*** ./src/js/components/masonry.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   msnry: () => (/* binding */ msnry)
+/* harmony export */ });
+/* harmony import */ var masonry_layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! masonry-layout */ "./node_modules/masonry-layout/masonry.js");
+/* harmony import */ var masonry_layout__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(masonry_layout__WEBPACK_IMPORTED_MODULE_0__);
+
+const msnry = new (masonry_layout__WEBPACK_IMPORTED_MODULE_0___default())('.portfolio__cards', {
+  // options...
+  itemSelector: '.portfolio__card',
+  columnWidth: '.grid-sizer',
+  gutter: '.gutter-sizer',
+  horizontalOrder: true,
+  percentPosition: true,
+  initLayout: window.innerWidth <= 768 ? true : false
+});
+
+/***/ }),
+
 /***/ "./src/js/components/ymaps.js":
 /*!************************************!*\
   !*** ./src/js/components/ymaps.js ***!
@@ -488,20 +514,22 @@ gsap__WEBPACK_IMPORTED_MODULE_2__["default"].to(section, {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.mjs");
-/* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/css */ "./node_modules/swiper/swiper.css");
-/* harmony import */ var swiper_modules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! swiper/modules */ "./node_modules/swiper/modules/index.mjs");
-/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/utils */ "./src/js/utils/utils.js");
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
-/* harmony import */ var gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! gsap/ScrollTrigger */ "./node_modules/gsap/ScrollTrigger.js");
-/* harmony import */ var _components_hero_gallery_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/hero-gallery.js */ "./src/js/components/hero-gallery.js");
+/* harmony import */ var _components_masonry_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/masonry.js */ "./src/js/components/masonry.js");
+/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.mjs");
+/* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! swiper/css */ "./node_modules/swiper/swiper.css");
+/* harmony import */ var swiper_modules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! swiper/modules */ "./node_modules/swiper/modules/index.mjs");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/utils */ "./src/js/utils/utils.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! gsap/ScrollTrigger */ "./node_modules/gsap/ScrollTrigger.js");
+/* harmony import */ var _components_hero_gallery_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/hero-gallery.js */ "./src/js/components/hero-gallery.js");
 
 
 
 
 
 
-gsap__WEBPACK_IMPORTED_MODULE_4__["default"].registerPlugin(gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_5__.ScrollTrigger);
+
+gsap__WEBPACK_IMPORTED_MODULE_5__["default"].registerPlugin(gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__.ScrollTrigger);
 
 // --------------------------------------------------------------------------
 
@@ -537,10 +565,10 @@ setWaveSvgProps();
  */
 const initSliders = () => {
   if (document.querySelector('.stages__slider')) {
-    const stagesSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.stages__slider', {
-      modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_2__.Navigation],
+    const stagesSlider = new swiper__WEBPACK_IMPORTED_MODULE_1__["default"]('.stages__slider', {
+      modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_3__.Navigation],
       slidesPerView: 'auto',
-      spaceBetween: `${(0,_utils_utils__WEBPACK_IMPORTED_MODULE_3__.remToPx)(6)}rem`,
+      spaceBetween: `${(0,_utils_utils__WEBPACK_IMPORTED_MODULE_4__.remToPx)(6)}rem`,
       rewind: true,
       speed: 800,
       navigation: {
@@ -557,7 +585,7 @@ initSliders();
  */
 const createMarquee = () => {
   if (document.querySelectorAll('[data-marquee-part]').length) {
-    gsap__WEBPACK_IMPORTED_MODULE_4__["default"].to('[data-marquee-part]', {
+    gsap__WEBPACK_IMPORTED_MODULE_5__["default"].to('[data-marquee-part]', {
       xPercent: -100,
       repeat: -1,
       duration: 5,
@@ -581,11 +609,11 @@ const initSelectModal = () => {
       popupBody.innerHTML = options;
       selectPopup.querySelector('.select__scroll').removeAttribute('data-simplebar');
       selectPopup.querySelector('.select__scroll').setAttribute('data-simplebar', '');
-      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_3__.bodyLock)();
+      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_4__.bodyLock)();
     };
     const hidePopup = () => {
       document.documentElement.classList.remove('_show-select-popup');
-      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_3__.bodyUnlock)();
+      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_4__.bodyUnlock)();
     };
     const setSelectData = () => {
       document.querySelectorAll('[data-sel-popup]').forEach(dropdown => {
@@ -596,7 +624,7 @@ const initSelectModal = () => {
           if (window.innerWidth <= 768) {
             const parent = selectBtn.closest('.select');
             const options = parent.querySelector('.select__options').outerHTML;
-            if (!selectBtn.closest('._select-opened') && _utils_utils__WEBPACK_IMPORTED_MODULE_3__.bodyLockStatus) {
+            if (!selectBtn.closest('._select-opened') && _utils_utils__WEBPACK_IMPORTED_MODULE_4__.bodyLockStatus) {
               showPopup(title, options);
             }
           }
@@ -606,12 +634,12 @@ const initSelectModal = () => {
     const handleClickEvent = () => {
       selectPopup.addEventListener('click', function (e) {
         const target = e.target;
-        if (document.documentElement.classList.contains('_show-select-popup') && _utils_utils__WEBPACK_IMPORTED_MODULE_3__.bodyLockStatus && window.innerWidth <= 768) {
+        if (document.documentElement.classList.contains('_show-select-popup') && _utils_utils__WEBPACK_IMPORTED_MODULE_4__.bodyLockStatus && window.innerWidth <= 768) {
           if (target.closest('.select-popup__close-btn') || !target.closest('.select-popup__inner')) {
             hidePopup();
           }
           if (target.closest('.select__option')) {
-            (0,_utils_utils__WEBPACK_IMPORTED_MODULE_3__.removeClasses)(selectPopup.querySelectorAll('.select__option'), '_select-selected');
+            (0,_utils_utils__WEBPACK_IMPORTED_MODULE_4__.removeClasses)(selectPopup.querySelectorAll('.select__option'), '_select-selected');
             target.closest('.select__option').classList.add('_select-selected');
           }
         }
@@ -644,9 +672,9 @@ changeScrollableHeight();
  */
 const animateEllipse = () => {
   if (document.getElementById('PHEllipse')) {
-    const mm = gsap__WEBPACK_IMPORTED_MODULE_4__["default"].matchMedia();
+    const mm = gsap__WEBPACK_IMPORTED_MODULE_5__["default"].matchMedia();
     mm.add('(min-width: 768px)', () => {
-      const tl = gsap__WEBPACK_IMPORTED_MODULE_4__["default"].timeline({
+      const tl = gsap__WEBPACK_IMPORTED_MODULE_5__["default"].timeline({
         scrollTrigger: {
           trigger: '#portfolioHero',
           scrub: !0,
@@ -672,14 +700,14 @@ animateEllipse();
  * toggles filters menu
  */
 const toggleFiltersMenu = () => {
-  if (document.getElementById('showFiltersBtn') && _utils_utils__WEBPACK_IMPORTED_MODULE_3__.bodyLockStatus) {
+  if (document.getElementById('showFiltersBtn') && _utils_utils__WEBPACK_IMPORTED_MODULE_4__.bodyLockStatus) {
     const showFiltersMenu = () => {
       document.documentElement.classList.add('_show-filters-menu');
-      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_3__.bodyLock)();
+      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_4__.bodyLock)();
     };
     const hideFiltersMenu = () => {
       document.documentElement.classList.remove('_show-filters-menu');
-      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_3__.bodyUnlock)();
+      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_4__.bodyUnlock)();
     };
     document.getElementById('showFiltersBtn').addEventListener('click', showFiltersMenu);
     document.getElementById('hideFiltersBtn').addEventListener('click', hideFiltersMenu);
@@ -690,7 +718,33 @@ const toggleFiltersMenu = () => {
 };
 toggleFiltersMenu();
 
+/**
+ * removes attribute from dom element
+ * @param {HTMLElement | HTMLCollection} node
+ */
+const removeAttribute = (node, attr) => {
+  const remove = el => {
+    el.removeAttribute(attr);
+  };
+  if (node.length > 1) {
+    node.forEach(el => {
+      console.log(el);
+      remove(el);
+    });
+  } else if (node.length === 1) {
+    remove(el);
+  }
+};
+if (document.querySelector('.portfolio__cards') && window.innerWidth > 768) {
+  removeAttribute(document.querySelector('.portfolio__cards'), 'style');
+  removeAttribute(document.querySelectorAll('.portfolio__card'), 'style');
+}
+
 // ------------------------------ hero gallery ------------------------------
+
+
+
+// ---------------------------------- macy ----------------------------------
 
 
 
@@ -702,6 +756,17 @@ window.addEventListener('resize', function () {
   changeScrollableHeight();
   animateEllipse();
   toggleFiltersMenu();
+  if (document.querySelector('.portfolio__cards') && window.innerWidth > 768) {
+    _components_masonry_js__WEBPACK_IMPORTED_MODULE_0__.msnry.destroy();
+    setTimeout(() => {
+      removeAttribute(document.querySelector('.portfolio__cards'), 'style');
+      removeAttribute(document.querySelectorAll('.portfolio__card'), 'style');
+    }, 0);
+  } else {
+    _components_masonry_js__WEBPACK_IMPORTED_MODULE_0__.msnry.initLayout = true;
+    _components_masonry_js__WEBPACK_IMPORTED_MODULE_0__.msnry.reloadItems();
+    _components_masonry_js__WEBPACK_IMPORTED_MODULE_0__.msnry.layout();
+  }
 });
 
 /***/ }),
@@ -4424,7 +4489,7 @@ main {
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: #000000;
+  background-color: #ffffff;
   transform-origin: center;
   transform: scaleX(1);
   transition: transform 0.3s ease;
@@ -4439,6 +4504,10 @@ main {
     top: calc(100% + 1.2rem);
   }
 }
+.link__text {
+  font-family: "DrukCyr";
+}
+
 .sl-btn {
   display: inline-flex;
   align-items: center;
@@ -5926,7 +5995,7 @@ body::after {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  z-index: 1;
+  z-index: 2000;
 }
 @media (min-width: 48em) {
   .hero-gallery__footer {
@@ -5975,7 +6044,6 @@ body::after {
 }
 .hero-gallery__showmore-btn {
   position: relative;
-  z-index: 2000;
 }
 ._scale .hero-gallery__showmore-btn {
   display: none;
@@ -7418,6 +7486,7 @@ body::after {
 
 .filters-btn {
   position: fixed;
+  z-index: 100;
   left: 50%;
   bottom: 4rem;
   padding: 1.6rem 4rem;
@@ -7442,6 +7511,179 @@ body::after {
   .filters-btn {
     display: none;
   }
+}
+
+.portfolio {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 16rem;
+}
+@media (max-width: 48em) {
+  .portfolio {
+    margin-bottom: 24rem;
+  }
+}
+.portfolio__container {
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 48em) {
+  .portfolio__container .portfolio__card,
+  .portfolio__container .grid-sizer {
+    width: 48%;
+  }
+}
+.portfolio__cards {
+  margin-bottom: 10rem;
+  max-width: 100vw;
+}
+@media (min-width: 48em) {
+  .portfolio__cards {
+    margin-bottom: 8rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10rem;
+  }
+}
+.portfolio__link {
+  align-self: center;
+}
+
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+}
+.project-card:last-child .project-card__image-wrap {
+  height: 42rem;
+}
+@media (any-hover: hover) {
+  .project-card:hover {
+    transform: rotate(-2deg);
+  }
+  .project-card:hover:nth-child(2n+2) {
+    transform: rotate(2deg);
+  }
+  .project-card:hover .project-card__content::after {
+    opacity: 1;
+  }
+  .project-card:hover .project-card__content .project-card__title,
+  .project-card:hover .project-card__content .project-card__subtitle {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+@media (min-width: 48em) {
+  .project-card {
+    flex-direction: row;
+    width: 75.8rem;
+    height: 63.6rem;
+    border-radius: 4rem;
+    overflow: hidden;
+    transition: transform 0.4s ease;
+  }
+  .project-card:last-child .project-card__image-wrap {
+    height: 100%;
+  }
+  .project-card_large {
+    width: 86.3rem;
+    height: 63.5rem;
+  }
+  .project-card_small {
+    width: 60.6rem;
+    height: 50rem;
+    justify-self: center;
+    align-self: center;
+  }
+}
+.project-card__content {
+  position: relative;
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  border-radius: 3rem;
+}
+.project-card__content::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  row-gap: 0.5rem;
+  width: 100%;
+  height: 100%;
+  border-radius: 3rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(3rem);
+}
+@media (min-width: 48em) {
+  .project-card__content {
+    position: absolute;
+    left: 3.5rem;
+    bottom: 3.5rem;
+    padding: 3rem 5rem;
+  }
+  .project-card__content::after {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .project-card__content .project-card__title,
+  .project-card__content .project-card__subtitle {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+}
+.project-card__title {
+  position: relative;
+  z-index: 2;
+}
+.project-card__subtitle {
+  position: relative;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.8);
+}
+@media (max-width: 48em) {
+  .project-card__subtitle {
+    font-size: 2.4rem;
+  }
+}
+.project-card__image-wrap {
+  height: 100%;
+  width: 100%;
+}
+@media (max-width: 48em) {
+  .project-card__image-wrap {
+    height: 29rem;
+    transform: translateY(-1.2rem);
+  }
+  .project-card_large .project-card__image-wrap {
+    height: 42rem;
+  }
+  .project-card_small .project-card__image-wrap {
+    height: 35rem;
+  }
+}
+.project-card__image {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 48em) {
+  .project-card__image {
+    border-radius: 3rem;
+  }
+}
+
+@media (min-width: 48em) {
+  .grid-sizer,
+  .gutter-sizer {
+    display: none;
+  }
+}
+.gutter-sizer {
+  width: 2rem;
 }
 
 .services {
@@ -9999,7 +10241,7 @@ figure {
   .rates-item__icon {
     display: none;
   }
-}`, "",{"version":3,"sources":["webpack://./src/scss/fonts.scss","webpack://./src/scss/style.scss","webpack://./src/scss/set.scss","webpack://./src/scss/sections/header.scss","webpack://./src/scss/sections/footer.scss","webpack://./src/scss/mixins.scss","webpack://./src/ui/typo.scss","webpack://./src/ui/buttons.scss","webpack://./src/ui/inputs.scss","webpack://./src/ui/tabs.scss","webpack://./src/ui/accordion.scss","webpack://./src/ui/select.scss","webpack://./src/ui/radio-btns.scss","webpack://./src/ui/social.scss","webpack://./src/ui/modals.scss","webpack://./src/scss/dev/vzmsk1.scss","webpack://./src/scss/sections/_hero-gallery.scss","webpack://./src/scss/sections/_articles-hero.scss","webpack://./src/scss/sections/_stages.scss","webpack://./src/scss/sections/_service-hero.scss","webpack://./src/scss/sections/_application.scss","webpack://./src/scss/sections/_about-hero.scss","webpack://./src/scss/sections/_priorities.scss","webpack://./src/scss/sections/_portfolio-hero.scss","webpack://./src/scss/sections/_filters.scss","webpack://./src/scss/sections/_services.scss","webpack://./src/scss/sections/_collections.scss","webpack://./src/scss/sections/_feedback.scss","webpack://./src/scss/sections/_article.scss","webpack://./src/scss/sections/_our-team.scss","webpack://./src/scss/sections/_achievements.scss","webpack://./src/scss/sections/_contacts-map.scss","webpack://./src/scss/sections/_articles.scss","webpack://./src/scss/dev/ukik0.scss","webpack://./src/scss/sections/_main-collections.scss","webpack://./src/scss/sections/_main-advantages.scss","webpack://./src/scss/sections/_main-concept.scss","webpack://./src/scss/sections/_main-links.scss","webpack://./src/scss/sections/_main-rates.scss"],"names":[],"mappings":"AAAA;EACE,sBAAA;EACA,gBAAA;EACA,+DAAA;ACCF;ADEA;EACE,8BAAA;EACA,gBAAA;EACA,sEAAA;ACAF;ADGA;EACE,8BAAA;EACA,gBAAA;EACA,uEAAA;ACDF;ADIA;EACE,8BAAA;EACA,gBAAA;EACA,yEAAA;ACFF;ACnBA;;;EAGI,sBAAA;ADqBJ;;ACnBA;EACI,8BAAA;EACA,sBAAA;EACA,kBAAA;EACA,mBAAA;EACA,qCAAA;EACA,gBAAA;EACA,SAAA;EACA,UAAA;ADsBJ;;ACnBA;EACI,kBAAA;EACA,mBAAA;EACA,qCAAA;EACA,gBAAA;EACA,SAAA;EACA,UAAA;EACA,cDbI;ECcJ,yBDZQ;AAkCZ;;ACnBA;;EAEI,qCAAA;EACA,oBAAA;EACA,SAAA;EACA,UAAA;EACA,6BAAA;EACA,YAAA;EACA,cAAA;ADsBJ;;ACpBA;EACI,YAAA;ADuBJ;;ACrBA;;EAEI,qBAAA;ADwBJ;;ACrBA;;;;EAII,aAAA;EACA,eAAA;EACA,aAAA;ADwBJ;ACvBI;;;;EACI,aAAA;AD4BR;AC1BI;;;;EACI,aAAA;AD+BR;;AC3BA;;;;;;EAMI,aAAA;EACA,SAAA;EACA,UAAA;AD8BJ;;AC5BA;EACI,aAAA;EACA,gBAAA;AD+BJ;;AC5BA;EACI,WAAA;EACA,YAAA;EACA,cAAA;AD+BJ;;AC5BA;EACI,YAAA;EACA,cAAA;EACA,aAAA;EACA,mBAAA;EACA,UAAA;EACA,6BAAA;AD+BJ;;AC7BA;EACI,UAAA;EACA,SAAA;ADgCJ;;AC7BA;EACI,SAAA;EACA,UAAA;EACA,gBAAA;ADgCJ;;AC7BA;EACI,aAAA;EACA,cAAA;ADgCJ;;AC7BA;;EAEI,wBAAA;EACA,SAAA;ADgCJ;;AC7BA;EACI,0BAAA;ADgCJ;;AC7BA;;EAEI,WAAA;EACA,YAAA;EACA,mBAAA;ADgCJ;;AC7BA;EACI;IACI,eAAA;EDgCN;AACF;AC7BA;EACI;IACI,cAAA;IACA,mBAAA;IACA,yBAAA;IACA,8BAAA;ED+BN;EC5BE;IACI,8BAAA;ED8BN;EC3BE;IACI,eAAA;IACA,WAAA;ED6BN;AACF;AA1IA;;EAEI,gBAAA;EACA,kBAAA;AA4IJ;;AA1IA;;EAEI,kBAAA;AA6IJ;;AAzIA;EACI,mBAAA;AA4IJ;AA3II;EAFJ;IAGQ,oBAAA;EA8IN;AACF;;AA1II;EADJ;IAEQ,aAAA;EA8IN;AACF;;AA3IA;EACI,aAAA;AA8IJ;AA5II;EAHJ;IAIQ,cAAA;EA+IN;AACF;;AA5IA;EACI,cAAA;EACA,iBAAA;AA+IJ;;AEnNA;EACI,eAAA;EACA,WAAA;EACA,MAAA;EACA,OAAA;EACA,aAAA;EACA,yBFMQ;EELR,mDAAA;AFsNJ;AEpNI;EACI,aAAA;EACA,mBAAA;EACA,8BAAA;EACA,SAAA;AFsNR;AEnNI;EACI,aAAA;AFqNR;AElNI;EACI,eAAA;EACA,YAAA;EACA,cAAA;EACA,kDAAA;AFoNR;AEjNI;EACI,iBAAA;EACA,cAAA;AFmNR;AEhNI;EACI,SAAA;AFkNR;AEhNI;EACI,aAAA;EACA,cAAA;AFkNR;;AE9MA;EACI,aAAA;EACA,mBAAA;AFiNJ;AE/MI;EACI,cAAA;EACA,eAAA;EACA,iBAAA,EAAA,SAAA;EACA,6BAAA;AFiNR;AE/MQ;EAEI,6BAAA;EACA,cFvCJ;AAuPR;;AE3MA;EACI;IACI,mBAAA;EF8MN;EE7MM;IACI,mDAAA;EF+MV;EE3MU;IACI,aAAA;EF6Md;EE3MU;IACI,2BAAA;EF6Md;EE1MM;IACI,kBAAA;IACA,UAAA;IACA,yBFjEA;EA6QV;EEzMM;IACI,aAAA;IACA,mBAAA;IACA,8BAAA;IACA,SAAA;IACA,wBAAA;EF2MV;EExMM;IACI,aAAA;IACA,aAAA;IACA,cAAA;EF0MV;EEvMM;IACI,UAAA;IACA,cAAA;IACA,cAAA;IACA,kBAAA;EFyMV;EEtMM;IACI,WAAA;IACA,YAAA;EFwMV;EErMM;IACI,aAAA;EFuMV;EEpMM;IACI,aAAA;IACA,cAAA;EFsMV;AACF;AEnMA;EAEQ;IACI,WAAA;IACA,YAAA;IAEA,aAAA;IACA,uBAAA;IACA,sBAAA;IACA,WAAA;EFmMV;EEjMU;IACI,cAAA;IACA,WAAA;IACA,cAAA;IACA,yBFzHR;IE0HQ,qBAAA;EFmMd;EE/LM;IACI,aAAA;EFiMV;EE7LU;IACI,aAAA;EF+Ld;EE7LU;IACI,cAAA;IACA,WAAA;IACA,YAAA;EF+Ld;EE1LE;IACI,aAAA;IACA,sBAAA;IACA,8BAAA;IACA,UAAA;IACA,kBAAA;IACA,YAAA;IACA,OAAA;IACA,UAAA;IACA,iCAAA;IACA,4BAAA;IAEA,WAAA;IACA,6BAAA;IACA,yBF1JI;EAqVV;EEzLM;IACI,iCAAA;IACA,wBAAA;EF2LV;EExLM;IACI,aAAA;IACA,mBAAA;IACA,sBAAA;IACA,kBAAA;EF0LV;EExLM;IACI,aAAA;IACA,sBAAA;IACA,mBAAA;IACA,gCAAA;IAEA,wBAAA;EFyLV;EExLU;IACI,aAAA;IACA,mBAAA;IACA,WAAA;EF0Ld;EEzLc;IACI,aAAA;IACA,cAAA;EF2LlB;EE1LkB;IACI,aFrLjB;EAiXL;EExLc;IACI,cF1Lb;IE2La,iBAAA;IACA,kBAAA;IACA,gBAAA;IACA,mBAAA;EF0LlB;EErLM;IACI,aAAA;IACA,uBAAA;IAEA,WAAA;IACA,cF3MJ;IE4MI,sBF/MA;IEgNA,gBAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA,EAAA,SAAA;IACA,yBAAA;IACA,iBAAA;IAEA,mCAAA;EFqLV;EEnLU;IACI,gCAAA;EFqLd;EElLU;IAGI,yBF1NT;IE2NS,cF5NJ;EA8YV;AACF;AG3ZA;EACI,yBHeK;EGdL,cHgBG;AA6YP;AG3ZI;EACI,eAAA;AH6ZR;AG1ZI;EACI,mBAAA;AH4ZR;AGzZI;EACI,UAAA;AH2ZR;AGxZI;EACI,aAAA;EACA,UAAA;EACA,qBAAA;AH0ZR;AGvZI;EACI,cHLD;EGMC,eAAA;EACA,gBAAA;AHyZR;AGtZI;EACI,WAAA;AHwZR;AGrZI;EACI,aAAA;EACA,sBAAA;EACA,iBAAA;EACA,WAAA;AHuZR;AGpZI;EACI,cHtBD;EGuBC,iBAAA;EACA,mBAAA;AHsZR;AGpZQ;EAGI,0BAAA;AHoZZ;AGhZI;EACI,cHlCD;EGmCC,eAAA;EACA,mBAAA;EAEA,kBAAA;AHiZR;AG/YQ;EACI,WAAA;EACA,WAAA;EACA,eAAA;EACA,yBH5CL;EG8CK,kBAAA;EACA,OAAA;EACA,SAAA;EACA,UAAA;AHgZZ;AG3YY;EACI,aAAA;AH6YhB;AGxYI;EACI,gBAAA;EACA,sBHzEI;EG0EJ,kBAAA;EACA,kBAAA;EACA,gBAAA;EACA,oBAAA;EACA,yBAAA;AH0YR;AIxdI;EDuEA;IAUQ,gBAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,yBAAA;EH2YV;AACF;;AGxYA;EACI,aAAA;AH2YJ;AGvYY;EACI,qCAAA;AHyYhB;AGrYY;EACI,0BAAA;AHuYhB;AGpYQ;EACI,iBAAA;AHsYZ;AGrYY;EACI,qCAAA;AHuYhB;;AGhYI;EACI,qBAAA;AHmYR;AGhYI;EACI,mBAAA;EACA,aAAA;EACA,cAAA;AHkYR;AG/XI;EACI,oBAAA;EACA,mBAAA;EACA,gBAAA;AHiYR;AG/XQ;EAGI,0BAAA;AH+XZ;;AG1XA;EACI;IACI,yBHjIC;IGkID,cHhID;EA6fL;EG3XM;IACI,0BAAA;EH6XV;EG1XM;IACI,qBAAA;EH4XV;EGzXM;IACI,oBAAA;IACA,SAAA;EH2XV;EGxXM;IACI,aAAA;IACA,sBAAA;IACA,SAAA;IACA,mBAAA;EH0XV;EGvXM;IACI,QAAA;IACA,kBAAA;IACA,iBAAA;IACA,WAAA;EHyXV;EGtXM;IACI,SAAA;IACA,QAAA;IACA,kBAAA;EHwXV;EGrXM;IACI,kBAAA;IACA,aAAA;IACA,sBAAA;IACA,cAAA;IACA,SAAA;IACA,QAAA;EHuXV;EGpXM;IACI,iBAAA;EHsXV;EGnXM;IACI,cHjLL;IGkLK,eAAA;IAEA,kBAAA;EHoXV;EGlXU;IACI,aAAA;EHoXd;EGhXM;IACI,kBAAA;IACA,gBAAA;IACA,mBAAA;EHkXV;EG/WE;IACI,aAAA;IACA,uCAAA;IACA,qBAAA;EHiXN;EG9WU;IACI,gBAAA;EHgXd;EG9WU;IACI,cAAA;EHgXd;EG1WM;IACI,mBAAA;EH4WV;EGzWM;IACI,mBAAA;IACA,aAAA;IACA,sBAAA;IACA,WAAA;EH2WV;EGxWM;IACI,oBAAA;IACA,mBAAA;IACA,gBAAA;EH0WV;EGxWU;IAGI,0BAAA;EHwWd;AACF;AK/lBA;;;EAGI,oBAAA;EACA,gBAAA;EACA,yBAAA;ALimBJ;;AK9lBA;EACI,gBAAA;EACA,iBAAA;ALimBJ;AKhmBI;EAHJ;IAIQ,gBAAA;IACA,iBAAA;ELmmBN;AACF;;AKhmBA;EACI,iBAAA;EACA,gBAAA;ALmmBJ;;AKhmBA;EACI,eAAA;EACA,iBAAA;ALmmBJ;AKlmBI;EAHJ;IAIQ,eAAA;IACA,uBAAA;ELqmBN;AACF;;AKhmBA;EACI,iBAAA;ALmmBJ;AKlmBI;EAFJ;IAGQ,eAAA;IACA,iBAAA;ELqmBN;AACF;;AKlmBA;EACI,iBAAA;ALqmBJ;AKnmBI;EACI,eAAA;EACA,iBAAA;EACA,uBAAA;EACA,yBAAA;ALqmBR;AKnmBI;EACI,gBAAA;ALqmBR;AKnmBI;EAZJ;IAaQ,eAAA;IACA,iBAAA;ELsmBN;EKrmBM;IACI,iBAAA;IACA,gBAAA;IACA,qBAAA;IACA,wBAAA;ELumBV;AACF;;AKlmBI;EACI,iBAAA;EACA,gBAAA;ALqmBR;AKpmBQ;EAHJ;IAIQ,iBAAA;ELumBV;AACF;;AKnmBA;EACI,iBAAA;ALsmBJ;AKrmBI;EAFJ;IAGQ,iBAAA;ELwmBN;AACF;;AKrmBA;EACI,iBAAA;ALwmBJ;AKvmBI;EAFJ;IAGQ,eAAA;EL0mBN;AACF;;AKvmBA;EACI,iBAAA;AL0mBJ;AKzmBI;EAFJ;IAGQ,iBAAA;EL4mBN;AACF;;AKzmBA;EACI,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;AL4mBJ;;AKzmBA;EACI,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;AL4mBJ;AIhtBI;ECgGJ;IAOQ,iBAAA;EL6mBN;AACF;;AK1mBA;EACI,sBAAA;EACA,oBAAA;EACA,kBAAA;EACA,gBAAA;EACA,gBAAA,EAAA,aAAA;EACA,yBAAA;AL6mBJ;;AK1mBA;EACI,eAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA,EAAA,SAAA;AL6mBJ;AIruBI;ECoHJ;IAOQ,iBAAA;EL8mBN;AACF;;AMjvBA;EACI,kCAAA;EACA,oBAAA;EACA,uBAAA;EACA,mBAAA;EACA,kBAAA;EACA,kBAAA;EACA,qBAAA;EACA,yBAAA;EACA,sCAAA;ANovBJ;AMnvBI;EACI,yBAAA;ANqvBR;AMpvBQ;EACI,cNFJ;AAwvBR;AMnvBI;EACI,yBAAA;ANqvBR;AMpvBQ;EACI,cNTJ;AA+vBR;AMnvBI;EAEQ;IACI,yBNVR;EA8vBN;EMlvBU;IACI,yBNjBR;EAqwBN;EMlvBU;IACI,yBNrBR;EAywBN;EMnvBc;IACI,cNtBZ;EA2wBN;EMnvBc;IACI,aNzBZ;EA8wBN;EMlvBU;IACI,cN9BR;EAkxBN;EMjvBc;IACI,aNlCZ;EAqxBN;AACF;AM/uBI;EAjDJ;IAkDQ,8BAAA;IACA,kBAAA;IACA,oBAAA;ENkvBN;AACF;AM/uBI;EACI,oBAAA;EACA,cN3CA;EM4CA,2BAAA;ANivBR;AM7uBI;EACI,gBAAA;EACA,aAAA;EACA,cAAA;AN+uBR;AM9uBQ;EACI,0BAAA;ANgvBZ;AM9uBQ;EAPJ;IAQQ,cAAA;IACA,WAAA;IACA,YAAA;ENivBV;AACF;;AM7tBA;EACI,aAAA;EACA,mBAAA;EACA,kBAAA;ANguBJ;AM/tBI;EAGY;IACI,aN5FZ;EA2zBN;EM7tBc;IACI,aN5Fb;EA2zBL;AACF;AM3tBI;EAhBJ;IAiBQ,kBAAA;EN8tBN;AACF;AM1tBI;EACI,gBAAA;EACA,aAAA;EACA,cAAA;EACA,kBAAA;AN4tBR;AM3tBQ;;EAEI,0BAAA;AN6tBZ;AM3tBQ;EATJ;IAUQ,cAAA;IACA,WAAA;IACA,YAAA;EN8tBV;AACF;AMztBI;EACI,oBAAA;EACA,cN3HD;AAs1BP;;AMpsBA;EACI,kBAAA;ANusBJ;AMtsBI;EACI,WAAA;EACA,kBAAA;EACA,wBAAA;EACA,OAAA;EACA,WAAA;EACA,WAAA;EACA,yBN7JA;EM8JA,wBAAA;EACA,oBAAA;EACA,+BAAA;ANwsBR;AMtsBI;EAEQ;IACI,uBAAA;ENusBd;AACF;AMpsBI;EACI;IACI,wBAAA;ENssBV;AACF;AMxrBA;EACI,oBAAA;EACA,mBAAA;EACA,uBAAA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;EACA,yBNvLU;AAi3Bd;AMzrBI;EACI,WAAA;EACA,YAAA;AN2rBR;;AO14BA;;;;EAII,wBAAA;EACA,qBAAA;EACA,gBAAA;AP64BJ;;AO34BA;;EAEI,aAAA;AP84BJ;;AO34BA;EACI,kBAAA;AP84BJ;AO54BQ;EACI,cPPJ;EOQI,gCAAA;AP84BZ;AO74BY;EACI,cPVR;AAy5BR;AOv4BQ;EACI,gCAAA;APy4BZ;AOp4BI;EACI,sBAAA;EACA,cAAA;EACA,WAAA;EACA,2BAAA;EACA,gCAAA;EACA,4BAAA;EACA,cAAA;EACA,cP/BA;EOgCA,mCAAA;APs4BR;AOr4BQ;EACI,cPlCJ;AAy6BR;AOr4BQ;EAbJ;IAcQ,oBAAA;EPw4BV;AACF;;AOp4BA;EACI,UAAA;EACA,YAAA;APu4BJ;;AOp4BA;EACI,kBAAA;EACA,wBAAA;EACA,OAAA;EACA,cP3CE;AAk7BN;AOt4BI;EALJ;IAMQ,sBAAA;EPy4BN;AACF;;AOt4BA;EACI,aAAA;EACA,sBAAA;EACA,aAAA;APy4BJ;AOv4BQ;EACI,yBPhEJ;AAy8BR;AOt4BI;EATJ;IAUQ,mBAAA;IACA,kBAAA;IACA,eAAA;EPy4BN;AACF;AOr4BI;EACI,aAAA;EACA,sBAAA;EACA,eAAA;APu4BR;AOl4BI;EACI,kBAAA;EACA,aAAA;EACA,mBAAA;EACA,kBAAA;APo4BR;AOn4BQ;EALJ;IAMQ,kBAAA;EPs4BV;AACF;AOj4BI;EACI,oBAAA;EACA,mBAAA;EACA,uBAAA;EACA,cAAA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;EACA,yBPtGA;AAy+BR;AOl4BQ;EATJ;IAUQ,cAAA;IACA,WAAA;IACA,YAAA;EPq4BV;AACF;AOh4BI;EACI,aAAA;EACA,cAAA;EACA,mBAAA;APk4BR;AOj4BQ;EAJJ;IAKQ,WAAA;IACA,YAAA;EPo4BV;AACF;AO/3BI;EACI,sBAAA;APi4BR;AO53BI;EACI,kBAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,UAAA;AP83BR;AOx3BQ;EACI,cPvIN;AAigCN;AOp3BI;EACI,kBAAA;EACA,eAAA;EACA,qBAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;EACA,qBAAA;EACA,yBPnJM;AAygCd;AOr3BQ;EACI,aAAA;APu3BZ;AOr3BQ;EAZJ;IAaQ,eAAA;IACA,sBAAA;IACA,kBAAA;IACA,cAAA;IACA,mBAAA;EPw3BV;AACF;AOn3BI;EACI,kBAAA;EACA,gBAAA;EACA,aAAA;EACA,cAAA;APq3BR;AOp3BQ;EACI,WAAA;EACA,kBAAA;EACA,cAAA;EACA,aAAA;EACA,WAAA;EACA,YAAA;EACA,wDAAA;EACA,wBAAA;EACA,4BAAA;APs3BZ;AOr3BY;EACI,sDAAA;APu3BhB;AOp3BQ;EACI,cAAA;EACA,YAAA;EACA,mBAAA;EACA,iBAAA;APs3BZ;AOp3BQ;EAzBJ;IA0BQ,eAAA;IACA,YAAA;IACA,aAAA;EPu3BV;EOt3BU;IACI,cAAA;IACA,aAAA;IACA,aAAA;IACA,cAAA;EPw3Bd;EOt3BU;IACI,mBAAA;EPw3Bd;AACF;AOl3BI;EACI,aAAA;EACA,sBAAA;APo3BR;AO/2BI;EACI,qBAAA;EACA,mBAAA;EACA,aAAA;EACA,cPnOA;AAolCR;AOh3BQ;EACI,cAAA;APk3BZ;AOj3BY;EACI,gBAAA;EACA,gBAAA;EACA,uBAAA;EACA,mBAAA;APm3BhB;AOh3BQ;EAdJ;IAeQ,qBAAA;IACA,iBAAA;EPm3BV;EOj3Bc;IACI,gBAAA;EPm3BlB;AACF;AO52BI;EACI,+BAAA;AP82BR;AOz2BI;EACI,kBAAA;EACA,WAAA;EACA,aAAA;EACA,aAAA;EACA,cAAA;AP22BR;AO12BQ;EANJ;IAOQ,SAAA;IACA,WAAA;IACA,aAAA;IACA,cAAA;EP62BV;AACF;AOx2BI;EACI,YAAA;EACA,mBAAA;AP02BR;;AQnoCI;EACI,aAAA;EACA,gBAAA;ARsoCR;AQnnCA;EACI,kBAAA;EACA,oCAAA;EACA,oBAAA;EACA,uBAAA;EACA,mBAAA;EACA,yBAAA;EACA,mBAAA;EACA,sBAAA;EACA,cRtBI;EQuBJ,kBAAA;EACA,sCAAA;ARqnCJ;AQpnCI;EACI,kBAAA;EACA,MAAA;EACA,OAAA;EACA,cAAA;EACA,WAAA;EACA,YAAA;EACA,mBAAA;EACA,UAAA;ARsnCR;AQpnCI;EAEI,yBRjCA;AAspCR;AQlnCQ;EAEI,yBR3CJ;AA8pCR;AQhnCI;EAhCJ;IAiCQ,oBAAA;ERmnCN;AACF;;AS1qCI;EACI,mBAAA;EACA,cTMA;ESLA,yBTSA;AAoqCR;AS5qCQ;EACI,yBTMH;AAwqCT;AS5qCQ;EACI,yBTEL;AA4qCP;ASxqCI;EACI,8BAAA;EACA,aAAA;EACA,2BAAA;EACA,8BAAA;EACA,mBAAA;EACA,WAAA;AT0qCR;ASxqCY;EACI,0BAAA;AT0qChB;ASvqCQ;EAZJ;IAaQ,aAAA;ET0qCV;AACF;ASrqCI;EACI,cAAA;EACA,WAAA;EACA,YAAA;EACA,+BAAA;ATuqCR;AStqCQ;EALJ;IAMQ,cAAA;IACA,WAAA;IACA,YAAA;ETyqCV;AACF;AS/pCI;EACI,oBAAA;EACA,cAAA;ATiqCR;AShqCQ;EAHJ;IAIQ,aAAA;IACA,cAAA;ETmqCV;AACF;AS9pCI;EACI,4BAAA;EACA,kBAAA;ATgqCR;AS/pCQ;EAHJ;IAIQ,kBAAA;ETkqCV;AACF;;AUxuCI;EACI;;IAEI,UAAA;IACA,kBAAA;EV2uCV;EUzuCM;;IAEI,eAAA;EV2uCV;AACF;;AUvuCA;EACI,kBAAA;AV0uCJ;AUzuCI;EAFJ;IAGQ,kBAAA;EV4uCN;AACF;AUxuCI;EACI,kBAAA;AV0uCR;AUruCI;EACI,mBAAA;EACA,WAAA;EACA,yBVjBC;EUkBD,eAAA;EACA,gBAAA;EACA,cAAA;AVuuCR;AUluCI;EAEI,sBAAA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;EACA,SAAA;EACA,cAAA;EACA,WAAA;EACA,oBAAA;AVmuCR;AUjuCQ;EACI,cAAA;AVmuCZ;AUhuCQ;EACI,WAAA;EACA,gBAAA;EACA,aAAA;EACA,cAAA;EACA,oDAAA;EACA,wBAAA;EACA,2BAAA;EACA,4BAAA;EACA,+BAAA;AVkuCZ;AUjuCY;EACI,0BAAA;AVmuChB;AI7xCI;EMyDQ;IAIQ,yBAAA;EVouClB;AACF;AUjuCQ;EACI,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;EACA,cVjEA;EUkEA,sBVvEA;EUwEA,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,wBAAA;EACA,yBAAA;AVmuCZ;AIhzCI;EMiEI;IAeQ,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,uBAAA;IACA,yBAAA;EVouCd;AACF;AUluCQ;EAxDJ;IAyDQ,oBAAA;IACA,YAAA;EVquCV;EUpuCU;IACI,cAAA;IACA,WAAA;IACA,YAAA;EVsuCd;AACF;AUztCI;EACI,cAAA;AV2tCR;AUttCI;EACI,WAAA;EACA,YAAA;EACA,6BAAA;AVwtCR;AUntCI;EACI,kBAAA;EACA,UAAA;EACA,wBAAA;EACA,OAAA;EACA,kCAAA;EACA,WAAA;EACA,qDAAA;EACA,mBAAA;EACA,yBV5HC;EU6HD,UAAA;EACA,kBAAA;EACA,mDAAA;EACA,cVlII;EUmIJ,sBVxII;EUyIJ,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,wBAAA;EACA,yBAAA;EAEA,gBAAA;AVotCR;AUltCQ;EACI,yBVhJJ;AAo2CR;AUltCQ;EACI,UAAA;EACA,mBAAA;AVotCZ;AU9sCI;EACI,gBAAA;EACA,kBAAA;AVgtCR;AUzsCY;EACI,SAAA;EACA,QAAA;EACA,UAAA;EACA,qBAAA;EACA,0CAAA;AV2sChB;AUzsCY;EACI,kBAAA;EACA,qBAAA;EACA,yBV7KR;AAw3CR;AUnsCI;EAEI,UAAA;EACA,oBAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,cAAA;EACA,sCAAA;AVosCR;AUnsCQ;EACI,yBV/LJ;AAo4CR;AUpsCY;EACI,yBV7LP;AAm4CT;AUnsCQ;EACI,kBAAA;EACA,mBAAA;AVqsCZ;AUpsCY;EACI,WAAA;EACA,kBAAA;EACA,wBAAA;EACA,OAAA;EACA,WAAA;EACA,WAAA;EACA,oCAAA;AVssChB;AUnsCQ;EAEQ;IACI,eAAA;IACA,yBVrNZ;EAy5CN;EUnsCkB;IACI,yBVnNf;EAw5CP;AACF;;AU9rCA;EACI,eAAA;AVisCJ;;AW36CA;EACI,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,eAAA;EACA,eAAA;AX86CJ;AW36CI;EACI,kBAAA;EACA,QAAA;EACA,SAAA;EACA,UAAA;AX66CR;AW56CQ;EACI,yBAAA;AX86CZ;AW56CQ;EACI,qBAAA;AX86CZ;AWz6CI;EACI,oBAAA;EACA,mBAAA;EACA,SAAA;EACA,eAAA;AX26CR;AW16CQ;EACI,WAAA;EACA,sBAAA;EACA,cAAA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;EACA,oCAAA;EACA,4BAAA;AX46CZ;AW16CQ;EACI,WAAA;EACA,kBAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;EACA,yBX7BJ;EW8BI,mBAAA;EACA,wBAAA;EACA,+BAAA;AX46CZ;AW16CQ;EACI;IAEI,WAAA;IACA,YAAA;EX26Cd;EWz6CU;IACI,cAAA;EX26Cd;EWz6CU;IACI,MAAA;EX26Cd;AACF;;AYv+CA;EACI,aAAA;EACA,mBAAA;AZ0+CJ;AYx+CI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,aAAA;EACA,cAAA;EACA,yBZQD;EYPC,kBAAA;EACA,kCAAA;AZ0+CR;AYx+CQ;EACI,aAAA;EACA,cAAA;AZ0+CZ;AYv+CQ;EACI,kCAAA;EACA,yBZXJ;AAo/CR;;AYp+CA;EAGQ;IACI,WAAA;IACA,YAAA;EZq+CV;EYn+CU;IACI,aAAA;IACA,cAAA;EZq+Cd;AACF;AazgDA;EACI,WAAA;EACA,eAAA;EACA,aAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,yBbGI;EaFJ,UAAA;EACA,oBAAA;EACA,gCAAA;Ab2gDJ;Aa1gDI;EACI,YAAA;Ab4gDR;;AaxgDA;EACI,eAAA;EACA,MAAA;EACA,OAAA;EACA,SAAA;EACA,QAAA;EACA,oBAAA;EACA,kBAAA;EACA,oBAAA;EACA,mCAAA;Ab2gDJ;Aa1gDI;EACI,aAAA;EACA,mBAAA;EACA,cAAA;EACA,oBAAA;Ab4gDR;Aa3gDQ;EACI,mBAAA;EACA,mBAAA;Ab6gDZ;Aa3gDQ;EACI;IACI,UAAA;Eb6gDd;Ea5gDc;IACI,gBAAA;IACA,UAAA;Eb8gDlB;AACF;AavgDI;EACI,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,cAAA;EACA,WAAA;EACA,gBAAA;AbygDR;AapgDI;EACI,kBAAA;EACA,8BAAA;EACA,gBAAA;EACA,WAAA;EACA,iBAAA;EACA,mBAAA;EACA,yBbvDD;EawDC,kBAAA;EACA,mBAAA;EACA,kCAAA;AbsgDR;AargDQ;EACI,mBAAA;AbugDZ;AargDQ;EAdJ;IAeQ,kBAAA;IACA,iBAAA;EbwgDV;EavgDU;IACI,UAAA;IACA,mDAAA;EbygDd;AACF;AangDI;EACI,mBAAA;EACA,kBAAA;EACA,oBAAA;EACA,mBAAA;EACA,uBAAA;EACA,aAAA;EACA,cAAA;AbqgDR;AapgDQ;EARJ;IASQ,oBAAA;IACA,aAAA;IACA,cAAA;EbugDV;AACF;AalgDI;EACI,YAAA;EACA,mBAAA;AbogDR;;Aa9/CA;EACI,cbtGI;AAumDR;Aa7/CI;EACI,aAAA;EACA,sBAAA;Ab+/CR;Aa9/CQ;EAHJ;IAIQ,kBAAA;EbigDV;EahgDU;IACI,4BAAA;EbkgDd;AACF;Aa5/CI;EACI,qBAAA;Ab8/CR;Aa7/CQ;EAFJ;IAGQ,qBAAA;EbggDV;AACF;Aa3/CI;EACI,mBAAA;Ab6/CR;Aa5/CQ;EAFJ;IAGQ,mBAAA;Eb+/CV;AACF;Aa1/CI;EACI,aAAA;EACA,sBAAA;Ab4/CR;Aav/CI;EACI,qBAAA;EACA,aAAA;EACA,eAAA;EACA,WAAA;Aby/CR;Aax/CQ;EALJ;IAMQ,qBAAA;IACA,SAAA;Eb2/CV;AACF;Aaj/CI;EACI,qBAAA;EACA,aAAA;EACA,sBAAA;EACA,aAAA;Abm/CR;Aal/CQ;EALJ;IAMQ,qBAAA;IACA,aAAA;Ebq/CV;AACF;Aa3+CI;EACI,mBAAA;Ab6+CR;Aa5+CQ;EAFJ;IAGQ,mBAAA;Eb++CV;AACF;Aa1+CI;EACI,aAAA;EACA,8BAAA;Ab4+CR;Aa3+CQ;EAHJ;IAIQ,mBAAA;IACA,qBAAA;IACA,kBAAA;Eb8+CV;AACF;Aax+CQ;EADJ;IAEQ,sBAAA;Eb2+CV;AACF;Aat+CI;EACI,kBAAA;Abw+CR;Aav+CQ;EAFJ;IAGQ,mBAAA;IACA,gBAAA;Eb0+CV;AACF;;Ac1sDI;EADJ;IAEQ,aAAA;Ed8sDN;AACF;;Ac3sDA;EACI,kBAAA;EACA,SAAA;EACA,SAAA;EACA,2BAAA;Ad8sDJ;Ac7sDI;EALJ;IAMQ,mBAAA;IACA,aAAA;IACA,gBAAA;EdgtDN;AACF;Ac5sDI;EACI,kBAAA;EACA,OAAA;EACA,iBAAA;EACA,iBAAA;Ad8sDR;Ac7sDQ;EACI,iBAAA;EACA,mBAAA;Ad+sDZ;Ac7sDQ;EACI,adnBJ;EcoBI,sBAAA;EACA,eAAA;EACA,gBAAA;EACA,iBAAA;EACA,yBAAA;EACA,2BAAA;Ad+sDZ;Ac7sDQ;EACI,kBAAA;Ad+sDZ;Ac7sDQ;EACI;IACI,kBAAA;Ed+sDd;Ec9sDc;IACI,aAAA;EdgtDlB;Ec7sDU;IACI,eAAA;IACA,uBAAA;IACA,2BAAA;Ed+sDd;Ec7sDU;IACI,kBAAA;Ed+sDd;AACF;Ac7sDQ;EACI;IACI,kBAAA;Ed+sDd;Ec7sDU;IACI,eAAA;IACA,6BAAA;Ed+sDd;AACF;;Ac1sDA;EACI,eAAA;EACA,aAAA;EACA,MAAA;EACA,QAAA;EACA,OAAA;EACA,SAAA;EACA,UAAA;EACA,kBAAA;EACA,mDAAA;Ad6sDJ;Ac5sDI;EACI,UAAA;EACA,mBAAA;Ad8sDR;Ac5sDI;EACI,WAAA;EACA,kBAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,yBAAA;EACA,YAAA;Ad8sDR;AczsDI;EACI,eAAA;EACA,aAAA;EACA,QAAA;EACA,SAAA;EACA,aAAA;EACA,aAAA;EACA,sBAAA;EACA,cAAA;EACA,mBAAA;EACA,mBAAA;EACA,yBdhGA;EciGA,cdhGA;EciGA,gCAAA;Ad2sDR;ActsDI;EACI,mBAAA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;EACA,gBAAA;AdwsDR;Ac9rDI;EACI,aAAA;EACA,cAAA;AdgsDR;Ac3rDI;EACI,YAAA;EACA,mBAAA;Ad6rDR;AcxrDI;EACI,kBAAA;Ad0rDR;AczrDQ;;EAEI,MAAA;EACA,0CAAA;Ad2rDZ;AcxrDY;EACI,MAAA;EACA,OAAA;EACA,UAAA;EACA,gBAAA;EACA,gBAAA;EACA,6BAAA;EACA,UAAA;EACA,kBAAA;Ad0rDhB;AczrDgB;EACI,UAAA;EACA,mBAAA;Ad2rDpB;AcxrDY;EACI,kBAAA;Ad0rDhB;AczrDgB;EACI,yBdzJX;AAo1DT;AczrDgB;EACI,aAAA;Ad2rDpB;;Aer2DA;EACI,oBAAA;EACA,yBfUQ;EeTR,gBAAA;Afw2DJ;Aev2DI;EAJJ;IAKQ,uBAAA;Ef02DN;AACF;Aet2DI;EACI,aAAA;EACA,sBAAA;Afw2DR;Aen2DI;EACI,kBAAA;EACA,kBAAA;Afq2DR;Aep2DQ;EAHJ;IAIQ,mBAAA;Efu2DV;AACF;Ael2DI;EACI,cffD;EegBC,6BAAA;EACA,iBAAA;Afo2DR;Ael2DY;EADJ;IAEQ,gBAAA;Efq2Dd;AACF;Aen2DQ;EACI,cftBJ;AA23DR;Aen2DQ;EACI,UAAA;Afq2DZ;Ae/1DI;EACI,kBAAA;EACA,aAAA;Afi2DR;Aeh2DQ;EAHJ;IAIQ,mBAAA;IACA,aAAA;Efm2DV;AACF;Ae91DI;EACI,kBAAA;EACA,qBAAA;EACA,yBAAA;EACA,gBAAA;Afg2DR;Ae/1DQ;EACI,MAAA;EACA,OAAA;EACA,aAAA;EACA,YAAA;Afi2DZ;Ae/1DQ;EACI,MAAA;EACA,aAAA;EACA,cAAA;EACA,cAAA;Afi2DZ;Aeh2DY;EALJ;IAMQ,WAAA;Efm2Dd;AACF;Aej2DQ;EACI,MAAA;EACA,aAAA;EACA,cAAA;EACA,eAAA;Afm2DZ;Ael2DY;EALJ;IAMQ,YAAA;IACA,eAAA;Efq2Dd;AACF;Aen2DQ;EACI,MAAA;EACA,aAAA;EACA,cAAA;EACA,eAAA;Afq2DZ;Aep2DY;EALJ;IAMQ,aAAA;IACA,cAAA;IACA,eAAA;Efu2Dd;AACF;Aer2DQ;EACI,MAAA;EACA,WAAA;EACA,cAAA;EACA,eAAA;Afu2DZ;Aet2DY;EALJ;IAMQ,aAAA;IACA,cAAA;IACA,aAAA;Efy2Dd;AACF;Aev2DQ;EACI,MAAA;EACA,cAAA;EACA,cAAA;EACA,eAAA;Afy2DZ;Aex2DY;EALJ;IAMQ,aAAA;IACA,cAAA;IACA,eAAA;Ef22Dd;AACF;Aez2DQ;EACI,MAAA;EACA,cAAA;EACA,YAAA;EACA,cAAA;Af22DZ;Ae12DY;EALJ;IAMQ,cAAA;IACA,YAAA;IACA,eAAA;Ef62Dd;AACF;Ae32DQ;EACI,MAAA;EACA,QAAA;EACA,cAAA;EACA,aAAA;Af62DZ;Ae32DQ;EACI,YAAA;EACA,OAAA;EACA,cAAA;EACA,eAAA;Af62DZ;Ae52DY;EALJ;IAMQ,YAAA;IACA,OAAA;IACA,cAAA;Ef+2Dd;AACF;Ae72DQ;EACI,YAAA;EACA,aAAA;EACA,aAAA;EACA,cAAA;Af+2DZ;Ae92DY;EALJ;IAMQ,YAAA;IACA,aAAA;IACA,aAAA;IACA,cAAA;Efi3Dd;AACF;Ae/2DQ;EACI,YAAA;EACA,aAAA;EACA,cAAA;EACA,cAAA;Afi3DZ;Aeh3DY;EALJ;IAMQ,YAAA;IACA,aAAA;IACA,YAAA;IACA,cAAA;Efm3Dd;AACF;Aej3DQ;EACI,YAAA;EACA,aAAA;EACA,cAAA;EACA,eAAA;Afm3DZ;Ael3DY;EALJ;IAMQ,YAAA;IACA,aAAA;IACA,cAAA;IACA,eAAA;Efq3Dd;AACF;Aen3DQ;EACI,YAAA;EACA,aAAA;EACA,cAAA;EACA,eAAA;Afq3DZ;Aep3DY;EALJ;IAMQ,YAAA;IACA,aAAA;IACA,cAAA;IACA,eAAA;Efu3Dd;AACF;Aer3DQ;EACI,YAAA;EACA,cAAA;EACA,cAAA;EACA,eAAA;Afu3DZ;Aet3DY;EALJ;IAMQ,YAAA;IACA,cAAA;IACA,cAAA;IACA,eAAA;Efy3Dd;AACF;Aev3DQ;EACI,YAAA;EACA,YAAA;EACA,cAAA;EACA,eAAA;Afy3DZ;Aex3DY;EALJ;IAMQ,YAAA;IACA,YAAA;Ef23Dd;AACF;Aez3DQ;EACI,YAAA;EACA,aAAA;EACA,cAAA;EACA,eAAA;Af23DZ;Ae13DY;EALJ;IAMQ,YAAA;IACA,aAAA;IACA,cAAA;IACA,eAAA;Ef63Dd;AACF;Ae33DQ;EACI,YAAA;EACA,aAAA;EACA,cAAA;EACA,eAAA;Af63DZ;Ae53DY;EALJ;IAMQ,YAAA;IACA,aAAA;IACA,cAAA;IACA,eAAA;Ef+3Dd;AACF;Ae73DQ;EACI,YAAA;EACA,aAAA;EACA,cAAA;EACA,aAAA;Af+3DZ;Ae93DY;EALJ;IAMQ,YAAA;IACA,aAAA;IACA,cAAA;IACA,eAAA;Efi4Dd;AACF;Ae/3DQ;EACI,YAAA;EACA,aAAA;EACA,cAAA;EACA,eAAA;Afi4DZ;Aeh4DY;EALJ;IAMQ,YAAA;IACA,aAAA;IACA,cAAA;IACA,eAAA;Efm4Dd;AACF;Aej4DQ;EACI,YAAA;EACA,cAAA;EACA,cAAA;EACA,eAAA;Afm4DZ;Ael4DY;EALJ;IAMQ,YAAA;IACA,cAAA;IACA,eAAA;IACA,eAAA;Efq4Dd;AACF;Aen4DQ;EACI,UAAA;EACA,cAAA;EACA,aAAA;EACA,cAAA;Afq4DZ;Aep4DY;EALJ;IAMQ,UAAA;IACA,cAAA;Efu4Dd;AACF;Aer4DQ;EACI,YAAA;EACA,cAAA;EACA,aAAA;EACA,eAAA;Afu4DZ;Aet4DY;EALJ;IAMQ,YAAA;IACA,cAAA;Efy4Dd;AACF;Aev4DQ;EACI,YAAA;EACA,QAAA;EACA,cAAA;EACA,cAAA;Afy4DZ;Aex4DY;EALJ;IAMQ,cAAA;Ef24Dd;AACF;Aez4DQ;EACI,YAAA;EACA,aAAA;EACA,cAAA;EACA,cAAA;Af24DZ;Ae14DY;EALJ;IAMQ,aAAA;Ef64Dd;AACF;Ae34DQ;EACI,YAAA;EACA,aAAA;EACA,YAAA;EACA,eAAA;Af64DZ;Ae54DY;EALJ;IAMQ,YAAA;IACA,aAAA;IACA,cAAA;IACA,eAAA;Ef+4Dd;AACF;Ae74DQ;EACI,YAAA;EACA,aAAA;EACA,cAAA;EACA,eAAA;Af+4DZ;Ae94DY;EALJ;IAMQ,YAAA;IACA,aAAA;IACA,cAAA;IACA,eAAA;Efi5Dd;AACF;Ae/4DQ;EACI,YAAA;EACA,aAAA;EACA,cAAA;EACA,eAAA;Afi5DZ;Aeh5DY;EALJ;IAMQ,UAAA;IACA,aAAA;IACA,cAAA;IACA,eAAA;Efm5Dd;AACF;Aej5DQ;EACI,YAAA;EACA,aAAA;EACA,cAAA;EACA,eAAA;Afm5DZ;Ael5DY;EALJ;IAMQ,UAAA;IACA,WAAA;IACA,YAAA;IACA,aAAA;Efq5Dd;AACF;Aen5DQ;EACI,YAAA;EACA,cAAA;EACA,cAAA;EACA,cAAA;Afq5DZ;Aep5DY;EALJ;IAMQ,YAAA;IACA,aAAA;IACA,aAAA;IACA,cAAA;Efu5Dd;AACF;Aer5DQ;EACI,YAAA;EACA,cAAA;EACA,aAAA;EACA,cAAA;Afu5DZ;Aet5DY;EALJ;IAMQ,YAAA;IACA,cAAA;Efy5Dd;AACF;Aev5DQ;EACI,YAAA;EACA,QAAA;EACA,cAAA;EACA,cAAA;Afy5DZ;Aex5DY;EALJ;IAMQ,UAAA;Ef25Dd;AACF;Aev5DQ;EACI,yBf1XL;AAmxEP;Aen5DI;EACI,kBAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;Afq5DR;Aep5DQ;EANJ;IAOQ,UAAA;IACA,yBAAA;Efu5DV;AACF;Ael5DI;EACI,cAAA;EACA,aAAA;EACA,aAAA;Afo5DR;Aen5DQ;EAJJ;IAKQ,aAAA;Efs5DV;AACF;Aej5DI;EACI,cAAA;EACA,YAAA;Afm5DR;Ae94DI;EACI,YAAA;EACA,iBAAA;Afg5DR;Ae34DI;EACI,kBAAA;EACA,aAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,UAAA;Af64DR;Ae34DQ;EARJ;IASQ,mBAAA;IACA,8BAAA;IACA,4BAAA;Ef84DV;AACF;Aez4DI;EACI,aAAA;EACA,sBAAA;EACA,uBAAA;Af24DR;Ae14DQ;EAJJ;IAKQ,qBAAA;Ef64DV;AACF;Aex4DI;EACI,qBAAA;EACA,aAAA;EACA,kBAAA;EACA,gBAAA;EACA,6BAAA;Af04DR;Aez4DQ;EACI,UAAA;Af24DZ;Aez4DQ;EACI,WAAA;EACA,aAAA;EACA,WAAA;EACA,yCAAA;EACA,6BAAA;Af24DZ;Aez4DQ;EAhBJ;IAiBQ,gBAAA;IACA,kBAAA;IACA,gBAAA;Ef44DV;Ee34DU;IACI,cAAA;IACA,2BAAA;Ef64Dd;AACF;Aev4DI;EACI,kBAAA;EACA,aAAA;Afy4DR;Aex4DQ;EACI,aAAA;Af04DZ;Aex4DQ;EACI,eAAA;EACA,WAAA;EACA,SAAA;EACA,UAAA;Af04DZ;Aex4DQ;EAZJ;IAaQ,WAAA;IACA,YAAA;Ef24DV;Ee14DU;IACI,kBAAA;IACA,WAAA;IACA,QAAA;Ef44Dd;Ee14DU;IACI,YAAA;IACA,UAAA;IACA,WAAA;Ef44Dd;Ee14DU;IACI,aAAA;Ef44Dd;Eez4Dc;IACI,afngBZ;EA84EN;Eez4Dc;IACI,afzgBR;EAo5EV;Eex4DkB;IACI,aAAA;Ef04DtB;Eex4DkB;IACI,cAAA;Ef04DtB;AACF;Ael4DI;EACI,gBAAA;EACA,6BAAA;Afo4DR;Aen4DQ;EACI,UAAA;Afq4DZ;Aen4DQ;EANJ;IAOQ,aAAA;IACA,kBAAA;Efs4DV;AACF;;Ael4DA;EACI,eAAA;EACA,aAAA;EACA,SAAA;EACA,QAAA;EACA,oBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;EACA,mBAAA;EACA,yBf7iBI;Ee8iBJ,2BAAA;EACA,UAAA;EACA,gBAAA;Afq4DJ;Aep4DI;EACI;IACI,UAAA;IACA,mBAAA;IACA,wBAAA;IACA,wEAAA;Efs4DV;AACF;Aej4DI;EACI,qBAAA;EACA,cfjkBI;AAo8EZ;Ae73DQ;EACI,WAAA;EACA,YAAA;Af+3DZ;;AgBp9EA;EACI,oBAAA;EACA,uBAAA;EACA,iBAAA;EACA,gDAAA;AhBu9EJ;AgBt9EI;EALJ;IAMQ,oBAAA;IACA,qBAAA;EhBy9EN;AACF;AgBr9EI;EACI,kBAAA;EACA,UAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;AhBu9ER;AgBt9EQ;EANJ;IAOQ,aAAA;IACA,kCAAA;IACA,kBAAA;IACA,kBAAA;EhBy9EV;AACF;AgBp9EI;EACI,kBAAA;EACA,oBAAA;AhBs9ER;AgBr9EQ;EAHJ;IAIQ,gBAAA;IACA,gBAAA;EhBw9EV;AACF;AgBn9EI;EACI,kBAAA;EACA,SAAA;EACA,gBAAA;EACA,SAAA;EACA,kBAAA;EACA,8BAAA;EACA,kChBpCA;EgBqCA,2BAAA;AhBq9ER;AgBp9EQ;EACI,aAAA;AhBs9EZ;AgBp9EQ;EAZJ;IAaQ,eAAA;IACA,8BAAA;EhBu9EV;EgBt9EU;IACI,YAAA;EhBw9Ed;AACF;AgBl9EI;EACI,kBAAA;EACA,UAAA;EACA,gBAAA;AhBo9ER;AgBn9EQ;EACI,kBAAA;AhBq9EZ;AgBp9EY;EACI,aAAA;AhBs9EhB;AgBp9EY;EALJ;IAMQ,eAAA;EhBu9Ed;EgBt9Ec;IACI,YAAA;EhBw9ElB;AACF;AgBj9EI;EACI,WAAA;EACA,aAAA;AhBm9ER;AgBl9EQ;EAHJ;IAIQ,YAAA;IACA,eAAA;EhBq9EV;AACF;AgBj9EQ;EACI,kBAAA;EACA,gBAAA;EACA,cAAA;EACA,eAAA;AhBm9EZ;AgBj9EY;EACI,mBAAA;AhBm9EhB;AgBj9EY;EACI,WAAA;EACA,kBAAA;EACA,UAAA;EACA,SAAA;EACA,WAAA;EACA,YAAA;EACA,yDAAA;EACA,wBAAA;EACA,4BAAA;EACA,iCAAA;AhBm9EhB;AgBj9EY;EArBJ;IAsBQ,kBAAA;IACA,MAAA;IACA,aAAA;IACA,aAAA;IACA,cAAA;IACA,eAAA;IACA,4BAAA;EhBo9Ed;EgBn9Ec;IACI,qBAAA;EhBq9ElB;EgBn9Ec;IACI,UAAA;IACA,aAAA;IACA,cAAA;IACA,gCAAA;EhBq9ElB;AACF;AgB98EI;EACI,cAAA;EACA,YAAA;EACA,mBAAA;EACA,iBAAA;AhBg9ER;AgB38EI;EACI,eAAA;EACA,aAAA;EACA,2BAAA;EACA,8BAAA;EACA,qBAAA;EACA,iBAAA;EACA,WAAA;EACA,gBAAA;AhB68ER;AgB58EQ;EATJ;IAUQ,mBAAA;IACA,cAAA;IACA,WAAA;IACA,gBAAA;EhB+8EV;AACF;AgB18EI;EACI,kBAAA;EACA,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,eAAA;AhB48ER;AgB38EQ;EACI,WAAA;EACA,kBAAA;EACA,QAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,2DAAA;EACA,wBAAA;EACA,4BAAA;EACA,2BAAA;AhB68EZ;AgB38EQ;EAlBJ;IAmBQ,oBAAA;IACA,aAAA;EhB88EV;EgB78EU;IACI,aAAA;IACA,cAAA;EhB+8Ed;AACF;AgBz8EI;EACI,sBAAA;AhB28ER;AgB18EQ;EAFJ;IAGQ,uBAAA;EhB68EV;AACF;AgBx8EI;EACI,WAAA;AhB08ER;AgBz8EQ;EACI,SAAA;AhB28EZ;AgB18EY;EACI,ehBlMP;AA8oFT;AgBz8EQ;EARJ;IASQ,cAAA;IACA,WAAA;EhB48EV;AACF;AgB38EQ;EAZJ;IAaQ,oBAAA;IACA,YAAA;EhB88EV;AACF;;AiBxqFA;EACI,oBAAA;AjB2qFJ;AiB1qFI;EAFJ;IAGQ,oBAAA;EjB6qFN;AACF;AiBzqFI;EACI,aAAA;EACA,sBAAA;AjB2qFR;AiB1qFQ;EAHJ;IAIQ,mBAAA;IACA,mBAAA;EjB6qFV;AACF;AiBxqFI;EACI,oBAAA;AjB0qFR;AiBzqFQ;EAFJ;IAGQ,kBAAA;IACA,gBAAA;IACA,aAAA;IACA,sBAAA;EjB4qFV;EiB3qFU;IACI,WAAA;IACA,kBAAA;IACA,UAAA;IACA,MAAA;IACA,iCAAA;IACA,kDAAA;IACA,YAAA;IACA,yBjBtBJ;EAmsFV;AACF;AiBvqFI;EACI,cjB7BD;AAssFP;AiBxqFQ;EAFJ;IAGQ,kBAAA;IACA,UAAA;IACA,sBAAA;IACA,mBAAA;EjB2qFV;AACF;AiBtqFI;EACI,aAAA;AjBwqFR;AiBvqFQ;EAFJ;IAGQ,kBAAA;IACA,UAAA;IACA,aAAA;IACA,gBAAA;EjB0qFV;AACF;AiBhqFI;EACI,aAAA;AjBkqFR;AiBjqFQ;EAFJ;IAGQ,iBAAA;IACA,YAAA;EjBoqFV;AACF;AiB/pFI;EACI,iBAAA;AjBiqFR;AiBhqFQ;EACI,iBAAA;AjBkqFZ;AiB5pFI;EACI,kBAAA;EACA,iBAAA;AjB8pFR;AiB7pFQ;EACI,WAAA;EACA,kBAAA;EACA,MAAA;EACA,OAAA;EACA,yBAAA;EACA,YAAA;EACA,yBAAA;EACA,mBAAA;EACA,4BAAA;AjB+pFZ;AiB7pFQ;EAdJ;IAeQ,iBAAA;EjBgqFV;EiB/pFU;IACI,0BAAA;IACA,4BAAA;EjBiqFd;AACF;AiBzpFY;EACI,WAAA;EACA,kBAAA;EACA,UAAA;EACA,OAAA;EACA,UAAA;EACA,cAAA;EACA,yBjB9GT;EiB+GS,4BAAA;AjB2pFhB;AiB1pFgB;EATJ;IAUQ,UAAA;EjB6pFlB;AACF;;AiBtpFI;EACI,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;AjBypFR;AiBxpFQ;EALJ;IAMQ,cAAA;EjB2pFV;AACF;AiBtpFI;EACI,qBAAA;EACA,cjBvID;AA+xFP;AkB5yFA;EACI,oBAAA;EACA,mBAAA;EACA,iBAAA;AlB8yFJ;AkB7yFI;EAJJ;IAKQ,oBAAA;IACA,kBAAA;ElBgzFN;AACF;AkB5yFI;EACI,aAAA;EACA,mBAAA;AlB8yFR;AkB7yFQ;EAHJ;IAIQ,8BAAA;ElBgzFV;AACF;AkB3yFI;EACI,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,yBlBbD;EkBcC,gBAAA;AlB6yFR;AkB5yFQ;EAPJ;IAQQ,wCAAA;IACA,kBAAA;IACA,iBAAA;IACA,cAAA;IACA,mBAAA;ElB+yFV;AACF;AkB9yFQ;EAdJ;IAeQ,cAAA;ElBizFV;AACF;AkB5yFI;EACI,mBAAA;EACA,aAAA;EACA,gBAAA;EACA,6BAAA;AlB8yFR;AkB7yFQ;EALJ;IAMQ,mBAAA;IACA,gBAAA;IACA,6BAAA;ElBgzFV;AACF;AkB3yFI;EACI,kBAAA;EACA,eAAA;EACA,YAAA;EACA,eAAA;AlB6yFR;AkB5yFQ;EACI,uBAAA;AlB8yFZ;AkB5yFQ;EACI,4BAAA;AlB8yFZ;AkB5yFQ;EACI,WAAA;EACA,kBAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,mBAAA;EACA,qCAAA;AlB8yFZ;AkB5yFQ;EArBJ;IAsBQ,eAAA;IACA,YAAA;IACA,eAAA;ElB+yFV;EkB9yFU;IACI,mBAAA;ElBgzFd;AACF;AkB1yFI;EACI,cAAA;EACA,YAAA;EACA,mBAAA;EACA,iBAAA;AlB4yFR;AkB3yFQ;EALJ;IAMQ,mBAAA;ElB8yFV;AACF;AkBzyFI;EACI,kBAAA;EACA,UAAA;EACA,SAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,kBAAA;EACA,6CAAA;AlB2yFR;AkB1yFQ;EATJ;IAUQ,YAAA;ElB6yFV;AACF;AkBxyFI;EACI,kBAAA;EACA,iBAAA;EACA,gBAAA;EACA,yBlB1GA;AAo5FR;AkBryFI;EACI,aAAA;EACA,kBAAA;EACA,UAAA;EACA,gBAAA;AlBuyFR;AkBlyFI;EACI,eAAA;EACA,aAAA;EACA,cAAA;EACA,sBAAA;EACA,mBAAA;EACA,clBlIA;AAs6FR;AkB/xFI;EACI,kBAAA;EACA,mBAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;AlBiyFR;AkBhyFQ;EACI,WAAA;EACA,kBAAA;EACA,UAAA;EACA,YAAA;EACA,YAAA;EACA,aAAA;EACA,uDAAA;EACA,wBAAA;EACA,4BAAA;EACA,2BAAA;EACA,8CAAA;AlBkyFZ;AkBhyFQ;EAnBJ;IAoBQ,gBAAA;IACA,mBAAA;ElBmyFV;EkBlyFU;IACI,YAAA;IACA,eAAA;IACA,YAAA;IACA,aAAA;ElBoyFd;AACF;AkB9xFI;EACI,mBAAA;EACA,aAAA;EACA,sBAAA;AlBgyFR;AkB/xFQ;EACI,8BAAA;EACA,kClB/KJ;EkBgLI,kBAAA;AlBiyFZ;AkB/xFQ;EATJ;IAUQ,mBAAA;ElBkyFV;EkBjyFU;IACI,iBAAA;ElBmyFd;EkBjyFU;IACI,8BAAA;ElBmyFd;AACF;AkB7xFI;EACI,qBAAA;EACA,kBAAA;AlB+xFR;AkB9xFQ;EAHJ;IAIQ,mBAAA;IACA,gBAAA;IACA,eAAA;ElBiyFV;AACF;AkBxxFA;EACI;IACI,0CAAA;ElB0xFN;AACF;AmBt/FA;EACI,oBAAA;EACA,cnBQI;AAg/FR;AmBv/FI;EAHJ;IAIQ,oBAAA;EnB0/FN;AACF;AmBt/FI;EACI,aAAA;EACA,sBAAA;AnBw/FR;AmBn/FI;EACI,qBAAA;AnBq/FR;AmBh/FI;EACI,mBAAA;AnBk/FR;AmBj/FQ;EAFJ;IAGQ,mBAAA;EnBo/FV;AACF;AmB/+FI;EACI,aAAA;EACA,sBAAA;AnBi/FR;AmBh/FQ;EAHJ;IAIQ,mBAAA;EnBm/FV;AACF;AmB9+FI;EACI,qBAAA;EACA,aAAA;EACA,sBAAA;EACA,aAAA;AnBg/FR;AmB/+FQ;EALJ;IAMQ,mBAAA;IACA,aAAA;EnBk/FV;AACF;AmBx+FI;EACI,mBAAA;AnB0+FR;AmBz+FQ;EAFJ;IAGQ,mBAAA;EnB4+FV;AACF;AmBv+FI;EACI,aAAA;EACA,8BAAA;AnBy+FR;AmBx+FQ;EAHJ;IAIQ,mBAAA;IACA,mBAAA;IACA,kBAAA;EnB2+FV;AACF;AmBt+FI;EACI,sBAAA;AnBw+FR;AmBl+FQ;EADJ;IAEQ,mBAAA;IACA,gBAAA;EnBq+FV;AACF;;AoB/jGA;EACI,mBAAA;EACA,qBAAA;ApBkkGJ;AoBjkGI;EAHJ;IAIQ,kBAAA;IACA,qBAAA;EpBokGN;AACF;AoBhkGI;EACI,aAAA;EACA,sBAAA;ApBkkGR;AoB7jGI;EACI,kBAAA;EACA,qBAAA;EACA,mBAAA;EACA,gBAAA;ApB+jGR;AoB9jGQ;EALJ;IAMQ,mBAAA;EpBikGV;AACF;AoB5jGI;EACI,eAAA;ApB8jGR;AoB7jGQ;EAFJ;IAGQ,aAAA;EpBgkGV;AACF;AoB3jGI;EACI,cAAA;EACA,YAAA;EACA,mBAAA;EACA,iBAAA;ApB6jGR;AoBxjGI;EACI,aAAA;EACA,iBAAA;ApB0jGR;AoBzjGQ;EACI,epBtCL;AAimGP;AoBzjGQ;EACI,apB3CJ;AAsmGR;AoBzjGQ;EACI,kBAAA;ApB2jGZ;AoBxjGQ;EAbJ;IAcQ,kBAAA;IACA,aAAA;EpB2jGV;AACF;AoB1jGQ;EAjBJ;IAkBQ,cAAA;IACA,aAAA;IACA,WAAA;EpB6jGV;EoB5jGU;IACI,iBAAA;EpB8jGd;AACF;AoBxjGI;EACI,aAAA;EACA,sBAAA;ApB0jGR;AoBzjGQ;EAHJ;IAIQ,mBAAA;IACA,8BAAA;IACA,iBAAA;EpB4jGV;AACF;AoBvjGI;EACI,kBAAA;EACA,aAAA;EACA,sBAAA;ApByjGR;AoBxjGQ;EACI,WAAA;EACA,kBAAA;EACA,SAAA;EACA,YAAA;EACA,aAAA;EACA,cAAA;EACA,qEAAA;EACA,wBAAA;EACA,4BAAA;EACA,2BAAA;ApB0jGZ;AoBxjGQ;EAhBJ;IAiBQ,mBAAA;EpB2jGV;EoB1jGU;IACI,YAAA;IACA,MAAA;IACA,QAAA;IACA,YAAA;IACA,aAAA;IACA,eAAA;EpB4jGd;AACF;AoBtjGI;EACI,qBAAA;ApBwjGR;AoBvjGQ;EAFJ;IAGQ,mBAAA;EpB0jGV;AACF;AoBrjGI;EACI,sBAAA;ApBujGR;AoBljGI;EACI,aAAA;EACA,qCAAA;EACA,kBAAA;EACA,eAAA;ApBojGR;AoBnjGQ;EALJ;IAMQ,iBAAA;IACA,sCAAA;IACA,kBAAA;IACA,aAAA;EpBsjGV;AACF;AoBjjGI;EACI,kBAAA;ApBmjGR;AoBljGQ;EACI,WAAA;EACA,kBAAA;EACA,SAAA;EACA,QAAA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;EACA,yBpBrJJ;AAysGR;AoBljGQ;EAZJ;IAaQ,cAAA;IACA,mBAAA;EpBqjGV;EoBpjGU;IACI,YAAA;IACA,WAAA;IACA,YAAA;EpBsjGd;AACF;AoBhjGI;EACI,cAAA;EACA,eAAA;ApBkjGR;AoBjjGQ;EAHJ;IAIQ,WAAA;IACA,eAAA;EpBojGV;AACF;AoB/iGI;EACI,cAAA;EACA,YAAA;EACA,mBAAA;EACA,iBAAA;ApBijGR;AoBxiGA;EACI,kBAAA;EACA,eAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;EACA,qDAAA;EACA,wBAAA;EACA,4BAAA;ApB0iGJ;AoBziGI;EATJ;IAUQ,aAAA;IACA,WAAA;IACA,mBAAA;IACA,uDAAA;EpB4iGN;AACF;AoBxiGI;EACI,qBAAA;EACA,aAAA;ApB0iGR;AoBziGQ;EAHJ;IAIQ,mBAAA;EpB4iGV;AACF;AoBviGI;EACI,kBAAA;EACA,cAAA;EACA,WAAA;EACA,YAAA;ApByiGR;AoBxiGQ;EACI,8BAAA;ApB0iGZ;AoBxiGQ;EACI,8BAAA;ApB0iGZ;AoBxiGQ;EACI,8BAAA;ApB0iGZ;AoBxiGQ;EACI,8BAAA;ApB0iGZ;AoBxiGQ;EAjBJ;IAkBQ,cAAA;IACA,WAAA;IACA,YAAA;EpB2iGV;EoB1iGU;IACI,8BAAA;EpB4iGd;EoB1iGU;IACI,8BAAA;EpB4iGd;EoB1iGU;IACI,8BAAA;EpB4iGd;EoB1iGU;IACI,+BAAA;EpB4iGd;AACF;AoBtiGI;EACI,kBAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;EACA,iBAAA;ApBwiGR;AoBniGI;EACI,oBAAA;EACA,aAAA;EACA,8BAAA;EACA,qBAAA;EACA,cpB9QA;AAmzGR;AoBpiGQ;EANJ;IAOQ,qBAAA;IACA,mBAAA;EpBuiGV;AACF;AoBjiGQ;EADJ;IAEQ,eAAA;EpBoiGV;AACF;AoB1hGI;EACI,kBAAA;EACA,OAAA;EACA,SAAA;EACA,eAAA;EACA,oBAAA;EACA,mBAAA;EACA,uBAAA;ApB4hGR;AoB3hGQ;EARJ;IASQ,eAAA;EpB8hGV;AACF;AoBzhGI;EACI,WAAA;EACA,YAAA;EACA,mBAAA;ApB2hGR;AoB1hGQ;EAJJ;IAKQ,aAAA;IACA,YAAA;IACA,aAAA;EpB6hGV;AACF;AoBxhGI;EACI,kBAAA;EACA,MAAA;EACA,QAAA;EACA,oCAAA;ApB0hGR;AoBzhGQ;EALJ;IAMQ,kCAAA;IACA,WAAA;EpB4hGV;AACF;AoBvhGI;EACI,aAAA;EACA,qBAAA;EACA,kBAAA;ApByhGR;AoBxhGQ;EACI,aAAA;EACA,cAAA;ApB0hGZ;AoBxhGQ;EARJ;IASQ,kBAAA;EpB2hGV;EoB1hGU;IACI,WAAA;IACA,YAAA;EpB4hGd;AACF;AoBthGI;EACI,kBAAA;EACA,sBAAA;EACA,cpB/VA;AAu3GR;AoBvhGQ;EAJJ;IAKQ,kBAAA;EpB0hGV;AACF;;AqB34GA;EACI,oBAAA;ArB84GJ;AqB74GI;EAFJ;IAGQ,oBAAA;ErBg5GN;AACF;AqB54GI;EACI,aAAA;EACA,sBAAA;ArB84GR;AqBz4GI;EACI,qBAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;ArB24GR;AqB14GQ;EALJ;IAMQ,mBAAA;IACA,mBAAA;IACA,8BAAA;IACA,mBAAA;ErB64GV;AACF;AqBv4GQ;EADJ;IAEQ,qBAAA;ErB04GV;AACF;AqBh4GI;EACI,aAAA;EACA,sBAAA;EACA,WAAA;ArBk4GR;AqBj4GQ;EAJJ;IAKQ,mBAAA;IACA,8BAAA;IACA,YAAA;ErBo4GV;AACF;AqB/3GI;EACI,WAAA;EACA,eAAA;ArBi4GR;AqBh4GQ;EAHJ;IAIQ,iBAAA;IACA,cAAA;IACA,aAAA;ErBm4GV;AACF;AqB93GI;EACI,cAAA;EACA,YAAA;EACA,mBAAA;EACA,iBAAA;ArBg4GR;AqB33GI;EACI,cAAA;ArB63GR;AqBx3GI;EACI,aAAA;EACA,sBAAA;EACA,eAAA;EACA,WAAA;ArB03GR;;AsBj9GA;EACI,oBAAA;EACA,oBAAA;EACA,uBAAA;EACA,iBAAA;AtBo9GJ;AsBn9GI;EALJ;IAMQ,oBAAA;IACA,kBAAA;IACA,iBAAA;EtBs9GN;AACF;AsBl9GI;EACI,kBAAA;AtBo9GR;AsBn9GQ;EAEI,WAAA;EACA,kBAAA;EACA,WAAA;EACA,YAAA;EACA,aAAA;EACA,yBAAA;EACA,kBAAA;AtBo9GZ;AsBl9GQ;EACI,YAAA;AtBo9GZ;AsBl9GQ;EACI,aAAA;AtBo9GZ;AsBl9GQ;EACI;IAEI,YAAA;IACA,aAAA;EtBm9Gd;EsBj9GU;IACI,cAAA;EtBm9Gd;EsBj9GU;IACI,eAAA;EtBm9Gd;AACF;AsB78GI;EACI,aAAA;EACA,qCAAA;EACA,kBAAA;EACA,eAAA;AtB+8GR;AsB98GQ;EALJ;IAMQ,8CAAA;IACA,eAAA;EtBi9GV;AACF;AsB58GI;EACI,kBAAA;EACA,aAAA;EACA,qBAAA;EACA,kBAAA;AtB88GR;AsB18GY;EACI,WAAA;EACA,kBAAA;EACA,wBAAA;EACA,OAAA;EACA,WAAA;EACA,WAAA;EACA,yCAAA;AtB48GhB;AsBv8GY;EACI,WAAA;EACA,kBAAA;EACA,SAAA;EACA,YAAA;EACA,UAAA;EACA,eAAA;EACA,yCAAA;AtBy8GhB;AsBr8GY;EACI,SAAA;EACA,aAAA;AtBu8GhB;AsBn8GY;EACI,aAAA;AtBq8GhB;AsBl8GQ;EAEI,kBAAA;AtBm8GZ;AsBj8GQ;EAEI,iBAAA;AtBk8GZ;AsBh8GQ;EAjDJ;IAkDQ,sBAAA;IACA,oBAAA;EtBm8GV;EsBh8Gc;IACI,cAAA;EtBk8GlB;EsBh8Gc;IACI,aAAA;EtBk8GlB;EsB97Gc;IACI,WAAA;IACA,UAAA;IACA,QAAA;EtBg8GlB;EsB77GU;IACI,gBAAA;IACA,aAAA;EtB+7Gd;EsB97Gc;IACI,aAAA;EtBg8GlB;EsB77GU;IACI,qBAAA;IACA,iBAAA;EtB+7Gd;AACF;AsBz7GI;EACI,mBAAA;AtB27GR;AsB17GQ;EAFJ;IAGQ,gBAAA;IACA,gBAAA;IACA,cAAA;EtB67GV;AACF;AsBx7GI;EACI,kBAAA;EACA,UAAA;EACA,mBAAA;AtB07GR;AsBz7GQ;EAJJ;IAKQ,mBAAA;EtB47GV;AACF;AsBv7GI;EACI,kBAAA;EACA,+BAAA;AtBy7GR;AsBx7GQ;EAHJ;IAIQ,kBAAA;EtB27GV;AACF;AsBt7GI;EACI,kBAAA;EACA,sBAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,kBAAA;AtBw7GR;AsBv7GQ;EAPJ;IAQQ,kBAAA;IACA,UAAA;IACA,QAAA;IACA,SAAA;IACA,gBAAA;IACA,WAAA;IACA,YAAA;IACA,gCAAA;EtB07GV;AACF;AsBr7GI;EACI,kBAAA;EACA,UAAA;AtBu7GR;AsBl7GI;EACI,kBAAA;EACA,QAAA;EACA,SAAA;EACA,YAAA;EACA,aAAA;EACA,kBAAA;EACA,gBAAA;EACA,4BAAA;EACA,gCAAA;EACA,0DAAA;EACA,sBAAA;EACA,4BAAA;AtBo7GR;AsBn7GQ;EAbJ;IAcQ,YAAA;IACA,aAAA;IACA,wBAAA;EtBs7GV;AACF;AsBj7GI;EACI,cAAA;EACA,YAAA;EACA,iBAAA;AtBm7GR;;AuBzpHA;EACI,eAAA;EACA,aAAA;EACA,SAAA;EACA,YAAA;EACA,cvBMI;EuBLJ,2BAAA;AvB4pHJ;AuB3pHI;EAPJ;IAQQ,MAAA;IACA,OAAA;IACA,QAAA;IACA,SAAA;IACA,gBAAA;IACA,cAAA;IACA,eAAA;IACA,UAAA;IACA,aAAA;IACA,4BAAA;IACA,wEAAA;EvB8pHN;EuB7pHM;IACI,UAAA;IACA,mBAAA;IACA,wBAAA;EvB+pHV;AACF;AuB1pHI;EACI,mBAAA;EACA,aAAA;EACA,wCAAA;EACA,mBAAA;AvB4pHR;AuB3pHQ;EALJ;IAMQ,aAAA;EvB8pHV;AACF;AuBzpHI;EACI,aAAA;EACA,sBAAA;EACA,aAAA;AvB2pHR;AuB1pHQ;EACI,kBAAA;AvB4pHZ;AuBtpHI;EACI,oBAAA;AvBwpHR;AuBlpHQ;EADJ;IAEQ,aAAA;EvBqpHV;AACF;AuB/oHQ;EACI,aAAA;AvBipHZ;AuB/oHQ;EAJJ;IAKQ,mBAAA;IACA,aAAA;IACA,sBAAA;IACA,aAAA;EvBkpHV;EuBjpHU;IACI,mBAAA;IACA,aAAA;EvBmpHd;AACF;AuB7oHI;EACI,oBAAA;EACA,aAAA;EACA,WAAA;AvB+oHR;AuB9oHQ;EAJJ;IAKQ,eAAA;IACA,eAAA;IACA,gBAAA;IACA,eAAA;EvBipHV;AACF;AuB5oHI;EACI,gBAAA;AvB8oHR;AuB7oHQ;EAFJ;IAGQ,aAAA;EvBgpHV;AACF;AuB3oHI;EACI,8BAAA;EACA,aAAA;EACA,sBAAA;EACA,gBAAA;EACA,yBvBrGA;AAkvHR;AuB5oHQ;EANJ;IAOQ,eAAA;IACA,mBAAA;IACA,gBAAA;IACA,qBAAA;EvB+oHV;AACF;AuBzoHQ;EADJ;IAEQ,oCAAA;EvB4oHV;AACF;AuBvoHI;EACI,aAAA;AvByoHR;AuBxoHQ;EAFJ;IAGQ,cAAA;EvB2oHV;EuB1oHU;IACI,eAAA;IACA,YAAA;EvB4oHd;EuB3oHc;IACI,SAAA;IACA,UAAA;IACA,QAAA;IACA,yBAAA;IACA,oCAAA;IACA,cAAA;EvB6oHlB;AACF;;AuBxoHA;EACI,eAAA;EACA,SAAA;EACA,YAAA;EACA,oBAAA;EACA,aAAA;EACA,mBAAA;EACA,kBAAA;EACA,mBAAA;EACA,cvBnJI;EuBoJJ,yBvBrJI;EuBsJJ,2BAAA;AvB2oHJ;AuB1oHI;EACI,WAAA;EACA,cAAA;EACA,WAAA;EACA,YAAA;EACA,uDAAA;EACA,wBAAA;EACA,4BAAA;AvB4oHR;AuB1oHI;EArBJ;IAsBQ,aAAA;EvB6oHN;AACF;;AwBzzHA;EACI,kBAAA;EACA,mBAAA;EACA,oBAAA;AxB4zHJ;AIxzHI;EoBPJ;IAMQ,oBAAA;ExB6zHN;AACF;AwB3zHI;EACI,iBAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,yBAAA;AxB6zHR;AIp0HI;EoBEA;IAQQ,kBAAA;ExB8zHV;AACF;AwB3zHI;EACI,kBAAA;EACA,QAAA;EACA,SAAA;EACA,aAAA;EACA,UAAA;AxB6zHR;AIh1HI;EoBcA;IAQQ,UAAA;ExB8zHV;AACF;AwB5zHQ;EACI,WAAA;EACA,YAAA;EACA,kBAAA;AxB8zHZ;AwB3zHQ;EACI,kBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;AxB6zHZ;AIh2HI;EoB+BI;IAOQ,gBAAA;ExB8zHd;AACF;AwB5zHY;EACI,YAAA;EACA,MAAA;AxB8zHhB;AIz2HI;EoByCQ;IAKQ,UAAA;IACA,mBAAA;ExB+zHlB;AACF;AwB5zHY;EACI,SAAA;EACA,0BAAA;EACA,MAAA;AxB8zHhB;AIp3HI;EoBmDQ;IAMQ,UAAA;IACA,mBAAA;ExB+zHlB;AACF;AwB5zHY;EACI,cAAA;EACA,MAAA;AxB8zHhB;AI93HI;EoB8DQ;IAKQ,WAAA;IACA,UAAA;IACA,YAAA;ExB+zHlB;AACF;AwB5zHY;EACI,OAAA;EACA,YAAA;AxB8zHhB;AIz4HI;EoByEQ;IAKQ,aAAA;ExB+zHlB;AACF;AwB5zHY;EACI,aAAA;EACA,YAAA;AxB8zHhB;AIl5HI;EoBkFQ;IAKQ,eAAA;IACA,YAAA;ExB+zHlB;AACF;AwB5zHY;EACI,cAAA;EACA,cAAA;AxB8zHhB;AI55HI;EoB4FQ;IAKQ,aAAA;ExB+zHlB;AACF;AwB5zHY;EACI,eAAA;EACA,cAAA;AxB8zHhB;AIr6HI;EoBqGQ;IAKQ,aAAA;ExB+zHlB;AACF;AwB3zHQ;EACI,cxBlGE;EwBmGF,sBxBjHA;EwBkHA,gBAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;EACA,yBAAA;EACA,kBAAA;EACA,WAAA;AxB6zHZ;AIr7HI;EoB+GI;IAYQ,gBAAA;ExB8zHd;AACF;AwB1zHI;EpB1HA,gBoB2HmB;EpB1HnB,WAAA;EACA,eoByH0B;EACtB,kBAAA;AxB8zHR;AIh8HI;EoBgIA;IpB1HA,eoB+HuB;IpB9HvB,WAAA;IACA,eoB6H6B;ExBi0H/B;AACF;AwB/zHQ;EACI,WAAA;EACA,YAAA;AxBi0HZ;AwB/zHY;EACI,WAAA;EACA,YAAA;AxBi0HhB;AwB7zHQ;EACI,kBAAA;EACA,eAAA;EACA,SAAA;EACA,2BAAA;EpBhJR,kBoBiJuB;EpBhJvB,WAAA;EACA,eoB+IgC;EACxB,qBAAA;EACA,6CAAA;EACA,UAAA;AxBi0HZ;AI39HI;EoBkJI;IpB5IJ,kBoBuJ2B;IpBtJ3B,WAAA;IACA,eoBqJoC;IACxB,mBAAA;IACA,oBAAA;ExBo0Hd;AACF;AwBl0HY;EACI,YAAA;EACA,sBAAA;AxBo0HhB;;AyB/+HA;EACI,oBAAA;AzBk/HJ;AI5+HI;EqBPJ;IAIQ,oBAAA;EzBm/HN;AACF;AyBh/HQ;EACI,aAAA;EACA,sBAAA;AzBk/HZ;AyB/+HQ;EACI,kBAAA;EAYA,mDAAA;AzBs+HZ;AyB/+HgB;EACI,mDAAA;AzBi/HpB;AyB7+HY;EACI,gDAAA;AzB++HhB;AyB1+HY;EACI,mBAAA;EACA,aAAA;EACA,mBAAA;AzB4+HhB;AIpgII;EqBqBQ;IAMQ,sBAAA;EzB6+HlB;AACF;AyB3+HgB;EACI,kBAAA;EACA,QAAA;EACA,WAAA;EACA,UAAA;EACA,yBzB7Bb;EyB8Ba,oDAAA;EACA,wBAAA;EACA,yDAAA;AzB6+HpB;AyB3+HoB;EACI,cAAA;AzB6+HxB;AyBx+HY;EACI,czB5CR;EyB6CQ,sBzBhDJ;EyBiDI,gBAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;EACA,yBAAA;EACA,cAAA;EACA,YAAA;AzB0+HhB;AIjiII;EqB8CQ;IAYQ,aAAA;EzB2+HlB;AACF;AyBx+HY;EACI,aAAA;EACA,qBAAA;EACA,SAAA;EACA,kBAAA;AzB0+HhB;AI5iII;EqB8DQ;IAOQ,cAAA;IACA,WAAA;IACA,mBAAA;IACA,uBAAA;EzB2+HlB;AACF;AyBx+HY;EACI,qBAAA;ErBvEZ,gBqBwE2B;ErBvE3B,WAAA;EACA,aqBsEkC;AzB4+HtC;AI1jII;EqB4EQ;IAKQ,aAAA;EzB6+HlB;AACF;AyB3+HgB;EACI,YAAA;EACA,sBAAA;AzB6+HpB;AyBz+HY;EACI,sBzB3FJ;EyB4FI,gBAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iEAAA;EACA,6BAAA;EACA,qBAAA;EACA,kBAAA;EACA,+DAAA;AzB2+HhB;AIjlII;EqB0FQ;IAeQ,gBAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,yBAAA;EzB4+HlB;AACF;AyBz+HY;EACI,iBAAA;EACA,aAAA;EACA,mBAAA;EACA,WAAA;AzB2+HhB;AIhmII;EqBiHQ;IAOQ,aAAA;EzB4+HlB;AACF;AyB1+HgB;ErBrHZ,iBqBsH+B;ErBrH/B,WAAA;EACA,cqBoHuC;AzB8+H3C;AyB3+HgB;EACI,czB3HR;EyB4HQ,sBzBjIR;EyBkIQ,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,wBAAA;EACA,yBAAA;AzB6+HpB;;AIpnII;EsBPJ;IAEQ,qBAAA;E1B8nIN;AACF;A0B5nII;EACI,cAAA;EACA,WAAA;EACA,WAAA;EACA,sB1BFI;E0BGJ,qBAAA;EACA,kBAAA;EACA,gBAAA;EACA,sBAAA;EACA,kBAAA;EACA,qDACI;A1B6nIZ;AItoII;EsBFA;IAeQ,gBAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,yBAAA;E1B6nIV;AACF;A0B3nIQ;EACI,qDACI;EAEJ,yB1BfH;E0BgBG,c1BdL;AAyoIP;;A2B3pIA;EACI,kBAAA;EACA,oBAAA;A3B8pIJ;AIzpII;EuBPJ;IAKQ,kBAAA;IACA,oBAAA;E3B+pIN;AACF;A2B7pII;EACI,oBAAA;EACA,mBAAA;EAEA,kBAAA;EAEA,aAAA;EACA,uBAAA;EACA,8BAAA;EACA,SAAA;A3B6pIR;AIxqII;EuBEA;IAYQ,sBAAA;IACA,qBAAA;IACA,sBAAA;IACA,YAAA;E3B8pIV;AACF;A2B5pIQ;EvB1BJ,WAAA;EACA,kBAAA;EuB2BY,yBAAA;EACA,cAAA;EAEA,YAAA;EACA,SAAA;EAEA,mCAAA;A3B6pIhB;A2BzpIQ;EACI,kBAAA;EACA,WAAA;EACA,mBAAA;A3B2pIZ;AI9rII;EuBgCI;IAMQ,eAAA;IACA,aAAA;E3B4pId;AACF;A2BzpIQ;EACI,qBAAA;EACA,kBAAA;EACA,qBAAA;EACA,6BAAA;EACA,sB3BhDA;E2BiDA,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,wBAAA;EACA,yBAAA;A3B2pIZ;AIjtII;EuB2CI;IAcQ,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,uBAAA;IACA,qBAAA;E3B4pId;AACF;A2B1pIY;EvBvER,WAAA;EACA,kBAAA;EuBwEgB,cAAA;EACA,WAAA;EACA,cAAA;EACA,QAAA;EACA,2BAAA;EACA,mB3BlEb;AA+tIP;AIruII;EuBiEQ;IAUY,aAAA;IACA,YAAA;IACA,cAAA;E3B8pItB;AACF;A2BzpIQ;EACI,c3BjFJ;E2BkFI,sB3BrFA;E2BsFA,gBAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;EACA,yBAAA;EACA,mBAAA;A3B2pIZ;AItvII;EuBmFI;IAWQ,gBAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,yBAAA;IACA,mBAAA;E3B4pId;AACF;A2BzpIQ;EACI,c3BrGJ;E2BsGI,eAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;EACA,qBAAA;A3B2pIZ;AIxwII;EuBuGI;IASQ,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,gBAAA;E3B4pId;AACF;A2BzpIQ;EvBlHJ,kBuBmHuB;EvBlHvB,WAAA;EACA,euBiHgC;EACxB,kBAAA;A3B6pIZ;AIvxII;EuBwHI;IvBlHJ,euBuH2B;IvBtH3B,WAAA;IACA,euBqHiC;E3BgqInC;AACF;A2B9pIY;EACI,WAAA;EACA,YAAA;EACA,mBAAA;A3BgqIhB;A2B9pIgB;EACI,YAAA;EACA,sBAAA;EACA,iBAAA;A3BgqIpB;A2B5pIY;EvBtIR,gBuBuI2B;EvBtI3B,WAAA;EACA,auBqIkC;EACtB,kBAAA;EACA,UAAA;EACA,aAAA;A3BgqIhB;AIhzII;EuB4IQ;IvBtIR,gBuB6I+B;IvB5I/B,WAAA;IACA,auB2IsC;IACtB,QAAA;IACA,YAAA;IACA,UAAA;E3BmqIlB;AACF;A2B9pII;EACI,aAAA;EACA,8BAAA;EACA,sBAAA;A3BgqIR;AI/zII;EuB4JA;IAMQ,gBAAA;IACA,sBAAA;IACA,SAAA;E3BiqIV;AACF;A2B/pIQ;EACI,aAAA;EACA,sBAAA;EACA,gBAAA;EACA,WAAA;A3BiqIZ;A2B7pII;EACI,gBAAA;EACA,WAAA;EACA,aAAA;EACA,sBAAA;EACA,kBAAA;A3B+pIR;AIn1II;EuB+KA;IAQQ,eAAA;IACA,mBAAA;IACA,8BAAA;E3BgqIV;AACF;A2B9pIQ;EvBlMJ,WAAA;EACA,kBAAA;EuBmMY,QAAA;EACA,MAAA;EACA,aAAA;EACA,YAAA;EACA,0BAAA;EACA,+BAAA;EACA,mCAAA;A3BiqIhB;AIr2II;EuB4LI;IAWY,aAAA;E3BkqIlB;AACF;A2B9pIQ;EACI,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,cAAA;EACA,qBAAA;A3BgqIZ;AIl3II;EuB4MI;IASQ,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,gBAAA;E3BiqId;AACF;A2B7pIY;EACI,aAAA;EACA,sBAAA;EACA,WAAA;A3B+pIhB;AIh4II;EuB8NQ;IAMQ,mBAAA;IACA,WAAA;E3BgqIlB;AACF;A2B7pIY;EvBnOR,iBuBoO2B;EvBnO3B,WAAA;EACA,cuBkOmC;A3BiqIvC;AI34II;EuByOQ;IvBnOR,euBuO+B;IvBtO/B,WAAA;IACA,YuBqOqC;E3BoqIvC;AACF;A2BlqIgB;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,eAAA;EACA,kDACI;EAEJ,4BAAA;EACA,kBAAA;A3BkqIpB;AI35II;EuBgPY;IAYQ,eAAA;E3BmqItB;AACF;A2BjqIoB;EACI,mB3BvPf;E2BwPe,yBAAA;A3BmqIxB;A2BhqIoB;EACI,YAAA;A3BkqIxB;A2B5pIQ;EACI,gBAAA;EACA,kBAAA;EACA,aAAA;EACA,mBAAA;EACA,WAAA;A3B8pIZ;AI96II;EuB2QI;IAYQ,WAAA;IACA,gBAAA;E3B2pId;E2BhqIc;IACI,aAAA;E3BkqIlB;AACF;A2B5pIY;EACI,aAAA;A3B8pIhB;AI17II;EuB2RQ;IAIQ,aAAA;E3B+pIlB;AACF;A2B5pIY;EACI,sB3BpSJ;E2BqSI,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,wBAAA;EACA,yBAAA;A3B8pIhB;AIx8II;EuBmSQ;IAUQ,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,uBAAA;IACA,yBAAA;E3B+pIlB;AACF;A2B1pII;EACI,qBAAA;EACA,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;A3B4pIR;AIz9II;EuBwTA;IAQQ,qBAAA;IACA,iBAAA;IACA,kBAAA;IACA,gBAAA;IACA,mBAAA;E3B6pIV;AACF;A2B1pII;EACI,qBAAA;EACA,eAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;A3B4pIR;AIz+II;EuBwUA;IAQQ,iBAAA;IACA,kBAAA;IACA,gBAAA;IACA,mBAAA;IACA,qBAAA;E3B6pIV;AACF;A2BzpIQ;EACI,aAAA;EACA,sBAAA;EACA,WAAA;EACA,qBAAA;A3B2pIZ;AIx/II;EuByVI;IAOQ,qBAAA;IACA,WAAA;E3B4pId;AACF;A2B1pIY;EACI,mBAAA;EACA,eAAA;EACA,iBAAA;A3B4pIhB;AIngJI;EuBoWQ;IAMQ,eAAA;E3B6pIlB;AACF;A2B1pIY;EACI,c3BlWT;E2BmWS,eAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;A3B4pIhB;AI/gJI;EuB8WQ;IAQQ,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;E3B6pIlB;AACF;A2BxpII;EACI,aAAA;EACA,sBAAA;EACA,WAAA;A3B0pIR;AI5hJI;EuB+XA;IAMQ,WAAA;E3B2pIV;AACF;A2BvpIQ;EACI,eAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;A3BypIZ;AIviJI;EuB0YI;IAOQ,iBAAA;IACA,kBAAA;IACA,gBAAA;IACA,mBAAA;E3B0pId;AACF;;A4BtjJA;EACI,mB5BaK;E4BZL,gBAAA;EACA,oBAAA;A5ByjJJ;AIrjJI;EwBPJ;IAMQ,kBAAA;IACA,oBAAA;E5B0jJN;AACF;A4BxjJI;EACI,aAAA;EACA,8BAAA;A5B0jJR;AI/jJI;EwBGA;IAKQ,sBAAA;IACA,WAAA;E5B2jJV;AACF;A4BxjJI;EACI,kBAAA;EACA,WAAA;EACA,aAAA;EACA,sBAAA;EACA,SAAA;A5B0jJR;AI5kJI;EwBaA;IAQQ,eAAA;IACA,WAAA;E5B2jJV;AACF;A4BzjJQ;ExBnBJ,ewBoBuB;ExBnBvB,WAAA;EACA,ewBkB6B;EACrB,mBAAA;A5B6jJZ;AIxlJI;EwByBI;IxBnBJ,ewBwB2B;IxBvB3B,WAAA;IACA,ewBsBiC;E5BgkJnC;AACF;A4B9jJY;EACI,sBAAA;EACA,YAAA;EACA,iBAAA;A5BgkJhB;A4B3jJI;EACI,c5BrCI;E4BsCJ,sB5B3CI;E4B4CJ,gBAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;EACA,yBAAA;A5B6jJR;AI7mJI;EwByCA;IAUQ,gBAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,yBAAA;E5B8jJV;AACF;A4B3jJI;EACI,gBAAA;EACA,WAAA;EACA,mBAAA;A5B6jJR;AI3nJI;EwB2DA;IAMQ,cAAA;IACA,eAAA;E5B8jJV;AACF;A4B5jJQ;EACI,mBAAA;EACA,c5BlEA;E4BmEA,sB5BxEA;E4ByEA,eAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;EACA,yBAAA;A5B8jJZ;AI3oJI;EwBqEI;IAWQ,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,uBAAA;IACA,yBAAA;IACA,qBAAA;E5B+jJd;AACF;A4B5jJQ;EACI,kBAAA;EACA,WAAA;EACA,c5BhFL;E4BiFK,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,oBAAA;A5B8jJZ;AIhqJI;EwB0FI;IAWQ,qBAAA;IACA,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;E5B+jJd;AACF;A4B5jJQ;EACI,aAAA;EACA,qBAAA;EACA,8BAAA;A5B8jJZ;A4B1jJY;ExB9GR,gBwB+G2B;ExB9G3B,WAAA;EACA,awB6GkC;A5B8jJtC;AInrJI;EwBoHQ;IxB9GR,kBwBkH+B;IxBjH/B,WAAA;IACA,ewBgHwC;E5BikJ1C;AACF;A4B9jJY;ExBtHR,kBwBuH2B;ExBtH3B,WAAA;EACA,awBqHoC;EACxB,mBAAA;A5BkkJhB;AIhsJI;EwB4HQ;IxBtHR,kBwB2H+B;IxB1H/B,WAAA;IACA,ewByHwC;E5BqkJ1C;AACF;A4BnkJgB;EACI,YAAA;EACA,sBAAA;EACA,iBAAA;A5BqkJpB;;A6BntJA;EACI,oBAAA;A7BstJJ;AIhtJI;EyBPJ;IAIQ,oBAAA;E7ButJN;AACF;A6BrtJI;EACI,sB7BDI;E6BEJ,mBAAA;EACA,gBAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;EACA,yBAAA;A7ButJR;AI9tJI;EyBAA;IAUQ,gBAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,yBAAA;IACA,qBAAA;E7BwtJV;AACF;A6BrtJI;EACI,aAAA;EACA,uBAAA;EACA,8BAAA;EACA,oBAAA;A7ButJR;AI9uJI;EyBmBA;IAOQ,oBAAA;IACA,sBAAA;IACA,SAAA;E7BwtJV;AACF;A6BttJQ;EACI,aAAA;EACA,uBAAA;EACA,WAAA;A7BwtJZ;AI1vJI;EyB+BI;IAMQ,aAAA;IACA,sDAAA;IACA,WAAA;E7BytJd;AACF;A6BttJQ;EACI,aAAA;EACA,sBAAA;EACA,SAAA;EACA,kBAAA;EACA,gBAAA;A7BwtJZ;AIxwJI;EyB2CI;IAQQ,eAAA;IACA,mBAAA;IACA,WAAA;IACA,qBAAA;E7BytJd;AACF;A6BvtJY;EAEQ;IzBjEhB,WAAA;IACA,kBAAA;IyBkEwB,2BAAA;IACA,cAAA;IACA,aAAA;IACA,mCAAA;E7BytJ1B;AACF;AI1xJI;EyBwEgB;IzB9EhB,WAAA;IACA,kBAAA;IyB+EwB,YAAA;IACA,cAAA;IACA,aAAA;IACA,mCAAA;E7BstJ1B;E6BhtJkB;IzBzFhB,WAAA;IACA,kBAAA;IyB0FwB,WAAA;IACA,cAAA;IACA,eAAA;IACA,mCAAA;E7BmtJ1B;AACF;A6B9sJY;EACI,sB7B/FJ;E6BgGI,gBAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;EACA,yBAAA;A7BgtJhB;AIpzJI;EyB8FQ;IASQ,gBAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,yBAAA;E7BitJlB;AACF;A6B9sJY;EACI,+BAAA;EACA,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;A7BgtJhB;AIp0JI;EyB+GQ;IAQQ,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;E7BitJlB;AACF;A6B5sJI;EACI,+BAAA;EACA,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,gBAAA;EACA,WAAA;EACA,gBAAA;A7B8sJR;AIt1JI;EyBgIA;IAWQ,+BAAA;IACA,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;E7B+sJV;AACF;A6B5sJI;EzB7IA,eyB8ImB;EzB7InB,WAAA;EACA,eyB4IyB;EACrB,mBAAA;A7BgtJR;AIr2JI;EyBmJA;IzB7IA,eyBkJuB;IzBjJvB,WAAA;IACA,eyBgJ6B;E7BmtJ/B;AACF;A6BjtJQ;EACI,sBAAA;EACA,YAAA;EACA,iBAAA;A7BmtJZ;;A8Bx3JA;EACI,kBAAA;EACA,oBAAA;A9B23JJ;AIt3JI;E0BPJ;IAKQ,oBAAA;E9B43JN;AACF;A8B13JI;EACI,WAAA;EACA,YAAA;A9B43JR;A8Bz3JI;EACI,0BAAA;EACA,mCAAA;A9B23JR;A8Bx3JI;EACI,aAAA;A9B03JR;A8Bv3JI;EACI,aAAA;A9By3JR;A8Bt3JI;EACI,kBAAA;EACA,QAAA;A9Bw3JR;A8Br3JI;EACI,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,yBAAA;EACA,aAAA;A9Bu3JR;AIp5JI;E0BwBA;IAQQ,cAAA;E9Bw3JV;AACF;A8Br3JI;EACI,WAAA;EACA,kBAAA;EACA,sBAAA;EACA,kBAAA;EACA,UAAA;A9Bu3JR;AIh6JI;E0BoCA;IAQQ,cAAA;IACA,qBAAA;IACA,gBAAA;E9Bw3JV;AACF;A8Br3JI;EACI,c9BhDA;E8BiDA,sB9BpDI;E8BqDJ,gBAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;EACA,yBAAA;EACA,qBAAA;A9Bu3JR;AIj7JI;E0BkDA;IAWQ,gBAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,yBAAA;IACA,qBAAA;E9Bw3JV;AACF;A8Br3JI;EACI,aAAA;EACA,uBAAA;EACA,YAAA;A9Bu3JR;AIh8JI;E0BsEA;IAMQ,WAAA;IACA,sBAAA;E9Bw3JV;AACF;A8Bt3JQ;EACI,c9B9EJ;E8B+EI,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,kBAAA;EACA,WAAA;A9Bw3JZ;AI/8JI;E0BgFI;IAUQ,eAAA;IACA,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;E9By3Jd;AACF;A8Bt3JQ;EACI,aAAA;EACA,sBAAA;EACA,WAAA;A9Bw3JZ;A8Bp3JY;EACI,cAAA;EACA,c9BxGR;E8ByGQ,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,2BAAA;A9Bs3JhB;AIt+JI;E0ByGQ;IAUQ,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;E9Bu3JlB;AACF;A8Br3JgB;EACI,c9BjHX;AAw+JT;;A+Bx/JA;EACI,kBAAA;EACA,UAAA;EACA,kBAAA;EACA,oBAAA;A/B2/JJ;AIx/JI;E2BPJ;IAOQ,oBAAA;E/B4/JN;AACF;A+B1/JI;EACI,aAAA;EACA,SAAA;EACA,uBAAA;EACA,8BAAA;A/B4/JR;AIngKI;E2BGA;IAOQ,sBAAA;IACA,WAAA;E/B6/JV;AACF;A+B1/JI;EACI,gBAAA;EACA,WAAA;EACA,oBAAA;EACA,oCAAA;EACA,sBAAA;EACA,uBAAA;EACA,WAAA;EACA,mBAAA;EACA,mB/BrBA;AAihKR;AIphKI;E2BeA;IAYQ,eAAA;IACA,6BAAA;IACA,mBAAA;IACA,WAAA;E/B6/JV;AACF;A+B3/JQ;EACI,c/B7BA;E+B8BA,sB/BnCA;E+BoCA,eAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;EACA,yBAAA;A/B6/JZ;AIriKI;E2BiCI;IAUQ,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,uBAAA;IACA,yBAAA;E/B8/Jd;AACF;A+B3/JQ;EACI,aAAA;EACA,sBAAA;EACA,WAAA;EACA,kBAAA;A/B6/JZ;AIrjKI;E2BoDI;IAOQ,WAAA;IACA,WAAA;E/B8/Jd;AACF;A+B5/JY;EACI,cAAA;EACA,c/B5DJ;E+B6DI,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;A/B8/JhB;AInkKI;E2B+DQ;IASQ,iBAAA;IACA,kBAAA;IACA,gBAAA;IACA,mBAAA;E/B+/JlB;AACF;A+B5/JY;EACI,aAAA;A/B8/JhB;AI9kKI;E2B+EQ;IAIQ,aAAA;IACA,sBAAA;IACA,kBAAA;IACA,UAAA;IACA,gBAAA;IACA,WAAA;IACA,mBAAA;IACA,mB/BvFZ;I+BwFY,eAAA;IACA,UAAA;IACA,6BAAA;IACA,UAAA;E/B+/JlB;AACF;A+B7/JgB;E3B3FZ,iB2B4F+B;E3B3F/B,WAAA;EACA,c2B0FuC;EACvB,kBAAA;EACA,aAAA;EACA,WAAA;A/BigKpB;A+B//JoB;EACI,WAAA;EACA,YAAA;A/BigKxB;AI1mKI;E2B6GY;IAEQ,c/B1GZ;I+B2GY,sB/BhHZ;I+BiHY,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,uBAAA;IACA,yBAAA;IACA,qBAAA;E/B+/JtB;AACF;AIvnKI;E2B2HY;IAEQ,aAAA;IACA,sBAAA;IACA,mBAAA;IACA,gBAAA;IACA,WAAA;E/B8/JtB;E+B5/JsB;IACI,aAAA,EAAA,kCAAA;E/B8/J1B;E+B3/JsB;IACI,uBAAA,EAAA,+BAAA;E/B6/J1B;E+B1/JsB;IACI,oCAAA;IACA,mBAAA;E/B4/J1B;AACF;A+Bv/JoB;EACI,mB/B7If;AAsoKT;AI7oKI;E2BkJY;IAMQ,oBAAA;IACA,mBAAA;IACA,c/BrJZ;I+BsJY,sB/B3JZ;I+B4JY,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,uBAAA;IACA,yBAAA;IACA,kBAAA;IACA,gCAAA;E/By/JtB;AACF;A+Bn/JI;EACI,aAAA;EACA,oDAAA;EACA,SAAA;EACA,iBAAA;EACA,WAAA;EACA,mBAAA;A/Bq/JR;AIrqKI;E2B0KA;IASQ,aAAA;IACA,sBAAA;IACA,WAAA;IACA,eAAA;IACA,oBAAA;E/Bs/JV;AACF;A+Bp/JQ;EACI,mBAAA;EACA,kBAAA;EACA,mB/B/KE;E+BgLF,gCAAA;EACA,aAAA;A/Bs/JZ;A+Bp/JY;EACI,mB/B5LT;AAkrKP;A+Bp/JgB;EACI,c/BlMZ;AAwrKR;A+Bl/JY;EACI,aAAA;EACA,sBAAA;EACA,oBAAA;A/Bo/JhB;AIhsKI;E2ByMQ;IAMQ,eAAA;E/Bq/JlB;AACF;A+Bl/JY;EACI,aAAA;EACA,mBAAA;EACA,qBAAA;EACA,qBAAA;EACA,c/BnNJ;AAusKZ;AI5sKI;E2BmNQ;IAQQ,qBAAA;IACA,gBAAA;E/Bq/JlB;AACF;A+Bl/JY;EACI,iBAAA;EACA,kBAAA;EACA,sB/BnOJ;E+BoOI,gBAAA;EACA,mBAAA;EACA,wBAAA;EACA,yBAAA;EACA,sBAAA;EACA,mB/BlOP;E+BmOO,mBAAA;EACA,2BAAA;A/Bo/JhB;AI/tKI;E2BgOQ;IAcQ,oBAAA;IACA,mBAAA;IACA,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,uBAAA;IACA,yBAAA;E/Bq/JlB;AACF;A+Bl/JY;E3BnPR,iB2BoP2B;E3BnP3B,WAAA;EACA,c2BkPmC;EACvB,eAAA;EACA,kBAAA;EACA,mB/BtPP;AA4uKT;AInvKI;E2ByPQ;I3BnPR,e2B0P+B;I3BzP/B,WAAA;IACA,Y2BwPqC;IACrB,eAAA;E/By/JlB;AACF;A+Bv/JgB;EACI,WAAA;EACA,YAAA;A/By/JpB;A+Bv/JoB;EACI,kBAAA;EACA,yBAAA;A/By/JxB;A+Bp/JY;EACI,iBAAA;EACA,sBAAA;EACA,mBAAA;EACA,mB/B5QP;E+B6QO,sB/BpRJ;E+BqRI,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,2BAAA;EACA,mBAAA;EACA,wBAAA;EACA,yBAAA;A/Bs/JhB;AIjxKI;E2B+QQ;IAeQ,oBAAA;IACA,mBAAA;IACA,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,uBAAA;IACA,yBAAA;E/Bu/JlB;AACF;A+Bp/JY;EACI,c/BvSR;E+BwSQ,sB/B3SJ;E+B4SI,eAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;EACA,yBAAA;EACA,cAAA;EACA,qBAAA;A/Bs/JhB;AIxyKI;E2BySQ;IAYQ,qBAAA;IACA,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,uBAAA;IACA,yBAAA;E/Bu/JlB;AACF;A+Bp/JY;EACI,mBAAA;EACA,c/B9TR;E+B+TQ,eAAA;EACA,kBAAA;EACA,gBAAA;EACA,iBAAA;EACA,oBAAA;EACA,qBAAA;EACA,4BAAA;EACA,gBAAA;EACA,qBAAA;A/Bs/JhB;AIh0KI;E2B+TQ;IAcQ,qBAAA;IACA,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;E/Bu/JlB;AACF;A+Bp/JY;E3B/UR,kB2BgV2B;E3B/U3B,WAAA;EACA,e2B8UoC;EACxB,mBAAA;EACA,gBAAA;A/Bw/JhB;AIh1KI;E2BqVQ;I3B/UR,kB2BqV+B;I3BpV/B,WAAA;IACA,e2BmVwC;E/B2/J1C;AACF;A+Bz/JgB;EACI,sBAAA;EACA,YAAA;EACA,iBAAA;A/B2/JpB;A+Bv/JY;EACI,c/BnWR;E+BoWQ,sB/BvWJ;E+BwWI,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,wBAAA;EACA,yBAAA;EACA,sBAAA;EACA,mCAAA;EACA,kBAAA;EACA,WAAA;EACA,cAAA;A/By/JhB;AI32KI;E2BqWQ;IAgBQ,aAAA;IACA,cAAA;IACA,sBAAA;IACA,oBAAA;IACA,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,uBAAA;IACA,yBAAA;E/B0/JlB;AACF;A+Bt/JQ;EACI,cAAA;EACA,cAAA;EACA,sB/BtYA;E+BuYA,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,wBAAA;EACA,yBAAA;EACA,sBAAA;EACA,mCAAA;EACA,6CAAA;A/Bw/JZ;A+Bt/JY;EACI,c/BzYP;E+B0YO,qB/B1YP;AAk4KT;AI34KI;E2BmYI;IAoBQ,eAAA;IACA,kBAAA;IACA,gBAAA;IACA,iBAAA;IACA,uBAAA;IACA,yBAAA;IACA,sBAAA;IACA,oBAAA;E/Bw/Jd;AACF;;AgCr5KA;EACI,SAAA;AhCw5KJ;;AiCl6KA;EACI,yBAAA;EACA,gBAAA;EACA,oBAAA;AjCq6KJ;AiCn6KI;EACI,aAAA;EACA,mBAAA;EACA,8BAAA;EACA,SAAA;AjCq6KR;AiCl6KI;EACI,kBAAA;EACA,cAAA;EACA,eAAA;EACA,SAAA;AjCo6KR;AiCl6KI;EACI,aAAA;EAEA,cAAA;EACA,eAAA;EACA,mBAAA;EACA,kBAAA;EACA,eAAA;EACA,gBAAA;AjCm6KR;AiCh6KI;EACI,mBAAA;EAEA,cAAA;AjCi6KR;AiC95KI;EACI,mBAAA;EACA,cAAA;EACA,cjClBD;AAk7KP;AiC75KI;EACI,cjC/BA;AA87KR;;AiC55KA;EACI,aAAA;EACA,sBAAA;EACA,8BAAA;AjC+5KJ;AiC75KI;EACI,MAAA;EACA,OAAA;EACA,UAAA;EAEA,gGAAA;AjC85KR;AiC55KI;EACI,YAAA;EACA,SAAA;EACA,UAAA;EAEA,+FAAA;AjC65KR;AiCz5KI;EACI,aAAA;EACA,mBAAA;EACA,8BAAA;AjC25KR;AiCx5KI;EACI,aAAA;EACA,sBAAA;EACA,oBAAA;AjC05KR;AiCz5KQ;EACI,YAAA;AjC25KZ;AiCx5KQ;EACI,gBAAA;AjC05KZ;AiCv5KQ;EACI,gBAAA;AjCy5KZ;AiCr5KI;EACI,aAAA;EACA,mBAAA;EACA,WAAA;AjCu5KR;AiCt5KQ;EACI,WAAA;EACA,YAAA;EACA,kBAAA;EACA,oCAAA;EACA,2BAAA;EAEA,aAAA;EACA,mBAAA;EACA,uBAAA;AjCu5KZ;AiCr5KY;EACI,cAAA;EACA,aAAA;EACA,cAAA;AjCu5KhB;AiCl5KI;EACI,aAAA;EACA,mBAAA;EACA,8BAAA;AjCo5KR;AiCn5KQ;EACI,aAAA;EACA,cAAA;EACA,cAAA;EACA,eAAA;EACA,uBAAA;EACA,mBAAA;EACA,qBAAA;AjCq5KZ;AiCn5KY;EACI,oCAAA;EACA,2BAAA;AjCq5KhB;AiCn5KY;EACI,mBjCxHR;EiCyHQ,6BAAA;EACA,oBAAA;EACA,cjC1HR;AA+gLR;AiCn5KgB;EACI,gBAAA;EACA,kBAAA;AjCq5KpB;AiCn5KgB;EACI,oBAAA;EACA,qBAAA;AjCq5KpB;AiCn5KgB;EACI,sBAAA;AjCq5KpB;AiC/4KI;EACI,kBAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,WAAA;EACA,YAAA;EACA,eAAA;AjCi5KR;AiC/4KQ;EACI,WAAA;EACA,YAAA;EACA,mBAAA;AjCi5KZ;;AiC54KA;EACI;IACI,kBAAA;IACA,sBAAA;EjC+4KN;EiC94KM;IACI,UAAA;EjCg5KV;EiC74KM;IACI,aAAA;IACA,mBAAA;IACA,sBAAA;IACA,8BAAA;IACA,WAAA;EjC+4KV;EiC54KM;IACI,QAAA;IACA,kBAAA;IACA,WAAA;IACA,YAAA;IACA,SAAA;IACA,eAAA;EjC84KV;EiC34KM;IACI,cAAA;IACA,aAAA;IACA,mBAAA;IACA,gBAAA;IACA,eAAA;IACA,gBAAA;EjC64KV;EiCz4KM;IACI,QAAA;IACA,aAAA;IACA,sBAAA;IACA,mBAAA;IACA,eAAA;EjC24KV;EiCx4KM;IACI,UAAA;IACA,kBAAA;IACA,qBAAA;EjC04KV;EiCv4KM;IACI,iBAAA;IACA,kBAAA;IACA,qBAAA;IACA,UAAA;EjCy4KV;EiCr4KM;IACI,QAAA;EjCu4KV;EiCp4KM;IACI,eAAA;EjCs4KV;EiCp4KU;IACI,mBAAA;EjCs4Kd;EiCl4KM;IACI,SAAA;EjCo4KV;EiCl4Kc;IACI,aAAA;IACA,cAAA;EjCo4KlB;EiC93KU;IACI,aAAA;IACA,YAAA;IACA,cAAA;IACA,eAAA;IACA,mBAAA;EjCg4Kd;EiC93KkB;IACI,gBAAA;IACA,kBAAA;EjCg4KtB;EiC93KkB;IACI,gBAAA;EjCg4KtB;AACF;AkCpoLA;EACI,sBAAA;AlCsoLJ;AkCpoLI;EACI,aAAA;EACA,mBAAA;EACA,WAAA;AlCsoLR;AkCnoLI;EACI,aAAA;EACA,sBAAA;EACA,kBAAA;AlCqoLR;AkCloLI;EACI,mBAAA;AlCooLR;AkCjoLI;EACI,mBAAA;AlCmoLR;AkChoLI;EACI,gBAAA;EACA,gBAAA;EACA,WAAA;AlCkoLR;AkC/nLI;EACI,kBAAA;EACA,aAAA;EACA,mBAAA;EAEA,WAAA;EACA,YAAA;AlCgoLR;AkC7nLI;EACI,kBAAA;EACA,YAAA;EACA,eAAA;EACA,mBAAA;AlC+nLR;;AkC5nLA;EACI,yBlClCQ;EkCmCR,gBAAA;AlC+nLJ;AkC9nLI;EACI,MAAA;EACA,OAAA;EACA,4BAAA;AlCgoLR;AkC9nLQ;EACI,mBlCvCJ;AAuqLR;AkC7nLI;EACI,YAAA;EACA,QAAA;EACA,4BAAA;AlC+nLR;AkC7nLQ;EACI,mBlClDL;AAirLP;AkC5nLI;EACI,OAAA;EACA,eAAA;EACA,4BAAA;AlC8nLR;AkC5nLQ;EACI,mBlC1DH;AAwrLT;AkC3nLI;EACI,SAAA;EACA,QAAA;EACA,4BAAA;AlC6nLR;AkC3nLQ;EACI,mBlCjEH;AA8rLT;AkCznLI;EACI,aAAA;EACA,sBAAA;EACA,kBAAA;EACA,aAAA;EACA,WAAA;EACA,YAAA;EACA,gBAAA;AlC2nLR;AkCxnLI;EACI,aAAA;EACA,sBAAA;AlC0nLR;AkCvnLI;EACI,aAAA;EACA,cAAA;EACA,qBAAA;AlCynLR;AkCtnLI;EACI,kBAAA;EACA,SAAA;EACA,aAAA;EACA,2BAAA;EACA,YAAA;EACA,aAAA;EAEA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,kBAAA;AlCunLR;AkCrnLQ;EACI,cAAA;EACA,aAAA;EACA,cAAA;AlCunLZ;AkCrnLY;EACI,alCnHR;AA0uLR;AkClnLI;EACI,qBAAA;AlConLR;AkClnLI;EACI,kBAAA;EACA,SAAA;EACA,2BAAA;EACA,eAAA;AlConLR;AkCjnLI;EACI,+BAAA;AlCmnLR;AkChnLI;EACI,kBAAA;EACA,SAAA;EACA,OAAA;EACA,UAAA;EACA,YAAA;EACA,WAAA;AlCknLR;;AkC9mLA;EACI;IACI,oBAAA;ElCinLN;EkC/mLM;IACI,aAAA;IACA,sBAAA;IACA,uBAAA;IACA,WAAA;ElCinLV;EkC9mLM;IACI,aAAA;IACA,sBAAA;IACA,mBAAA;IACA,kBAAA;IACA,eAAA;ElCgnLV;EkC7mLM;IACI,qBAAA;ElC+mLV;EkC5mLM;IACI,qBAAA;ElC8mLV;EkC3mLM;IACI,gBAAA;IACA,eAAA;IACA,WAAA;ElC6mLV;EkC1mLM;IACI,kBAAA;IACA,aAAA;IACA,mBAAA;IAEA,WAAA;IACA,YAAA;ElC2mLV;EkCxmLM;IACI,gBAAA;IACA,cAAA;IACA,YAAA;IACA,mBAAA;ElC0mLV;EkCrmLM;IACI,aAAA;ElCumLV;EkCpmLM;IACI,aAAA;IACA,cAAA;IACA,qBAAA;ElCsmLV;EkCnmLM;IACI,eAAA;IAEA,YAAA;IACA,aAAA;ElComLV;EkCnmLU;IACI,aAAA;IACA,cAAA;ElCqmLd;EkClmLM;IACI,kBAAA;IACA,SAAA;IACA,2BAAA;IACA,aAAA;IACA,YAAA;ElComLV;EkCjmLM;IACI,+BAAA;ElCmmLV;EkChmLM;IACI,kBAAA;IACA,SAAA;IACA,OAAA;IACA,UAAA;IACA,YAAA;IACA,WAAA;ElCkmLV;AACF;AmCt1LA;EACI,uCAAA;AnCw1LJ;AmCt1LI;EACI,wBAAA;EACA,yBAAA;AnCw1LR;AmCr1LI;EACI,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,kBAAA;EACA,WAAA;EACA,sBAAA;AnCu1LR;AmCp1LI;EACI,aAAA;EACA,kBAAA;AnCs1LR;AmCp1LI;EACI,kBAAA;EACA,WAAA;EACA,cAAA;EACA,yBnCbI;EmCcJ,SAAA;EACA,2BAAA;EACA,cAAA;AnCs1LR;AmCn1LI;EACI,cAAA;EACA,WAAA;AnCq1LR;AmCn1LQ;EACI,sCAAA;EACA,wBAAA;EACA,UAAA;EACA,YAAA;AnCq1LZ;AmCj1LY;EACI,2CAAA;EACA,sCAAA;AnCm1LhB;AmCh1LY;EACI,UAAA;EACA,mBAAA;EACA,4DAAA;AnCk1LhB;AmC70LI;EACI,eAAA;EACA,aAAA;EACA,sBAAA;EACA,8BAAA;AnC+0LR;AmC50LI;EACI,gBAAA;EACA,eAAA;EACA,cAAA;EACA,kBAAA;EAEA,gBAAA;EACA,gBAAA;AnC60LR;AmC10LI;EACI,kBAAA;EACA,cAAA;EACA,eAAA;EACA,mBAAA;EACA,gBAAA;AnC40LR;AmCz0LI;EACI,UAAA;EACA,kBAAA;EAEA,4DAAA;EAEA,cnC3EI;EmC4EJ,uBAAA;EACA,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA,EAAA,aAAA;EACA,wBAAA;EACA,yBAAA;EAEA,oBAAA;AnCw0LR;AmCt0LQ;EACI,kBAAA;AnCw0LZ;AmCv0LY;EACI,WAAA;EACA,WAAA;EACA,cAAA;EACA,yBnC5FJ;EmC8FI,kBAAA;EACA,eAAA;EACA,SAAA;EACA,6BAAA;EACA,2BAAA;AnCw0LhB;AmCr0LY;EACI,6BAAA;EACA,QAAA;AnCu0LhB;AmCl0LI;EACI,WAAA;EACA,cAAA;AnCo0LR;AmCl0LQ;EACI,sCAAA;EACA,uBAAA;EACA,UAAA;EACA,YAAA;AnCo0LZ;AmCh0LY;EACI,0CAAA;EACA,sCAAA;AnCk0LhB;AmC/zLY;EACI,UAAA;EACA,mBAAA;EACA,4DAAA;AnCi0LhB;;AmC3zLA;EACI;IACI,gBAAA;IACA,oBAAA;EnC8zLN;EmC5zLM;IACI,UAAA;IACA,SAAA;EnC8zLV;EmC5zLM;IACI,UAAA;EnC8zLV;EmC3zLM;IACI,WAAA;IACA,qBAAA;IACA,eAAA;EnC6zLV;EmC3zLM;IACI,iBAAA;IACA,gBAAA;IAEA,cAAA;EnC4zLV;EmCzzLM;IACI,aAAA;IACA,kBAAA;IACA,eAAA;EnC2zLV;EmCzzLM;IACI,aAAA;EnC2zLV;EmCzzLM;IACI,mBAAA;EnC2zLV;EmCxzLM;IACI,cAAA;IACA,cAAA;IACA,eAAA;EnC0zLV;EmCvzLc;IACI,UAAA;IACA,mBAAA;IACA,4DAAA;EnCyzLlB;EmCnzLc;IACI,4DAAA;IACA,eAAA;IACA,gBAAA;EnCqzLlB;EmCjzLU;IACI,eAAA;EnCmzLd;EmC/yLc;IACI,eAAA;EnCizLlB;EmC5yLM;IACI,mBAAA;IACA,YAAA;EnC8yLV;EmC3yLM;IACI,eAAA;IACA,UAAA;IACA,SAAA;IACA,4DAAA;EnC6yLV;EmC1yLM;IACI,gBAAA;IACA,WAAA;IACA,YAAA;IACA,mBAAA;IACA,eAAA;EnC4yLV;EmC1yLU;IACI,YAAA;IACA,iBAAA;EnC4yLd;EmCxyLM;IACI,cnCxOJ;ImCyOI,eAAA;IACA,iBAAA,EAAA,aAAA;IACA,uBAAA;IAEA,oBAAA;EnCyyLV;EmCvyLU;IACI,cAAA;IACA,yBnCjPR;EA0hMN;EmCryLM;IACI,cAAA;IACA,cAAA;IACA,eAAA;EnCuyLV;EmCpyLc;IACI,UAAA;IACA,mBAAA;IACA,4DAAA;EnCsyLlB;EmChyLc;IACI,4DAAA;IACA,eAAA;IACA,gBAAA;EnCkyLlB;EmC9xLU;IACI,eAAA;EnCgyLd;EmC5xLc;IACI,eAAA;EnC8xLlB;AACF;AoC1jMA;EACI,kBAAA;EACA,gBAAA;ApC4jMJ;AoC1jMI;EACI,aAAA;EACA,mBAAA;EACA,sBAAA;ApC4jMR;AoCzjMI;EACI,WAAA;EACA,kBAAA;EACA,cpCHA;EoCIA,sBAAA;EACA,gBAAA;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,qDACI;EAGJ,gDAAA;ApCwjMR;AoCtjMM;EACE,mDAAA;ApCwjMR;AoCrjMQ;EACI,qDACI;EAEJ,yBpCjBH;EoCkBG,cpChBL;AAqkMP;AoCnjMQ;EACI,cAAA;EACA,WAAA;EACA,iBAAA;ApCqjMZ;AoCnjMQ;EACI,qBAAA;EACA,sBAAA,EAAA,aAAA;ApCqjMZ;AoCnjMY;EACI,wBAAA;ApCqjMhB;;AoC/iMA;EACI;IACI,aAAA;IACA,qBAAA;EpCkjMN;EoChjMM;IACI,aAAA;IACA,mBAAA;IACA,sBAAA;EpCkjMV;EoC/iMM;IACI,iBAAA;IACA,gDAAA;EpCijMV;EoChjMU;IACI,iBAAA;EpCkjMd;EoChjMU;IACI,gBAAA;IACA,iBAAA,EAAA,aAAA;EpCkjMd;EoChjMc;IACI,iBAAA;EpCkjMlB;AACF;AqC7nMA;EACI,sBAAA;ArC+nMJ;AqC7nMI;EACI,aAAA;EACA,mBAAA;EACA,sBAAA;EACA,SAAA;ArC+nMR;AqC5nMI;EACI,crCDA;AA+nMR;AqC3nMI;EACI,aAAA;EACA,sBAAA;EACA,SAAA;EACA,WAAA;ArC6nMR;AqC1nMI;EACI,aAAA;EACA,aAAA;EACA,mBAAA;EACA,mBAAA;ArC4nMR;;AqCznMA;EACI,kBAAA;ArC4nMJ;AqC1nMI;EAEI,WAAA;EACA,aAAA;EACA,cAAA;EACA,kBAAA;EACA,mBAAA;EAEA,kBAAA;EACA,UAAA;EACA,QAAA;EACA,2BAAA;ArC0nMR;AqCvnMI;EACI,cAAA;ArCynMR;AqCvnMI;EACI,aAAA;ArCynMR;AqCvnMI;EACI,mBAAA;ArCynMR;AqCvnMI;EACI,mBAAA;ArCynMR;AqCvnMI;EACI,mBrC3CA;AAoqMR;AqCtnMI;EACI,oCAAA;EACA,YAAA;EACA,cAAA;EACA,aAAA;EACA,mBAAA;EACA,mCAAA;ArCwnMR;AqCrnMI;EACI,cAAA;ArCunMR;AqCpnMI;EACI,aAAA;EACA,mBAAA;EACA,YAAA;EACA,YAAA;EACA,oBAAA;ArCsnMR;AqClnMQ;EACI,cAAA;ArConMZ;AqClnMY;EACI,cAAA;EACA,gBAAA;EACA,kBAAA;ArConMhB;AqClnMY;EACI,oBAAA;EACA,qBAAA;ArConMhB;AqClnMY;EACI,sBAAA;ArConMhB;AqCjnMQ;EACI,crClFL;AAqsMP;AqC/mMI;EACI,YAAA;EACA,crCxFD;AAysMP;AqC9mMI;EACI,kBAAA;ArCgnMR;;AqC5mMI;EACI,UAAA;EACA,aAAA;EACA,aAAA;EACA,YAAA;EACA,4BAAA;ArC+mMR;AqC7mMI;EACI,cAAA;EACA,YAAA;EACA,aAAA;EACA,YAAA;EACA,yBAAA;ArC+mMR;AqC7mMI;EACI,aAAA;EACA,YAAA;EACA,6BAAA;EACA,cAAA;EACA,eAAA;ArC+mMR;;AqC3mMA;EACI;IACI,oBAAA;ErC8mMN;EqC5mMM;IACI,UAAA;ErC8mMV;EqC3mMM;IACI,aAAA;IACA,mBAAA;IACA,sBAAA;ErC6mMV;EqCzmMM;IAEI,WAAA;IACA,YAAA;ErC0mMV;EqCxmMM;IACI,cAAA;ErC0mMV;EqCxmMM;IACI,aAAA;ErC0mMV;EqCvmMM;IACI,eAAA;IACA,eAAA;IACA,WAAA;IACA,uBAAA;IACA,eAAA;IACA,oCAAA;ErCymMV;EqCtmMM;IACI,eAAA;ErCwmMV;EqCrmMM;IACI,sBAAA;IACA,WAAA;IACA,SAAA;IACA,YAAA;IACA,eAAA;IACA,mBAAA;ErCumMV;EqClmMc;IACI,cAAA;ErComMlB;EqClmMc;IACI,oBAAA;IACA,gBAAA;ErComMlB;EqClmMc;IACI,sBAAA;ErComMlB;EqCjmMU;IACI,crCtLT;EAyxML;EqC/lMM;IACI,UAAA;IACA,kBAAA;IAEA,aAAA;IACA,uBAAA;IACA,qBAAA;ErCgmMV;EqC7lMM;IACI,aAAA;ErC+lMV;AACF","sourcesContent":["@font-face {\n  font-family: 'DrukCyr';\n  font-weight: 500;\n  src: url('./assets/fonts/DrukCyr-Medium.woff2') format('woff2');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 400;\n  src: url('./assets/fonts/EuclidCircularA-Regular.woff') format('woff');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 500;\n  src: url('./assets/fonts/EuclidCircularA-Medium.woff2') format('woff2');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 600;\n  src: url('./assets/fonts/EuclidCircularA-SemiBold.woff2') format('woff2');\n}\n","// --------------------------------- mixins ---------------------------------\n\n@import './mixins';\n\n// -------------------------------- variables -------------------------------\n\n$font: 'EuclidCircularA';\n$font-druk: 'DrukCyr';\n\n// colors\n$white: #ffffff;\n$black: #000000;\n$bodyColor: #1f1f22;\n$pink: #ed89fb;\n$violet: #cad2f4;\n$green: #c9fb40;\n$yellow: #fad85d;\n$darkGray: #6a6a6a;\n$main: #282828;\n$red: #ff1212;\n$gray: #6a6a6a;\n$gray-darken: #3a3a41;\n\n// ---------------------------------- fonts ---------------------------------\n\n// local fonts\n@import './fonts';\n\n// ------------------------------- base styles ------------------------------\n\n// base scss file\n@import './set';\n\n// html\nhtml.lock,\nhtml.lock body {\n    overflow: hidden;\n    touch-action: none;\n}\nhtml,\nbody {\n    overflow-x: hidden;\n}\n\n// main\nmain {\n    padding-top: 6.7rem;\n    @media (max-width: 48em) {\n        padding-top: 12.6rem;\n    }\n}\n\n.desktop {\n    @media (max-width: 48em) {\n        display: none;\n    }\n}\n\n.mobile {\n    display: none;\n\n    @media (max-width: 48em) {\n        display: block;\n    }\n}\n\n.wrapper {\n    margin: 0 auto;\n    max-width: 1920px;\n}\n\n// --------------------------------------------------------------------------\n\n// header / footer\n@import './sections/header';\n@import './sections/footer';\n\n// ui\n@import '../ui/ui.scss';\n\n// --------------------------------------------------------------------------\n\n@import './dev/vzmsk1.scss';\n@import './dev/markusDM.scss';\n@import './dev/ukik0.scss';\n@import './dev/kie6er.scss';\n","*,\n*::before,\n*::after {\n    box-sizing: border-box;\n}\nhtml {\n    font-family: 'EuclidCircularA'; // шрифт по умолчанию по сайту\n    font-size: 0.5208335vw; // на разрешении 1920 0.520835vw === 10px\n    font-style: normal;\n    font-weight: normal;\n    -webkit-animation: bugfix infinite 1s;\n    line-height: 1.2;\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    font-style: normal;\n    font-weight: normal;\n    -webkit-animation: bugfix infinite 1s;\n    line-height: 1.2;\n    margin: 0;\n    padding: 0;\n    color: $white; // цвет по умолчанию текста по сайту\n    background-color: $bodyColor;\n}\n\ninput,\ntextarea {\n    -webkit-animation: bugfix infinite 1s;\n    line-height: inherit;\n    margin: 0;\n    padding: 0;\n    background-color: transparent;\n    border: none;\n    color: inherit;\n}\na {\n    color: unset;\n}\na,\na:hover {\n    text-decoration: none;\n}\n\nbutton,\ninput,\na,\ntextarea {\n    outline: none;\n    cursor: pointer;\n    font: inherit;\n    &:focus {\n        outline: none;\n    }\n    &:active {\n        outline: none;\n    }\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n    font: inherit;\n    margin: 0;\n    padding: 0;\n}\np {\n    margin-top: 0;\n    margin-bottom: 0;\n}\n\nimg {\n    width: 100%;\n    height: auto;\n    display: block;\n}\n\nbutton {\n    border: none;\n    color: inherit;\n    font: inherit;\n    text-align: inherit;\n    padding: 0;\n    background-color: transparent;\n}\nul {\n    padding: 0;\n    margin: 0;\n}\n\nul li {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n}\n\n.container {\n    width: 172rem;\n    margin: 0 auto;\n}\n\ninput[type='number']::-webkit-inner-spin-button,\ninput[type='number']::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n    margin: 0;\n}\n\ninput[type='number'] {\n    -moz-appearance: textfield;\n}\n\nsvg,\nimg {\n    width: 100%;\n    height: auto;\n    object-fit: contain;\n}\n\n@media (min-width: 1920px) {\n    html {\n        font-size: 10px;\n    }\n}\n\n@media (max-width: 48em) {\n    html {\n        font-size: 5px;\n        font-size: 1.5625vw;\n        font-size: calc((100 / 375) * 5vw); // где 375 это ширина моб версии макета\n        -webkit-text-size-adjust: none;\n    }\n\n    body {\n        -webkit-text-size-adjust: none;\n    }\n\n    .container {\n        padding: 0 2rem; // в моб версии отступ от края задаем для всех контейнеров, а там где не нужно можем точечно убрать\n        width: 100%;\n    }\n}\n",".header {\n    position: fixed;\n    width: 100%;\n    top: 0;\n    left: 0;\n    z-index: 2000;\n    background-color: $bodyColor;\n    border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n    // .header__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        gap: 1rem;\n    }\n    // .header__burger-btn\n    &__burger-btn {\n        display: none;\n    }\n    // .header__logo\n    &__logo {\n        padding: 1rem 0;\n        height: 100%;\n        width: 22.7rem;\n        border-right: 0.1rem solid rgba(201, 251, 64, 0.5);\n    }\n    // .header__img\n    &__img {\n        width: 17.9878rem;\n        height: 4.6rem;\n    }\n    // .header__nav\n    &__nav {\n        gap: 5rem;\n    }\n    &__burger-menu {\n        display: none;\n        overflow: auto;\n    }\n}\n\n.nav {\n    display: flex;\n    align-items: center;\n    // .nav__link\n    &__link {\n        display: block;\n        font-size: 2rem;\n        line-height: 140%; /* 28px */\n        transition: color 0.2s linear;\n\n        &:hover,\n        &:focus-visible {\n            transition: color 0.2s linear;\n            color: $green;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .header {\n        border-bottom: none;\n        &.scroll {\n            border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n        }\n\n        &.show {\n            .header__phone {\n                display: none;\n            }\n            .header__inner {\n                flex-direction: row-reverse;\n            }\n        }\n        &__container {\n            position: relative;\n            z-index: 1;\n            background-color: $bodyColor;\n        }\n        // .header__inner\n        &__inner {\n            display: flex;\n            align-items: center;\n            justify-content: space-between;\n            gap: 1rem;\n            padding: 1.6rem 0 1.8rem;\n        }\n        // .header__burger-btn\n        &__burger-btn {\n            display: flex;\n            width: 5.2rem;\n            height: 4.6rem;\n        }\n        // .header__logo\n        &__logo {\n            padding: 0;\n            height: 9.2rem;\n            width: 36.6rem;\n            border-right: none;\n        }\n        // .header__img\n        &__img {\n            width: 100%;\n            height: 100%;\n        }\n        // .header__nav\n        &__nav {\n            display: none;\n        }\n        // .header__phone\n        &__phone {\n            width: 4.8rem;\n            height: 4.8rem;\n        }\n    }\n}\n@media (max-width: 48em) {\n    .burger-btn {\n        &__btn {\n            width: 100%;\n            height: 100%;\n\n            display: flex;\n            justify-content: center;\n            flex-direction: column;\n            gap: 1.4rem;\n\n            span {\n                display: block;\n                width: 100%;\n                height: 0.6rem;\n                background-color: $white;\n                border-radius: 2.4rem;\n            }\n        }\n\n        &__close {\n            display: none;\n        }\n\n        &.open {\n            .burger-btn__btn {\n                display: none;\n            }\n            .burger-btn__close {\n                display: block;\n                width: 4rem;\n                height: 4rem;\n            }\n        }\n    }\n\n    .burger-menu {\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        gap: 15rem;\n        position: absolute;\n        top: 12.6rem;\n        left: 0;\n        z-index: 0;\n        transition: transform 0.5s linear;\n        transform: translateY(-120%);\n\n        width: 100%;\n        height: calc(100vh - 12.6rem);\n        background-color: $bodyColor;\n\n        &.show {\n            transition: transform 0.5s linear;\n            transform: translateY(0);\n        }\n        // .burger-menu__wrapper\n        &__wrapper {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n            padding-top: 16rem;\n        }\n        &__phone {\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            border-top: 0.2rem solid $green;\n\n            padding: 3.2rem 0 4.4rem;\n            a {\n                display: flex;\n                align-items: center;\n                gap: 2.6rem;\n                span {\n                    width: 6.4rem;\n                    height: 6.4rem;\n                    svg path {\n                        fill: $pink;\n                    }\n                }\n\n                strong {\n                    color: $pink;\n                    font-size: 4.8rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: normal;\n                }\n            }\n        }\n        // .burger-menu__link\n        &__link {\n            display: flex;\n            justify-content: center;\n\n            width: 100%;\n            color: $white;\n            font-family: $font-druk;\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%; /* 55px */\n            text-transform: uppercase;\n            padding: 3.2rem 0;\n\n            border-bottom: 0.2rem solid $green;\n\n            &:first-child {\n                border-top: 0.2rem solid $green;\n            }\n\n            &:hover,\n            &:active,\n            &:focus-visible {\n                background-color: $pink;\n                color: $bodyColor;\n            }\n        }\n    }\n}\n",".footer {\n    background-color: $yellow;\n    color: $main;\n    // .footer__inner\n    &__inner {\n        padding: 7rem 0;\n    }\n    // .footer__top\n    &__top {\n        margin-bottom: 8rem;\n    }\n    // .footer__sitemap\n    &__sitemap {\n        gap: 20rem;\n    }\n    // .footer__middle\n    &__middle {\n        display: flex;\n        gap: 20rem;\n        align-items: flex-end;\n    }\n    // .footer__copyright\n    &__copyright {\n        color: $main;\n        font-size: 2rem;\n        width: 59.528rem;\n    }\n    // .footer__social\n    &__social {\n        gap: 1.6rem;\n    }\n    // .footer__info\n    &__info {\n        display: flex;\n        flex-direction: column;\n        margin-left: auto;\n        gap: 2.5rem;\n    }\n    // .footer__phone\n    &__phone {\n        color: $main;\n        font-size: 3.2rem;\n        line-height: normal;\n\n        &:hover,\n        &:focus-visible,\n        &:active {\n            text-decoration: underline;\n        }\n    }\n    // .footer__politic\n    &__politic {\n        color: $main;\n        font-size: 2rem;\n        line-height: normal;\n\n        position: relative;\n\n        &::after {\n            content: '';\n            width: 100%;\n            height: 0.15rem;\n            background-color: $main;\n\n            position: absolute;\n            left: 0;\n            bottom: 0;\n            z-index: 1;\n        }\n\n        &:hover,\n        &:focus-visible {\n            &::after {\n                display: none;\n            }\n        }\n    }\n    // .footer__bottom-text\n    &__bottom-text {\n        margin-top: 3rem;\n        font-family: $font-druk;\n        font-size: 19.9rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 23.4rem;\n        text-transform: uppercase;\n\n        @include small-tablet {\n            font-size: 11rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n        }\n    }\n}\n.footer-sitemap {\n    display: flex;\n    // .footer-sitemap__item\n    &__item {\n        &:nth-child(1) {\n            .sitemap-item__list {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n        &:nth-child(2) {\n            .sitemap-item__list {\n                grid-template-columns: 1fr;\n            }\n        }\n        &:nth-child(3) {\n            margin-left: auto;\n            .sitemap-item__list {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n    }\n}\n.sitemap-item {\n    // .sitemap-item__title\n    &__title {\n        margin-bottom: 3.2rem;\n    }\n    // .sitemap-item__list\n    &__list {\n        line-height: normal;\n        display: grid;\n        gap: 2rem 8rem;\n    }\n    // .sitemap-item__link\n    &__link {\n        line-height: inherit;\n        white-space: nowrap;\n        background: none;\n\n        &:hover,\n        &:focus-visible,\n        &:active {\n            text-decoration: underline;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .footer {\n        background-color: $yellow;\n        color: $main;\n        // .footer__inner\n        &__inner {\n            padding: 11.2rem 0 10.8rem;\n        }\n        // .footer__top\n        &__top {\n            margin-bottom: 8.4rem;\n        }\n        // .footer__sitemap\n        &__sitemap {\n            padding-left: 4.4rem;\n            gap: 3rem;\n        }\n        // .footer__middle\n        &__middle {\n            display: flex;\n            flex-direction: column;\n            gap: 2rem;\n            align-items: center;\n        }\n        // .footer__copyright\n        &__copyright {\n            order: 2;\n            text-align: center;\n            font-size: 2.4rem;\n            width: 100%;\n        }\n        // .footer__social\n        &__social {\n            gap: 6rem;\n            order: 3;\n            margin-top: 5.6rem;\n        }\n        // .footer__info\n        &__info {\n            text-align: center;\n            display: flex;\n            flex-direction: column;\n            margin-left: 0;\n            gap: 1rem;\n            order: 1;\n        }\n        // .footer__phone\n        &__phone {\n            font-size: 3.6rem;\n        }\n        // .footer__politic\n        &__politic {\n            color: $main;\n            font-size: 3rem;\n\n            position: relative;\n\n            &::after {\n                display: none;\n            }\n        }\n        // .footer__bottom-text\n        &__bottom-text {\n            text-align: center;\n            line-height: 1.1;\n            margin-top: 10.4rem;\n        }\n    }\n    .footer-sitemap {\n        display: grid;\n        grid-template-columns: repeat(2, 28rem);\n        grid-auto-flow: dense;\n        // .footer-sitemap__item\n        &__item {\n            &:nth-child(1) {\n                grid-row: span 2;\n            }\n            &:nth-child(3) {\n                margin-left: 0;\n            }\n        }\n    }\n    .sitemap-item {\n        // .sitemap-item__title\n        &__title {\n            margin-bottom: 2rem;\n        }\n        // .sitemap-item__list\n        &__list {\n            line-height: normal;\n            display: flex;\n            flex-direction: column;\n            gap: 1.6rem;\n        }\n        // .sitemap-item__link\n        &__link {\n            line-height: inherit;\n            white-space: nowrap;\n            background: none;\n\n            &:hover,\n            &:focus-visible,\n            &:active {\n                text-decoration: underline;\n            }\n        }\n    }\n}\n","@mixin pseudo() {\n    content: '';\n    position: absolute;\n    @content;\n}\n\n@mixin small-tablet {\n    @media (max-width: 48em) {\n        @content;\n    }\n}\n\n@mixin sizes($width, $height) {\n    max-width: $width;\n    width: 100%;\n    height: $height;\n\n    @content;\n}\n",".tl1,\n.tl2,\n.tl3 {\n    font-family: DrukCyr;\n    font-weight: 500;\n    text-transform: uppercase;\n}\n\n.tl1 {\n    font-size: 20rem;\n    line-height: 117%;\n    @media (max-width: 48em) {\n        font-size: 11rem;\n        line-height: 110%;\n    }\n}\n\n.tl2 {\n    line-height: 110%;\n    font-size: 10rem;\n}\n\n.tl3 {\n    font-size: 6rem;\n    line-height: 110%;\n    @media (max-width: 48em) {\n        font-size: 4rem;\n        letter-spacing: 0.32rem;\n    }\n}\n\n// --------------------------------------------------------------------------\n\n.txt32 {\n    font-size: 3.2rem;\n    @media (max-width: 48em) {\n        font-size: 3rem;\n        line-height: 140%;\n    }\n}\n\n.txt20 {\n    font-size: 2.8rem;\n\n    &_caps {\n        font-size: 4rem;\n        line-height: 110%;\n        letter-spacing: 0.32rem;\n        text-transform: uppercase;\n    }\n    &_md {\n        font-weight: 500;\n    }\n    @media (min-width: 48em) {\n        font-size: 2rem;\n        line-height: 140%;\n        &_caps {\n            font-size: 2.2rem;\n            font-weight: 500;\n            line-height: 109.091%;\n            letter-spacing: 0.176rem;\n        }\n    }\n}\n\n.txt28 {\n    &_md {\n        font-size: 2.8rem;\n        font-weight: 500;\n        @media (max-width: 48em) {\n            font-size: 3.6rem;\n        }\n    }\n}\n\n.txt16 {\n    font-size: 1.6rem;\n    @media (max-width: 48em) {\n        font-size: 2.4rem;\n    }\n}\n\n.txt15 {\n    font-size: 1.5rem;\n    @media (max-width: 48em) {\n        font-size: 3rem;\n    }\n}\n\n.txt19 {\n    font-size: 1.9rem;\n    @media (max-width: 48em) {\n        font-size: 3.8rem;\n    }\n}\n\n.text-32 {\n    font-size: 3.2rem;\n    font-style: normal;\n    font-weight: 400;\n    line-height: normal;\n}\n\n.text-m-28 {\n    font-size: 2.8rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: normal;\n\n    @include small-tablet {\n        font-size: 3.6rem;\n    }\n}\n\n.text-m-20 {\n    font-family: 'DrukCyr';\n    font-size: 2.0093rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: 84%; /* 16.878px */\n    letter-spacing: 0.1607rem;\n}\n\n.text-20 {\n    font-size: 2rem;\n    font-style: normal;\n    font-weight: 400;\n    line-height: 140%; /* 28px */\n\n    @include small-tablet {\n        font-size: 2.8rem;\n    }\n}\n",".btn {\n    padding: 1.3rem 1rem 1.3rem 2.8rem;\n    display: inline-flex;\n    justify-content: center;\n    align-items: center;\n    column-gap: 2.2rem;\n    min-width: 16.4rem;\n    border-radius: 9.5rem;\n    border: 1px solid $green;\n    transition: background-color 0.3s ease;\n    &_black {\n        border: 1px solid $black;\n        .btn__text {\n            color: $black;\n        }\n    }\n    &_white {\n        border: 1px solid $white;\n        .btn__text {\n            color: $white;\n        }\n    }\n    @media (any-hover: hover) {\n        &:hover {\n            &:not(&.btn_black, &.btn_white) {\n                background-color: $green;\n            }\n            &.btn_black {\n                background-color: $black;\n            }\n            &.btn_white {\n                background-color: $white;\n                .btn__text {\n                    color: $black;\n                }\n                svg path {\n                    fill: $black;\n                }\n            }\n            .btn__text {\n                color: $white;\n            }\n            .btn__icon {\n                path {\n                    fill: $white;\n                }\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        padding: 3rem 3.6rem 3rem 6rem;\n        column-gap: 3.2rem;\n        border-radius: 19rem;\n    }\n\n    // .btn__text\n    &__text {\n        font-family: DrukCyr;\n        color: $green;\n        transition: color 0.3s ease;\n    }\n\n    // .btn__icon\n    &__icon {\n        flex: 0 0 2.4rem;\n        width: 2.4rem;\n        height: 2.4rem;\n        path {\n            transition: fill 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 5rem;\n            width: 5rem;\n            height: 5rem;\n        }\n    }\n}\n// <button type=\"button\" class=\"btn\">\n//       <span class=\"btn__text txt20 txt20_caps\">ОСТАВИТЬ ЗАЯВКУ</span>\n//       <svg\n//         class=\"btn__icon\"\n//         xmlns=\"http://www.w3.org/2000/svg\"\n//         width=\"24\"\n//         height=\"24\"\n//         viewBox=\"0 0 24 24\"\n//         fill=\"none\">\n//         <path\n//           d=\"M6.75586 19.2442V5.11624L17.1164 12.1802L6.75586 19.2442Z\"\n//           fill=\"#C9FB40\" />\n//       </svg>\n// </button>\n\n// --------------------------------------------------------------------------\n\n.showmore-btn {\n    display: flex;\n    align-items: center;\n    column-gap: 1.6rem;\n    @media (any-hover: hover) {\n        &:hover {\n            .showmore-btn__icon {\n                circle {\n                    fill: $white;\n                }\n                path {\n                    fill: $pink;\n                }\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        column-gap: 2.4rem;\n    }\n\n    // .showmore-btn__icon\n\n    &__icon {\n        flex: 0 0 5.2rem;\n        width: 5.2rem;\n        height: 5.2rem;\n        border-radius: 50%;\n        circle,\n        path {\n            transition: fill 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 8rem;\n            width: 8rem;\n            height: 8rem;\n        }\n    }\n\n    // .showmore-btn__text\n\n    &__text {\n        font-family: DrukCyr;\n        color: $pink;\n    }\n}\n// <button type=\"button\" class=\"showmore-btn\">\n//       <svg\n//         class=\"showmore-btn__icon\"\n//         width=\"52\"\n//         height=\"52\"\n//         viewBox=\"0 0 52 52\"\n//         fill=\"none\"\n//         xmlns=\"http://www.w3.org/2000/svg\">\n//         <circle cx=\"26\" cy=\"26\" r=\"26\" fill=\"#ED89FB\" />\n//         <path\n//           d=\"M31.6912 24.995C32.1412 25.895 32.3737 26.8625 32.3737 27.875C32.3737 31.3925 29.5162 34.25 25.9987 34.25C22.4812 34.25 19.6237 31.3925 19.6237 27.875C19.6237 24.3575 22.4812 21.5 25.9987 21.5C26.0512 21.5 26.1787 21.5 26.3137 21.545C26.5687 21.6275 26.7562 21.845 26.8087 22.1075C27.1237 23.615 28.4662 24.7175 30.0112 24.7175C30.2962 24.7175 30.5737 24.68 30.8137 24.6125C31.1662 24.515 31.5262 24.68 31.6912 24.995ZM25.9987 17.75C20.8687 17.75 15.6112 22.25 14.7562 27.3725C14.6887 27.7775 14.9662 28.1675 15.3712 28.235C15.7762 28.3025 16.1662 28.025 16.2337 27.62C16.9012 23.6675 21.2137 19.25 25.9987 19.25C30.7837 19.25 35.0962 23.6675 35.7562 27.62C35.8162 27.9875 36.1387 28.25 36.4987 28.25C36.5362 28.25 36.5812 28.25 36.6262 28.2425C37.0312 28.175 37.3087 27.785 37.2412 27.38C36.3862 22.25 31.1287 17.75 25.9987 17.75Z\"\n//           fill=\"white\" />\n//       </svg>\n//       <span class=\"showmore-btn__text txt20 txt20_caps\"\n//         >СМОТРЕТЬ ДЕТАЛЬНЕЕ</span\n//       >\n// </button>\n\n// --------------------------------------------------------------------------\n\n.link {\n    position: relative;\n    &::after {\n        content: '';\n        position: absolute;\n        top: calc(100% + 0.6rem);\n        left: 0;\n        width: 100%;\n        height: 2px;\n        background-color: $black;\n        transform-origin: center;\n        transform: scaleX(1);\n        transition: transform 0.3s ease;\n    }\n    @media (any-hover: hover) {\n        &:hover {\n            &::after {\n                transform: scaleX(0.25);\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        &::after {\n            top: calc(100% + 1.2rem);\n        }\n    }\n\n    // .link__text\n\n    &__text {\n    }\n}\n// <a href=\"#\" class=\"link\"\n// ><span class=\"link__text txt20 txt20_caps\">ЗАГРУЗИТЬ ЕЩЕ</span></a\n// >\n\n// --------------------------------------------------------------------------\n\n.sl-btn {\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    width: 5rem;\n    height: 5rem;\n    border-radius: 50%;\n    background-color: $gray-darken;\n    svg {\n        width: 3rem;\n        height: 3rem;\n    }\n}\n","input[type='text'],\ninput[type='email'],\ninput[type='tel'],\ntextarea {\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n}\ntextarea:focus,\ninput:focus {\n    outline: none;\n}\n\n.input {\n    position: relative;\n    &_white {\n        .input__field {\n            color: $white;\n            border-bottom: 1px solid $white;\n            &::placeholder {\n                color: $white;\n            }\n        }\n    }\n\n    &._form-focus {\n    }\n    &._form-error {\n        .input__field {\n            border-bottom: 1px solid $red;\n        }\n    }\n\n    // .input__field\n    &__field {\n        padding-bottom: 1.4rem;\n        display: block;\n        width: 100%;\n        border-radius: 0 !important;\n        border-bottom: 1px solid $black;\n        font-family: EuclidCircularA;\n        line-height: 1;\n        color: $black;\n        transition: border-bottom 0.3s ease;\n        &::placeholder {\n            color: $black;\n        }\n        @media (max-width: 48em) {\n            padding-bottom: 3rem;\n        }\n    }\n}\n\ntextarea.input {\n    padding: 0;\n    resize: none;\n}\n\n.form-error {\n    position: absolute;\n    top: calc(100% + 0.5rem);\n    left: 0;\n    color: $red;\n    @media (max-width: 48em) {\n        top: calc(100% + 1rem);\n    }\n}\n\n.file-input {\n    display: flex;\n    flex-direction: column;\n    row-gap: 3rem;\n    &_white {\n        .file-input__icon-wrap {\n            background-color: $white;\n        }\n    }\n    @media (min-width: 48em) {\n        flex-direction: row;\n        column-gap: 5.6rem;\n        row-gap: normal;\n    }\n\n    // .file-input__content\n\n    &__content {\n        display: flex;\n        flex-direction: column;\n        row-gap: 0.8rem;\n    }\n\n    // .file-input__content-inner\n\n    &__content-inner {\n        position: relative;\n        display: flex;\n        align-items: center;\n        column-gap: 1.6rem;\n        @media (max-width: 48em) {\n            column-gap: 2.4rem;\n        }\n    }\n\n    // .file-input__icon-wrap\n\n    &__icon-wrap {\n        display: inline-flex;\n        align-items: center;\n        justify-content: center;\n        flex: 0 0 5rem;\n        width: 5rem;\n        height: 5rem;\n        border-radius: 50%;\n        background-color: $black;\n        @media (max-width: 48em) {\n            flex: 0 0 8rem;\n            width: 8rem;\n            height: 8rem;\n        }\n    }\n\n    // .file-input__icon\n\n    &__icon {\n        width: 2.4rem;\n        height: 2.4rem;\n        object-fit: contain;\n        @media (max-width: 48em) {\n            width: 4rem;\n            height: 4rem;\n        }\n    }\n\n    // .file-input__title\n\n    &__title {\n        font-family: 'DrukCyr';\n    }\n\n    // .file-input__input\n\n    &__input {\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        opacity: 0;\n    }\n\n    // .file-input__text\n\n    &__text {\n        ._error & {\n            color: $red;\n        }\n    }\n\n    // .file-input__info\n\n    &__info {\n        position: relative;\n        padding: 0.6rem;\n        padding-right: 5.6rem;\n        display: flex;\n        column-gap: 1.2rem;\n        width: 26.9rem;\n        border-radius: 1.5rem;\n        background-color: $gray-darken;\n        &:not(._error &, ._filled &) {\n            display: none;\n        }\n        @media (max-width: 48em) {\n            padding: 1.6rem;\n            padding-right: 11.2rem;\n            column-gap: 1.6rem;\n            width: 43.4rem;\n            border-radius: 3rem;\n        }\n    }\n\n    // .file-input__image-container\n\n    &__image-container {\n        position: relative;\n        flex: 0 0 6.4rem;\n        width: 6.4rem;\n        height: 6.4rem;\n        &::after {\n            content: '';\n            position: absolute;\n            bottom: 0.4rem;\n            right: 0.4rem;\n            width: 2rem;\n            height: 2rem;\n            background-image: url(./assets/images/icons/success.svg);\n            background-size: contain;\n            background-repeat: no-repeat;\n            ._error & {\n                background-image: url(./assets/images/icons/error.svg);\n            }\n        }\n        img {\n            display: block;\n            height: 100%;\n            border-radius: 1rem;\n            object-fit: cover;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 10rem;\n            width: 10rem;\n            height: 10rem;\n            &::before {\n                bottom: 1.2rem;\n                right: 1.2rem;\n                width: 3.2rem;\n                height: 3.2rem;\n            }\n            img {\n                border-radius: 2rem;\n            }\n        }\n    }\n\n    // .file-input__info-text\n\n    &__info-text {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .file-input__name\n\n    &__name {\n        margin-bottom: 1.2rem;\n        padding-top: 0.6rem;\n        display: flex;\n        color: $white;\n        span {\n            display: block;\n            &:first-child {\n                max-width: 10rem;\n                overflow: hidden;\n                text-overflow: ellipsis;\n                white-space: nowrap;\n            }\n        }\n        @media (max-width: 48em) {\n            margin-bottom: 1.6rem;\n            padding-top: 1rem;\n            span {\n                &:first-child {\n                    max-width: 14rem;\n                }\n            }\n        }\n    }\n\n    // .file-input__size\n\n    &__size {\n        color: rgba(255, 255, 255, 0.6);\n    }\n\n    // .file-input__remove-btn\n\n    &__remove-btn {\n        position: absolute;\n        top: 0.8rem;\n        right: 0.8rem;\n        width: 1.6rem;\n        height: 1.6rem;\n        @media (max-width: 48em) {\n            top: 2rem;\n            right: 2rem;\n            width: 2.8rem;\n            height: 2.8rem;\n        }\n    }\n\n    // .file-input__remove-btn-icon\n\n    &__remove-btn-icon {\n        height: 100%;\n        object-fit: contain;\n    }\n}\n\n// <div class=\"input\">\n//           <input\n//             autocomplete=\"off\"\n//             type=\"text\"\n//             name=\"form[]\"\n//             data-error=\"Подсказка\"\n//             placeholder=\"Имя *\"\n//             class=\"input__field txt20 txt20_md\" />\n",".tabs {\n    // .tabs__navigation\n\n    &__navigation {\n        display: flex;\n        column-gap: 2rem;\n    }\n\n    // .tabs__title\n\n    &__title {\n    }\n\n    // .tabs__content\n\n    &__content {\n    }\n\n    // .tabs__body\n\n    &__body {\n    }\n}\n\n.badge {\n    position: relative;\n    padding: 1.6rem 3.3rem 1.9rem 3.3rem;\n    display: inline-flex;\n    justify-content: center;\n    align-items: center;\n    border: 1px solid $black;\n    border-radius: 4rem;\n    font-family: 'DrukCyr';\n    color: $black;\n    text-align: center;\n    transition: background-color 0.3s ease;\n    input {\n        position: absolute;\n        top: 0;\n        left: 0;\n        display: block;\n        width: 100%;\n        height: 100%;\n        border-radius: 4rem;\n        opacity: 0;\n    }\n    &:has(> input:checked),\n    &._active {\n        background-color: $green;\n    }\n    &.badge_white {\n        &:has(> input:checked),\n        &._active {\n            background-color: $white;\n        }\n    }\n    @media (max-width: 48em) {\n        padding: 1.8rem 5rem;\n    }\n}\n\n// <div data-tabs class=\"tabs\">\n// <nav data-tabs-titles class=\"tabs__navigation\">\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab _active\">\n//     Таб №1\n//   </button>\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab\">Таб №2</button>\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab\">Таб №3</button>\n// </nav>\n// <div data-tabs-body class=\"tabs__content\">\n//   <div class=\"tabs__body\">Содержимое первого таба</div>\n//   <div class=\"tabs__body\">Содержимое второго таба</div>\n//   <div class=\"tabs__body\">Содержимое третьего таба</div>\n// </div>\n// </div>\n",".accordion {\n    // .accordion__item\n\n    &__item {\n        border-radius: 4rem;\n        color: $black;\n        background-color: $green;\n        &_violet {\n            background-color: $violet;\n        }\n        &_pink {\n            background-color: $pink;\n        }\n    }\n\n    // .accordion__title\n\n    &__title {\n        padding: 3rem 3.2rem 3rem 4rem;\n        display: flex;\n        flex-direction: row-reverse;\n        justify-content: space-between;\n        align-items: center;\n        width: 100%;\n        &._accordion-active {\n            .accordion__title-icon {\n                transform: rotate(-180deg);\n            }\n        }\n        @media (max-width: 48em) {\n            padding: 4rem;\n        }\n    }\n\n    // .accordion__title-icon\n\n    &__title-icon {\n        flex: 0 0 5rem;\n        width: 5rem;\n        height: 5rem;\n        transition: transform 0.3s ease;\n        @media (max-width: 48em) {\n            flex: 0 0 8rem;\n            width: 8rem;\n            height: 8rem;\n        }\n    }\n\n    // .accordion__title-txt\n\n    &__title-txt {\n    }\n\n    // .accordion__body\n\n    &__body {\n        padding: 4rem 3.2rem;\n        padding-top: 0;\n        @media (max-width: 48em) {\n            padding: 4rem;\n            padding-top: 0;\n        }\n    }\n\n    // .accordion__text\n\n    &__text {\n        font-family: EuclidCircularA;\n        max-width: 72.6rem;\n        @media (max-width: 48em) {\n            max-width: 62.2rem;\n        }\n    }\n}\n\n// <div data-accordion data-accordion-one-active class=\"accordion\">\n//           <div class=\"accordion__item\">\n//             <button type=\"button\" data-accordion-item class=\"accordion__title\">\n//               <svg\n//                 class=\"accordion__title-icon\"\n//                 width=\"52\"\n//                 height=\"52\"\n//                 viewBox=\"0 0 52 52\"\n//                 fill=\"none\"\n//                 xmlns=\"http://www.w3.org/2000/svg\">\n//                 <circle cx=\"26\" cy=\"26\" r=\"26\" fill=\"#1F1F22\" />\n//                 <path\n//                   d=\"M18.872 21L33 21L25.936 31.3605L18.872 21Z\"\n//                   fill=\"white\" />\n//               </svg>\n//               <span class=\"accordion__title-txt tl3\">Качество</span>\n//             </button>\n//             <div class=\"accordion__body\">\n//               <p class=\"accordion__text txt20\">\n//                 Мы придерживаемся высочайших стандартов и регулярно обновляем\n//                 наши навыки и техники, чтобы удовлетворить все потребности и\n//                 ожидания наших клиентов.\n//               </p>\n//             </div>\n//           </div>\n//         </div>\n","[data-sel-popup] {\n    @media (max-width: 48em) {\n        .select__options,\n        ._select-opened .select__options {\n            opacity: 0;\n            visibility: hidden;\n        }\n        ._select-opened .select__value::after,\n        .select__value::after {\n            transform: none;\n        }\n    }\n}\n\n.select {\n    position: relative;\n    @media (min-width: 48em) {\n        min-width: 20.4rem;\n    }\n\n    // .select__body\n\n    &__body {\n        position: relative;\n    }\n\n    // .select__title\n\n    &__title {\n        border-radius: 4rem;\n        width: 100%;\n        background-color: $violet;\n        cursor: pointer;\n        text-align: left;\n        color: inherit;\n    }\n\n    // .select__value\n\n    &__value {\n        @extend .txt20_caps;\n        padding: 1.4rem 2.4rem;\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        gap: 1rem;\n        height: 5.2rem;\n        width: 100%;\n        font-family: DrukCyr;\n\n        > * {\n            flex: 1 1 auto;\n        }\n\n        &::after {\n            content: '';\n            flex: 0 0 2.4rem;\n            width: 2.4rem;\n            height: 2.4rem;\n            background-image: url(./assets/images/icons/arr.svg);\n            background-size: contain;\n            background-position: center;\n            background-repeat: no-repeat;\n            transition: transform 0.3s ease;\n            ._select-opened & {\n                transform: rotate(-180deg);\n\n                @include small-tablet {\n                    transform: rotate(-90deg);\n                }\n            }\n        }\n        .select__content {\n            max-width: 31.4rem;\n            overflow: hidden;\n            white-space: nowrap;\n            text-overflow: ellipsis;\n            color: $bodyColor;\n            font-family: $font-druk;\n            font-size: 2.2rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 2.4rem;\n            letter-spacing: 0.176rem;\n            text-transform: uppercase;\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                text-transform: uppercase;\n            }\n        }\n        @media (max-width: 48em) {\n            padding: 1.8rem 4rem;\n            height: 8rem;\n            &::after {\n                flex: 0 0 5rem;\n                width: 5rem;\n                height: 5rem;\n            }\n        }\n    }\n\n    // .select__content\n\n    &__content {\n        // hide / show selected value\n        // display: none;\n    }\n\n    // .select__text\n\n    &__text {\n        flex: 1 1 auto;\n    }\n\n    // .select__input\n\n    &__input {\n        width: 100%;\n        height: 100%;\n        background-color: transparent;\n    }\n\n    // .select__options\n\n    &__options {\n        position: absolute;\n        z-index: 2;\n        top: calc(100% + 0.4rem);\n        left: 0;\n        padding: 1.2rem 1.8rem 2rem 1.2rem;\n        width: 100%;\n        box-shadow: 0 0.8rem 2.5rem 0 rgba(99, 119, 156, 0.2);\n        border-radius: 4rem;\n        background-color: $violet;\n        opacity: 0;\n        visibility: hidden;\n        transition: opacity 0.2s ease, visibility 0.2s ease;\n        color: $bodyColor;\n        font-family: $font-druk;\n        font-size: 2.2rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 2.4rem;\n        letter-spacing: 0.176rem;\n        text-transform: uppercase;\n        // max-height: 24.5rem;\n        overflow-x: auto;\n\n        .dropdown_sort & {\n            background-color: $white;\n        }\n        ._select-opened & {\n            opacity: 1;\n            visibility: visible;\n        }\n    }\n\n    // .select__scroll\n\n    &__scroll {\n        overflow-y: auto;\n        overflow-x: hidden;\n\n        // maximum height\n        // max-height: 23.4rem;\n\n        // scrollbar styles\n        &.simplebar-scrollable-y {\n            .simplebar-track.simplebar-vertical {\n                top: 5rem;\n                right: 0;\n                width: 2px;\n                border-radius: 0.8rem;\n                background-color: rgba(255, 255, 255, 0.4);\n            }\n            .simplebar-scrollbar {\n                min-height: 3.2rem;\n                border-radius: 0.8rem;\n                background-color: $white;\n            }\n        }\n        @media (max-width: 48em) {\n            // max-height: 40rem;\n        }\n    }\n    // .select__option\n    &__option {\n        @extend .txt20_caps;\n        width: 95%;\n        padding: 1.2rem 3rem;\n        border-radius: 4rem;\n        font-family: DrukCyr;\n        text-align: left;\n        color: inherit;\n        transition: background-color 0.3s ease;\n        &._select-selected {\n            background-color: $white;\n            .dropdown_sort & {\n                background-color: $violet;\n            }\n        }\n        &:not(:last-child) {\n            position: relative;\n            margin-bottom: 1rem;\n            &::after {\n                content: '';\n                position: absolute;\n                top: calc(100% + 0.5rem);\n                left: 0;\n                width: 100%;\n                height: 1px;\n                background-color: rgba(204, 213, 251, 1);\n            }\n        }\n        @media (any-hover: hover) {\n            &:hover {\n                &:not(&.select__subtitle) {\n                    cursor: pointer;\n                    background-color: $white;\n                    .dropdown_sort & {\n                        background-color: $violet;\n                    }\n                }\n            }\n        }\n    }\n}\n// list\n._select-list {\n    cursor: pointer;\n}\n\n// <div class=\"dropdown dropdown_filters\">\n// <select data-no-slide data-show-selection data-sel-scroll=\"234\">\n//     <option value=\"1\" selected>Пункт №1</option>\n//     <option value=\"2\">Пункт №2</option>\n//     <option value=\"3\">Пункт №3</option>\n//     <option value=\"4\">Пункт №4</option>\n//     <option value=\"5\">Пункт №5</option>\n//     <option value=\"6\">Пункт №6</option>\n//     <option value=\"7\">Пункт №7</option>\n// </select>\n// </div>\n\n// <div class=\"dropdown dropdown_sort\">\n//      <select data-show-selection>\n//           <option value=\"1\" selected>Пункт №1</option>\n//           <option value=\"2\">Пункт №2</option>\n//           <option value=\"3\">Пункт №3</option>\n//           <option value=\"4\">Пункт №4</option>\n//      </select>\n// </div>\n",".option {\n    position: relative;\n    display: flex;\n    flex-direction: column;\n    row-gap: 0.4rem;\n    cursor: pointer;\n\n    // .option__input\n    &__input {\n        position: absolute;\n        width: 0;\n        height: 0;\n        opacity: 0;\n        &:checked + .option__label .option__text::before {\n            border: 2px solid $green;\n        }\n        &:checked + .option__label .option__text::after {\n            transform: scale(0.6);\n        }\n    }\n\n    // .option__text\n    &__text {\n        display: inline-flex;\n        align-items: center;\n        gap: 1rem;\n        cursor: pointer;\n        &::before {\n            content: '';\n            align-self: flex-start;\n            flex: 0 0 3rem;\n            width: 3rem;\n            height: 3rem;\n            border-radius: 50%;\n            border: 2px solid rgba(233, 233, 233);\n            transition: border 0.3s ease;\n        }\n        &::after {\n            content: '';\n            position: absolute;\n            left: 0;\n            width: 3rem;\n            height: 3rem;\n            border-radius: 50%;\n            background-color: $green;\n            transform: scale(0);\n            transform-origin: center;\n            transition: transform 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            &::before,\n            &::after {\n                width: 4rem;\n                height: 4rem;\n            }\n            &::before {\n                flex: 0 0 4rem;\n            }\n            &::after {\n                top: 0;\n            }\n        }\n    }\n}\n\n// <div class=\"option\">\n//    <input hidden id=\"o_1\" class=\"option__input\" checked type=\"radio\" value=\"1\" name=\"option\"/>\n//    <label for=\"o_1\" class=\"option__label\"><span class=\"option__text\"></span></label>\n//  </div>\n",".social {\n    display: flex;\n    align-items: center;\n    // .social__link\n    &__link {\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 5.2rem;\n        height: 5.2rem;\n        background-color: $main;\n        border-radius: 50%;\n        transition: background 0.2s linear;\n\n        svg {\n            width: 2.2rem;\n            height: 2.2rem;\n        }\n\n        &:hover {\n            transition: background 0.2s linear;\n            background-color: $white;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .social {\n        // .social__link\n        &__link {\n            width: 8rem;\n            height: 8rem;\n\n            svg {\n                width: 3.6rem;\n                height: 3.6rem;\n            }\n        }\n    }\n}\n","body::after {\n    content: '';\n    position: fixed;\n    z-index: 2100;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: $black;\n    opacity: 0;\n    pointer-events: none;\n    transition: opacity 0.8s ease 0s;\n    .modal-show & {\n        opacity: 0.4;\n    }\n}\n\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    right: 0;\n    padding: 3rem 2.4rem;\n    visibility: hidden;\n    pointer-events: none;\n    transition: visibility 0.8s ease 0s;\n    &.modal_show {\n        z-index: 2101;\n        visibility: visible;\n        overflow: auto;\n        pointer-events: auto;\n        .modal__content {\n            visibility: visible;\n            transform: scale(1);\n        }\n        @media (max-width: 48em) {\n            &.modal_fs {\n                padding: 0;\n                .modal__content {\n                    border-radius: 0;\n                    opacity: 1;\n                }\n            }\n        }\n    }\n\n    // .modal__wrapper\n\n    &__wrapper {\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        flex: 1 1 auto;\n        width: 100%;\n        min-height: 100%;\n    }\n\n    // .modal__content\n\n    &__content {\n        position: relative;\n        padding: 4rem 10rem 10rem 4rem;\n        max-width: 85rem;\n        width: 100%;\n        min-height: 87rem;\n        border-radius: 4rem;\n        background-color: $pink;\n        visibility: hidden;\n        transform: scale(0);\n        transition: transform 0.3s ease 0s;\n        .lock & {\n            visibility: visible;\n        }\n        @media (max-width: 48em) {\n            padding: 3rem 2rem;\n            min-height: 100vh;\n            .modal_fs & {\n                opacity: 0;\n                transition: opacity 0.3s ease, visibility 0.3s ease;\n            }\n        }\n    }\n\n    // .modal__close\n\n    &__close {\n        margin-bottom: 5rem;\n        margin-right: auto;\n        display: inline-flex;\n        align-items: center;\n        justify-content: center;\n        width: 3.4rem;\n        height: 3.4rem;\n        @media (max-width: 48em) {\n            margin-bottom: 10rem;\n            width: 6.4rem;\n            height: 6.4rem;\n        }\n    }\n\n    // .modal__close-icon\n\n    &__close-icon {\n        height: 100%;\n        object-fit: contain;\n    }\n}\n\n// --------------------------------------------------------------------------\n\n.application-modal {\n    color: $black;\n\n    // .application-modal__inner\n\n    &__inner {\n        display: flex;\n        flex-direction: column;\n        @media (min-width: 48em) {\n            padding-left: 6rem;\n            .modal__close {\n                transform: translateX(-6rem);\n            }\n        }\n    }\n\n    // .application-modal__title\n\n    &__title {\n        margin-bottom: 1.6rem;\n        @media (max-width: 48em) {\n            margin-bottom: 3.2rem;\n        }\n    }\n\n    // .application-modal__text\n\n    &__text {\n        margin-bottom: 4rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n        }\n    }\n\n    // .application-modal__form\n\n    &__form {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .application-modal__options\n\n    &__options {\n        margin-bottom: 3.2rem;\n        display: flex;\n        flex-wrap: wrap;\n        gap: 1.6rem;\n        @media (max-width: 48em) {\n            margin-bottom: 6.4rem;\n            gap: 1rem;\n        }\n    }\n\n    // .application-modal__option\n\n    &__option {\n    }\n\n    // .application-modal__fields\n\n    &__fields {\n        margin-bottom: 3.2rem;\n        display: flex;\n        flex-direction: column;\n        row-gap: 3rem;\n        @media (max-width: 48em) {\n            margin-bottom: 6.4rem;\n            row-gap: 5rem;\n        }\n    }\n\n    // .application-modal__input\n\n    &__input {\n    }\n\n    // .application-modal__file-input\n\n    &__file-input {\n        margin-bottom: 4rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n        }\n    }\n\n    // .application-modal__footer\n\n    &__footer {\n        display: flex;\n        flex-direction: column-reverse;\n        @media (min-width: 48em) {\n            flex-direction: row;\n            align-items: flex-end;\n            column-gap: 2.4rem;\n        }\n    }\n\n    // .application-modal__btn\n\n    &__btn {\n        @media (max-width: 48em) {\n            align-self: flex-start;\n        }\n    }\n\n    // .application-modal__footer-text\n\n    &__footer-text {\n        max-width: 36.3rem;\n        @media (max-width: 48em) {\n            margin-bottom: 3rem;\n            max-width: 71rem;\n        }\n    }\n}\n","._mobile-only {\n    @media (min-width: 48em) {\n        display: none;\n    }\n}\n\n.wave-container {\n    position: absolute;\n    left: 50%;\n    height: 0;\n    transform: translateX(-50%);\n    @media (min-width: 1940px) {\n        padding-top: calc((1080 / 1920) * 1920px);\n        width: 1920px;\n        overflow: hidden;\n    }\n\n    // .wave-container__inner\n\n    &__inner {\n        position: absolute;\n        left: 0;\n        overflow: visible;\n        user-select: none;\n        path {\n            fill: transparent;\n            stroke-width: 100px;\n        }\n        text {\n            fill: $white;\n            font-family: 'DrukCyr';\n            font-size: 60px;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            transform: translateY(25px);\n        }\n        textPath {\n            word-spacing: 40px;\n        }\n        @media (max-width: 48em) {\n            path {\n                stroke-width: 40px;\n                &:not(&._mobile-only) {\n                    display: none;\n                }\n            }\n            text {\n                font-size: 25px;\n                letter-spacing: 0.32rem;\n                transform: translateY(10px);\n            }\n            textPath {\n                word-spacing: 10px;\n            }\n        }\n        @media (min-width: 1940px) {\n            path {\n                stroke-width: 8rem;\n            }\n            text {\n                font-size: 4rem;\n                transform: translateY(1.5rem);\n            }\n        }\n    }\n}\n\n.select-popup {\n    position: fixed;\n    z-index: 2200;\n    top: 0;\n    right: 0;\n    left: 0;\n    bottom: 0;\n    opacity: 0;\n    visibility: hidden;\n    transition: opacity 0.3s ease, visibility 0.3s ease;\n    ._show-select-popup & {\n        opacity: 1;\n        visibility: visible;\n    }\n    &::before {\n        content: '';\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        background-color: #000000;\n        opacity: 0.3;\n    }\n\n    // .select-popup__inner\n\n    &__inner {\n        position: fixed;\n        z-index: 2201;\n        top: 50%;\n        left: 50%;\n        padding: 3rem;\n        display: flex;\n        flex-direction: column;\n        width: 63.8rem;\n        min-height: 48.4rem;\n        border-radius: 4rem;\n        background-color: $white;\n        color: $black;\n        transform: translate(-50%, -50%);\n    }\n\n    // .select-popup__head\n\n    &__head {\n        margin-bottom: 3rem;\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        column-gap: 4rem;\n    }\n\n    // .select-popup__title\n\n    &__title {\n    }\n\n    // .select-popup__close-btn\n\n    &__close-btn {\n        width: 3.2rem;\n        height: 3.2rem;\n    }\n\n    // .select-popup__close-btn-icon\n\n    &__close-btn-icon {\n        height: 100%;\n        object-fit: contain;\n    }\n\n    // .select-popup__body\n\n    &__body {\n        position: relative;\n        .select__scroll.simplebar-scrollable-y .simplebar-track.simplebar-vertical,\n        .select__scroll.simplebar-scrollable-y .simplebar-scrollbar {\n            top: 0;\n            background-color: rgba(202, 210, 244, 0.4);\n        }\n        .select {\n            &__options {\n                top: 0;\n                left: 0;\n                padding: 0;\n                box-shadow: none;\n                border-radius: 0;\n                background-color: transparent;\n                opacity: 0;\n                visibility: hidden;\n                ._show-select-popup & {\n                    opacity: 1;\n                    visibility: visible;\n                }\n            }\n            &__option {\n                padding: 2rem 4rem;\n                &._select-selected {\n                    background-color: $violet;\n                }\n                &::after {\n                    content: none;\n                }\n            }\n        }\n    }\n}\n\n// --------------------------------------------------------------------------\n\n@import '../sections/hero-gallery';\n@import '../sections/articles-hero';\n@import '../sections/stages';\n@import '../sections/service-hero';\n@import '../sections/application';\n@import '../sections/about-hero';\n@import '../sections/priorities';\n@import '../sections/portfolio-hero';\n@import '../sections/filters';\n",".hero-gallery {\n    padding-bottom: 9rem;\n    background-color: $bodyColor;\n    overflow: hidden;\n    @media (max-width: 48em) {\n        padding-bottom: 12.8rem;\n    }\n\n    // .hero-gallery__container\n\n    &__container {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .hero-gallery__head\n\n    &__head {\n        align-self: center;\n        text-align: center;\n        @media (max-width: 48em) {\n            margin-bottom: 6rem;\n        }\n    }\n\n    // .hero-gallery__title\n\n    &__title {\n        color: $pink;\n        transition: opacity 0.5s ease;\n        user-select: none;\n        &.tl1 {\n            @media (min-width: 48em) {\n                font-size: 19rem;\n            }\n        }\n        ._coloured-txt {\n            color: $green;\n        }\n        ._dragging & {\n            opacity: 0;\n        }\n    }\n\n    // .hero-gallery__body\n\n    &__body {\n        position: relative;\n        height: 63rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n            height: 73rem;\n        }\n    }\n\n    // .hero-gallery__item\n\n    &__item {\n        position: absolute;\n        border-radius: 1.5rem;\n        background-color: #29292c;\n        overflow: hidden;\n        &._a {\n            top: 0;\n            left: 0;\n            width: 8.6rem;\n            height: 8rem;\n        }\n        &._b {\n            top: 0;\n            left: 10.8rem;\n            width: 14.3rem;\n            height: 8.8rem;\n            @media (max-width: 48em) {\n                left: 11rem;\n            }\n        }\n        &._c {\n            top: 0;\n            left: 28.2rem;\n            width: 26.3rem;\n            height: 12.2rem;\n            @media (max-width: 48em) {\n                width: 22rem;\n                height: 12.6rem;\n            }\n        }\n        &._d {\n            top: 0;\n            left: 57.3rem;\n            width: 15.8rem;\n            height: 10.2rem;\n            @media (max-width: 48em) {\n                left: 53.3rem;\n                width: 13.2rem;\n                height: 10.6rem;\n            }\n        }\n        &._e {\n            top: 0;\n            left: 76rem;\n            width: 29.7rem;\n            height: 10.7rem;\n            @media (max-width: 48em) {\n                left: 69.5rem;\n                width: 24.8rem;\n                height: 11rem;\n            }\n        }\n        &._f {\n            top: 0;\n            left: 108.9rem;\n            width: 12.4rem;\n            height: 10.2rem;\n            @media (max-width: 48em) {\n                left: 97.3rem;\n                width: 10.4rem;\n                height: 10.6rem;\n            }\n        }\n        &._g {\n            top: 0;\n            left: 124.4rem;\n            width: 19rem;\n            height: 9.6rem;\n            @media (max-width: 48em) {\n                left: 110.6rem;\n                width: 16rem;\n                height: 10.2rem;\n            }\n        }\n        &._h {\n            top: 0;\n            right: 0;\n            width: 26.3rem;\n            height: 29rem;\n        }\n        &._i {\n            top: 11.3rem;\n            left: 0;\n            width: 25.1rem;\n            height: 12.6rem;\n            @media (max-width: 48em) {\n                top: 11.3rem;\n                left: 0;\n                width: 21.5rem;\n            }\n        }\n        &._j {\n            top: 14.7rem;\n            left: 27.7rem;\n            width: 9.2rem;\n            height: 9.2rem;\n            @media (max-width: 48em) {\n                top: 15.6rem;\n                left: 24.3rem;\n                width: 9.6rem;\n                height: 9.4rem;\n            }\n        }\n        &._k {\n            top: 14.6rem;\n            left: 39.2rem;\n            width: 14.4rem;\n            height: 9.4rem;\n            @media (max-width: 48em) {\n                top: 15.3rem;\n                left: 36.6rem;\n                width: 12rem;\n                height: 9.8rem;\n            }\n        }\n        &._l {\n            top: 13.2rem;\n            left: 55.8rem;\n            width: 27.8rem;\n            height: 13.4rem;\n            @media (max-width: 48em) {\n                top: 13.6rem;\n                left: 51.5rem;\n                width: 23.2rem;\n                height: 13.8rem;\n            }\n        }\n        &._m {\n            top: 13.2rem;\n            left: 86.5rem;\n            width: 26.9rem;\n            height: 13.4rem;\n            @media (max-width: 48em) {\n                top: 13.6rem;\n                left: 77.6rem;\n                width: 22.6rem;\n                height: 13.8rem;\n            }\n        }\n        &._n {\n            top: 13.2rem;\n            left: 115.9rem;\n            width: 26.8rem;\n            height: 23.5rem;\n            @media (max-width: 48em) {\n                top: 13.6rem;\n                left: 103.5rem;\n                width: 22.4rem;\n                height: 24.4rem;\n            }\n        }\n        &._o {\n            top: 26.3rem;\n            left: 1.9rem;\n            width: 23.2rem;\n            height: 13.2rem;\n            @media (max-width: 48em) {\n                top: 26.3rem;\n                left: 0.4rem;\n            }\n        }\n        &._p {\n            top: 26.3rem;\n            left: 27.7rem;\n            width: 18.4rem;\n            height: 10.4rem;\n            @media (max-width: 48em) {\n                top: 27.8rem;\n                left: 26.6rem;\n                width: 15.4rem;\n                height: 10.8rem;\n            }\n        }\n        &._q {\n            top: 29.2rem;\n            left: 48.9rem;\n            width: 18.8rem;\n            height: 10.1rem;\n            @media (max-width: 48em) {\n                top: 30.2rem;\n                left: 44.8rem;\n                width: 15.8rem;\n                height: 10.4rem;\n            }\n        }\n        &._r {\n            top: 29.2rem;\n            left: 70.2rem;\n            width: 12.1rem;\n            height: 15rem;\n            @media (max-width: 48em) {\n                top: 30.2rem;\n                left: 63.5rem;\n                width: 10.2rem;\n                height: 15.6rem;\n            }\n        }\n        &._s {\n            top: 29.2rem;\n            left: 84.8rem;\n            width: 27.8rem;\n            height: 15.8rem;\n            @media (max-width: 48em) {\n                top: 30.2rem;\n                left: 76.7rem;\n                width: 23.2rem;\n                height: 16.4rem;\n            }\n        }\n        &._t {\n            top: 39.1rem;\n            left: 116.2rem;\n            width: 22.3rem;\n            height: 14.2rem;\n            @media (max-width: 48em) {\n                top: 40.1rem;\n                left: 103.5rem;\n                width: 20.25rem;\n                height: 14.6rem;\n            }\n        }\n        &._u {\n            top: 39rem;\n            left: 140.5rem;\n            width: 6.4rem;\n            height: 5.2rem;\n            @media (max-width: 48em) {\n                top: 39rem;\n                left: 125.5rem;\n            }\n        }\n        &._v {\n            top: 31.4rem;\n            left: 149.2rem;\n            width: 9.1rem;\n            height: 18.3rem;\n            @media (max-width: 48em) {\n                top: 31.4rem;\n                left: 133.9rem;\n            }\n        }\n        &._w {\n            top: 31.4rem;\n            right: 0;\n            width: 11.4rem;\n            height: 8.1rem;\n            @media (max-width: 48em) {\n                width: 10.4rem;\n            }\n        }\n        &._x {\n            top: 41.7rem;\n            left: 11.9rem;\n            width: 11.5rem;\n            height: 6.5rem;\n            @media (max-width: 48em) {\n                left: 11.2rem;\n            }\n        }\n        &._y {\n            top: 39.1rem;\n            left: 26.1rem;\n            width: 21rem;\n            height: 10.9rem;\n            @media (max-width: 48em) {\n                top: 40.6rem;\n                left: 24.6rem;\n                width: 17.6rem;\n                height: 11.2rem;\n            }\n        }\n        &._z {\n            top: 42.1rem;\n            left: 49.5rem;\n            width: 14.1rem;\n            height: 11.5rem;\n            @media (max-width: 48em) {\n                top: 43.5rem;\n                left: 45.5rem;\n                width: 11.2rem;\n                height: 11.2rem;\n            }\n        }\n        &._a1 {\n            top: 47.4rem;\n            left: 65.9rem;\n            width: 17.1rem;\n            height: 15.7rem;\n            @media (max-width: 48em) {\n                top: 49rem;\n                left: 59.9rem;\n                width: 14.4rem;\n                height: 16.2rem;\n            }\n        }\n        &._b1 {\n            top: 49.5rem;\n            left: 85.4rem;\n            width: 14.3rem;\n            height: 13.6rem;\n            @media (max-width: 48em) {\n                top: 51rem;\n                left: 77rem;\n                width: 12rem;\n                height: 14rem;\n            }\n        }\n        &._c1 {\n            top: 48.6rem;\n            left: 102.2rem;\n            width: 11.4rem;\n            height: 8.1rem;\n            @media (max-width: 48em) {\n                top: 52.6rem;\n                left: 91.8rem;\n                width: 9.6rem;\n                height: 8.4rem;\n            }\n        }\n        &._d1 {\n            top: 45.7rem;\n            left: 140.9rem;\n            width: 5.7rem;\n            height: 5.7rem;\n            @media (max-width: 48em) {\n                top: 46.4rem;\n                left: 125.9rem;\n            }\n        }\n        &._e1 {\n            top: 41.5rem;\n            right: 0;\n            width: 10.4rem;\n            height: 6.6rem;\n            @media (max-width: 48em) {\n                top: 42rem;\n            }\n        }\n        // .hero-gallery__item_gray\n\n        &_gray {\n            background-color: $gray;\n        }\n    }\n\n    // .hero-gallery__plane-wrap\n\n    &__plane-wrap {\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        @media (max-width: 48em) {\n            left: -57%;\n            width: calc(100% + 85rem);\n        }\n    }\n\n    // .hero-gallery__plane\n\n    &__plane {\n        margin: 0 auto;\n        width: 172rem;\n        height: 63rem;\n        @media (max-width: 48em) {\n            height: 73rem;\n        }\n    }\n\n    // .hero-gallery__image-wrap\n\n    &__image-wrap {\n        display: block;\n        height: 100%;\n    }\n\n    // .hero-gallery__image\n\n    &__image {\n        height: 100%;\n        object-fit: cover;\n    }\n\n    // .hero-gallery__footer\n\n    &__footer {\n        position: relative;\n        z-index: 2000;\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        z-index: 1;\n\n        @media (min-width: 48em) {\n            flex-direction: row;\n            justify-content: space-between;\n            transform: translateY(-7rem);\n        }\n    }\n\n    // .hero-gallery__group\n\n    &__group {\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        @media (max-width: 48em) {\n            margin-bottom: 6.4rem;\n        }\n    }\n\n    // .hero-gallery__text\n\n    &__text {\n        margin-bottom: 4.4rem;\n        display: flex;\n        column-gap: 2.8rem;\n        max-width: 40rem;\n        transition: opacity 0.3s ease;\n        ._dragging & {\n            opacity: 0;\n        }\n        &::before {\n            content: '';\n            width: 9.4rem;\n            height: 1px;\n            background-color: rgba(201, 251, 64, 0.5);\n            transform: translateY(1.5rem);\n        }\n        @media (max-width: 48em) {\n            margin-bottom: 0;\n            column-gap: 6.4rem;\n            max-width: 70rem;\n            &::before {\n                width: 22.8rem;\n                transform: translateY(3rem);\n            }\n        }\n    }\n\n    // .hero-gallery__showmore-btn\n\n    &__showmore-btn {\n        position: relative;\n        z-index: 2000;\n        ._scale & {\n            display: none;\n        }\n        ._dragging & {\n            position: fixed;\n            left: 10rem;\n            bottom: 0;\n            opacity: 0;\n        }\n        @media (max-width: 48em) {\n            width: 8rem;\n            height: 8rem;\n            &:not(._dragging &) {\n                position: absolute;\n                top: -13rem;\n                right: 0;\n            }\n            ._dragging & {\n                bottom: 5rem;\n                left: auto;\n                right: 1rem;\n            }\n            .showmore-btn__text {\n                display: none;\n            }\n            svg {\n                circle {\n                    fill: $green;\n                }\n                path {\n                    fill: $bodyColor;\n                }\n                ._dragging & {\n                    &:first-child {\n                        display: none;\n                    }\n                    &:last-child {\n                        display: block;\n                    }\n                }\n            }\n        }\n    }\n\n    // .hero-gallery__btn\n\n    &__btn {\n        margin-top: 3rem;\n        transition: opacity 0.3s ease;\n        ._dragging & {\n            opacity: 0;\n        }\n        @media (max-width: 48em) {\n            margin-top: 0;\n            margin-left: 19rem;\n        }\n    }\n}\n\n.popup-hero-gallery {\n    position: fixed;\n    z-index: 2000;\n    bottom: 0;\n    right: 0;\n    padding: 3.2rem 4rem;\n    display: flex;\n    flex-direction: column;\n    width: 63rem;\n    border-radius: 4rem;\n    background-color: $green;\n    transform: translateY(100%);\n    opacity: 0;\n    transition: none;\n    @media (min-width: 48em) {\n        &._active {\n            opacity: 1;\n            visibility: visible;\n            transform: translateY(0);\n            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;\n        }\n    }\n\n    // .popup-hero-gallery__title\n\n    &__title {\n        margin-bottom: 5.6rem;\n        color: $bodyColor;\n    }\n\n    // .popup-hero-gallery__icon\n\n    &__icon {\n        svg {\n            width: 5rem;\n            height: 5rem;\n        }\n    }\n}\n",".articles-hero {\n    padding-top: 18.9rem;\n    padding-bottom: 17.7rem;\n    user-select: none;\n    border-bottom: 1px solid rgba(201, 251, 64, 0.5);\n    @media (max-width: 48em) {\n        padding-top: 16.8rem;\n        padding-bottom: 10rem;\n    }\n\n    // .articles-hero__container\n\n    &__container {\n        position: relative;\n        z-index: 2;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        @media (min-width: 48em) {\n            display: grid;\n            grid-template-columns: 3fr 6fr 3fr;\n            align-items: start;\n            column-gap: 6.5rem;\n        }\n    }\n\n    // .articles-hero__bg\n\n    &__bg {\n        position: relative;\n        margin-bottom: 12rem;\n        @media (min-width: 48em) {\n            margin-bottom: 0;\n            grid-column: 2/3;\n        }\n    }\n\n    // .articles-hero__title\n\n    &__title {\n        position: absolute;\n        top: auto;\n        bottom: -12.6rem;\n        left: 50%;\n        text-align: center;\n        -webkit-text-stroke-width: 2px;\n        -webkit-text-stroke-color: $white;\n        transform: translateX(-50%);\n        &:first-child {\n            top: -14.5rem;\n        }\n        @media (max-width: 48em) {\n            bottom: -5.5rem;\n            -webkit-text-stroke-width: 1px;\n            &:first-child {\n                top: -7.3rem;\n            }\n        }\n    }\n\n    // .articles-hero__bg-inner\n\n    &__bg-inner {\n        position: relative;\n        z-index: 2;\n        overflow: hidden;\n        .articles-hero__title {\n            color: transparent;\n            &:first-child {\n                top: -14.6rem;\n            }\n            @media (max-width: 48em) {\n                bottom: -5.6rem;\n                &:first-child {\n                    top: -7.3rem;\n                }\n            }\n        }\n    }\n\n    // .articles-hero__image-wrap\n\n    &__image-wrap {\n        width: 100%;\n        height: 41rem;\n        @media (max-width: 48em) {\n            width: 50rem;\n            height: 26.4rem;\n        }\n\n        // .articles-hero__image-wrap_small\n\n        &_small {\n            position: relative;\n            margin-top: 8rem;\n            width: 24.2rem;\n            height: 14.4rem;\n\n            .articles-hero__image {\n                border-radius: 3rem;\n            }\n            &::before {\n                content: '';\n                position: absolute;\n                top: -4rem;\n                left: 50%;\n                width: 5rem;\n                height: 5rem;\n                background-image: url(./assets/images/icons/ah-union.svg);\n                background-size: contain;\n                background-repeat: no-repeat;\n                transform: translate(-50%, -100%);\n            }\n            @media (min-width: 48em) {\n                position: absolute;\n                top: 0;\n                left: -6.4rem;\n                margin-top: 0;\n                width: 18.1rem;\n                height: 13.5rem;\n                transform: translateX(-100%);\n                .articles-hero__image {\n                    border-radius: 1.6rem;\n                }\n                &::before {\n                    top: 12rem;\n                    width: 7.3rem;\n                    height: 7.5rem;\n                    transform: translate(-50%, 100%);\n                }\n            }\n        }\n    }\n\n    // .articles-hero__image\n\n    &__image {\n        display: block;\n        height: 100%;\n        border-radius: 4rem;\n        object-fit: cover;\n    }\n\n    // .articles-hero__info\n\n    &__info {\n        padding: 0 5rem;\n        display: flex;\n        flex-direction: row-reverse;\n        justify-content: space-between;\n        align-items: flex-end;\n        column-gap: 11rem;\n        width: 100%;\n        grid-column: 3/4;\n        @media (min-width: 48em) {\n            padding: 9rem 0 0 0;\n            display: block;\n            width: auto;\n            grid-column: 3/4;\n        }\n    }\n\n    // .articles-hero__list\n\n    &__list {\n        position: relative;\n        padding-left: 4rem;\n        display: flex;\n        flex-direction: column;\n        row-gap: 1.2rem;\n        &::before {\n            content: '';\n            position: absolute;\n            top: 50%;\n            left: 0;\n            width: 4rem;\n            height: 4rem;\n            background-image: url(./assets/images/icons/ah-circles.svg);\n            background-size: contain;\n            background-repeat: no-repeat;\n            transform: translateY(-50%);\n        }\n        @media (max-width: 48em) {\n            padding-left: 6.4rem;\n            row-gap: 2rem;\n            &::before {\n                width: 3.2rem;\n                height: 6.4rem;\n            }\n        }\n    }\n\n    // .articles-hero__list-item\n\n    &__list-item {\n        font-family: 'DrukCyr';\n        @media (max-width: 48em) {\n            letter-spacing: 0.32rem;\n        }\n    }\n\n    // .articles-hero__wave-container\n\n    &__wave-container {\n        top: -20rem;\n        .wave-container__inner {\n            top: 8rem;\n            path {\n                stroke: $violet;\n            }\n        }\n        @media (max-width: 48em) {\n            padding-top: 0;\n            top: -13rem;\n        }\n        @media (max-width: 1940px) {\n            padding-top: calc((1080 / 1920) * 100vw);\n            width: 100vw;\n        }\n    }\n}\n",".stages {\n    margin-bottom: 16rem;\n    @media (max-width: 48em) {\n        margin-bottom: 24rem;\n    }\n\n    // .stages__container\n\n    &__container {\n        display: flex;\n        flex-direction: column;\n        @media (min-width: 48em) {\n            flex-direction: row;\n            column-gap: 17.9rem;\n        }\n    }\n\n    // .stages__content\n\n    &__content {\n        margin-bottom: 10rem;\n        @media (min-width: 48em) {\n            position: relative;\n            margin-bottom: 0;\n            display: flex;\n            flex-direction: column;\n            &::before {\n                content: '';\n                position: absolute;\n                z-index: 2;\n                top: 0;\n                left: calc((100vw - 172rem) / -2);\n                width: calc(100% + ((100vw - 172rem) / 2) + 10.6rem);\n                height: 100%;\n                background-color: $bodyColor;\n            }\n        }\n    }\n\n    // .stages__title\n\n    &__title {\n        color: $pink;\n        @media (min-width: 48em) {\n            position: relative;\n            z-index: 3;\n            margin-bottom: 10.6rem;\n            white-space: nowrap;\n        }\n    }\n\n    // .stages__sl-control\n\n    &__sl-control {\n        display: none;\n        @media (min-width: 48em) {\n            position: relative;\n            z-index: 3;\n            display: flex;\n            column-gap: 2rem;\n        }\n    }\n\n    // .stages__sl-btn\n\n    &__sl-btn {\n    }\n\n    // .stages__slider-wrap\n\n    &__slider-wrap {\n        width: 124rem;\n        @media (max-width: 48em) {\n            margin-left: 2rem;\n            width: 100vw;\n        }\n    }\n\n    // .stages__slider\n\n    &__slider {\n        user-select: none;\n        &.swiper {\n            overflow: visible;\n        }\n    }\n\n    // .stages__wrapper\n\n    &__wrapper {\n        position: relative;\n        padding-top: 9rem;\n        &::before {\n            content: '';\n            position: absolute;\n            top: 0;\n            left: 0;\n            width: calc(100% + 37rem);\n            height: 5rem;\n            border: 1px solid $pink;\n            border-bottom: none;\n            border-radius: 2rem 2rem 0 0;\n        }\n        @media (max-width: 48em) {\n            padding-top: 8rem;\n            &::before {\n                width: calc(100% + 143rem);\n                border-radius: 4rem 4rem 0 0;\n            }\n        }\n    }\n\n    // .stages__slide\n\n    &__slide {\n        &:not(&:first-child) {\n            &::before {\n                content: '';\n                position: absolute;\n                top: -4rem;\n                left: 0;\n                width: 1px;\n                height: 4.9rem;\n                background-color: $pink;\n                transform: translateY(-100%);\n                @media (max-width: 48em) {\n                    top: -3rem;\n                }\n            }\n        }\n    }\n}\n\n.slide-stages {\n    &.swiper-slide {\n        position: relative;\n        display: flex;\n        flex-direction: column;\n        width: 34rem;\n        @media (max-width: 48em) {\n            width: 45.6rem;\n        }\n    }\n\n    // .slide-stages__title\n\n    &__title {\n        margin-bottom: 2.4rem;\n        color: $pink;\n    }\n\n    // .slide-stages__text\n\n    &__text {\n    }\n}\n",".service-hero {\n    margin-bottom: 16rem;\n    padding-top: 3.9rem;\n    user-select: none;\n    @media (max-width: 48em) {\n        margin-bottom: 24rem;\n        padding-top: 11rem;\n    }\n\n    // .service-hero__container\n\n    &__container {\n        display: flex;\n        column-gap: 16.5rem;\n        @media (max-width: 48em) {\n            flex-direction: column-reverse;\n        }\n    }\n\n    // .service-hero__preview\n\n    &__preview {\n        padding-top: 14rem;\n        display: flex;\n        flex-direction: column;\n        border-radius: 4rem;\n        background-color: $pink;\n        overflow: hidden;\n        @media (min-width: 48em) {\n            margin-left: calc((100vw - 172rem) / -2);\n            padding-top: 18rem;\n            flex: 0 0 80.5rem;\n            width: 80.5rem;\n            border-radius: 3rem;\n        }\n        @media (min-width: 1990px) {\n            margin-left: 0;\n        }\n    }\n\n    // .service-hero__images\n\n    &__images {\n        margin-bottom: 9rem;\n        display: flex;\n        column-gap: 3rem;\n        transform: translateX(-35rem);\n        @media (max-width: 48em) {\n            margin-bottom: 6rem;\n            column-gap: 2rem;\n            transform: translateX(-30rem);\n        }\n    }\n\n    // .service-hero__image-wrap\n\n    &__image-wrap {\n        position: relative;\n        flex: 0 0 48rem;\n        width: 48rem;\n        height: 44.8rem;\n        &:first-child {\n            transform: rotate(2deg);\n        }\n        &:last-child {\n            transform: rotate(-1.555deg);\n        }\n        &::before {\n            content: '';\n            position: absolute;\n            top: 0;\n            left: 0;\n            width: 100%;\n            height: 100%;\n            border-radius: 3rem;\n            background-color: rgba(0, 0, 0, 0.05);\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 42rem;\n            width: 42rem;\n            height: 39.4rem;\n            &::before {\n                border-radius: 4rem;\n            }\n        }\n    }\n\n    // .service-hero__image\n\n    &__image {\n        display: block;\n        height: 100%;\n        border-radius: 3rem;\n        object-fit: cover;\n        @media (max-width: 48em) {\n            border-radius: 4rem;\n        }\n    }\n\n    // .service-hero__subtitle\n\n    &__subtitle {\n        position: absolute;\n        top: -9rem;\n        left: 50%;\n        display: flex;\n        flex-direction: column;\n        white-space: nowrap;\n        text-align: center;\n        transform: translateX(-50%) rotate(-3.215deg);\n        @media (max-width: 48em) {\n            top: -6.5rem;\n        }\n    }\n\n    // .service-hero__marquee\n\n    &__marquee {\n        position: relative;\n        padding: 2.4rem 0;\n        overflow: hidden;\n        background-color: $green;\n    }\n\n    // .service-hero__marquee-inner\n\n    &__marquee-inner {\n        display: flex;\n        width: fit-content;\n        flex: auto;\n        overflow: hidden;\n    }\n\n    // .service-hero__marquee-part\n\n    &__marquee-part {\n        padding: 0 2rem;\n        display: flex;\n        flex-shrink: 0;\n        font-family: 'DrukCyr';\n        white-space: nowrap;\n        color: $black;\n    }\n\n    // .service-hero__content\n\n    &__content {\n        position: relative;\n        margin-bottom: 5rem;\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        &::after {\n            content: '';\n            position: absolute;\n            top: -6rem;\n            right: 14rem;\n            width: 23rem;\n            height: 23rem;\n            background-image: url(./assets/images/icons/circle.svg);\n            background-size: contain;\n            background-repeat: no-repeat;\n            transform: translateX(100%);\n            animation: rotateCircle 15s linear 0s infinite;\n        }\n        @media (min-width: 48em) {\n            margin-bottom: 0;\n            padding-top: 8.5rem;\n            &::after {\n                top: 11.4rem;\n                right: -13.9rem;\n                width: 16rem;\n                height: 16rem;\n            }\n        }\n    }\n\n    // .service-hero__title\n\n    &__title {\n        margin-bottom: 4rem;\n        display: flex;\n        flex-direction: column;\n        span {\n            -webkit-text-stroke-width: 1px;\n            -webkit-text-stroke-color: $white;\n            color: transparent;\n        }\n        @media (min-width: 48em) {\n            margin-bottom: 3rem;\n            &.tl1 {\n                line-height: 100%;\n            }\n            span {\n                -webkit-text-stroke-width: 2px;\n            }\n        }\n    }\n\n    // .service-hero__text\n\n    &__text {\n        margin-bottom: 4.8rem;\n        max-width: 54.9rem;\n        @media (max-width: 48em) {\n            margin-bottom: 5rem;\n            max-width: 71rem;\n            font-size: 3rem;\n        }\n    }\n\n    // .service-hero__btn\n\n    &__btn {\n    }\n}\n\n@keyframes rotateCircle {\n    100% {\n        transform: translateX(100%) rotate(360deg);\n    }\n}\n",".application {\n    margin-bottom: 16rem;\n    color: $white;\n    @media (max-width: 48em) {\n        margin-bottom: 24rem;\n    }\n\n    // .application__container\n\n    &__container {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .application__title\n\n    &__title {\n        margin-bottom: 1.6rem;\n    }\n\n    // .application__text\n\n    &__text {\n        margin-bottom: 4rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n        }\n    }\n\n    // .application__form\n\n    &__form {\n        display: flex;\n        flex-direction: column;\n        @media (min-width: 48em) {\n            max-width: 120.3rem;\n        }\n    }\n\n    // .application__fields\n\n    &__fields {\n        margin-bottom: 3.2rem;\n        display: flex;\n        flex-direction: column;\n        row-gap: 3rem;\n        @media (max-width: 48em) {\n            margin-bottom: 5rem;\n            row-gap: 5rem;\n        }\n    }\n\n    // .application__input\n\n    &__input {\n    }\n\n    // .application__file-input\n\n    &__file-input {\n        margin-bottom: 4rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n        }\n    }\n\n    // .application__footer\n\n    &__footer {\n        display: flex;\n        flex-direction: column-reverse;\n        @media (min-width: 48em) {\n            flex-direction: row;\n            align-items: center;\n            column-gap: 2.4rem;\n        }\n    }\n\n    // .application__btn\n\n    &__btn {\n        align-self: flex-start;\n    }\n\n    // .application__footer-text\n\n    &__footer-text {\n        @media (max-width: 48em) {\n            margin-bottom: 3rem;\n            max-width: 71rem;\n        }\n    }\n}\n",".about-hero {\n    padding-top: 4.8rem;\n    padding-bottom: 16rem;\n    @media (max-width: 48em) {\n        padding-top: 10rem;\n        padding-bottom: 13rem;\n    }\n\n    // .about-hero__container\n\n    &__container {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .about-hero__bg\n\n    &__bg {\n        position: relative;\n        margin-bottom: 3.6rem;\n        border-radius: 4rem;\n        overflow: hidden;\n        @media (max-width: 48em) {\n            margin-bottom: 5rem;\n        }\n    }\n\n    // .about-hero__bg-wrap\n\n    &__bg-wrap {\n        height: 54.4rem;\n        @media (max-width: 48em) {\n            height: 36rem;\n        }\n    }\n\n    // .about-hero__bg-img\n\n    &__bg-img {\n        display: block;\n        height: 100%;\n        border-radius: 4rem;\n        object-fit: cover;\n    }\n\n    // .about-hero__wave-container\n\n    &__wave-container {\n        bottom: 35rem;\n        overflow: visible;\n        path {\n            stroke: $pink;\n        }\n        text {\n            fill: $black;\n        }\n        textPath {\n            word-spacing: 10px;\n        }\n\n        @media (max-width: 1940px) {\n            padding-top: calc((54.4rem / 172rem) * 1720px);\n            width: 172rem;\n        }\n        @media (max-width: 48em) {\n            padding-top: 0;\n            bottom: 19rem;\n            width: 100%;\n            textPath {\n                word-spacing: 5px;\n            }\n        }\n    }\n\n    // .about-hero__content\n\n    &__content {\n        display: flex;\n        flex-direction: column;\n        @media (min-width: 48em) {\n            flex-direction: row;\n            justify-content: space-between;\n            column-gap: 19rem;\n        }\n    }\n\n    // .about-hero__title-wrap\n\n    &__title-wrap {\n        position: relative;\n        display: flex;\n        flex-direction: column;\n        &::after {\n            content: '';\n            position: absolute;\n            bottom: 0;\n            right: -4rem;\n            width: 9.6rem;\n            height: 7.9rem;\n            background-image: url(./assets/images/icons/content/tariff/sunny.svg);\n            background-size: contain;\n            background-repeat: no-repeat;\n            transform: translateX(100%);\n        }\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n            &::after {\n                bottom: auto;\n                top: 0;\n                right: 0;\n                width: 11rem;\n                height: 11rem;\n                transform: none;\n            }\n        }\n    }\n\n    // .about-hero__title\n\n    &__title {\n        margin-bottom: 9.5rem;\n        @media (max-width: 48em) {\n            margin-bottom: 5rem;\n        }\n    }\n\n    // .about-hero__btn\n\n    &__btn {\n        align-self: flex-start;\n    }\n\n    // .about-hero__info\n\n    &__info {\n        display: grid;\n        grid-template-columns: repeat(2, 1fr);\n        column-gap: 3.1rem;\n        row-gap: 7.2rem;\n        @media (min-width: 48em) {\n            padding-top: 5rem;\n            grid-template-columns: repeat(2, auto);\n            column-gap: 3.2rem;\n            row-gap: 8rem;\n        }\n    }\n\n    // .about-hero__text\n\n    &__text {\n        position: relative;\n        &::after {\n            content: '';\n            position: absolute;\n            bottom: 0;\n            right: 0;\n            width: 2rem;\n            height: 2rem;\n            border-radius: 50%;\n            background-color: $white;\n        }\n        @media (min-width: 48em) {\n            width: 76.4rem;\n            grid-column: span 2;\n            &::after {\n                right: -8rem;\n                width: 1rem;\n                height: 1rem;\n            }\n        }\n    }\n\n    // .about-hero__image-wrap\n\n    &__image-wrap {\n        width: 34.6rem;\n        height: 20.9rem;\n        @media (max-width: 48em) {\n            width: 100%;\n            height: 21.6rem;\n        }\n    }\n\n    // .about-hero__image\n\n    &__image {\n        display: block;\n        height: 100%;\n        border-radius: 4rem;\n        object-fit: cover;\n    }\n\n    // .about-hero__group\n\n    &__group {\n    }\n}\n\n.group-about-hero {\n    position: relative;\n    padding: 2.4rem;\n    display: flex;\n    flex-direction: column;\n    width: 48rem;\n    background-image: url(./assets/images/picture/bg.svg);\n    background-size: contain;\n    background-repeat: no-repeat;\n    @media (max-width: 48em) {\n        padding: 4rem;\n        width: 100%;\n        grid-column: span 2;\n        background-image: url(./assets/images/picture/bg-m.svg);\n    }\n\n    // .group-about-hero__head\n\n    &__head {\n        margin-bottom: 6.8rem;\n        display: flex;\n        @media (max-width: 48em) {\n            margin-bottom: 9rem;\n        }\n    }\n\n    // .group-about-hero__cr-image-wrap\n\n    &__cr-image-wrap {\n        position: relative;\n        flex: 0 0 6rem;\n        width: 6rem;\n        height: 6rem;\n        &:nth-child(2) {\n            transform: translateX(-1.5rem);\n        }\n        &:nth-child(3) {\n            transform: translateX(-2.5rem);\n        }\n        &:nth-child(4) {\n            transform: translateX(-3.5rem);\n        }\n        &:nth-child(5) {\n            transform: translateX(-4.5rem);\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 9rem;\n            width: 9rem;\n            height: 9rem;\n            &:nth-child(2) {\n                transform: translateX(-3.5rem);\n            }\n            &:nth-child(3) {\n                transform: translateX(-6.5rem);\n            }\n            &:nth-child(4) {\n                transform: translateX(-9.5rem);\n            }\n            &:nth-child(5) {\n                transform: translateX(-12.5rem);\n            }\n        }\n    }\n\n    // .group-about-hero__cr-image\n\n    &__cr-image {\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 50%;\n        object-fit: cover;\n    }\n\n    // .group-about-hero__content\n\n    &__content {\n        padding-left: 8.8rem;\n        display: flex;\n        justify-content: space-between;\n        align-items: flex-end;\n        color: $black;\n        @media (max-width: 48em) {\n            padding-left: 15.2rem;\n            align-items: center;\n        }\n    }\n\n    // .group-about-hero__strong-txt\n\n    &__strong-txt {\n        @media (max-width: 48em) {\n            font-size: 4rem;\n        }\n    }\n\n    // .group-about-hero__text\n\n    &__text {\n    }\n\n    // .group-about-hero__logo-wrap\n\n    &__logo-wrap {\n        position: absolute;\n        left: 0;\n        bottom: 0;\n        padding: 1.2rem;\n        display: inline-flex;\n        align-items: center;\n        justify-content: center;\n        @media (max-width: 48em) {\n            padding: 2.4rem;\n        }\n    }\n\n    // .group-about-hero__logo\n\n    &__logo {\n        width: 6rem;\n        height: 6rem;\n        object-fit: contain;\n        @media (max-width: 48em) {\n            bottom: -1rem;\n            width: 10rem;\n            height: 10rem;\n        }\n    }\n\n    // .group-about-hero__link-wrap\n\n    &__link-wrap {\n        position: absolute;\n        top: 0;\n        right: 0;\n        padding: 1.6rem 1.8rem 2.4rem 2.7rem;\n        @media (max-width: 48em) {\n            padding: 4rem 1.6rem 2.4rem 2.4rem;\n            right: 2rem;\n        }\n    }\n\n    // .group-about-hero__link\n\n    &__link {\n        display: flex;\n        align-items: flex-end;\n        column-gap: 1.6rem;\n        svg {\n            width: 1.5rem;\n            height: 1.5rem;\n        }\n        @media (max-width: 48em) {\n            column-gap: 3.2rem;\n            svg {\n                width: 3rem;\n                height: 3rem;\n            }\n        }\n    }\n\n    // .group-about-hero__link-txt\n\n    &__link-txt {\n        max-width: 10.2rem;\n        font-family: 'DrukCyr';\n        color: $green;\n        @media (max-width: 48em) {\n            max-width: 16.4rem;\n        }\n    }\n}\n",".priorities {\n    margin-bottom: 16rem;\n    @media (max-width: 48em) {\n        margin-bottom: 24rem;\n    }\n\n    // .priorities__container\n\n    &__container {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .priorities__head\n\n    &__head {\n        margin-bottom: 6.4rem;\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        @media (min-width: 48em) {\n            margin-bottom: 9rem;\n            flex-direction: row;\n            justify-content: space-between;\n            align-items: center;\n        }\n    }\n\n    // .priorities__title\n\n    &__title {\n        @media (max-width: 48em) {\n            margin-bottom: 6.4rem;\n        }\n    }\n\n    // .priorities__btn\n\n    &__btn {\n    }\n\n    // .priorities__body\n\n    &__body {\n        display: flex;\n        flex-direction: column;\n        gap: 6.4rem;\n        @media (min-width: 48em) {\n            flex-direction: row;\n            justify-content: space-between;\n            gap: 14.5rem;\n        }\n    }\n\n    // .priorities__image-wrap\n\n    &__image-wrap {\n        width: 100%;\n        height: 34.2rem;\n        @media (min-width: 48em) {\n            flex: 0 0 72.5rem;\n            width: 72.5rem;\n            height: 56rem;\n        }\n    }\n\n    // .priorities__image\n\n    &__image {\n        display: block;\n        height: 100%;\n        border-radius: 4rem;\n        object-fit: cover;\n    }\n\n    // .priorities__content\n\n    &__content {\n        flex: 1 1 auto;\n    }\n\n    // .priorities__accordion\n\n    &__accordion {\n        display: flex;\n        flex-direction: column;\n        row-gap: 2.4rem;\n        width: 100%;\n    }\n}\n",".portfolio-hero {\n    margin-bottom: 12rem;\n    padding-top: 22.2rem;\n    padding-bottom: 19.7rem;\n    user-select: none;\n    @media (max-width: 48em) {\n        margin-bottom: 10rem;\n        padding-top: 22rem;\n        padding-bottom: 0;\n    }\n\n    // .portfolio-hero__container\n\n    &__container {\n        position: relative;\n        &::before,\n        &::after {\n            content: '';\n            position: absolute;\n            top: -17rem;\n            width: 71rem;\n            height: 71rem;\n            border: 1px solid $gray-darken;\n            border-radius: 50%;\n        }\n        &::before {\n            left: -22rem;\n        }\n        &::after {\n            right: -22rem;\n        }\n        @media (max-width: 48em) {\n            &::before,\n            &::after {\n                width: 62rem;\n                height: 62rem;\n            }\n            &::before {\n                left: -55.6rem;\n            }\n            &::after {\n                right: -55.6rem;\n            }\n        }\n    }\n\n    // .portfolio-hero__grid\n\n    &__grid {\n        display: grid;\n        grid-template-columns: repeat(2, 1fr);\n        column-gap: 3.9rem;\n        row-gap: 3.2rem;\n        @media (min-width: 48em) {\n            grid-template: repeat(2, auto) / repeat(2, auto);\n            row-gap: 5.6rem;\n        }\n    }\n\n    // .portfolio-hero__group\n\n    &__group {\n        position: relative;\n        display: flex;\n        align-items: flex-end;\n        column-gap: 1.6rem;\n        &:nth-child(1),\n        &:nth-child(2),\n        &:nth-child(3) {\n            &::after {\n                content: '';\n                position: absolute;\n                top: calc(100% + 2.8rem);\n                left: 0;\n                width: 100%;\n                height: 1px;\n                background-color: rgba(201, 251, 64, 0.5);\n            }\n        }\n        &:nth-child(1),\n        &:nth-child(3) {\n            &::before {\n                content: '';\n                position: absolute;\n                top: 2rem;\n                right: -2rem;\n                width: 1px;\n                height: 10.4rem;\n                background-color: rgba(201, 251, 64, 0.5);\n            }\n        }\n        &:nth-child(1) {\n            &::before {\n                top: auto;\n                bottom: -1rem;\n            }\n        }\n        &:nth-child(3) {\n            &::after {\n                content: none;\n            }\n        }\n        &:nth-child(2),\n        &:nth-child(4) {\n            padding-left: 2rem;\n        }\n        &:nth-child(3),\n        &:nth-child(4) {\n            padding-top: 2rem;\n        }\n        @media (min-width: 48em) {\n            flex-direction: column;\n            align-items: stretch;\n            &:nth-child(1),\n            &:nth-child(3) {\n                &::after {\n                    width: 12.4rem;\n                }\n                &::before {\n                    content: none;\n                }\n            }\n            &:nth-child(3) {\n                &::after {\n                    content: '';\n                    left: auto;\n                    right: 0;\n                }\n            }\n            &:nth-child(2) {\n                grid-column: 1/2;\n                grid-row: 2/3;\n                &::after {\n                    content: none;\n                }\n            }\n            &_align-right {\n                align-items: flex-end;\n                text-align: right;\n            }\n        }\n    }\n\n    // .portfolio-hero__subtitle\n\n    &__subtitle {\n        margin-bottom: 1rem;\n        @media (max-width: 48em) {\n            margin-bottom: 0;\n            font-size: 10rem;\n            line-height: 1;\n        }\n    }\n\n    // .portfolio-hero__title\n\n    &__title {\n        position: relative;\n        z-index: 2;\n        margin-bottom: 2rem;\n        @media (max-width: 48em) {\n            margin-bottom: 5rem;\n        }\n    }\n\n    // .portfolio-hero__text\n\n    &__text {\n        max-width: 12.4rem;\n        color: rgba(255, 255, 255, 0.8);\n        @media (max-width: 48em) {\n            max-width: 18.6rem;\n        }\n    }\n\n    // .portfolio-hero__content\n\n    &__content {\n        position: relative;\n        margin-bottom: 23.8rem;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        text-align: center;\n        @media (min-width: 48em) {\n            position: absolute;\n            z-index: 2;\n            top: 50%;\n            left: 50%;\n            margin-bottom: 0;\n            width: 100%;\n            height: 100%;\n            transform: translate(-50%, -50%);\n        }\n    }\n\n    // .portfolio-hero__btn\n\n    &__btn {\n        position: relative;\n        z-index: 2;\n    }\n\n    // .portfolio-hero__ellipse\n\n    &__ellipse {\n        position: absolute;\n        top: 50%;\n        left: 50%;\n        width: 71rem;\n        height: 71rem;\n        border-radius: 50%;\n        overflow: hidden;\n        transform-origin: center top;\n        transform: translate(-50%, -50%);\n        background-image: url(./assets/images/picture/ellipse.svg);\n        background-size: cover;\n        background-repeat: no-repeat;\n        @media (max-width: 48em) {\n            width: 62rem;\n            height: 62rem;\n            transform-origin: center;\n        }\n    }\n\n    // .portfolio-hero__ellipse-img\n\n    &__ellipse-img {\n        display: block;\n        height: 100%;\n        object-fit: cover;\n    }\n}\n",".filters {\n    position: fixed;\n    z-index: 2001;\n    left: 50%;\n    bottom: 4rem;\n    color: $black;\n    transform: translateX(-50%);\n    @media (max-width: 48em) {\n        top: 0;\n        left: 0;\n        right: 0;\n        bottom: 0;\n        border-radius: 0;\n        overflow: auto;\n        transform: none;\n        opacity: 0;\n        visibility: 0;\n        transform: translateX(110vh);\n        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\n        ._show-filters-menu & {\n            opacity: 1;\n            visibility: visible;\n            transform: translateX(0);\n        }\n    }\n\n    // .filters__head\n\n    &__head {\n        margin-bottom: 8rem;\n        display: grid;\n        grid-template-columns: 6.4rem 1fr 6.4rem;\n        align-items: center;\n        @media (min-width: 48em) {\n            display: none;\n        }\n    }\n\n    // .filters__options\n\n    &__options {\n        display: flex;\n        flex-direction: column;\n        row-gap: 4rem;\n        .option__text {\n            column-gap: 2.4rem;\n        }\n    }\n\n    // .filters__title\n\n    &__title {\n        justify-self: center;\n    }\n\n    // .filters__subtitle\n\n    &__subtitle {\n        @media (min-width: 48em) {\n            display: none;\n        }\n    }\n\n    // .filters__group\n\n    &__group {\n        &_sort {\n            display: none;\n        }\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n            display: flex;\n            flex-direction: column;\n            row-gap: 4rem;\n            &_sort {\n                margin-bottom: auto;\n                display: flex;\n            }\n        }\n    }\n\n    // .filters__tabs\n\n    &__tabs {\n        margin-right: 2.7rem;\n        display: flex;\n        gap: 1.6rem;\n        @media (max-width: 48em) {\n            margin-right: 0;\n            flex-wrap: wrap;\n            column-gap: 1rem;\n            row-gap: 1.4rem;\n        }\n    }\n\n    // .filters__btn\n\n    &__btn {\n        margin-top: 4rem;\n        @media (min-width: 48em) {\n            display: none;\n        }\n    }\n\n    // .filters__inner\n\n    &__inner {\n        padding: 3rem 2rem 6.4rem 2rem;\n        display: flex;\n        flex-direction: column;\n        min-height: 100%;\n        background-color: $white;\n        @media (min-width: 48em) {\n            padding: 1.4rem;\n            flex-direction: row;\n            min-height: auto;\n            border-radius: 5.2rem;\n        }\n    }\n\n    // .filters__badge\n\n    &__badge {\n        @media (min-width: 48em) {\n            padding: 1.3rem 3.3rem 1.3rem 3.3rem;\n        }\n    }\n\n    // .filters__dropdown\n\n    &__dropdown {\n        display: none;\n        @media (min-width: 48em) {\n            display: block;\n            .select {\n                min-width: auto;\n                width: 15rem;\n                &__options {\n                    top: auto;\n                    left: auto;\n                    right: 0;\n                    bottom: calc(100% + 3rem);\n                    padding: 1.2rem 1.8rem 1.2rem 1.2rem;\n                    width: 20.4rem;\n                }\n            }\n        }\n    }\n}\n.filters-btn {\n    position: fixed;\n    left: 50%;\n    bottom: 4rem;\n    padding: 1.6rem 4rem;\n    display: flex;\n    align-items: center;\n    column-gap: 2.4rem;\n    border-radius: 8rem;\n    color: $black;\n    background-color: $white;\n    transform: translateX(-50%);\n    &::after {\n        content: '';\n        flex: 0 0 5rem;\n        width: 5rem;\n        height: 5rem;\n        background-image: url(./assets/images/icons/filter.svg);\n        background-size: contain;\n        background-repeat: no-repeat;\n    }\n    @media (min-width: 48em) {\n        display: none;\n    }\n}\n",".services {\n    position: relative;\n    background: #171717;\n    margin-bottom: 16rem;\n\n    @include small-tablet{\n        margin-bottom: 28rem;\n    }\n\n    &__content {\n        min-height: 78rem;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n\n        @include small-tablet {\n            min-height: 107rem;\n        }\n    }\n\n    &__sentences {\n        position: absolute;\n        inset: 0;\n        top: 5rem;\n        display: flex;\n        gap: 20rem;\n\n        @include small-tablet{\n            top: 10rem;\n        }\n\n        &-list {\n            width: 100%;\n            height: 100%;\n            position: relative;\n        }\n\n        &-item {\n            max-width: 57.3rem;\n            width: 100%;\n            position: absolute;\n            user-select: none;\n\n            @include small-tablet {\n                max-width: 54rem;\n            }\n\n            &:nth-child(1) {\n                left: -12rem;\n                top: 0;\n\n                @include small-tablet{\n                    left: 2rem;\n                    white-space: nowrap;\n                }\n            }\n\n            &:nth-child(2) {\n                left: 50%;\n                transform: translate(-50%);\n                top: 0;\n\n                @include small-tablet{\n                    top: 13rem;\n                    white-space: nowrap;\n                }\n            }\n\n            &:nth-child(3) {\n                right: -8.3rem;\n                top: 0;\n\n                @include small-tablet{\n                    right: auto;\n                    top: 26rem;\n                    left: -19rem;\n                }\n            }\n\n            &:nth-child(4) {\n                left: 0;\n                top: 30.7rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n\n            &:nth-child(5) {\n                right: 2.7rem;\n                top: 30.7rem;\n\n                @include small-tablet{\n                    right: -21.3rem;\n                    top: 26.7rem;\n                }\n            }\n\n            &:nth-child(6) {\n                left: -18.6rem;\n                bottom: 0.6rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n\n            &:nth-child(7) {\n                right: -15.9rem;\n                bottom: 0.6rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n        }\n\n        &-text {\n            color: $gray-darken;\n            font-family: $font-druk;\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            text-align: center;\n            width: 100%;\n\n            @include small-tablet {\n                font-size: 10rem;\n            }\n        }\n    }\n\n    &__circular {\n        @include sizes(80rem, 52.8rem);\n        position: relative;\n\n        @include small-tablet {\n            @include sizes(100%, 46.8rem);\n        }\n\n        &-text-image {\n            width: 100%;\n            height: 100%;\n\n            img {\n                width: 100%;\n                height: 100%;\n            }\n        }\n\n        &-image {\n            position: absolute;\n            bottom: -3.7rem;\n            left: 50%;\n            transform: translateX(-50%);\n            @include sizes(26.3rem, 32.6rem);\n            border-radius: 1.5rem;\n            border: 0.1rem solid rgba(255, 255, 255, 0.3);\n            z-index: 5;\n\n            @include small-tablet {\n                @include sizes(23.4rem, 29.2rem);\n                border-radius: 3rem;\n                border-width: 0.2rem;\n            }\n\n            img {\n                height: 100%;\n                border-radius: inherit;\n            }\n        }\n    }\n}\n",".collections {\n    margin-bottom: 13rem;\n\n    @include small-tablet {\n        margin-bottom: 24rem;\n    }\n\n    &__articles {\n        &-list {\n            display: flex;\n            flex-direction: column;\n        }\n\n        &-item {\n            position: relative;\n\n            &.--active {\n                .--masking {\n                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);\n                }\n            }\n\n            &:first-child {\n                border-top: 0.1rem solid rgba(201, 251, 64, 0.5);\n            }\n\n            border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n\n            &-wrapper {\n                padding: 4rem 10rem;\n                display: flex;\n                align-items: center;\n\n                @include small-tablet {\n                    padding: 2.3rem 2.2rem;\n                }\n\n                &.--masking {\n                    position: absolute;\n                    inset: 0;\n                    width: 100%;\n                    z-index: 1;\n                    background-color: $pink;\n                    clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);\n                    transform-origin: center;\n                    transition: clip-path cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;\n\n                    figcaption {\n                        color: #0d0d0d;\n                    }\n                }\n            }\n\n            &-number {\n                color: $white;\n                font-family: $font-druk;\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                display: block;\n                width: 14rem;\n\n                @include small-tablet {\n                    display: none;\n                }\n            }\n\n            figure {\n                display: flex;\n                align-items: flex-end;\n                gap: 6rem;\n                margin-left: 16rem;\n\n                @include small-tablet {\n                    margin-left: 0;\n                    width: 100%;\n                    align-items: center;\n                    justify-content: center;\n                }\n            }\n\n            &-image {\n                border-radius: 1.5rem;\n                @include sizes(25rem, 14rem);\n\n                @include small-tablet {\n                    display: none;\n                }\n\n                img {\n                    height: 100%;\n                    border-radius: inherit;\n                }\n            }\n\n            &-text {\n                font-family: $font-druk;\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                color: transparent;\n                background: linear-gradient(to right, $white, $white) no-repeat;\n                -webkit-background-clip: text;\n                background-clip: text;\n                background-size: 0;\n                transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;\n\n                @include small-tablet {\n                    font-size: 10rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-link {\n                margin-left: auto;\n                display: flex;\n                align-items: center;\n                gap: 1.6rem;\n\n                @include small-tablet {\n                    display: none;\n                }\n\n                svg {\n                    @include sizes(5.2rem, 5.2rem);\n                }\n\n                span {\n                    color: $bodyColor;\n                    font-family: $font-druk;\n                    font-size: 2.2rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 2.4rem;\n                    letter-spacing: 0.176rem;\n                    text-transform: uppercase;\n                }\n            }\n        }\n    }\n}\n",".feedback {\n    @include small-tablet {\n        margin-bottom: 3.2rem;\n    }\n\n    a {\n        display: block;\n        width: 100%;\n        color: #fff;\n        font-family: $font-druk;\n        font-size: 19.9646rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 23.387rem;\n        text-align: center;\n        transition:\n            background 0.3s linear,\n            color 0.3s linear;\n\n        @include small-tablet {\n            font-size: 11rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n        }\n\n        &:hover {\n            transition:\n                background 0.3s linear,\n                color 0.3s linear;\n            background-color: $yellow;\n            color: $main;\n        }\n    }\n}\n",".article {\n    margin-top: 6.8rem;\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        margin-top: 9.6rem;\n        margin-bottom: 24rem;\n    }\n\n    &__heading {\n        padding-bottom: 8rem;\n        margin-bottom: 4rem;\n\n        position: relative;\n\n        display: flex;\n        align-items: flex-start;\n        justify-content: space-between;\n        gap: 2rem;\n\n        @include small-tablet {\n            padding-bottom: 9.6rem;\n            margin-bottom: 4.8rem;\n            flex-direction: column;\n            gap: 11.2rem;\n        }\n\n        &::after {\n            @include pseudo {\n                width: calc(100% + 20rem);\n                height: 0.1rem;\n\n                left: -10rem;\n                bottom: 0;\n\n                background: rgba(201, 251, 64, 0.5);\n            }\n        }\n\n        &-info {\n            max-width: 70.5rem;\n            width: 100%;\n            margin-top: 11.9rem;\n\n            @include small-tablet {\n                max-width: 100%;\n                margin-top: 0;\n            }\n        }\n\n        &-subtitle {\n            display: inline-block;\n            position: relative;\n            margin-bottom: 1.2rem;\n            color: var(--purple, #ed89fb);\n            font-family: $font-druk;\n            font-size: 2.2rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 2.4rem;\n            letter-spacing: 0.176rem;\n            text-transform: uppercase;\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                margin-bottom: 2.4rem;\n            }\n\n            &::after {\n                @include pseudo {\n                    right: -5.6rem;\n                    width: 4rem;\n                    height: 0.1rem;\n                    top: 50%;\n                    transform: translateY(-50%);\n                    background: $pink;\n\n                    @include small-tablet {\n                        width: 4.8rem;\n                        right: -8rem;\n                        height: 0.2rem;\n                    }\n                }\n            }\n        }\n\n        &-title {\n            color: $white;\n            font-family: $font-druk;\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            margin-bottom: 2rem;\n\n            @include small-tablet {\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                margin-bottom: 4rem;\n            }\n        }\n\n        &-description {\n            color: $white;\n            font-size: 2rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%;\n            padding-right: 3.1rem;\n\n            @include small-tablet {\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n                padding-right: 0;\n            }\n        }\n\n        &-poster {\n            @include sizes(99.5rem, 50.7rem);\n            position: relative;\n\n            @include small-tablet {\n                @include sizes(100%, 49.2rem);\n            }\n\n            &-image {\n                width: 100%;\n                height: 100%;\n                border-radius: 4rem;\n\n                img {\n                    height: 100%;\n                    border-radius: inherit;\n                    object-fit: cover;\n                }\n            }\n\n            &-icon {\n                @include sizes(16rem, 16rem);\n                position: absolute;\n                top: -2rem;\n                left: -3.5rem;\n\n                @include small-tablet {\n                    @include sizes(23rem, 23rem);\n                    right: 0;\n                    top: -4.8rem;\n                    left: auto;\n                }\n            }\n        }\n    }\n\n    &__content {\n        display: flex;\n        justify-content: space-between;\n        padding-right: 14.5rem;\n\n        @include small-tablet {\n            padding-right: 0;\n            flex-direction: column;\n            gap: 8rem;\n        }\n\n        &-block {\n            display: flex;\n            flex-direction: column;\n            max-width: 85rem;\n            width: 100%;\n        }\n    }\n\n    &__shares {\n        max-width: 39rem;\n        width: 100%;\n        display: flex;\n        flex-direction: column;\n        position: relative;\n\n        @include small-tablet {\n            max-width: 100%;\n            flex-direction: row;\n            justify-content: space-between;\n        }\n\n        &::before {\n            @include pseudo {\n                right: 0;\n                top: 0;\n                width: 0.1rem;\n                height: 100%;\n                transform-origin: left top;\n                transform: scaleY(var(--scale));\n                background: rgba(201, 251, 64, 0.5);\n\n                @include small-tablet {\n                    display: none;\n                }\n            }\n        }\n\n        &-date {\n            font-size: 2.8rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: normal;\n            display: block;\n            margin-bottom: 6.4rem;\n\n            @include small-tablet {\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n                margin-bottom: 0;\n            }\n        }\n\n        &-socials {\n            &-list {\n                display: flex;\n                flex-direction: column;\n                gap: 1.6rem;\n\n                @include small-tablet {\n                    flex-direction: row;\n                    gap: 2.4rem;\n                }\n            }\n\n            &-item {\n                @include sizes(4.8rem, 4.8rem);\n\n                @include small-tablet {\n                    @include sizes(8rem, 8rem);\n                }\n\n                a {\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    padding: 1.2rem;\n                    transition:\n                        0.3s background ease,\n                        0.3s border ease;\n                    border: 0.1rem solid $white;\n                    border-radius: 50%;\n\n                    @include small-tablet {\n                        padding: 1.6rem;\n                    }\n\n                    &:hover {\n                        background: $yellow;\n                        border-color: transparent;\n                    }\n\n                    img {\n                        height: 100%;\n                    }\n                }\n            }\n        }\n\n        &-link {\n            margin-top: auto;\n            width: fit-content;\n            display: flex;\n            align-items: center;\n            gap: 2.2rem;\n\n            @include small-tablet {\n                &.desktop {\n                    display: none;\n                }\n\n                gap: 3.2rem;\n                margin-top: 8rem;\n            }\n\n            &.mobile {\n                display: none;\n\n                @include small-tablet {\n                    display: flex;\n                }\n            }\n\n            span {\n                font-family: $font-druk;\n                font-size: 2.2rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 2.4rem;\n                letter-spacing: 0.176rem;\n                text-transform: uppercase;\n\n                @include small-tablet {\n                    font-size: 4rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    letter-spacing: 0.32rem;\n                    text-transform: uppercase;\n                }\n            }\n        }\n    }\n\n    &__title {\n        margin-bottom: 3.2rem;\n        font-size: 2.8rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: normal;\n\n        @include small-tablet {\n            margin-bottom: 4.8rem;\n            font-size: 3.6rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: normal;\n        }\n    }\n\n    &__description {\n        margin-bottom: 2.2rem;\n        font-size: 2rem;\n        font-style: normal;\n        font-weight: 400;\n        line-height: 140%;\n\n        @include small-tablet {\n            font-size: 2.8rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: normal;\n            margin-bottom: 4.8rem;\n        }\n    }\n\n    &__block {\n        &-image {\n            display: flex;\n            flex-direction: column;\n            gap: 1.6rem;\n            margin-bottom: 3.2rem;\n\n            @include small-tablet {\n                margin-bottom: 4.8rem;\n                gap: 3.2rem;\n            }\n\n            img {\n                border-radius: 4rem;\n                height: 52.4rem;\n                object-fit: cover;\n\n                @include small-tablet {\n                    height: 48.4rem;\n                }\n            }\n\n            &-description {\n                color: $gray;\n                font-size: 2rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n\n                @include small-tablet {\n                    font-size: 3rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: 140%;\n                }\n            }\n        }\n    }\n\n    &__list {\n        display: flex;\n        flex-direction: column;\n        gap: 3.2rem;\n\n        @include small-tablet {\n            gap: 4.8rem;\n        }\n    }\n\n    &__item {\n        &-text {\n            font-size: 2rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%;\n\n            @include small-tablet {\n                font-size: 2.8rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: normal;\n            }\n        }\n    }\n}\n",".team {\n    background: $violet;\n    padding: 16rem 0;\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        padding: 12.8rem 0;\n        margin-bottom: 24rem;\n    }\n\n    &__content {\n        display: flex;\n        justify-content: space-between;\n\n        @include small-tablet {\n            flex-direction: column;\n            gap: 6.4rem;\n        }\n    }\n\n    &__text {\n        max-width: 72.5rem;\n        width: 100%;\n        display: flex;\n        flex-direction: column;\n        gap: 9rem;\n\n        @include small-tablet {\n            max-width: 100%;\n            gap: 6.4rem;\n        }\n\n        &-image {\n            @include sizes(100%, 58.5rem);\n            border-radius: 4rem;\n\n            @include small-tablet {\n                @include sizes(100%, 35.6rem);\n            }\n\n            img {\n                border-radius: inherit;\n                height: 100%;\n                object-fit: cover;\n            }\n        }\n    }\n\n    &__title {\n        color: $bodyColor;\n        font-family: $font-druk;\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 110%;\n        text-transform: uppercase;\n\n        @include small-tablet {\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n        }\n    }\n\n    &__info {\n        max-width: 85rem;\n        width: 100%;\n        padding-top: 0.9rem;\n\n        @include small-tablet {\n            padding-top: 0;\n            max-width: 100%;\n        }\n\n        &-title {\n            margin-bottom: 6rem;\n            color: $bodyColor;\n            font-family: $font-druk;\n            font-size: 6rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                text-transform: uppercase;\n                margin-bottom: 2.4rem;\n            }\n        }\n\n        &-description {\n            max-width: 55.9rem;\n            width: 100%;\n            color: $gray;\n            font-size: 2.8rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: normal;\n            margin-bottom: 12rem;\n\n            @include small-tablet {\n                margin-bottom: 6.4rem;\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n            }\n        }\n\n        &-figures {\n            display: flex;\n            align-items: flex-end;\n            justify-content: space-between;\n        }\n\n        &-figure {\n            &-icon {\n                @include sizes(10rem, 10rem);\n\n                @include small-tablet {\n                    @include sizes(11.2rem, 11.2rem);\n                }\n            }\n\n            &-image {\n                @include sizes(41.3rem, 29rem);\n                border-radius: 4rem;\n\n                @include small-tablet {\n                    @include sizes(33.4rem, 21.6rem);\n                }\n\n                img {\n                    height: 100%;\n                    border-radius: inherit;\n                    object-fit: cover;\n                }\n            }\n        }\n    }\n}\n",".achievements {\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        margin-bottom: 24rem;\n    }\n\n    &__title {\n        font-family: $font-druk;\n        margin-bottom: 2rem;\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 110%;\n        text-transform: uppercase;\n\n        @include small-tablet {\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            margin-bottom: 4.4rem;\n        }\n    }\n\n    &__heading {\n        display: flex;\n        align-items: flex-start;\n        justify-content: space-between;\n        margin-bottom: 16rem;\n\n        @include small-tablet {\n            margin-bottom: 24rem;\n            flex-direction: column;\n            gap: 8rem;\n        }\n\n        &-list {\n            display: flex;\n            align-items: flex-start;\n            gap: 5.6rem;\n\n            @include small-tablet {\n                display: grid;\n                grid-template-columns: repeat(2, minmax(30.4rem, 1fr));\n                gap: 6.4rem;\n            }\n        }\n\n        &-item {\n            display: flex;\n            flex-direction: column;\n            gap: 1rem;\n            position: relative;\n            max-width: 17rem;\n\n            @include small-tablet {\n                max-width: 100%;\n                flex-direction: row;\n                gap: 1.6rem;\n                align-items: flex-end;\n            }\n\n            @media (min-width: 48em) {\n                &:not(:last-child) {\n                    &::after {\n                        @include pseudo {\n                            height: calc(100% - 4.2rem);\n                            right: -2.8rem;\n                            width: 0.1rem;\n                            background: rgba(201, 251, 64, 0.5);\n                        }\n                    }\n                }\n            }\n\n            @include small-tablet {\n                &:nth-child(odd) {\n                    &::before {\n                        @include pseudo {\n                            height: 100%;\n                            right: -3.2rem;\n                            width: 0.1rem;\n                            background: rgba(201, 251, 64, 0.5);\n                        }\n                    }\n                }\n\n                &:not(:nth-last-child(-n+2)) {\n                    &::after {\n                        @include pseudo {\n                            width: 100%;\n                            height: 0.1rem;\n                            bottom: -3.2rem;\n                            background: rgba(201, 251, 64, 0.5);\n                        }\n                    }\n                }\n            }\n\n            &-digit {\n                font-family: $font-druk;\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n\n                @include small-tablet {\n                    font-size: 10rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-description {\n                color: rgba(255, 255, 255, 0.8);\n                font-size: 2.8rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: normal;\n\n                @include small-tablet {\n                    font-size: 3rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: 140%;\n                }\n            }\n        }\n    }\n\n    &__description {\n        color: rgba(255, 255, 255, 0.8);\n        font-size: 2.8rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: normal;\n        max-width: 72rem;\n        width: 100%;\n        margin-top: 2rem;\n\n        @include small-tablet {\n            color: rgba(255, 255, 255, 0.8);\n            font-size: 3rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%;\n        }\n    }\n\n    &__banner {\n        @include sizes(100%, 67.2rem);\n        border-radius: 4rem;\n\n        @include small-tablet {\n            @include sizes(100%, 34.2rem);\n        }\n\n        img {\n            border-radius: inherit;\n            height: 100%;\n            object-fit: cover;\n        }\n    }\n}\n",".location {\n    position: relative;\n    margin-bottom: 16rem;\n\n    @include small-tablet{\n        margin-bottom: 24rem;\n    }\n\n    #location-map {\n        width: 100%;\n        height: 100%;\n    }\n\n    [class*='ground-pane'] {\n        mix-blend-mode: difference;\n        filter: grayscale(1) contrast(0.85);\n    }\n\n    [class*='map-copyrights-promo'] {\n        display: none;\n    }\n\n    [class*='copyright__layout'] {\n        display: none;\n    }\n\n    &__map {\n        position: absolute;\n        inset: 0;\n    }\n\n    &__content {\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        justify-content: flex-end;\n        height: 93rem;\n\n        @include small-tablet {\n            height: 126rem;\n        }\n    }\n\n    &__info {\n        width: 100%;\n        margin-left: 33rem;\n        margin-bottom: 13.2rem;\n        position: relative;\n        z-index: 2;\n\n        @include small-tablet {\n            margin-left: 0;\n            margin-bottom: 7.6rem;\n            max-width: 60rem;\n        }\n    }\n\n    &__title {\n        color: $white;\n        font-family: $font-druk;\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 110%;\n        text-transform: uppercase;\n        margin-bottom: 2.4rem;\n\n        @include small-tablet {\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            margin-bottom: 6.4rem;\n        }\n    }\n\n    &__contacts {\n        display: flex;\n        align-items: flex-start;\n        gap: 10.4rem;\n\n        @include small-tablet {\n            gap: 6.4rem;\n            flex-direction: column;\n        }\n\n        &-address {\n            color: $white;\n            font-size: 3.2rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: normal;\n            max-width: 65.4rem;\n            width: 100%;\n\n            @include small-tablet {\n                max-width: 100%;\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n            }\n        }\n\n        &-list {\n            display: flex;\n            flex-direction: column;\n            gap: 1.2rem;\n        }\n\n        &-item {\n            a {\n                display: block;\n                color: $white;\n                font-size: 3.2rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: normal;\n                transition: 0.3s color ease;\n\n                @include small-tablet {\n                    font-size: 3rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: 140%;\n                }\n\n                &:hover {\n                    color: $yellow;\n                }\n            }\n        }\n    }\n}\n",".articles {\n    position: relative;\n    z-index: 2;\n    margin-top: 7.2rem;\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        margin-bottom: 24rem;\n    }\n\n    &__content {\n        display: flex;\n        gap: 2rem;\n        align-items: flex-start;\n        justify-content: space-between;\n\n        @include small-tablet {\n            flex-direction: column;\n            gap: 6.4rem;\n        }\n    }\n\n    &__filters {\n        max-width: 27rem;\n        width: 100%;\n        display: inline-flex;\n        padding: 2.4rem 2.4rem 3.2rem 2.4rem;\n        flex-direction: column;\n        align-items: flex-start;\n        gap: 2.4rem;\n        border-radius: 4rem;\n        background: $white;\n\n        @include small-tablet {\n            max-width: 100%;\n            padding: 3.2rem 3.2rem 6.4rem;\n            border-radius: 4rem;\n            gap: 3.2rem;\n        }\n\n        &-title {\n            color: $bodyColor;\n            font-family: $font-druk;\n            font-size: 6rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                text-transform: uppercase;\n            }\n        }\n\n        &-field {\n            display: flex;\n            flex-direction: column;\n            gap: 1.2rem;\n            position: relative;\n\n            @include small-tablet {\n                gap: 1.6rem;\n                width: 100%;\n            }\n\n            &-title {\n                display: block;\n                color: $bodyColor;\n                font-size: 1.6rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: normal;\n\n                @include small-tablet {\n                    font-size: 2.8rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: normal;\n                }\n            }\n\n            &-options {\n                display: none;\n\n                @include small-tablet {\n                    display: flex;\n                    flex-direction: column;\n                    position: absolute;\n                    top: 14rem;\n                    max-width: 64rem;\n                    width: 100%;\n                    border-radius: 4rem;\n                    background: $white;\n                    padding: 3.2rem;\n                    z-index: 5;\n                    transition: 0.3s opacity ease;\n                    opacity: 0;\n                }\n\n                &-icon {\n                    @include sizes(3.2rem, 3.2rem);\n                    position: absolute;\n                    right: 3.2rem;\n                    top: 3.2rem;\n\n                    svg {\n                        width: 100%;\n                        height: 100%;\n                    }\n                }\n\n                &-title {\n                    @include small-tablet {\n                        color: $bodyColor;\n                        font-family: $font-druk;\n                        font-size: 4rem;\n                        font-style: normal;\n                        font-weight: 500;\n                        line-height: 110%;\n                        letter-spacing: 0.32rem;\n                        text-transform: uppercase;\n                        margin-bottom: 3.2rem;\n                    }\n                }\n\n                &-list {\n                    @include small-tablet {\n                        display: flex;\n                        flex-direction: column;\n                        max-height: 34.4rem;\n                        overflow-x: auto;\n                        gap: 1.4rem;\n\n                        &::-webkit-scrollbar {\n                            width: 0.4rem; /* width of the entire scrollbar */\n                        }\n\n                        &::-webkit-scrollbar-track {\n                            background: transparent; /* color of the tracking area */\n                        }\n\n                        &::-webkit-scrollbar-thumb {\n                            background: rgba(#cad2f466, 0.5);\n                            border-radius: 4rem;\n                        }\n                    }\n                }\n\n                &-item {\n                    &.--selected {\n                        background: $violet;\n                    }\n\n                    @include small-tablet {\n                        padding: 1.8rem 4rem;\n                        border-radius: 4rem;\n                        color: $bodyColor;\n                        font-family: $font-druk;\n                        font-size: 4rem;\n                        font-style: normal;\n                        font-weight: 500;\n                        line-height: 110%;\n                        letter-spacing: 0.32rem;\n                        text-transform: uppercase;\n                        margin-right: 1rem;\n                        transition: 0.3s background ease;\n                    }\n                }\n            }\n        }\n    }\n\n    &__list {\n        display: grid;\n        grid-template-columns: repeat(2, minmax(71rem, 1fr));\n        gap: 1rem;\n        max-width: 143rem;\n        width: 100%;\n        margin-bottom: 6rem;\n\n        @include small-tablet {\n            display: flex;\n            flex-direction: column;\n            gap: 2.4rem;\n            max-width: 100%;\n            margin-bottom: 12rem;\n        }\n\n        &-item {\n            border-radius: 4rem;\n            position: relative;\n            background: $gray-darken;\n            transition: 0.3s background ease;\n            display: flex;\n\n            &:hover {\n                background: $pink;\n\n                .articles__list-item-heading {\n                    color: $white;\n                }\n            }\n\n            a {\n                display: flex;\n                flex-direction: column;\n                padding: 4rem 3.3rem;\n\n                @include small-tablet {\n                    padding: 3.2rem;\n                }\n            }\n\n            &-heading {\n                display: flex;\n                align-items: center;\n                margin-bottom: 2.4rem;\n                padding-right: 1.3rem;\n                color: $bodyColor;\n\n                @include small-tablet {\n                    margin-bottom: 4.8rem;\n                    padding-right: 0;\n                }\n            }\n\n            &-category {\n                font-size: 2.2rem;\n                font-style: normal;\n                font-family: $font-druk;\n                font-weight: 500;\n                line-height: 2.4rem;\n                letter-spacing: 0.176rem;\n                text-transform: uppercase;\n                padding: 1.7rem 3.2rem;\n                background: $violet;\n                border-radius: 3rem;\n                transition: 0.3s color ease;\n\n                @include small-tablet {\n                    padding: 1.8rem 4rem;\n                    border-radius: 6rem;\n                    font-size: 4rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    letter-spacing: 0.32rem;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-icon {\n                @include sizes(5.2rem, 5.2rem);\n                padding: 1.4rem;\n                border-radius: 50%;\n                background: $violet;\n\n                @include small-tablet {\n                    @include sizes(8rem, 8rem);\n                    padding: 1.6rem;\n                }\n\n                svg {\n                    width: 100%;\n                    height: 100%;\n\n                    path {\n                        fill: currentColor;\n                        transition: 0.3s all ease;\n                    }\n                }\n            }\n\n            &-date {\n                margin-left: auto;\n                padding: 1.7rem 3.2rem;\n                border-radius: 3rem;\n                background: $violet;\n                font-family: $font-druk;\n                font-size: 2.2rem;\n                font-style: normal;\n                font-weight: 500;\n                transition: 0.3s color ease;\n                line-height: 2.4rem;\n                letter-spacing: 0.176rem;\n                text-transform: uppercase;\n\n                @include small-tablet {\n                    padding: 1.8rem 4rem;\n                    border-radius: 6rem;\n                    font-size: 4rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    letter-spacing: 0.32rem;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-title {\n                color: $white;\n                font-family: $font-druk;\n                font-size: 6rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                display: block;\n                margin-bottom: 2.4rem;\n\n                @include small-tablet {\n                    margin-bottom: 6.4rem;\n                    font-size: 4rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    letter-spacing: 0.32rem;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-description {\n                margin-bottom: 4rem;\n                color: $white;\n                font-size: 2rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n                display: -webkit-box;\n                -webkit-line-clamp: 4;\n                -webkit-box-orient: vertical;\n                overflow: hidden;\n                padding-right: 1.7rem;\n\n                @include small-tablet {\n                    -webkit-line-clamp: 5;\n                    font-size: 3rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: 140%;\n                }\n            }\n\n            &-image {\n                @include sizes(45.1rem, 24.8rem);\n                border-radius: 4rem;\n                margin-top: auto;\n\n                @include small-tablet {\n                    @include sizes(30.8rem, 21.6rem);\n                }\n\n                img {\n                    border-radius: inherit;\n                    height: 100%;\n                    object-fit: cover;\n                }\n            }\n\n            &-link {\n                color: $white;\n                font-family: $font-druk;\n                font-size: 2.2rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 2.4rem;\n                letter-spacing: 0.176rem;\n                text-transform: uppercase;\n                padding-bottom: 0.6rem;\n                border-bottom: 0.2rem solid $white;\n                position: absolute;\n                right: 4rem;\n                bottom: 3.8rem;\n\n                @include small-tablet {\n                    right: 3.2rem;\n                    bottom: 3.2rem;\n                    padding-bottom: 1.2rem;\n                    border-width: 0.4rem;\n                    font-size: 4rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    letter-spacing: 0.32rem;\n                    text-transform: uppercase;\n                }\n            }\n        }\n\n        &-button {\n            margin: 0 auto;\n            display: block;\n            font-family: $font-druk;\n            font-size: 2.2rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 2.4rem;\n            letter-spacing: 0.176rem;\n            text-transform: uppercase;\n            padding-bottom: 0.8rem;\n            border-bottom: 0.2rem solid $white;\n            transition: 0.3s color ease, 0.3s border ease;\n\n            &:hover {\n                color: $yellow;\n                border-color: $yellow;\n            }\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                text-transform: uppercase;\n                padding-bottom: 1.2rem;\n                border-width: 0.4rem;\n            }\n        }\n    }\n}\n","@import '../sections/services';\n@import '../sections/collections';\n@import '../sections/feedback';\n@import '../sections/article';\n@import '../sections/our-team';\n@import '../sections/achievements';\n@import '../sections/contacts-map';\n@import '../sections/articles';\n\nfigure {\n    margin: 0;\n}\n",".main-collection {\n    background-color: #cad2f4;\n    padding: 16rem 0;\n    margin-bottom: 16rem;\n    // .main-collection__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        gap: 8rem;\n    }\n    // .main-collection__cards\n    &__cards.swiper {\n        position: relative;\n        width: 83.6rem;\n        height: 73.3rem;\n        margin: 0;\n    }\n    &__cards-item.swiper-slide {\n        display: flex;\n\n        width: 51.5rem;\n        height: 51.5rem;\n        border-radius: 4rem;\n        position: absolute;\n        padding: 1.2rem;\n        overflow: hidden;\n    }\n    // .main-collection__title\n    &__title {\n        margin-bottom: 2rem;\n\n        width: 69.5rem;\n    }\n    // .main-collection__description\n    &__description {\n        margin-bottom: 5rem;\n        width: 61.8rem;\n        color: $gray;\n    }\n    // .main-collection__info\n    &__info {\n        color: $black;\n    }\n}\n.collection-item {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n\n    &--rat {\n        top: 0;\n        left: 0;\n        z-index: 2;\n\n        background: linear-gradient(223deg, #8792ed 1.18%, #5f6eda 34.96%, #6778df 68.58%, #8792ed 100%);\n    }\n    &--snail {\n        right: -2rem;\n        bottom: 0;\n        z-index: 1;\n\n        background: linear-gradient(226deg, #455265 0%, #11161e 40.66%, #11161e 60.6%, #455265 103.07%);\n    }\n\n    // .collection-item__header\n    &__header {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n    }\n    // .collection-item__title\n    &__title {\n        display: flex;\n        flex-direction: column;\n        padding-left: 1.2rem;\n        .txt20 {\n            opacity: 0.7;\n        }\n\n        strong {\n            text-align: left;\n        }\n\n        span {\n            text-align: left;\n        }\n    }\n    // .collection-item__icons\n    &__icons {\n        display: flex;\n        align-items: center;\n        gap: 0.7rem;\n        &-item {\n            width: 8rem;\n            height: 8rem;\n            border-radius: 50%;\n            background: rgba(255, 255, 255, 0.3);\n            backdrop-filter: blur(13px);\n\n            display: flex;\n            align-items: center;\n            justify-content: center;\n\n            svg {\n                display: block;\n                width: 4.4rem;\n                height: 4.4rem;\n            }\n        }\n    }\n    // .collection-item__footer\n    &__footer {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        &-item {\n            display: flex;\n            width: 24.1rem;\n            height: 6.8rem;\n            padding: 1.6rem;\n            justify-content: center;\n            align-items: center;\n            border-radius: 5.2rem;\n\n            &--left {\n                background: rgba(255, 255, 255, 0.3);\n                backdrop-filter: blur(30px);\n            }\n            &--right {\n                background: $white;\n                backdrop-filter: blur(11.5px);\n                align-self: flex-end;\n                color: $black;\n\n                strong {\n                    margin: 0 0.5rem;\n                    align-self: center;\n                }\n                span {\n                    align-self: flex-end;\n                    margin-bottom: 0.2rem;\n                }\n                sup {\n                    align-self: flex-start;\n                }\n            }\n        }\n    }\n    // .collection-item__backdrop\n    &__backdrop {\n        position: absolute;\n        top: 0;\n        left: 0;\n        z-index: -1;\n        width: 100%;\n        height: 100%;\n        padding: 3.2rem;\n\n        img {\n            width: 100%;\n            height: auto;\n            object-fit: contain;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .main-collection {\n        padding: 12.8rem 0;\n        margin-bottom: 12.8rem;\n        &__container {\n            padding: 0;\n        }\n        // .main-collection__inner\n        &__inner {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n            justify-content: space-between;\n            gap: 6.4rem;\n        }\n        // .main-collection__cards\n        &__cards.swiper {\n            order: 2;\n            position: relative;\n            width: 100%;\n            height: auto;\n            margin: 0;\n            padding: 0 2rem;\n        }\n\n        &__cards-item.swiper-slide {\n            width: 65.8rem;\n            height: 67rem;\n            border-radius: 4rem;\n            position: static;\n            padding: 2.4rem;\n            overflow: hidden;\n        }\n\n        // .main-collection__info\n        &__info {\n            order: 1;\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            padding: 0 2rem;\n        }\n        // .main-collection__title\n        &__title {\n            width: 90%;\n            text-align: center;\n            margin-bottom: 2.4rem;\n        }\n        // .main-collection__description\n        &__description {\n            font-size: 2.8rem;\n            text-align: center;\n            margin-bottom: 6.4rem;\n            width: 93%;\n        }\n    }\n    .collection-item {\n        &--snail {\n            right: 0;\n        }\n        // .collection-item__title\n        &__title {\n            padding-left: 0;\n\n            strong {\n                margin-bottom: 1rem;\n            }\n        }\n        // .collection-item__icons\n        &__icons {\n            gap: 1rem;\n            &-item {\n                svg {\n                    width: 4.6rem;\n                    height: 4.6rem;\n                }\n            }\n        }\n        // .collection-item__footer\n        &__footer {\n            &-item {\n                display: flex;\n                width: 30rem;\n                height: 8.8rem;\n                padding: 2.4rem;\n                border-radius: 4rem;\n                &--right {\n                    strong {\n                        margin: 0 0.5rem;\n                        align-self: center;\n                    }\n                    span {\n                        margin-bottom: 0;\n                    }\n                }\n            }\n        }\n    }\n}\n",".main-advantages {\n    margin-bottom: 17.8rem;\n    // .main-advantages__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        gap: 2.5rem;\n    }\n    // .main-advantages__info\n    &__info {\n        display: flex;\n        flex-direction: column;\n        max-width: 55.3rem;\n    }\n    // .main-advantages__title\n    &__title {\n        margin-bottom: 2rem;\n    }\n    // .main-advantages__description\n    &__description {\n        margin-bottom: 3rem;\n    }\n    // .main-advantages__cards\n    &__cards {\n        overflow: hidden;\n        height: 140.9rem;\n        width: 100%;\n    }\n    // .main-advantages__cards-wrapper\n    &__cards-wrapper.swiper-wrapper {\n        position: relative;\n        display: flex;\n        align-items: center;\n\n        width: 100%;\n        height: 100%;\n    }\n    // .main-advantages__cards-slide\n    &__cards-slide.swiper-slide {\n        position: absolute;\n        width: 56rem;\n        height: 63.4rem;\n        border-radius: 4rem;\n    }\n}\n.advantages-card {\n    background-color: $bodyColor;\n    overflow: hidden;\n    &.tl {\n        top: 0;\n        left: 0;\n        border: 0.3rem solid $green;\n\n        .advantages-card__icon {\n            background: $green;\n        }\n    }\n    &.tr {\n        top: 12.2rem;\n        right: 0;\n        border: 0.3rem solid $pink;\n\n        .advantages-card__icon {\n            background: $pink;\n        }\n    }\n    &.bl {\n        left: 0;\n        bottom: 12.2rem;\n        border: 0.3rem solid $violet;\n\n        .advantages-card__icon {\n            background: $violet;\n        }\n    }\n    &.br {\n        bottom: 0;\n        right: 0;\n        border: 0.3rem solid $yellow;\n\n        .advantages-card__icon {\n            background: $yellow;\n        }\n    }\n    // .advantages-card__inner\n    &__inner {\n        display: flex;\n        flex-direction: column;\n        position: relative;\n        padding: 6rem;\n        width: 100%;\n        height: 100%;\n        overflow: hidden;\n    }\n    // .advantages-card__info\n    &__info {\n        display: flex;\n        flex-direction: column;\n    }\n    // .advantages-card__small-icon\n    &__small-icon {\n        width: 3.4rem;\n        height: 3.4rem;\n        margin-bottom: 1.2rem;\n    }\n    // .advantages-card__icon\n    &__icon {\n        position: absolute;\n        left: 50%;\n        bottom: 15rem;\n        transform: translateX(-50%);\n        width: 10rem;\n        height: 10rem;\n\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        border-radius: 50%;\n\n        span {\n            display: block;\n            width: 3.4rem;\n            height: 3.4rem;\n\n            svg path {\n                fill: $white;\n            }\n        }\n    }\n    // .main-advantages__title\n    &__title {\n        margin-bottom: 1.6rem;\n    }\n    &__range {\n        position: absolute;\n        left: 50%;\n        transform: translateX(-50%);\n        bottom: 11.5rem;\n    }\n    // .main-advantages__description\n    &__description {\n        color: rgba(255, 255, 255, 0.8);\n    }\n    // .advantages-card__bg\n    &__bg {\n        position: absolute;\n        bottom: 0;\n        left: 0;\n        width: 90%;\n        height: auto;\n        z-index: -1;\n    }\n}\n\n@media (max-width: 48em) {\n    .main-advantages {\n        margin-bottom: 24rem;\n        // .main-advantages__inner\n        &__inner {\n            display: flex;\n            flex-direction: column;\n            align-items: flex-start;\n            gap: 6.4rem;\n        }\n        // .main-advantages__info\n        &__info {\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            text-align: center;\n            max-width: 100%;\n        }\n        // .main-advantages__title\n        &__title {\n            margin-bottom: 2.4rem;\n        }\n        // .main-advantages__description\n        &__description {\n            margin-bottom: 6.4rem;\n        }\n        // .main-advantages__cards\n        &__cards {\n            overflow: hidden;\n            height: 75.8rem;\n            width: 100%;\n        }\n        // .main-advantages__cards-wrapper\n        &__cards-wrapper.swiper-wrapper {\n            position: relative;\n            display: flex;\n            align-items: center;\n\n            width: 100%;\n            height: 100%;\n        }\n        // .main-advantages__cards-slide\n        &__cards-slide.swiper-slide {\n            position: static;\n            width: 65.8rem;\n            height: 100%;\n            border-radius: 4rem;\n        }\n    }\n    .advantages-card {\n        // .advantages-card__inner\n        &__inner {\n            padding: 4rem;\n        }\n        // .advantages-card__small-icon\n        &__small-icon {\n            width: 4.8rem;\n            height: 4.8rem;\n            margin-bottom: 0.8rem;\n        }\n        // .advantages-card__icon\n        &__icon {\n            bottom: 17.8rem;\n\n            width: 12rem;\n            height: 12rem;\n            span {\n                width: 4.8rem;\n                height: 4.8rem;\n            }\n        }\n        &__range {\n            position: absolute;\n            left: 50%;\n            transform: translateX(-50%);\n            bottom: 13rem;\n            width: 35rem;\n        }\n        // .main-advantages__description\n        &__description {\n            color: rgba(255, 255, 255, 0.8);\n        }\n        // .advantages-card__bg\n        &__bg {\n            position: absolute;\n            bottom: 0;\n            left: 0;\n            width: 90%;\n            height: auto;\n            z-index: -1;\n        }\n    }\n}\n",".main-concept {\n    transition: background 0.2s ease-in-out;\n    // .main-concept__inner\n    &__inner {\n        padding: 34rem 0 42.2rem;\n        margin: -34rem 0 -33.2rem;\n    }\n    // .main-concept__header\n    &__header {\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        text-align: center;\n        gap: 2.1rem;\n        margin-bottom: 8.43rem;\n    }\n    // .main-concept__content\n    &__content {\n        display: flex;\n        position: relative;\n    }\n    &__divider {\n        position: absolute;\n        width: 100%;\n        height: 0.1rem;\n        background-color: $bodyColor;\n        left: 50%;\n        transform: translateX(-50%);\n        bottom: 7.2rem;\n    }\n    // .main-concept__left\n    &__left.swiper-slide {\n        flex-shrink: 1;\n        width: 100%;\n\n        .main-concept__image {\n            transition: transform 0.3s ease-in-out;\n            transform: rotate(-6deg);\n            top: 20rem;\n            right: 14rem;\n        }\n\n        &.hover {\n            .main-concept__image {\n                transform: translateY(-15rem) rotate(-6deg);\n                transition: transform 0.3s ease-in-out;\n            }\n\n            .main-concept__link {\n                opacity: 1;\n                visibility: visible;\n                transition: visibility 0.1s linear, opacity 0.2s linear 0.1s;\n            }\n        }\n    }\n    // .main-concept__wrapper\n    &__wrapper {\n        height: 48.7rem;\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n    }\n    // .main-concept__box\n    &__box {\n        overflow: hidden;\n        height: 41.4rem;\n        display: block;\n        position: relative;\n\n        padding: 0 10rem;\n        margin: 0 -10rem;\n    }\n    // .main-concept__image\n    &__image {\n        position: absolute;\n        width: 81.2rem;\n        height: 45.4rem;\n        border-radius: 2rem;\n        overflow: hidden;\n    }\n    // .main-concept__link\n    &__link {\n        opacity: 0;\n        visibility: hidden;\n\n        transition: visibility 0.1s linear 0.2s, opacity 0.2s linear;\n\n        color: $bodyColor;\n        font-family: 'Druk Cyr';\n        font-size: 2.2rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 2.4rem; /* 109.091% */\n        letter-spacing: 0.176rem;\n        text-transform: uppercase;\n\n        padding-bottom: 1rem;\n\n        a {\n            position: relative;\n            &::after {\n                content: '';\n                width: 100%;\n                height: 0.2rem;\n                background-color: $bodyColor;\n\n                position: absolute;\n                bottom: -0.5rem;\n                left: 50%;\n                transition: width 0.2s linear;\n                transform: translateX(-50%);\n            }\n\n            &:hover::after {\n                transition: width 0.3s linear;\n                width: 0;\n            }\n        }\n    }\n    // .main-concept__right\n    &__right.swiper-slide {\n        width: 100%;\n        flex-shrink: 1;\n\n        .main-concept__image {\n            transition: transform 0.3s ease-in-out;\n            transform: rotate(6deg);\n            top: 20rem;\n            right: 14rem;\n        }\n\n        &.hover {\n            .main-concept__image {\n                transform: translateY(-15rem) rotate(6deg);\n                transition: transform 0.3s ease-in-out;\n            }\n\n            .main-concept__link {\n                opacity: 1;\n                visibility: visible;\n                transition: visibility 0.1s linear, opacity 0.2s linear 0.1s;\n            }\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .main-concept {\n        transition: none;\n        margin-bottom: 24rem;\n        // .main-concept__inner\n        &__inner {\n            padding: 0;\n            margin: 0;\n        }\n        &__container {\n            padding: 0;\n        }\n        // .main-concept__header\n        &__header {\n            gap: 2.4rem;\n            margin-bottom: 9.6rem;\n            padding: 0 2rem;\n        }\n        &__subtitle {\n            font-size: 2.8rem;\n            font-weight: 400;\n\n            max-width: 60%;\n        }\n        // .main-concept__content\n        &__content {\n            display: flex;\n            position: relative;\n            padding: 0 2rem;\n        }\n        &__divider {\n            display: none;\n        }\n        &__slider-wrapper {\n            align-items: center;\n        }\n        // .main-concept__left\n        &__left.swiper-slide {\n            flex-shrink: 0;\n            width: 50.2rem;\n            height: 82.4rem;\n\n            &.swiper-slide-active {\n                .main-concept__link {\n                    opacity: 1;\n                    visibility: visible;\n                    transition: visibility 0.1s linear, opacity 0.2s linear 0.1s;\n                }\n            }\n\n            &.swiper-slide-next,\n            &.swiper-slide-prev {\n                .main-concept__box {\n                    transition: height 0.5s ease-in-out, margin 0.5s ease-in-out;\n                    height: 64.2rem;\n                    margin-top: 5rem;\n                }\n            }\n\n            .main-concept__image {\n                transform: none;\n            }\n\n            &.hover {\n                .main-concept__image {\n                    transform: none;\n                }\n            }\n        }\n        // .main-concept__wrapper\n        &__wrapper {\n            align-items: center;\n            height: 100%;\n        }\n        // .main-concept__box\n        &__box {\n            height: 72.6rem;\n            padding: 0;\n            margin: 0;\n            transition: height 0.5s ease-in-out, margin 0.5s ease-in-out;\n        }\n        // .main-concept__image\n        &__image {\n            position: static;\n            width: 100%;\n            height: 100%;\n            border-radius: 4rem;\n            transform: none;\n\n            img {\n                height: 100%;\n                object-fit: cover;\n            }\n        }\n        // .main-concept__link\n        &__link {\n            color: $white;\n            font-size: 4rem;\n            line-height: 110%; /* 109.091% */\n            letter-spacing: 0.32rem;\n\n            padding-bottom: 1rem;\n\n            a::after {\n                height: 0.4rem;\n                background-color: $white;\n            }\n        }\n        // .main-concept__right\n        &__right.swiper-slide {\n            width: 50.2rem;\n            flex-shrink: 0;\n            height: 82.4rem;\n\n            &.swiper-slide-active {\n                .main-concept__link {\n                    opacity: 1;\n                    visibility: visible;\n                    transition: visibility 0.1s linear, opacity 0.2s linear 0.1s;\n                }\n            }\n\n            &.swiper-slide-next,\n            &.swiper-slide-prev {\n                .main-concept__box {\n                    transition: height 0.5s ease-in-out, margin 0.5s ease-in-out;\n                    height: 64.2rem;\n                    margin-top: 5rem;\n                }\n            }\n\n            .main-concept__image {\n                transform: none;\n            }\n\n            &.hover {\n                .main-concept__image {\n                    transform: none;\n                }\n            }\n        }\n    }\n}\n",".main-links {\n    margin-top: 5.2rem;\n    margin-bottom: 0;\n    // .main-links__list\n    &__list {\n        display: flex;\n        align-items: center;\n        flex-direction: column;\n    }\n    // .main-links__item\n    &__item {\n        width: 100%;\n        text-align: center;\n        color: $white;\n        font-family: 'DrukCyr';\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: normal;\n        transition:\n            background 0.3s linear,\n            color 0.3s linear;\n\n        border-top: 0.1rem solid rgba(201, 243, 43, 0.5);\n\n      &:last-child{\n        border-bottom: 0.1rem solid rgba(201, 243, 43, 0.5);\n      }\n\n        &:hover {\n            transition:\n                background 0.3s linear,\n                color 0.3s linear;\n            background-color: $yellow;\n            color: $main;\n        }\n        a {\n            display: block;\n            width: 100%;\n            padding: 0.6rem 0;\n        }\n        &--big {\n            font-size: 19.9646rem;\n            line-height: 23.387rem; /* 117.143% */\n\n            a {\n                padding: 1.8rem 0 3.4rem;\n            }\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .main-links {\n        margin-top: 0;\n        margin-bottom: 7.6rem;\n        // .main-links__list\n        &__list {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n        }\n        // .main-links__item\n        &__item {\n            line-height: 110%;\n            border-top: 0.2rem solid rgba(201, 243, 43, 0.5);\n            a {\n                padding: 2.4rem 0;\n            }\n            &--big {\n                font-size: 11rem;\n                line-height: 110%; /* 117.143% */\n\n                a {\n                    padding: 2.4rem 0;\n                }\n            }\n        }\n    }\n}\n",".main-rates {\n    margin-bottom: 21.7rem;\n    // .main-rates__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        flex-direction: column;\n        gap: 9rem;\n    }\n    // .main-rates__title\n    &__title {\n        color: $white;\n    }\n    // .main-rates__wrapper\n    &__wrapper {\n        display: flex;\n        flex-direction: column;\n        gap: 4rem;\n        width: 100%;\n    }\n    // .main-rates__item\n    &__item {\n        height: 18rem;\n        display: flex;\n        align-items: center;\n        border-radius: 3rem;\n    }\n}\n.rates-item {\n    position: relative;\n\n    &::before,\n    &::after {\n        content: '';\n        width: 5.1rem;\n        height: 5.1rem;\n        border-radius: 50%;\n        background: #1f1f22;\n\n        position: absolute;\n        z-index: 1;\n        top: 50%;\n        transform: translateY(-50%);\n    }\n\n    &::after {\n        right: -2.5rem;\n    }\n    &::before {\n        left: -2.5rem;\n    }\n    &--bg--pink {\n        background: #ff69c2;\n    }\n    &--bg--blue {\n        background: #cad2f4;\n    }\n    &--bg--green {\n        background: $green;\n    }\n    // .rates-item__left\n    &__left {\n        padding: 3.6rem 3.6rem 3.6rem 8.6rem;\n        height: 100%;\n        width: 57.8rem;\n        display: flex;\n        align-items: center;\n        border-right: 0.3rem dashed $main;\n    }\n    // .rates-item__title\n    &__title {\n        color: #1f1f22;\n    }\n    // .rates-item__right\n    &__right {\n        display: flex;\n        align-items: center;\n        gap: 20.2rem;\n        height: 100%;\n        padding-left: 9.3rem;\n    }\n    // .rates-item__price\n    &__price {\n        &-top {\n            color: #1f1f22;\n\n            strong {\n                color: #1f1f22;\n                margin: 0 0.5rem;\n                align-self: center;\n            }\n            span {\n                align-self: flex-end;\n                margin-bottom: 0.2rem;\n            }\n            sup {\n                align-self: flex-start;\n            }\n        }\n        &-bottom {\n            color: $main;\n        }\n    }\n    // .rates-item__options\n    &__options {\n        width: 16rem;\n        color: $main;\n    }\n    // .rates-item__icon\n    &__icon {\n        position: absolute;\n    }\n}\n.rates-icon {\n    &--sunny {\n        top: -5rem;\n        left: 14.3rem;\n        width: 9.7rem;\n        height: 8rem;\n        transform: rotate(-7.376deg);\n    }\n    &--shapes {\n        right: 35.6rem;\n        top: -4.3rem;\n        width: 9.2rem;\n        height: 9rem;\n        transform: rotate(-15deg);\n    }\n    &--megafon {\n        width: 8.7rem;\n        height: 7rem;\n        transform: rotate(-12.401deg);\n        right: 68.6rem;\n        bottom: -3.5rem;\n    }\n}\n\n@media (max-width: 48em) {\n    .main-rates {\n        margin-bottom: 24rem;\n        // .main-rates__inner\n        &__inner {\n            gap: 10rem;\n        }\n        // .main-rates__item\n        &__item {\n            height: 56rem;\n            border-radius: 4rem;\n            flex-direction: column;\n        }\n    }\n    .rates-item {\n        &::before,\n        &::after {\n            width: 9rem;\n            height: 9rem;\n        }\n        &::after {\n            right: -4.5rem;\n        }\n        &::before {\n            left: -4.5rem;\n        }\n        // .rates-item__left\n        &__left {\n            padding: 4.8rem;\n            height: 13.4rem;\n            width: 100%;\n            justify-content: center;\n            border-right: 0;\n            border-bottom: 0.3rem dashed $main;\n        }\n        // .rates-item__title\n        &__title {\n            font-size: 3rem;\n        }\n        // .rates-item__right\n        &__right {\n            flex-direction: column;\n            width: 100%;\n            gap: 4rem;\n            height: auto;\n            padding-left: 0;\n            padding-top: 2.4rem;\n        }\n        // .rates-item__price\n        &__price {\n            &-top {\n                strong {\n                    margin: 0 1rem;\n                }\n                span {\n                    align-self: flex-end;\n                    margin-bottom: 0;\n                }\n                sup {\n                    align-self: flex-start;\n                }\n            }\n            &-bottom {\n                color: $main;\n            }\n        }\n        // .rates-item__options\n        &__options {\n            width: 80%;\n            text-align: center;\n\n            display: flex;\n            justify-content: center;\n            margin-bottom: 2.8rem;\n        }\n        // .rates-item__icon\n        &__icon {\n            display: none;\n        }\n    }\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/scss/fonts.scss","webpack://./src/scss/style.scss","webpack://./src/scss/set.scss","webpack://./src/scss/sections/header.scss","webpack://./src/scss/sections/footer.scss","webpack://./src/scss/mixins.scss","webpack://./src/ui/typo.scss","webpack://./src/ui/buttons.scss","webpack://./src/ui/inputs.scss","webpack://./src/ui/tabs.scss","webpack://./src/ui/accordion.scss","webpack://./src/ui/select.scss","webpack://./src/ui/radio-btns.scss","webpack://./src/ui/social.scss","webpack://./src/ui/modals.scss","webpack://./src/scss/dev/vzmsk1.scss","webpack://./src/scss/sections/_hero-gallery.scss","webpack://./src/scss/sections/_articles-hero.scss","webpack://./src/scss/sections/_stages.scss","webpack://./src/scss/sections/_service-hero.scss","webpack://./src/scss/sections/_application.scss","webpack://./src/scss/sections/_about-hero.scss","webpack://./src/scss/sections/_priorities.scss","webpack://./src/scss/sections/_portfolio-hero.scss","webpack://./src/scss/sections/_filters.scss","webpack://./src/scss/sections/_portfolio.scss","webpack://./src/scss/sections/_services.scss","webpack://./src/scss/sections/_collections.scss","webpack://./src/scss/sections/_feedback.scss","webpack://./src/scss/sections/_article.scss","webpack://./src/scss/sections/_our-team.scss","webpack://./src/scss/sections/_achievements.scss","webpack://./src/scss/sections/_contacts-map.scss","webpack://./src/scss/sections/_articles.scss","webpack://./src/scss/dev/ukik0.scss","webpack://./src/scss/sections/_main-collections.scss","webpack://./src/scss/sections/_main-advantages.scss","webpack://./src/scss/sections/_main-concept.scss","webpack://./src/scss/sections/_main-links.scss","webpack://./src/scss/sections/_main-rates.scss"],"names":[],"mappings":"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","sourcesContent":["@font-face {\n  font-family: 'DrukCyr';\n  font-weight: 500;\n  src: url('./assets/fonts/DrukCyr-Medium.woff2') format('woff2');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 400;\n  src: url('./assets/fonts/EuclidCircularA-Regular.woff') format('woff');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 500;\n  src: url('./assets/fonts/EuclidCircularA-Medium.woff2') format('woff2');\n}\n\n@font-face {\n  font-family: 'EuclidCircularA';\n  font-weight: 600;\n  src: url('./assets/fonts/EuclidCircularA-SemiBold.woff2') format('woff2');\n}\n","// --------------------------------- mixins ---------------------------------\n\n@import './mixins';\n\n// -------------------------------- variables -------------------------------\n\n$font: 'EuclidCircularA';\n$font-druk: 'DrukCyr';\n\n// colors\n$white: #ffffff;\n$black: #000000;\n$bodyColor: #1f1f22;\n$pink: #ed89fb;\n$violet: #cad2f4;\n$green: #c9fb40;\n$yellow: #fad85d;\n$darkGray: #6a6a6a;\n$main: #282828;\n$red: #ff1212;\n$gray: #6a6a6a;\n$gray-darken: #3a3a41;\n\n// ---------------------------------- fonts ---------------------------------\n\n// local fonts\n@import './fonts';\n\n// ------------------------------- base styles ------------------------------\n\n// base scss file\n@import './set';\n\n// html\nhtml.lock,\nhtml.lock body {\n    overflow: hidden;\n    touch-action: none;\n}\nhtml,\nbody {\n    overflow-x: hidden;\n}\n\n// main\nmain {\n    padding-top: 6.7rem;\n    @media (max-width: 48em) {\n        padding-top: 12.6rem;\n    }\n}\n\n.desktop {\n    @media (max-width: 48em) {\n        display: none;\n    }\n}\n\n.mobile {\n    display: none;\n\n    @media (max-width: 48em) {\n        display: block;\n    }\n}\n\n.wrapper {\n    margin: 0 auto;\n    max-width: 1920px;\n}\n\n// --------------------------------------------------------------------------\n\n// header / footer\n@import './sections/header';\n@import './sections/footer';\n\n// ui\n@import '../ui/ui.scss';\n\n// --------------------------------------------------------------------------\n\n@import './dev/vzmsk1.scss';\n@import './dev/markusDM.scss';\n@import './dev/ukik0.scss';\n@import './dev/kie6er.scss';\n","*,\n*::before,\n*::after {\n    box-sizing: border-box;\n}\nhtml {\n    font-family: 'EuclidCircularA'; // шрифт по умолчанию по сайту\n    font-size: 0.5208335vw; // на разрешении 1920 0.520835vw === 10px\n    font-style: normal;\n    font-weight: normal;\n    -webkit-animation: bugfix infinite 1s;\n    line-height: 1.2;\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    font-style: normal;\n    font-weight: normal;\n    -webkit-animation: bugfix infinite 1s;\n    line-height: 1.2;\n    margin: 0;\n    padding: 0;\n    color: $white; // цвет по умолчанию текста по сайту\n    background-color: $bodyColor;\n}\n\ninput,\ntextarea {\n    -webkit-animation: bugfix infinite 1s;\n    line-height: inherit;\n    margin: 0;\n    padding: 0;\n    background-color: transparent;\n    border: none;\n    color: inherit;\n}\na {\n    color: unset;\n}\na,\na:hover {\n    text-decoration: none;\n}\n\nbutton,\ninput,\na,\ntextarea {\n    outline: none;\n    cursor: pointer;\n    font: inherit;\n    &:focus {\n        outline: none;\n    }\n    &:active {\n        outline: none;\n    }\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n    font: inherit;\n    margin: 0;\n    padding: 0;\n}\np {\n    margin-top: 0;\n    margin-bottom: 0;\n}\n\nimg {\n    width: 100%;\n    height: auto;\n    display: block;\n}\n\nbutton {\n    border: none;\n    color: inherit;\n    font: inherit;\n    text-align: inherit;\n    padding: 0;\n    background-color: transparent;\n}\nul {\n    padding: 0;\n    margin: 0;\n}\n\nul li {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n}\n\n.container {\n    width: 172rem;\n    margin: 0 auto;\n}\n\ninput[type='number']::-webkit-inner-spin-button,\ninput[type='number']::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n    margin: 0;\n}\n\ninput[type='number'] {\n    -moz-appearance: textfield;\n}\n\nsvg,\nimg {\n    width: 100%;\n    height: auto;\n    object-fit: contain;\n}\n\n@media (min-width: 1920px) {\n    html {\n        font-size: 10px;\n    }\n}\n\n@media (max-width: 48em) {\n    html {\n        font-size: 5px;\n        font-size: 1.5625vw;\n        font-size: calc((100 / 375) * 5vw); // где 375 это ширина моб версии макета\n        -webkit-text-size-adjust: none;\n    }\n\n    body {\n        -webkit-text-size-adjust: none;\n    }\n\n    .container {\n        padding: 0 2rem; // в моб версии отступ от края задаем для всех контейнеров, а там где не нужно можем точечно убрать\n        width: 100%;\n    }\n}\n",".header {\n    position: fixed;\n    width: 100%;\n    top: 0;\n    left: 0;\n    z-index: 2000;\n    background-color: $bodyColor;\n    border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n    // .header__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        gap: 1rem;\n    }\n    // .header__burger-btn\n    &__burger-btn {\n        display: none;\n    }\n    // .header__logo\n    &__logo {\n        padding: 1rem 0;\n        height: 100%;\n        width: 22.7rem;\n        border-right: 0.1rem solid rgba(201, 251, 64, 0.5);\n    }\n    // .header__img\n    &__img {\n        width: 17.9878rem;\n        height: 4.6rem;\n    }\n    // .header__nav\n    &__nav {\n        gap: 5rem;\n    }\n    &__burger-menu {\n        display: none;\n        overflow: auto;\n    }\n}\n\n.nav {\n    display: flex;\n    align-items: center;\n    // .nav__link\n    &__link {\n        display: block;\n        font-size: 2rem;\n        line-height: 140%; /* 28px */\n        transition: color 0.2s linear;\n\n        &:hover,\n        &:focus-visible {\n            transition: color 0.2s linear;\n            color: $green;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .header {\n        border-bottom: none;\n        &.scroll {\n            border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n        }\n\n        &.show {\n            .header__phone {\n                display: none;\n            }\n            .header__inner {\n                flex-direction: row-reverse;\n            }\n        }\n        &__container {\n            position: relative;\n            z-index: 1;\n            background-color: $bodyColor;\n        }\n        // .header__inner\n        &__inner {\n            display: flex;\n            align-items: center;\n            justify-content: space-between;\n            gap: 1rem;\n            padding: 1.6rem 0 1.8rem;\n        }\n        // .header__burger-btn\n        &__burger-btn {\n            display: flex;\n            width: 5.2rem;\n            height: 4.6rem;\n        }\n        // .header__logo\n        &__logo {\n            padding: 0;\n            height: 9.2rem;\n            width: 36.6rem;\n            border-right: none;\n        }\n        // .header__img\n        &__img {\n            width: 100%;\n            height: 100%;\n        }\n        // .header__nav\n        &__nav {\n            display: none;\n        }\n        // .header__phone\n        &__phone {\n            width: 4.8rem;\n            height: 4.8rem;\n        }\n    }\n}\n@media (max-width: 48em) {\n    .burger-btn {\n        &__btn {\n            width: 100%;\n            height: 100%;\n\n            display: flex;\n            justify-content: center;\n            flex-direction: column;\n            gap: 1.4rem;\n\n            span {\n                display: block;\n                width: 100%;\n                height: 0.6rem;\n                background-color: $white;\n                border-radius: 2.4rem;\n            }\n        }\n\n        &__close {\n            display: none;\n        }\n\n        &.open {\n            .burger-btn__btn {\n                display: none;\n            }\n            .burger-btn__close {\n                display: block;\n                width: 4rem;\n                height: 4rem;\n            }\n        }\n    }\n\n    .burger-menu {\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        gap: 15rem;\n        position: absolute;\n        top: 12.6rem;\n        left: 0;\n        z-index: 0;\n        transition: transform 0.5s linear;\n        transform: translateY(-120%);\n\n        width: 100%;\n        height: calc(100vh - 12.6rem);\n        background-color: $bodyColor;\n\n        &.show {\n            transition: transform 0.5s linear;\n            transform: translateY(0);\n        }\n        // .burger-menu__wrapper\n        &__wrapper {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n            padding-top: 16rem;\n        }\n        &__phone {\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            border-top: 0.2rem solid $green;\n\n            padding: 3.2rem 0 4.4rem;\n            a {\n                display: flex;\n                align-items: center;\n                gap: 2.6rem;\n                span {\n                    width: 6.4rem;\n                    height: 6.4rem;\n                    svg path {\n                        fill: $pink;\n                    }\n                }\n\n                strong {\n                    color: $pink;\n                    font-size: 4.8rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: normal;\n                }\n            }\n        }\n        // .burger-menu__link\n        &__link {\n            display: flex;\n            justify-content: center;\n\n            width: 100%;\n            color: $white;\n            font-family: $font-druk;\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%; /* 55px */\n            text-transform: uppercase;\n            padding: 3.2rem 0;\n\n            border-bottom: 0.2rem solid $green;\n\n            &:first-child {\n                border-top: 0.2rem solid $green;\n            }\n\n            &:hover,\n            &:active,\n            &:focus-visible {\n                background-color: $pink;\n                color: $bodyColor;\n            }\n        }\n    }\n}\n",".footer {\n    background-color: $yellow;\n    color: $main;\n    // .footer__inner\n    &__inner {\n        padding: 7rem 0;\n    }\n    // .footer__top\n    &__top {\n        margin-bottom: 8rem;\n    }\n    // .footer__sitemap\n    &__sitemap {\n        gap: 20rem;\n    }\n    // .footer__middle\n    &__middle {\n        display: flex;\n        gap: 20rem;\n        align-items: flex-end;\n    }\n    // .footer__copyright\n    &__copyright {\n        color: $main;\n        font-size: 2rem;\n        width: 59.528rem;\n    }\n    // .footer__social\n    &__social {\n        gap: 1.6rem;\n    }\n    // .footer__info\n    &__info {\n        display: flex;\n        flex-direction: column;\n        margin-left: auto;\n        gap: 2.5rem;\n    }\n    // .footer__phone\n    &__phone {\n        color: $main;\n        font-size: 3.2rem;\n        line-height: normal;\n\n        &:hover,\n        &:focus-visible,\n        &:active {\n            text-decoration: underline;\n        }\n    }\n    // .footer__politic\n    &__politic {\n        color: $main;\n        font-size: 2rem;\n        line-height: normal;\n\n        position: relative;\n\n        &::after {\n            content: '';\n            width: 100%;\n            height: 0.15rem;\n            background-color: $main;\n\n            position: absolute;\n            left: 0;\n            bottom: 0;\n            z-index: 1;\n        }\n\n        &:hover,\n        &:focus-visible {\n            &::after {\n                display: none;\n            }\n        }\n    }\n    // .footer__bottom-text\n    &__bottom-text {\n        margin-top: 3rem;\n        font-family: $font-druk;\n        font-size: 19.9rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 23.4rem;\n        text-transform: uppercase;\n\n        @include small-tablet {\n            font-size: 11rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n        }\n    }\n}\n.footer-sitemap {\n    display: flex;\n    // .footer-sitemap__item\n    &__item {\n        &:nth-child(1) {\n            .sitemap-item__list {\n                grid-template-columns: repeat(3, 1fr);\n            }\n        }\n        &:nth-child(2) {\n            .sitemap-item__list {\n                grid-template-columns: 1fr;\n            }\n        }\n        &:nth-child(3) {\n            margin-left: auto;\n            .sitemap-item__list {\n                grid-template-columns: repeat(2, 1fr);\n            }\n        }\n    }\n}\n.sitemap-item {\n    // .sitemap-item__title\n    &__title {\n        margin-bottom: 3.2rem;\n    }\n    // .sitemap-item__list\n    &__list {\n        line-height: normal;\n        display: grid;\n        gap: 2rem 8rem;\n    }\n    // .sitemap-item__link\n    &__link {\n        line-height: inherit;\n        white-space: nowrap;\n        background: none;\n\n        &:hover,\n        &:focus-visible,\n        &:active {\n            text-decoration: underline;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .footer {\n        background-color: $yellow;\n        color: $main;\n        // .footer__inner\n        &__inner {\n            padding: 11.2rem 0 10.8rem;\n        }\n        // .footer__top\n        &__top {\n            margin-bottom: 8.4rem;\n        }\n        // .footer__sitemap\n        &__sitemap {\n            padding-left: 4.4rem;\n            gap: 3rem;\n        }\n        // .footer__middle\n        &__middle {\n            display: flex;\n            flex-direction: column;\n            gap: 2rem;\n            align-items: center;\n        }\n        // .footer__copyright\n        &__copyright {\n            order: 2;\n            text-align: center;\n            font-size: 2.4rem;\n            width: 100%;\n        }\n        // .footer__social\n        &__social {\n            gap: 6rem;\n            order: 3;\n            margin-top: 5.6rem;\n        }\n        // .footer__info\n        &__info {\n            text-align: center;\n            display: flex;\n            flex-direction: column;\n            margin-left: 0;\n            gap: 1rem;\n            order: 1;\n        }\n        // .footer__phone\n        &__phone {\n            font-size: 3.6rem;\n        }\n        // .footer__politic\n        &__politic {\n            color: $main;\n            font-size: 3rem;\n\n            position: relative;\n\n            &::after {\n                display: none;\n            }\n        }\n        // .footer__bottom-text\n        &__bottom-text {\n            text-align: center;\n            line-height: 1.1;\n            margin-top: 10.4rem;\n        }\n    }\n    .footer-sitemap {\n        display: grid;\n        grid-template-columns: repeat(2, 28rem);\n        grid-auto-flow: dense;\n        // .footer-sitemap__item\n        &__item {\n            &:nth-child(1) {\n                grid-row: span 2;\n            }\n            &:nth-child(3) {\n                margin-left: 0;\n            }\n        }\n    }\n    .sitemap-item {\n        // .sitemap-item__title\n        &__title {\n            margin-bottom: 2rem;\n        }\n        // .sitemap-item__list\n        &__list {\n            line-height: normal;\n            display: flex;\n            flex-direction: column;\n            gap: 1.6rem;\n        }\n        // .sitemap-item__link\n        &__link {\n            line-height: inherit;\n            white-space: nowrap;\n            background: none;\n\n            &:hover,\n            &:focus-visible,\n            &:active {\n                text-decoration: underline;\n            }\n        }\n    }\n}\n","@mixin pseudo() {\n    content: '';\n    position: absolute;\n    @content;\n}\n\n@mixin small-tablet {\n    @media (max-width: 48em) {\n        @content;\n    }\n}\n\n@mixin sizes($width, $height) {\n    max-width: $width;\n    width: 100%;\n    height: $height;\n\n    @content;\n}\n",".tl1,\n.tl2,\n.tl3 {\n    font-family: DrukCyr;\n    font-weight: 500;\n    text-transform: uppercase;\n}\n\n.tl1 {\n    font-size: 20rem;\n    line-height: 117%;\n    @media (max-width: 48em) {\n        font-size: 11rem;\n        line-height: 110%;\n    }\n}\n\n.tl2 {\n    line-height: 110%;\n    font-size: 10rem;\n}\n\n.tl3 {\n    font-size: 6rem;\n    line-height: 110%;\n    @media (max-width: 48em) {\n        font-size: 4rem;\n        letter-spacing: 0.32rem;\n    }\n}\n\n// --------------------------------------------------------------------------\n\n.txt32 {\n    font-size: 3.2rem;\n    @media (max-width: 48em) {\n        font-size: 3rem;\n        line-height: 140%;\n    }\n}\n\n.txt20 {\n    font-size: 2.8rem;\n\n    &_caps {\n        font-size: 4rem;\n        line-height: 110%;\n        letter-spacing: 0.32rem;\n        text-transform: uppercase;\n    }\n    &_md {\n        font-weight: 500;\n    }\n    @media (min-width: 48em) {\n        font-size: 2rem;\n        line-height: 140%;\n        &_caps {\n            font-size: 2.2rem;\n            font-weight: 500;\n            line-height: 109.091%;\n            letter-spacing: 0.176rem;\n        }\n    }\n}\n\n.txt28 {\n    &_md {\n        font-size: 2.8rem;\n        font-weight: 500;\n        @media (max-width: 48em) {\n            font-size: 3.6rem;\n        }\n    }\n}\n\n.txt16 {\n    font-size: 1.6rem;\n    @media (max-width: 48em) {\n        font-size: 2.4rem;\n    }\n}\n\n.txt15 {\n    font-size: 1.5rem;\n    @media (max-width: 48em) {\n        font-size: 3rem;\n    }\n}\n\n.txt19 {\n    font-size: 1.9rem;\n    @media (max-width: 48em) {\n        font-size: 3.8rem;\n    }\n}\n\n.text-32 {\n    font-size: 3.2rem;\n    font-style: normal;\n    font-weight: 400;\n    line-height: normal;\n}\n\n.text-m-28 {\n    font-size: 2.8rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: normal;\n\n    @include small-tablet {\n        font-size: 3.6rem;\n    }\n}\n\n.text-m-20 {\n    font-family: 'DrukCyr';\n    font-size: 2.0093rem;\n    font-style: normal;\n    font-weight: 500;\n    line-height: 84%; /* 16.878px */\n    letter-spacing: 0.1607rem;\n}\n\n.text-20 {\n    font-size: 2rem;\n    font-style: normal;\n    font-weight: 400;\n    line-height: 140%; /* 28px */\n\n    @include small-tablet {\n        font-size: 2.8rem;\n    }\n}\n",".btn {\n    padding: 1.3rem 1rem 1.3rem 2.8rem;\n    display: inline-flex;\n    justify-content: center;\n    align-items: center;\n    column-gap: 2.2rem;\n    min-width: 16.4rem;\n    border-radius: 9.5rem;\n    border: 1px solid $green;\n    transition: background-color 0.3s ease;\n    &_black {\n        border: 1px solid $black;\n        .btn__text {\n            color: $black;\n        }\n    }\n    &_white {\n        border: 1px solid $white;\n        .btn__text {\n            color: $white;\n        }\n    }\n    @media (any-hover: hover) {\n        &:hover {\n            &:not(&.btn_black, &.btn_white) {\n                background-color: $green;\n            }\n            &.btn_black {\n                background-color: $black;\n            }\n            &.btn_white {\n                background-color: $white;\n                .btn__text {\n                    color: $black;\n                }\n                svg path {\n                    fill: $black;\n                }\n            }\n            .btn__text {\n                color: $white;\n            }\n            .btn__icon {\n                path {\n                    fill: $white;\n                }\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        padding: 3rem 3.6rem 3rem 6rem;\n        column-gap: 3.2rem;\n        border-radius: 19rem;\n    }\n\n    // .btn__text\n    &__text {\n        font-family: DrukCyr;\n        color: $green;\n        transition: color 0.3s ease;\n    }\n\n    // .btn__icon\n    &__icon {\n        flex: 0 0 2.4rem;\n        width: 2.4rem;\n        height: 2.4rem;\n        path {\n            transition: fill 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 5rem;\n            width: 5rem;\n            height: 5rem;\n        }\n    }\n}\n// <button type=\"button\" class=\"btn\">\n//       <span class=\"btn__text txt20 txt20_caps\">ОСТАВИТЬ ЗАЯВКУ</span>\n//       <svg\n//         class=\"btn__icon\"\n//         xmlns=\"http://www.w3.org/2000/svg\"\n//         width=\"24\"\n//         height=\"24\"\n//         viewBox=\"0 0 24 24\"\n//         fill=\"none\">\n//         <path\n//           d=\"M6.75586 19.2442V5.11624L17.1164 12.1802L6.75586 19.2442Z\"\n//           fill=\"#C9FB40\" />\n//       </svg>\n// </button>\n\n// --------------------------------------------------------------------------\n\n.showmore-btn {\n    display: flex;\n    align-items: center;\n    column-gap: 1.6rem;\n    @media (any-hover: hover) {\n        &:hover {\n            .showmore-btn__icon {\n                circle {\n                    fill: $white;\n                }\n                path {\n                    fill: $pink;\n                }\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        column-gap: 2.4rem;\n    }\n\n    // .showmore-btn__icon\n\n    &__icon {\n        flex: 0 0 5.2rem;\n        width: 5.2rem;\n        height: 5.2rem;\n        border-radius: 50%;\n        circle,\n        path {\n            transition: fill 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 8rem;\n            width: 8rem;\n            height: 8rem;\n        }\n    }\n\n    // .showmore-btn__text\n\n    &__text {\n        font-family: DrukCyr;\n        color: $pink;\n    }\n}\n// <button type=\"button\" class=\"showmore-btn\">\n//       <svg\n//         class=\"showmore-btn__icon\"\n//         width=\"52\"\n//         height=\"52\"\n//         viewBox=\"0 0 52 52\"\n//         fill=\"none\"\n//         xmlns=\"http://www.w3.org/2000/svg\">\n//         <circle cx=\"26\" cy=\"26\" r=\"26\" fill=\"#ED89FB\" />\n//         <path\n//           d=\"M31.6912 24.995C32.1412 25.895 32.3737 26.8625 32.3737 27.875C32.3737 31.3925 29.5162 34.25 25.9987 34.25C22.4812 34.25 19.6237 31.3925 19.6237 27.875C19.6237 24.3575 22.4812 21.5 25.9987 21.5C26.0512 21.5 26.1787 21.5 26.3137 21.545C26.5687 21.6275 26.7562 21.845 26.8087 22.1075C27.1237 23.615 28.4662 24.7175 30.0112 24.7175C30.2962 24.7175 30.5737 24.68 30.8137 24.6125C31.1662 24.515 31.5262 24.68 31.6912 24.995ZM25.9987 17.75C20.8687 17.75 15.6112 22.25 14.7562 27.3725C14.6887 27.7775 14.9662 28.1675 15.3712 28.235C15.7762 28.3025 16.1662 28.025 16.2337 27.62C16.9012 23.6675 21.2137 19.25 25.9987 19.25C30.7837 19.25 35.0962 23.6675 35.7562 27.62C35.8162 27.9875 36.1387 28.25 36.4987 28.25C36.5362 28.25 36.5812 28.25 36.6262 28.2425C37.0312 28.175 37.3087 27.785 37.2412 27.38C36.3862 22.25 31.1287 17.75 25.9987 17.75Z\"\n//           fill=\"white\" />\n//       </svg>\n//       <span class=\"showmore-btn__text txt20 txt20_caps\"\n//         >СМОТРЕТЬ ДЕТАЛЬНЕЕ</span\n//       >\n// </button>\n\n// --------------------------------------------------------------------------\n\n.link {\n    position: relative;\n    &::after {\n        content: '';\n        position: absolute;\n        top: calc(100% + 0.6rem);\n        left: 0;\n        width: 100%;\n        height: 2px;\n        background-color: $white;\n        transform-origin: center;\n        transform: scaleX(1);\n        transition: transform 0.3s ease;\n    }\n    @media (any-hover: hover) {\n        &:hover {\n            &::after {\n                transform: scaleX(0.25);\n            }\n        }\n    }\n    @media (max-width: 48em) {\n        &::after {\n            top: calc(100% + 1.2rem);\n        }\n    }\n\n    // .link__text\n\n    &__text {\n        font-family: 'DrukCyr';\n    }\n}\n// <a href=\"#\" class=\"link\"\n// ><span class=\"link__text txt20 txt20_caps\">ЗАГРУЗИТЬ ЕЩЕ</span></a\n// >\n\n// --------------------------------------------------------------------------\n\n.sl-btn {\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    width: 5rem;\n    height: 5rem;\n    border-radius: 50%;\n    background-color: $gray-darken;\n    svg {\n        width: 3rem;\n        height: 3rem;\n    }\n}\n","input[type='text'],\ninput[type='email'],\ninput[type='tel'],\ntextarea {\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n}\ntextarea:focus,\ninput:focus {\n    outline: none;\n}\n\n.input {\n    position: relative;\n    &_white {\n        .input__field {\n            color: $white;\n            border-bottom: 1px solid $white;\n            &::placeholder {\n                color: $white;\n            }\n        }\n    }\n\n    &._form-focus {\n    }\n    &._form-error {\n        .input__field {\n            border-bottom: 1px solid $red;\n        }\n    }\n\n    // .input__field\n    &__field {\n        padding-bottom: 1.4rem;\n        display: block;\n        width: 100%;\n        border-radius: 0 !important;\n        border-bottom: 1px solid $black;\n        font-family: EuclidCircularA;\n        line-height: 1;\n        color: $black;\n        transition: border-bottom 0.3s ease;\n        &::placeholder {\n            color: $black;\n        }\n        @media (max-width: 48em) {\n            padding-bottom: 3rem;\n        }\n    }\n}\n\ntextarea.input {\n    padding: 0;\n    resize: none;\n}\n\n.form-error {\n    position: absolute;\n    top: calc(100% + 0.5rem);\n    left: 0;\n    color: $red;\n    @media (max-width: 48em) {\n        top: calc(100% + 1rem);\n    }\n}\n\n.file-input {\n    display: flex;\n    flex-direction: column;\n    row-gap: 3rem;\n    &_white {\n        .file-input__icon-wrap {\n            background-color: $white;\n        }\n    }\n    @media (min-width: 48em) {\n        flex-direction: row;\n        column-gap: 5.6rem;\n        row-gap: normal;\n    }\n\n    // .file-input__content\n\n    &__content {\n        display: flex;\n        flex-direction: column;\n        row-gap: 0.8rem;\n    }\n\n    // .file-input__content-inner\n\n    &__content-inner {\n        position: relative;\n        display: flex;\n        align-items: center;\n        column-gap: 1.6rem;\n        @media (max-width: 48em) {\n            column-gap: 2.4rem;\n        }\n    }\n\n    // .file-input__icon-wrap\n\n    &__icon-wrap {\n        display: inline-flex;\n        align-items: center;\n        justify-content: center;\n        flex: 0 0 5rem;\n        width: 5rem;\n        height: 5rem;\n        border-radius: 50%;\n        background-color: $black;\n        @media (max-width: 48em) {\n            flex: 0 0 8rem;\n            width: 8rem;\n            height: 8rem;\n        }\n    }\n\n    // .file-input__icon\n\n    &__icon {\n        width: 2.4rem;\n        height: 2.4rem;\n        object-fit: contain;\n        @media (max-width: 48em) {\n            width: 4rem;\n            height: 4rem;\n        }\n    }\n\n    // .file-input__title\n\n    &__title {\n        font-family: 'DrukCyr';\n    }\n\n    // .file-input__input\n\n    &__input {\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        opacity: 0;\n    }\n\n    // .file-input__text\n\n    &__text {\n        ._error & {\n            color: $red;\n        }\n    }\n\n    // .file-input__info\n\n    &__info {\n        position: relative;\n        padding: 0.6rem;\n        padding-right: 5.6rem;\n        display: flex;\n        column-gap: 1.2rem;\n        width: 26.9rem;\n        border-radius: 1.5rem;\n        background-color: $gray-darken;\n        &:not(._error &, ._filled &) {\n            display: none;\n        }\n        @media (max-width: 48em) {\n            padding: 1.6rem;\n            padding-right: 11.2rem;\n            column-gap: 1.6rem;\n            width: 43.4rem;\n            border-radius: 3rem;\n        }\n    }\n\n    // .file-input__image-container\n\n    &__image-container {\n        position: relative;\n        flex: 0 0 6.4rem;\n        width: 6.4rem;\n        height: 6.4rem;\n        &::after {\n            content: '';\n            position: absolute;\n            bottom: 0.4rem;\n            right: 0.4rem;\n            width: 2rem;\n            height: 2rem;\n            background-image: url(./assets/images/icons/success.svg);\n            background-size: contain;\n            background-repeat: no-repeat;\n            ._error & {\n                background-image: url(./assets/images/icons/error.svg);\n            }\n        }\n        img {\n            display: block;\n            height: 100%;\n            border-radius: 1rem;\n            object-fit: cover;\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 10rem;\n            width: 10rem;\n            height: 10rem;\n            &::before {\n                bottom: 1.2rem;\n                right: 1.2rem;\n                width: 3.2rem;\n                height: 3.2rem;\n            }\n            img {\n                border-radius: 2rem;\n            }\n        }\n    }\n\n    // .file-input__info-text\n\n    &__info-text {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .file-input__name\n\n    &__name {\n        margin-bottom: 1.2rem;\n        padding-top: 0.6rem;\n        display: flex;\n        color: $white;\n        span {\n            display: block;\n            &:first-child {\n                max-width: 10rem;\n                overflow: hidden;\n                text-overflow: ellipsis;\n                white-space: nowrap;\n            }\n        }\n        @media (max-width: 48em) {\n            margin-bottom: 1.6rem;\n            padding-top: 1rem;\n            span {\n                &:first-child {\n                    max-width: 14rem;\n                }\n            }\n        }\n    }\n\n    // .file-input__size\n\n    &__size {\n        color: rgba(255, 255, 255, 0.6);\n    }\n\n    // .file-input__remove-btn\n\n    &__remove-btn {\n        position: absolute;\n        top: 0.8rem;\n        right: 0.8rem;\n        width: 1.6rem;\n        height: 1.6rem;\n        @media (max-width: 48em) {\n            top: 2rem;\n            right: 2rem;\n            width: 2.8rem;\n            height: 2.8rem;\n        }\n    }\n\n    // .file-input__remove-btn-icon\n\n    &__remove-btn-icon {\n        height: 100%;\n        object-fit: contain;\n    }\n}\n\n// <div class=\"input\">\n//           <input\n//             autocomplete=\"off\"\n//             type=\"text\"\n//             name=\"form[]\"\n//             data-error=\"Подсказка\"\n//             placeholder=\"Имя *\"\n//             class=\"input__field txt20 txt20_md\" />\n",".tabs {\n    // .tabs__navigation\n\n    &__navigation {\n        display: flex;\n        column-gap: 2rem;\n    }\n\n    // .tabs__title\n\n    &__title {\n    }\n\n    // .tabs__content\n\n    &__content {\n    }\n\n    // .tabs__body\n\n    &__body {\n    }\n}\n\n.badge {\n    position: relative;\n    padding: 1.6rem 3.3rem 1.9rem 3.3rem;\n    display: inline-flex;\n    justify-content: center;\n    align-items: center;\n    border: 1px solid $black;\n    border-radius: 4rem;\n    font-family: 'DrukCyr';\n    color: $black;\n    text-align: center;\n    transition: background-color 0.3s ease;\n    input {\n        position: absolute;\n        top: 0;\n        left: 0;\n        display: block;\n        width: 100%;\n        height: 100%;\n        border-radius: 4rem;\n        opacity: 0;\n    }\n    &:has(> input:checked),\n    &._active {\n        background-color: $green;\n    }\n    &.badge_white {\n        &:has(> input:checked),\n        &._active {\n            background-color: $white;\n        }\n    }\n    @media (max-width: 48em) {\n        padding: 1.8rem 5rem;\n    }\n}\n\n// <div data-tabs class=\"tabs\">\n// <nav data-tabs-titles class=\"tabs__navigation\">\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab _active\">\n//     Таб №1\n//   </button>\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab\">Таб №2</button>\n//   <button type=\"button\" class=\"tabs__title txt20 txt20_caps tab\">Таб №3</button>\n// </nav>\n// <div data-tabs-body class=\"tabs__content\">\n//   <div class=\"tabs__body\">Содержимое первого таба</div>\n//   <div class=\"tabs__body\">Содержимое второго таба</div>\n//   <div class=\"tabs__body\">Содержимое третьего таба</div>\n// </div>\n// </div>\n",".accordion {\n    // .accordion__item\n\n    &__item {\n        border-radius: 4rem;\n        color: $black;\n        background-color: $green;\n        &_violet {\n            background-color: $violet;\n        }\n        &_pink {\n            background-color: $pink;\n        }\n    }\n\n    // .accordion__title\n\n    &__title {\n        padding: 3rem 3.2rem 3rem 4rem;\n        display: flex;\n        flex-direction: row-reverse;\n        justify-content: space-between;\n        align-items: center;\n        width: 100%;\n        &._accordion-active {\n            .accordion__title-icon {\n                transform: rotate(-180deg);\n            }\n        }\n        @media (max-width: 48em) {\n            padding: 4rem;\n        }\n    }\n\n    // .accordion__title-icon\n\n    &__title-icon {\n        flex: 0 0 5rem;\n        width: 5rem;\n        height: 5rem;\n        transition: transform 0.3s ease;\n        @media (max-width: 48em) {\n            flex: 0 0 8rem;\n            width: 8rem;\n            height: 8rem;\n        }\n    }\n\n    // .accordion__title-txt\n\n    &__title-txt {\n    }\n\n    // .accordion__body\n\n    &__body {\n        padding: 4rem 3.2rem;\n        padding-top: 0;\n        @media (max-width: 48em) {\n            padding: 4rem;\n            padding-top: 0;\n        }\n    }\n\n    // .accordion__text\n\n    &__text {\n        font-family: EuclidCircularA;\n        max-width: 72.6rem;\n        @media (max-width: 48em) {\n            max-width: 62.2rem;\n        }\n    }\n}\n\n// <div data-accordion data-accordion-one-active class=\"accordion\">\n//           <div class=\"accordion__item\">\n//             <button type=\"button\" data-accordion-item class=\"accordion__title\">\n//               <svg\n//                 class=\"accordion__title-icon\"\n//                 width=\"52\"\n//                 height=\"52\"\n//                 viewBox=\"0 0 52 52\"\n//                 fill=\"none\"\n//                 xmlns=\"http://www.w3.org/2000/svg\">\n//                 <circle cx=\"26\" cy=\"26\" r=\"26\" fill=\"#1F1F22\" />\n//                 <path\n//                   d=\"M18.872 21L33 21L25.936 31.3605L18.872 21Z\"\n//                   fill=\"white\" />\n//               </svg>\n//               <span class=\"accordion__title-txt tl3\">Качество</span>\n//             </button>\n//             <div class=\"accordion__body\">\n//               <p class=\"accordion__text txt20\">\n//                 Мы придерживаемся высочайших стандартов и регулярно обновляем\n//                 наши навыки и техники, чтобы удовлетворить все потребности и\n//                 ожидания наших клиентов.\n//               </p>\n//             </div>\n//           </div>\n//         </div>\n","[data-sel-popup] {\n    @media (max-width: 48em) {\n        .select__options,\n        ._select-opened .select__options {\n            opacity: 0;\n            visibility: hidden;\n        }\n        ._select-opened .select__value::after,\n        .select__value::after {\n            transform: none;\n        }\n    }\n}\n\n.select {\n    position: relative;\n    @media (min-width: 48em) {\n        min-width: 20.4rem;\n    }\n\n    // .select__body\n\n    &__body {\n        position: relative;\n    }\n\n    // .select__title\n\n    &__title {\n        border-radius: 4rem;\n        width: 100%;\n        background-color: $violet;\n        cursor: pointer;\n        text-align: left;\n        color: inherit;\n    }\n\n    // .select__value\n\n    &__value {\n        @extend .txt20_caps;\n        padding: 1.4rem 2.4rem;\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        gap: 1rem;\n        height: 5.2rem;\n        width: 100%;\n        font-family: DrukCyr;\n\n        > * {\n            flex: 1 1 auto;\n        }\n\n        &::after {\n            content: '';\n            flex: 0 0 2.4rem;\n            width: 2.4rem;\n            height: 2.4rem;\n            background-image: url(./assets/images/icons/arr.svg);\n            background-size: contain;\n            background-position: center;\n            background-repeat: no-repeat;\n            transition: transform 0.3s ease;\n            ._select-opened & {\n                transform: rotate(-180deg);\n\n                @include small-tablet {\n                    transform: rotate(-90deg);\n                }\n            }\n        }\n        .select__content {\n            max-width: 31.4rem;\n            overflow: hidden;\n            white-space: nowrap;\n            text-overflow: ellipsis;\n            color: $bodyColor;\n            font-family: $font-druk;\n            font-size: 2.2rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 2.4rem;\n            letter-spacing: 0.176rem;\n            text-transform: uppercase;\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                text-transform: uppercase;\n            }\n        }\n        @media (max-width: 48em) {\n            padding: 1.8rem 4rem;\n            height: 8rem;\n            &::after {\n                flex: 0 0 5rem;\n                width: 5rem;\n                height: 5rem;\n            }\n        }\n    }\n\n    // .select__content\n\n    &__content {\n        // hide / show selected value\n        // display: none;\n    }\n\n    // .select__text\n\n    &__text {\n        flex: 1 1 auto;\n    }\n\n    // .select__input\n\n    &__input {\n        width: 100%;\n        height: 100%;\n        background-color: transparent;\n    }\n\n    // .select__options\n\n    &__options {\n        position: absolute;\n        z-index: 2;\n        top: calc(100% + 0.4rem);\n        left: 0;\n        padding: 1.2rem 1.8rem 2rem 1.2rem;\n        width: 100%;\n        box-shadow: 0 0.8rem 2.5rem 0 rgba(99, 119, 156, 0.2);\n        border-radius: 4rem;\n        background-color: $violet;\n        opacity: 0;\n        visibility: hidden;\n        transition: opacity 0.2s ease, visibility 0.2s ease;\n        color: $bodyColor;\n        font-family: $font-druk;\n        font-size: 2.2rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 2.4rem;\n        letter-spacing: 0.176rem;\n        text-transform: uppercase;\n        // max-height: 24.5rem;\n        overflow-x: auto;\n\n        .dropdown_sort & {\n            background-color: $white;\n        }\n        ._select-opened & {\n            opacity: 1;\n            visibility: visible;\n        }\n    }\n\n    // .select__scroll\n\n    &__scroll {\n        overflow-y: auto;\n        overflow-x: hidden;\n\n        // maximum height\n        // max-height: 23.4rem;\n\n        // scrollbar styles\n        &.simplebar-scrollable-y {\n            .simplebar-track.simplebar-vertical {\n                top: 5rem;\n                right: 0;\n                width: 2px;\n                border-radius: 0.8rem;\n                background-color: rgba(255, 255, 255, 0.4);\n            }\n            .simplebar-scrollbar {\n                min-height: 3.2rem;\n                border-radius: 0.8rem;\n                background-color: $white;\n            }\n        }\n        @media (max-width: 48em) {\n            // max-height: 40rem;\n        }\n    }\n    // .select__option\n    &__option {\n        @extend .txt20_caps;\n        width: 95%;\n        padding: 1.2rem 3rem;\n        border-radius: 4rem;\n        font-family: DrukCyr;\n        text-align: left;\n        color: inherit;\n        transition: background-color 0.3s ease;\n        &._select-selected {\n            background-color: $white;\n            .dropdown_sort & {\n                background-color: $violet;\n            }\n        }\n        &:not(:last-child) {\n            position: relative;\n            margin-bottom: 1rem;\n            &::after {\n                content: '';\n                position: absolute;\n                top: calc(100% + 0.5rem);\n                left: 0;\n                width: 100%;\n                height: 1px;\n                background-color: rgba(204, 213, 251, 1);\n            }\n        }\n        @media (any-hover: hover) {\n            &:hover {\n                &:not(&.select__subtitle) {\n                    cursor: pointer;\n                    background-color: $white;\n                    .dropdown_sort & {\n                        background-color: $violet;\n                    }\n                }\n            }\n        }\n    }\n}\n// list\n._select-list {\n    cursor: pointer;\n}\n\n// <div class=\"dropdown dropdown_filters\">\n// <select data-no-slide data-show-selection data-sel-scroll=\"234\">\n//     <option value=\"1\" selected>Пункт №1</option>\n//     <option value=\"2\">Пункт №2</option>\n//     <option value=\"3\">Пункт №3</option>\n//     <option value=\"4\">Пункт №4</option>\n//     <option value=\"5\">Пункт №5</option>\n//     <option value=\"6\">Пункт №6</option>\n//     <option value=\"7\">Пункт №7</option>\n// </select>\n// </div>\n\n// <div class=\"dropdown dropdown_sort\">\n//      <select data-show-selection>\n//           <option value=\"1\" selected>Пункт №1</option>\n//           <option value=\"2\">Пункт №2</option>\n//           <option value=\"3\">Пункт №3</option>\n//           <option value=\"4\">Пункт №4</option>\n//      </select>\n// </div>\n",".option {\n    position: relative;\n    display: flex;\n    flex-direction: column;\n    row-gap: 0.4rem;\n    cursor: pointer;\n\n    // .option__input\n    &__input {\n        position: absolute;\n        width: 0;\n        height: 0;\n        opacity: 0;\n        &:checked + .option__label .option__text::before {\n            border: 2px solid $green;\n        }\n        &:checked + .option__label .option__text::after {\n            transform: scale(0.6);\n        }\n    }\n\n    // .option__text\n    &__text {\n        display: inline-flex;\n        align-items: center;\n        gap: 1rem;\n        cursor: pointer;\n        &::before {\n            content: '';\n            align-self: flex-start;\n            flex: 0 0 3rem;\n            width: 3rem;\n            height: 3rem;\n            border-radius: 50%;\n            border: 2px solid rgba(233, 233, 233);\n            transition: border 0.3s ease;\n        }\n        &::after {\n            content: '';\n            position: absolute;\n            left: 0;\n            width: 3rem;\n            height: 3rem;\n            border-radius: 50%;\n            background-color: $green;\n            transform: scale(0);\n            transform-origin: center;\n            transition: transform 0.3s ease;\n        }\n        @media (max-width: 48em) {\n            &::before,\n            &::after {\n                width: 4rem;\n                height: 4rem;\n            }\n            &::before {\n                flex: 0 0 4rem;\n            }\n            &::after {\n                top: 0;\n            }\n        }\n    }\n}\n\n// <div class=\"option\">\n//    <input hidden id=\"o_1\" class=\"option__input\" checked type=\"radio\" value=\"1\" name=\"option\"/>\n//    <label for=\"o_1\" class=\"option__label\"><span class=\"option__text\"></span></label>\n//  </div>\n",".social {\n    display: flex;\n    align-items: center;\n    // .social__link\n    &__link {\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 5.2rem;\n        height: 5.2rem;\n        background-color: $main;\n        border-radius: 50%;\n        transition: background 0.2s linear;\n\n        svg {\n            width: 2.2rem;\n            height: 2.2rem;\n        }\n\n        &:hover {\n            transition: background 0.2s linear;\n            background-color: $white;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .social {\n        // .social__link\n        &__link {\n            width: 8rem;\n            height: 8rem;\n\n            svg {\n                width: 3.6rem;\n                height: 3.6rem;\n            }\n        }\n    }\n}\n","body::after {\n    content: '';\n    position: fixed;\n    z-index: 2100;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: $black;\n    opacity: 0;\n    pointer-events: none;\n    transition: opacity 0.8s ease 0s;\n    .modal-show & {\n        opacity: 0.4;\n    }\n}\n\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    right: 0;\n    padding: 3rem 2.4rem;\n    visibility: hidden;\n    pointer-events: none;\n    transition: visibility 0.8s ease 0s;\n    &.modal_show {\n        z-index: 2101;\n        visibility: visible;\n        overflow: auto;\n        pointer-events: auto;\n        .modal__content {\n            visibility: visible;\n            transform: scale(1);\n        }\n        @media (max-width: 48em) {\n            &.modal_fs {\n                padding: 0;\n                .modal__content {\n                    border-radius: 0;\n                    opacity: 1;\n                }\n            }\n        }\n    }\n\n    // .modal__wrapper\n\n    &__wrapper {\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        flex: 1 1 auto;\n        width: 100%;\n        min-height: 100%;\n    }\n\n    // .modal__content\n\n    &__content {\n        position: relative;\n        padding: 4rem 10rem 10rem 4rem;\n        max-width: 85rem;\n        width: 100%;\n        min-height: 87rem;\n        border-radius: 4rem;\n        background-color: $pink;\n        visibility: hidden;\n        transform: scale(0);\n        transition: transform 0.3s ease 0s;\n        .lock & {\n            visibility: visible;\n        }\n        @media (max-width: 48em) {\n            padding: 3rem 2rem;\n            min-height: 100vh;\n            .modal_fs & {\n                opacity: 0;\n                transition: opacity 0.3s ease, visibility 0.3s ease;\n            }\n        }\n    }\n\n    // .modal__close\n\n    &__close {\n        margin-bottom: 5rem;\n        margin-right: auto;\n        display: inline-flex;\n        align-items: center;\n        justify-content: center;\n        width: 3.4rem;\n        height: 3.4rem;\n        @media (max-width: 48em) {\n            margin-bottom: 10rem;\n            width: 6.4rem;\n            height: 6.4rem;\n        }\n    }\n\n    // .modal__close-icon\n\n    &__close-icon {\n        height: 100%;\n        object-fit: contain;\n    }\n}\n\n// --------------------------------------------------------------------------\n\n.application-modal {\n    color: $black;\n\n    // .application-modal__inner\n\n    &__inner {\n        display: flex;\n        flex-direction: column;\n        @media (min-width: 48em) {\n            padding-left: 6rem;\n            .modal__close {\n                transform: translateX(-6rem);\n            }\n        }\n    }\n\n    // .application-modal__title\n\n    &__title {\n        margin-bottom: 1.6rem;\n        @media (max-width: 48em) {\n            margin-bottom: 3.2rem;\n        }\n    }\n\n    // .application-modal__text\n\n    &__text {\n        margin-bottom: 4rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n        }\n    }\n\n    // .application-modal__form\n\n    &__form {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .application-modal__options\n\n    &__options {\n        margin-bottom: 3.2rem;\n        display: flex;\n        flex-wrap: wrap;\n        gap: 1.6rem;\n        @media (max-width: 48em) {\n            margin-bottom: 6.4rem;\n            gap: 1rem;\n        }\n    }\n\n    // .application-modal__option\n\n    &__option {\n    }\n\n    // .application-modal__fields\n\n    &__fields {\n        margin-bottom: 3.2rem;\n        display: flex;\n        flex-direction: column;\n        row-gap: 3rem;\n        @media (max-width: 48em) {\n            margin-bottom: 6.4rem;\n            row-gap: 5rem;\n        }\n    }\n\n    // .application-modal__input\n\n    &__input {\n    }\n\n    // .application-modal__file-input\n\n    &__file-input {\n        margin-bottom: 4rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n        }\n    }\n\n    // .application-modal__footer\n\n    &__footer {\n        display: flex;\n        flex-direction: column-reverse;\n        @media (min-width: 48em) {\n            flex-direction: row;\n            align-items: flex-end;\n            column-gap: 2.4rem;\n        }\n    }\n\n    // .application-modal__btn\n\n    &__btn {\n        @media (max-width: 48em) {\n            align-self: flex-start;\n        }\n    }\n\n    // .application-modal__footer-text\n\n    &__footer-text {\n        max-width: 36.3rem;\n        @media (max-width: 48em) {\n            margin-bottom: 3rem;\n            max-width: 71rem;\n        }\n    }\n}\n","._mobile-only {\n    @media (min-width: 48em) {\n        display: none;\n    }\n}\n\n.wave-container {\n    position: absolute;\n    left: 50%;\n    height: 0;\n    transform: translateX(-50%);\n    @media (min-width: 1940px) {\n        padding-top: calc((1080 / 1920) * 1920px);\n        width: 1920px;\n        overflow: hidden;\n    }\n\n    // .wave-container__inner\n\n    &__inner {\n        position: absolute;\n        left: 0;\n        overflow: visible;\n        user-select: none;\n        path {\n            fill: transparent;\n            stroke-width: 100px;\n        }\n        text {\n            fill: $white;\n            font-family: 'DrukCyr';\n            font-size: 60px;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            transform: translateY(25px);\n        }\n        textPath {\n            word-spacing: 40px;\n        }\n        @media (max-width: 48em) {\n            path {\n                stroke-width: 40px;\n                &:not(&._mobile-only) {\n                    display: none;\n                }\n            }\n            text {\n                font-size: 25px;\n                letter-spacing: 0.32rem;\n                transform: translateY(10px);\n            }\n            textPath {\n                word-spacing: 10px;\n            }\n        }\n        @media (min-width: 1940px) {\n            path {\n                stroke-width: 8rem;\n            }\n            text {\n                font-size: 4rem;\n                transform: translateY(1.5rem);\n            }\n        }\n    }\n}\n\n.select-popup {\n    position: fixed;\n    z-index: 2200;\n    top: 0;\n    right: 0;\n    left: 0;\n    bottom: 0;\n    opacity: 0;\n    visibility: hidden;\n    transition: opacity 0.3s ease, visibility 0.3s ease;\n    ._show-select-popup & {\n        opacity: 1;\n        visibility: visible;\n    }\n    &::before {\n        content: '';\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        background-color: #000000;\n        opacity: 0.3;\n    }\n\n    // .select-popup__inner\n\n    &__inner {\n        position: fixed;\n        z-index: 2201;\n        top: 50%;\n        left: 50%;\n        padding: 3rem;\n        display: flex;\n        flex-direction: column;\n        width: 63.8rem;\n        min-height: 48.4rem;\n        border-radius: 4rem;\n        background-color: $white;\n        color: $black;\n        transform: translate(-50%, -50%);\n    }\n\n    // .select-popup__head\n\n    &__head {\n        margin-bottom: 3rem;\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        column-gap: 4rem;\n    }\n\n    // .select-popup__title\n\n    &__title {\n    }\n\n    // .select-popup__close-btn\n\n    &__close-btn {\n        width: 3.2rem;\n        height: 3.2rem;\n    }\n\n    // .select-popup__close-btn-icon\n\n    &__close-btn-icon {\n        height: 100%;\n        object-fit: contain;\n    }\n\n    // .select-popup__body\n\n    &__body {\n        position: relative;\n        .select__scroll.simplebar-scrollable-y .simplebar-track.simplebar-vertical,\n        .select__scroll.simplebar-scrollable-y .simplebar-scrollbar {\n            top: 0;\n            background-color: rgba(202, 210, 244, 0.4);\n        }\n        .select {\n            &__options {\n                top: 0;\n                left: 0;\n                padding: 0;\n                box-shadow: none;\n                border-radius: 0;\n                background-color: transparent;\n                opacity: 0;\n                visibility: hidden;\n                ._show-select-popup & {\n                    opacity: 1;\n                    visibility: visible;\n                }\n            }\n            &__option {\n                padding: 2rem 4rem;\n                &._select-selected {\n                    background-color: $violet;\n                }\n                &::after {\n                    content: none;\n                }\n            }\n        }\n    }\n}\n\n// --------------------------------------------------------------------------\n\n@import '../sections/hero-gallery';\n@import '../sections/articles-hero';\n@import '../sections/stages';\n@import '../sections/service-hero';\n@import '../sections/application';\n@import '../sections/about-hero';\n@import '../sections/priorities';\n@import '../sections/portfolio-hero';\n@import '../sections/filters';\n@import '../sections/portfolio';\n",".hero-gallery {\n    padding-bottom: 9rem;\n    background-color: $bodyColor;\n    overflow: hidden;\n    @media (max-width: 48em) {\n        padding-bottom: 12.8rem;\n    }\n\n    // .hero-gallery__container\n\n    &__container {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .hero-gallery__head\n\n    &__head {\n        align-self: center;\n        text-align: center;\n        @media (max-width: 48em) {\n            margin-bottom: 6rem;\n        }\n    }\n\n    // .hero-gallery__title\n\n    &__title {\n        color: $pink;\n        transition: opacity 0.5s ease;\n        user-select: none;\n        &.tl1 {\n            @media (min-width: 48em) {\n                font-size: 19rem;\n            }\n        }\n        ._coloured-txt {\n            color: $green;\n        }\n        ._dragging & {\n            opacity: 0;\n        }\n    }\n\n    // .hero-gallery__body\n\n    &__body {\n        position: relative;\n        height: 63rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n            height: 73rem;\n        }\n    }\n\n    // .hero-gallery__item\n\n    &__item {\n        position: absolute;\n        border-radius: 1.5rem;\n        background-color: #29292c;\n        overflow: hidden;\n        &._a {\n            top: 0;\n            left: 0;\n            width: 8.6rem;\n            height: 8rem;\n        }\n        &._b {\n            top: 0;\n            left: 10.8rem;\n            width: 14.3rem;\n            height: 8.8rem;\n            @media (max-width: 48em) {\n                left: 11rem;\n            }\n        }\n        &._c {\n            top: 0;\n            left: 28.2rem;\n            width: 26.3rem;\n            height: 12.2rem;\n            @media (max-width: 48em) {\n                width: 22rem;\n                height: 12.6rem;\n            }\n        }\n        &._d {\n            top: 0;\n            left: 57.3rem;\n            width: 15.8rem;\n            height: 10.2rem;\n            @media (max-width: 48em) {\n                left: 53.3rem;\n                width: 13.2rem;\n                height: 10.6rem;\n            }\n        }\n        &._e {\n            top: 0;\n            left: 76rem;\n            width: 29.7rem;\n            height: 10.7rem;\n            @media (max-width: 48em) {\n                left: 69.5rem;\n                width: 24.8rem;\n                height: 11rem;\n            }\n        }\n        &._f {\n            top: 0;\n            left: 108.9rem;\n            width: 12.4rem;\n            height: 10.2rem;\n            @media (max-width: 48em) {\n                left: 97.3rem;\n                width: 10.4rem;\n                height: 10.6rem;\n            }\n        }\n        &._g {\n            top: 0;\n            left: 124.4rem;\n            width: 19rem;\n            height: 9.6rem;\n            @media (max-width: 48em) {\n                left: 110.6rem;\n                width: 16rem;\n                height: 10.2rem;\n            }\n        }\n        &._h {\n            top: 0;\n            right: 0;\n            width: 26.3rem;\n            height: 29rem;\n        }\n        &._i {\n            top: 11.3rem;\n            left: 0;\n            width: 25.1rem;\n            height: 12.6rem;\n            @media (max-width: 48em) {\n                top: 11.3rem;\n                left: 0;\n                width: 21.5rem;\n            }\n        }\n        &._j {\n            top: 14.7rem;\n            left: 27.7rem;\n            width: 9.2rem;\n            height: 9.2rem;\n            @media (max-width: 48em) {\n                top: 15.6rem;\n                left: 24.3rem;\n                width: 9.6rem;\n                height: 9.4rem;\n            }\n        }\n        &._k {\n            top: 14.6rem;\n            left: 39.2rem;\n            width: 14.4rem;\n            height: 9.4rem;\n            @media (max-width: 48em) {\n                top: 15.3rem;\n                left: 36.6rem;\n                width: 12rem;\n                height: 9.8rem;\n            }\n        }\n        &._l {\n            top: 13.2rem;\n            left: 55.8rem;\n            width: 27.8rem;\n            height: 13.4rem;\n            @media (max-width: 48em) {\n                top: 13.6rem;\n                left: 51.5rem;\n                width: 23.2rem;\n                height: 13.8rem;\n            }\n        }\n        &._m {\n            top: 13.2rem;\n            left: 86.5rem;\n            width: 26.9rem;\n            height: 13.4rem;\n            @media (max-width: 48em) {\n                top: 13.6rem;\n                left: 77.6rem;\n                width: 22.6rem;\n                height: 13.8rem;\n            }\n        }\n        &._n {\n            top: 13.2rem;\n            left: 115.9rem;\n            width: 26.8rem;\n            height: 23.5rem;\n            @media (max-width: 48em) {\n                top: 13.6rem;\n                left: 103.5rem;\n                width: 22.4rem;\n                height: 24.4rem;\n            }\n        }\n        &._o {\n            top: 26.3rem;\n            left: 1.9rem;\n            width: 23.2rem;\n            height: 13.2rem;\n            @media (max-width: 48em) {\n                top: 26.3rem;\n                left: 0.4rem;\n            }\n        }\n        &._p {\n            top: 26.3rem;\n            left: 27.7rem;\n            width: 18.4rem;\n            height: 10.4rem;\n            @media (max-width: 48em) {\n                top: 27.8rem;\n                left: 26.6rem;\n                width: 15.4rem;\n                height: 10.8rem;\n            }\n        }\n        &._q {\n            top: 29.2rem;\n            left: 48.9rem;\n            width: 18.8rem;\n            height: 10.1rem;\n            @media (max-width: 48em) {\n                top: 30.2rem;\n                left: 44.8rem;\n                width: 15.8rem;\n                height: 10.4rem;\n            }\n        }\n        &._r {\n            top: 29.2rem;\n            left: 70.2rem;\n            width: 12.1rem;\n            height: 15rem;\n            @media (max-width: 48em) {\n                top: 30.2rem;\n                left: 63.5rem;\n                width: 10.2rem;\n                height: 15.6rem;\n            }\n        }\n        &._s {\n            top: 29.2rem;\n            left: 84.8rem;\n            width: 27.8rem;\n            height: 15.8rem;\n            @media (max-width: 48em) {\n                top: 30.2rem;\n                left: 76.7rem;\n                width: 23.2rem;\n                height: 16.4rem;\n            }\n        }\n        &._t {\n            top: 39.1rem;\n            left: 116.2rem;\n            width: 22.3rem;\n            height: 14.2rem;\n            @media (max-width: 48em) {\n                top: 40.1rem;\n                left: 103.5rem;\n                width: 20.25rem;\n                height: 14.6rem;\n            }\n        }\n        &._u {\n            top: 39rem;\n            left: 140.5rem;\n            width: 6.4rem;\n            height: 5.2rem;\n            @media (max-width: 48em) {\n                top: 39rem;\n                left: 125.5rem;\n            }\n        }\n        &._v {\n            top: 31.4rem;\n            left: 149.2rem;\n            width: 9.1rem;\n            height: 18.3rem;\n            @media (max-width: 48em) {\n                top: 31.4rem;\n                left: 133.9rem;\n            }\n        }\n        &._w {\n            top: 31.4rem;\n            right: 0;\n            width: 11.4rem;\n            height: 8.1rem;\n            @media (max-width: 48em) {\n                width: 10.4rem;\n            }\n        }\n        &._x {\n            top: 41.7rem;\n            left: 11.9rem;\n            width: 11.5rem;\n            height: 6.5rem;\n            @media (max-width: 48em) {\n                left: 11.2rem;\n            }\n        }\n        &._y {\n            top: 39.1rem;\n            left: 26.1rem;\n            width: 21rem;\n            height: 10.9rem;\n            @media (max-width: 48em) {\n                top: 40.6rem;\n                left: 24.6rem;\n                width: 17.6rem;\n                height: 11.2rem;\n            }\n        }\n        &._z {\n            top: 42.1rem;\n            left: 49.5rem;\n            width: 14.1rem;\n            height: 11.5rem;\n            @media (max-width: 48em) {\n                top: 43.5rem;\n                left: 45.5rem;\n                width: 11.2rem;\n                height: 11.2rem;\n            }\n        }\n        &._a1 {\n            top: 47.4rem;\n            left: 65.9rem;\n            width: 17.1rem;\n            height: 15.7rem;\n            @media (max-width: 48em) {\n                top: 49rem;\n                left: 59.9rem;\n                width: 14.4rem;\n                height: 16.2rem;\n            }\n        }\n        &._b1 {\n            top: 49.5rem;\n            left: 85.4rem;\n            width: 14.3rem;\n            height: 13.6rem;\n            @media (max-width: 48em) {\n                top: 51rem;\n                left: 77rem;\n                width: 12rem;\n                height: 14rem;\n            }\n        }\n        &._c1 {\n            top: 48.6rem;\n            left: 102.2rem;\n            width: 11.4rem;\n            height: 8.1rem;\n            @media (max-width: 48em) {\n                top: 52.6rem;\n                left: 91.8rem;\n                width: 9.6rem;\n                height: 8.4rem;\n            }\n        }\n        &._d1 {\n            top: 45.7rem;\n            left: 140.9rem;\n            width: 5.7rem;\n            height: 5.7rem;\n            @media (max-width: 48em) {\n                top: 46.4rem;\n                left: 125.9rem;\n            }\n        }\n        &._e1 {\n            top: 41.5rem;\n            right: 0;\n            width: 10.4rem;\n            height: 6.6rem;\n            @media (max-width: 48em) {\n                top: 42rem;\n            }\n        }\n        // .hero-gallery__item_gray\n\n        &_gray {\n            background-color: $gray;\n        }\n    }\n\n    // .hero-gallery__plane-wrap\n\n    &__plane-wrap {\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        @media (max-width: 48em) {\n            left: -57%;\n            width: calc(100% + 85rem);\n        }\n    }\n\n    // .hero-gallery__plane\n\n    &__plane {\n        margin: 0 auto;\n        width: 172rem;\n        height: 63rem;\n        @media (max-width: 48em) {\n            height: 73rem;\n        }\n    }\n\n    // .hero-gallery__image-wrap\n\n    &__image-wrap {\n        display: block;\n        height: 100%;\n    }\n\n    // .hero-gallery__image\n\n    &__image {\n        height: 100%;\n        object-fit: cover;\n    }\n\n    // .hero-gallery__footer\n\n    &__footer {\n        position: relative;\n        z-index: 2000;\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        z-index: 2000;\n\n        @media (min-width: 48em) {\n            flex-direction: row;\n            justify-content: space-between;\n            transform: translateY(-7rem);\n        }\n    }\n\n    // .hero-gallery__group\n\n    &__group {\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        @media (max-width: 48em) {\n            margin-bottom: 6.4rem;\n        }\n    }\n\n    // .hero-gallery__text\n\n    &__text {\n        margin-bottom: 4.4rem;\n        display: flex;\n        column-gap: 2.8rem;\n        max-width: 40rem;\n        transition: opacity 0.3s ease;\n        ._dragging & {\n            opacity: 0;\n        }\n        &::before {\n            content: '';\n            width: 9.4rem;\n            height: 1px;\n            background-color: rgba(201, 251, 64, 0.5);\n            transform: translateY(1.5rem);\n        }\n        @media (max-width: 48em) {\n            margin-bottom: 0;\n            column-gap: 6.4rem;\n            max-width: 70rem;\n            &::before {\n                width: 22.8rem;\n                transform: translateY(3rem);\n            }\n        }\n    }\n\n    // .hero-gallery__showmore-btn\n\n    &__showmore-btn {\n        position: relative;\n        ._scale & {\n            display: none;\n        }\n        ._dragging & {\n            position: fixed;\n            left: 10rem;\n            bottom: 0;\n            opacity: 0;\n        }\n        @media (max-width: 48em) {\n            width: 8rem;\n            height: 8rem;\n            &:not(._dragging &) {\n                position: absolute;\n                top: -13rem;\n                right: 0;\n            }\n            ._dragging & {\n                bottom: 5rem;\n                left: auto;\n                right: 1rem;\n            }\n            .showmore-btn__text {\n                display: none;\n            }\n            svg {\n                circle {\n                    fill: $green;\n                }\n                path {\n                    fill: $bodyColor;\n                }\n                ._dragging & {\n                    &:first-child {\n                        display: none;\n                    }\n                    &:last-child {\n                        display: block;\n                    }\n                }\n            }\n        }\n    }\n\n    // .hero-gallery__btn\n\n    &__btn {\n        margin-top: 3rem;\n        transition: opacity 0.3s ease;\n        ._dragging & {\n            opacity: 0;\n        }\n        @media (max-width: 48em) {\n            margin-top: 0;\n            margin-left: 19rem;\n        }\n    }\n}\n\n.popup-hero-gallery {\n    position: fixed;\n    z-index: 2000;\n    bottom: 0;\n    right: 0;\n    padding: 3.2rem 4rem;\n    display: flex;\n    flex-direction: column;\n    width: 63rem;\n    border-radius: 4rem;\n    background-color: $green;\n    transform: translateY(100%);\n    opacity: 0;\n    transition: none;\n    @media (min-width: 48em) {\n        &._active {\n            opacity: 1;\n            visibility: visible;\n            transform: translateY(0);\n            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;\n        }\n    }\n\n    // .popup-hero-gallery__title\n\n    &__title {\n        margin-bottom: 5.6rem;\n        color: $bodyColor;\n    }\n\n    // .popup-hero-gallery__icon\n\n    &__icon {\n        svg {\n            width: 5rem;\n            height: 5rem;\n        }\n    }\n}\n",".articles-hero {\n    padding-top: 18.9rem;\n    padding-bottom: 17.7rem;\n    user-select: none;\n    border-bottom: 1px solid rgba(201, 251, 64, 0.5);\n    @media (max-width: 48em) {\n        padding-top: 16.8rem;\n        padding-bottom: 10rem;\n    }\n\n    // .articles-hero__container\n\n    &__container {\n        position: relative;\n        z-index: 2;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        @media (min-width: 48em) {\n            display: grid;\n            grid-template-columns: 3fr 6fr 3fr;\n            align-items: start;\n            column-gap: 6.5rem;\n        }\n    }\n\n    // .articles-hero__bg\n\n    &__bg {\n        position: relative;\n        margin-bottom: 12rem;\n        @media (min-width: 48em) {\n            margin-bottom: 0;\n            grid-column: 2/3;\n        }\n    }\n\n    // .articles-hero__title\n\n    &__title {\n        position: absolute;\n        top: auto;\n        bottom: -12.6rem;\n        left: 50%;\n        text-align: center;\n        -webkit-text-stroke-width: 2px;\n        -webkit-text-stroke-color: $white;\n        transform: translateX(-50%);\n        &:first-child {\n            top: -14.5rem;\n        }\n        @media (max-width: 48em) {\n            bottom: -5.5rem;\n            -webkit-text-stroke-width: 1px;\n            &:first-child {\n                top: -7.3rem;\n            }\n        }\n    }\n\n    // .articles-hero__bg-inner\n\n    &__bg-inner {\n        position: relative;\n        z-index: 2;\n        overflow: hidden;\n        .articles-hero__title {\n            color: transparent;\n            &:first-child {\n                top: -14.6rem;\n            }\n            @media (max-width: 48em) {\n                bottom: -5.6rem;\n                &:first-child {\n                    top: -7.3rem;\n                }\n            }\n        }\n    }\n\n    // .articles-hero__image-wrap\n\n    &__image-wrap {\n        width: 100%;\n        height: 41rem;\n        @media (max-width: 48em) {\n            width: 50rem;\n            height: 26.4rem;\n        }\n\n        // .articles-hero__image-wrap_small\n\n        &_small {\n            position: relative;\n            margin-top: 8rem;\n            width: 24.2rem;\n            height: 14.4rem;\n\n            .articles-hero__image {\n                border-radius: 3rem;\n            }\n            &::before {\n                content: '';\n                position: absolute;\n                top: -4rem;\n                left: 50%;\n                width: 5rem;\n                height: 5rem;\n                background-image: url(./assets/images/icons/ah-union.svg);\n                background-size: contain;\n                background-repeat: no-repeat;\n                transform: translate(-50%, -100%);\n            }\n            @media (min-width: 48em) {\n                position: absolute;\n                top: 0;\n                left: -6.4rem;\n                margin-top: 0;\n                width: 18.1rem;\n                height: 13.5rem;\n                transform: translateX(-100%);\n                .articles-hero__image {\n                    border-radius: 1.6rem;\n                }\n                &::before {\n                    top: 12rem;\n                    width: 7.3rem;\n                    height: 7.5rem;\n                    transform: translate(-50%, 100%);\n                }\n            }\n        }\n    }\n\n    // .articles-hero__image\n\n    &__image {\n        display: block;\n        height: 100%;\n        border-radius: 4rem;\n        object-fit: cover;\n    }\n\n    // .articles-hero__info\n\n    &__info {\n        padding: 0 5rem;\n        display: flex;\n        flex-direction: row-reverse;\n        justify-content: space-between;\n        align-items: flex-end;\n        column-gap: 11rem;\n        width: 100%;\n        grid-column: 3/4;\n        @media (min-width: 48em) {\n            padding: 9rem 0 0 0;\n            display: block;\n            width: auto;\n            grid-column: 3/4;\n        }\n    }\n\n    // .articles-hero__list\n\n    &__list {\n        position: relative;\n        padding-left: 4rem;\n        display: flex;\n        flex-direction: column;\n        row-gap: 1.2rem;\n        &::before {\n            content: '';\n            position: absolute;\n            top: 50%;\n            left: 0;\n            width: 4rem;\n            height: 4rem;\n            background-image: url(./assets/images/icons/ah-circles.svg);\n            background-size: contain;\n            background-repeat: no-repeat;\n            transform: translateY(-50%);\n        }\n        @media (max-width: 48em) {\n            padding-left: 6.4rem;\n            row-gap: 2rem;\n            &::before {\n                width: 3.2rem;\n                height: 6.4rem;\n            }\n        }\n    }\n\n    // .articles-hero__list-item\n\n    &__list-item {\n        font-family: 'DrukCyr';\n        @media (max-width: 48em) {\n            letter-spacing: 0.32rem;\n        }\n    }\n\n    // .articles-hero__wave-container\n\n    &__wave-container {\n        top: -20rem;\n        .wave-container__inner {\n            top: 8rem;\n            path {\n                stroke: $violet;\n            }\n        }\n        @media (max-width: 48em) {\n            padding-top: 0;\n            top: -13rem;\n        }\n        @media (max-width: 1940px) {\n            padding-top: calc((1080 / 1920) * 100vw);\n            width: 100vw;\n        }\n    }\n}\n",".stages {\n    margin-bottom: 16rem;\n    @media (max-width: 48em) {\n        margin-bottom: 24rem;\n    }\n\n    // .stages__container\n\n    &__container {\n        display: flex;\n        flex-direction: column;\n        @media (min-width: 48em) {\n            flex-direction: row;\n            column-gap: 17.9rem;\n        }\n    }\n\n    // .stages__content\n\n    &__content {\n        margin-bottom: 10rem;\n        @media (min-width: 48em) {\n            position: relative;\n            margin-bottom: 0;\n            display: flex;\n            flex-direction: column;\n            &::before {\n                content: '';\n                position: absolute;\n                z-index: 2;\n                top: 0;\n                left: calc((100vw - 172rem) / -2);\n                width: calc(100% + ((100vw - 172rem) / 2) + 10.6rem);\n                height: 100%;\n                background-color: $bodyColor;\n            }\n        }\n    }\n\n    // .stages__title\n\n    &__title {\n        color: $pink;\n        @media (min-width: 48em) {\n            position: relative;\n            z-index: 3;\n            margin-bottom: 10.6rem;\n            white-space: nowrap;\n        }\n    }\n\n    // .stages__sl-control\n\n    &__sl-control {\n        display: none;\n        @media (min-width: 48em) {\n            position: relative;\n            z-index: 3;\n            display: flex;\n            column-gap: 2rem;\n        }\n    }\n\n    // .stages__sl-btn\n\n    &__sl-btn {\n    }\n\n    // .stages__slider-wrap\n\n    &__slider-wrap {\n        width: 124rem;\n        @media (max-width: 48em) {\n            margin-left: 2rem;\n            width: 100vw;\n        }\n    }\n\n    // .stages__slider\n\n    &__slider {\n        user-select: none;\n        &.swiper {\n            overflow: visible;\n        }\n    }\n\n    // .stages__wrapper\n\n    &__wrapper {\n        position: relative;\n        padding-top: 9rem;\n        &::before {\n            content: '';\n            position: absolute;\n            top: 0;\n            left: 0;\n            width: calc(100% + 37rem);\n            height: 5rem;\n            border: 1px solid $pink;\n            border-bottom: none;\n            border-radius: 2rem 2rem 0 0;\n        }\n        @media (max-width: 48em) {\n            padding-top: 8rem;\n            &::before {\n                width: calc(100% + 143rem);\n                border-radius: 4rem 4rem 0 0;\n            }\n        }\n    }\n\n    // .stages__slide\n\n    &__slide {\n        &:not(&:first-child) {\n            &::before {\n                content: '';\n                position: absolute;\n                top: -4rem;\n                left: 0;\n                width: 1px;\n                height: 4.9rem;\n                background-color: $pink;\n                transform: translateY(-100%);\n                @media (max-width: 48em) {\n                    top: -3rem;\n                }\n            }\n        }\n    }\n}\n\n.slide-stages {\n    &.swiper-slide {\n        position: relative;\n        display: flex;\n        flex-direction: column;\n        width: 34rem;\n        @media (max-width: 48em) {\n            width: 45.6rem;\n        }\n    }\n\n    // .slide-stages__title\n\n    &__title {\n        margin-bottom: 2.4rem;\n        color: $pink;\n    }\n\n    // .slide-stages__text\n\n    &__text {\n    }\n}\n",".service-hero {\n    margin-bottom: 16rem;\n    padding-top: 3.9rem;\n    user-select: none;\n    @media (max-width: 48em) {\n        margin-bottom: 24rem;\n        padding-top: 11rem;\n    }\n\n    // .service-hero__container\n\n    &__container {\n        display: flex;\n        column-gap: 16.5rem;\n        @media (max-width: 48em) {\n            flex-direction: column-reverse;\n        }\n    }\n\n    // .service-hero__preview\n\n    &__preview {\n        padding-top: 14rem;\n        display: flex;\n        flex-direction: column;\n        border-radius: 4rem;\n        background-color: $pink;\n        overflow: hidden;\n        @media (min-width: 48em) {\n            margin-left: calc((100vw - 172rem) / -2);\n            padding-top: 18rem;\n            flex: 0 0 80.5rem;\n            width: 80.5rem;\n            border-radius: 3rem;\n        }\n        @media (min-width: 1990px) {\n            margin-left: 0;\n        }\n    }\n\n    // .service-hero__images\n\n    &__images {\n        margin-bottom: 9rem;\n        display: flex;\n        column-gap: 3rem;\n        transform: translateX(-35rem);\n        @media (max-width: 48em) {\n            margin-bottom: 6rem;\n            column-gap: 2rem;\n            transform: translateX(-30rem);\n        }\n    }\n\n    // .service-hero__image-wrap\n\n    &__image-wrap {\n        position: relative;\n        flex: 0 0 48rem;\n        width: 48rem;\n        height: 44.8rem;\n        &:first-child {\n            transform: rotate(2deg);\n        }\n        &:last-child {\n            transform: rotate(-1.555deg);\n        }\n        &::before {\n            content: '';\n            position: absolute;\n            top: 0;\n            left: 0;\n            width: 100%;\n            height: 100%;\n            border-radius: 3rem;\n            background-color: rgba(0, 0, 0, 0.05);\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 42rem;\n            width: 42rem;\n            height: 39.4rem;\n            &::before {\n                border-radius: 4rem;\n            }\n        }\n    }\n\n    // .service-hero__image\n\n    &__image {\n        display: block;\n        height: 100%;\n        border-radius: 3rem;\n        object-fit: cover;\n        @media (max-width: 48em) {\n            border-radius: 4rem;\n        }\n    }\n\n    // .service-hero__subtitle\n\n    &__subtitle {\n        position: absolute;\n        top: -9rem;\n        left: 50%;\n        display: flex;\n        flex-direction: column;\n        white-space: nowrap;\n        text-align: center;\n        transform: translateX(-50%) rotate(-3.215deg);\n        @media (max-width: 48em) {\n            top: -6.5rem;\n        }\n    }\n\n    // .service-hero__marquee\n\n    &__marquee {\n        position: relative;\n        padding: 2.4rem 0;\n        overflow: hidden;\n        background-color: $green;\n    }\n\n    // .service-hero__marquee-inner\n\n    &__marquee-inner {\n        display: flex;\n        width: fit-content;\n        flex: auto;\n        overflow: hidden;\n    }\n\n    // .service-hero__marquee-part\n\n    &__marquee-part {\n        padding: 0 2rem;\n        display: flex;\n        flex-shrink: 0;\n        font-family: 'DrukCyr';\n        white-space: nowrap;\n        color: $black;\n    }\n\n    // .service-hero__content\n\n    &__content {\n        position: relative;\n        margin-bottom: 5rem;\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        &::after {\n            content: '';\n            position: absolute;\n            top: -6rem;\n            right: 14rem;\n            width: 23rem;\n            height: 23rem;\n            background-image: url(./assets/images/icons/circle.svg);\n            background-size: contain;\n            background-repeat: no-repeat;\n            transform: translateX(100%);\n            animation: rotateCircle 15s linear 0s infinite;\n        }\n        @media (min-width: 48em) {\n            margin-bottom: 0;\n            padding-top: 8.5rem;\n            &::after {\n                top: 11.4rem;\n                right: -13.9rem;\n                width: 16rem;\n                height: 16rem;\n            }\n        }\n    }\n\n    // .service-hero__title\n\n    &__title {\n        margin-bottom: 4rem;\n        display: flex;\n        flex-direction: column;\n        span {\n            -webkit-text-stroke-width: 1px;\n            -webkit-text-stroke-color: $white;\n            color: transparent;\n        }\n        @media (min-width: 48em) {\n            margin-bottom: 3rem;\n            &.tl1 {\n                line-height: 100%;\n            }\n            span {\n                -webkit-text-stroke-width: 2px;\n            }\n        }\n    }\n\n    // .service-hero__text\n\n    &__text {\n        margin-bottom: 4.8rem;\n        max-width: 54.9rem;\n        @media (max-width: 48em) {\n            margin-bottom: 5rem;\n            max-width: 71rem;\n            font-size: 3rem;\n        }\n    }\n\n    // .service-hero__btn\n\n    &__btn {\n    }\n}\n\n@keyframes rotateCircle {\n    100% {\n        transform: translateX(100%) rotate(360deg);\n    }\n}\n",".application {\n    margin-bottom: 16rem;\n    color: $white;\n    @media (max-width: 48em) {\n        margin-bottom: 24rem;\n    }\n\n    // .application__container\n\n    &__container {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .application__title\n\n    &__title {\n        margin-bottom: 1.6rem;\n    }\n\n    // .application__text\n\n    &__text {\n        margin-bottom: 4rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n        }\n    }\n\n    // .application__form\n\n    &__form {\n        display: flex;\n        flex-direction: column;\n        @media (min-width: 48em) {\n            max-width: 120.3rem;\n        }\n    }\n\n    // .application__fields\n\n    &__fields {\n        margin-bottom: 3.2rem;\n        display: flex;\n        flex-direction: column;\n        row-gap: 3rem;\n        @media (max-width: 48em) {\n            margin-bottom: 5rem;\n            row-gap: 5rem;\n        }\n    }\n\n    // .application__input\n\n    &__input {\n    }\n\n    // .application__file-input\n\n    &__file-input {\n        margin-bottom: 4rem;\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n        }\n    }\n\n    // .application__footer\n\n    &__footer {\n        display: flex;\n        flex-direction: column-reverse;\n        @media (min-width: 48em) {\n            flex-direction: row;\n            align-items: center;\n            column-gap: 2.4rem;\n        }\n    }\n\n    // .application__btn\n\n    &__btn {\n        align-self: flex-start;\n    }\n\n    // .application__footer-text\n\n    &__footer-text {\n        @media (max-width: 48em) {\n            margin-bottom: 3rem;\n            max-width: 71rem;\n        }\n    }\n}\n",".about-hero {\n    padding-top: 4.8rem;\n    padding-bottom: 16rem;\n    @media (max-width: 48em) {\n        padding-top: 10rem;\n        padding-bottom: 13rem;\n    }\n\n    // .about-hero__container\n\n    &__container {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .about-hero__bg\n\n    &__bg {\n        position: relative;\n        margin-bottom: 3.6rem;\n        border-radius: 4rem;\n        overflow: hidden;\n        @media (max-width: 48em) {\n            margin-bottom: 5rem;\n        }\n    }\n\n    // .about-hero__bg-wrap\n\n    &__bg-wrap {\n        height: 54.4rem;\n        @media (max-width: 48em) {\n            height: 36rem;\n        }\n    }\n\n    // .about-hero__bg-img\n\n    &__bg-img {\n        display: block;\n        height: 100%;\n        border-radius: 4rem;\n        object-fit: cover;\n    }\n\n    // .about-hero__wave-container\n\n    &__wave-container {\n        bottom: 35rem;\n        overflow: visible;\n        path {\n            stroke: $pink;\n        }\n        text {\n            fill: $black;\n        }\n        textPath {\n            word-spacing: 10px;\n        }\n\n        @media (max-width: 1940px) {\n            padding-top: calc((54.4rem / 172rem) * 1720px);\n            width: 172rem;\n        }\n        @media (max-width: 48em) {\n            padding-top: 0;\n            bottom: 19rem;\n            width: 100%;\n            textPath {\n                word-spacing: 5px;\n            }\n        }\n    }\n\n    // .about-hero__content\n\n    &__content {\n        display: flex;\n        flex-direction: column;\n        @media (min-width: 48em) {\n            flex-direction: row;\n            justify-content: space-between;\n            column-gap: 19rem;\n        }\n    }\n\n    // .about-hero__title-wrap\n\n    &__title-wrap {\n        position: relative;\n        display: flex;\n        flex-direction: column;\n        &::after {\n            content: '';\n            position: absolute;\n            bottom: 0;\n            right: -4rem;\n            width: 9.6rem;\n            height: 7.9rem;\n            background-image: url(./assets/images/icons/content/tariff/sunny.svg);\n            background-size: contain;\n            background-repeat: no-repeat;\n            transform: translateX(100%);\n        }\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n            &::after {\n                bottom: auto;\n                top: 0;\n                right: 0;\n                width: 11rem;\n                height: 11rem;\n                transform: none;\n            }\n        }\n    }\n\n    // .about-hero__title\n\n    &__title {\n        margin-bottom: 9.5rem;\n        @media (max-width: 48em) {\n            margin-bottom: 5rem;\n        }\n    }\n\n    // .about-hero__btn\n\n    &__btn {\n        align-self: flex-start;\n    }\n\n    // .about-hero__info\n\n    &__info {\n        display: grid;\n        grid-template-columns: repeat(2, 1fr);\n        column-gap: 3.1rem;\n        row-gap: 7.2rem;\n        @media (min-width: 48em) {\n            padding-top: 5rem;\n            grid-template-columns: repeat(2, auto);\n            column-gap: 3.2rem;\n            row-gap: 8rem;\n        }\n    }\n\n    // .about-hero__text\n\n    &__text {\n        position: relative;\n        &::after {\n            content: '';\n            position: absolute;\n            bottom: 0;\n            right: 0;\n            width: 2rem;\n            height: 2rem;\n            border-radius: 50%;\n            background-color: $white;\n        }\n        @media (min-width: 48em) {\n            width: 76.4rem;\n            grid-column: span 2;\n            &::after {\n                right: -8rem;\n                width: 1rem;\n                height: 1rem;\n            }\n        }\n    }\n\n    // .about-hero__image-wrap\n\n    &__image-wrap {\n        width: 34.6rem;\n        height: 20.9rem;\n        @media (max-width: 48em) {\n            width: 100%;\n            height: 21.6rem;\n        }\n    }\n\n    // .about-hero__image\n\n    &__image {\n        display: block;\n        height: 100%;\n        border-radius: 4rem;\n        object-fit: cover;\n    }\n\n    // .about-hero__group\n\n    &__group {\n    }\n}\n\n.group-about-hero {\n    position: relative;\n    padding: 2.4rem;\n    display: flex;\n    flex-direction: column;\n    width: 48rem;\n    background-image: url(./assets/images/picture/bg.svg);\n    background-size: contain;\n    background-repeat: no-repeat;\n    @media (max-width: 48em) {\n        padding: 4rem;\n        width: 100%;\n        grid-column: span 2;\n        background-image: url(./assets/images/picture/bg-m.svg);\n    }\n\n    // .group-about-hero__head\n\n    &__head {\n        margin-bottom: 6.8rem;\n        display: flex;\n        @media (max-width: 48em) {\n            margin-bottom: 9rem;\n        }\n    }\n\n    // .group-about-hero__cr-image-wrap\n\n    &__cr-image-wrap {\n        position: relative;\n        flex: 0 0 6rem;\n        width: 6rem;\n        height: 6rem;\n        &:nth-child(2) {\n            transform: translateX(-1.5rem);\n        }\n        &:nth-child(3) {\n            transform: translateX(-2.5rem);\n        }\n        &:nth-child(4) {\n            transform: translateX(-3.5rem);\n        }\n        &:nth-child(5) {\n            transform: translateX(-4.5rem);\n        }\n        @media (max-width: 48em) {\n            flex: 0 0 9rem;\n            width: 9rem;\n            height: 9rem;\n            &:nth-child(2) {\n                transform: translateX(-3.5rem);\n            }\n            &:nth-child(3) {\n                transform: translateX(-6.5rem);\n            }\n            &:nth-child(4) {\n                transform: translateX(-9.5rem);\n            }\n            &:nth-child(5) {\n                transform: translateX(-12.5rem);\n            }\n        }\n    }\n\n    // .group-about-hero__cr-image\n\n    &__cr-image {\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 50%;\n        object-fit: cover;\n    }\n\n    // .group-about-hero__content\n\n    &__content {\n        padding-left: 8.8rem;\n        display: flex;\n        justify-content: space-between;\n        align-items: flex-end;\n        color: $black;\n        @media (max-width: 48em) {\n            padding-left: 15.2rem;\n            align-items: center;\n        }\n    }\n\n    // .group-about-hero__strong-txt\n\n    &__strong-txt {\n        @media (max-width: 48em) {\n            font-size: 4rem;\n        }\n    }\n\n    // .group-about-hero__text\n\n    &__text {\n    }\n\n    // .group-about-hero__logo-wrap\n\n    &__logo-wrap {\n        position: absolute;\n        left: 0;\n        bottom: 0;\n        padding: 1.2rem;\n        display: inline-flex;\n        align-items: center;\n        justify-content: center;\n        @media (max-width: 48em) {\n            padding: 2.4rem;\n        }\n    }\n\n    // .group-about-hero__logo\n\n    &__logo {\n        width: 6rem;\n        height: 6rem;\n        object-fit: contain;\n        @media (max-width: 48em) {\n            bottom: -1rem;\n            width: 10rem;\n            height: 10rem;\n        }\n    }\n\n    // .group-about-hero__link-wrap\n\n    &__link-wrap {\n        position: absolute;\n        top: 0;\n        right: 0;\n        padding: 1.6rem 1.8rem 2.4rem 2.7rem;\n        @media (max-width: 48em) {\n            padding: 4rem 1.6rem 2.4rem 2.4rem;\n            right: 2rem;\n        }\n    }\n\n    // .group-about-hero__link\n\n    &__link {\n        display: flex;\n        align-items: flex-end;\n        column-gap: 1.6rem;\n        svg {\n            width: 1.5rem;\n            height: 1.5rem;\n        }\n        @media (max-width: 48em) {\n            column-gap: 3.2rem;\n            svg {\n                width: 3rem;\n                height: 3rem;\n            }\n        }\n    }\n\n    // .group-about-hero__link-txt\n\n    &__link-txt {\n        max-width: 10.2rem;\n        font-family: 'DrukCyr';\n        color: $green;\n        @media (max-width: 48em) {\n            max-width: 16.4rem;\n        }\n    }\n}\n",".priorities {\n    margin-bottom: 16rem;\n    @media (max-width: 48em) {\n        margin-bottom: 24rem;\n    }\n\n    // .priorities__container\n\n    &__container {\n        display: flex;\n        flex-direction: column;\n    }\n\n    // .priorities__head\n\n    &__head {\n        margin-bottom: 6.4rem;\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        @media (min-width: 48em) {\n            margin-bottom: 9rem;\n            flex-direction: row;\n            justify-content: space-between;\n            align-items: center;\n        }\n    }\n\n    // .priorities__title\n\n    &__title {\n        @media (max-width: 48em) {\n            margin-bottom: 6.4rem;\n        }\n    }\n\n    // .priorities__btn\n\n    &__btn {\n    }\n\n    // .priorities__body\n\n    &__body {\n        display: flex;\n        flex-direction: column;\n        gap: 6.4rem;\n        @media (min-width: 48em) {\n            flex-direction: row;\n            justify-content: space-between;\n            gap: 14.5rem;\n        }\n    }\n\n    // .priorities__image-wrap\n\n    &__image-wrap {\n        width: 100%;\n        height: 34.2rem;\n        @media (min-width: 48em) {\n            flex: 0 0 72.5rem;\n            width: 72.5rem;\n            height: 56rem;\n        }\n    }\n\n    // .priorities__image\n\n    &__image {\n        display: block;\n        height: 100%;\n        border-radius: 4rem;\n        object-fit: cover;\n    }\n\n    // .priorities__content\n\n    &__content {\n        flex: 1 1 auto;\n    }\n\n    // .priorities__accordion\n\n    &__accordion {\n        display: flex;\n        flex-direction: column;\n        row-gap: 2.4rem;\n        width: 100%;\n    }\n}\n",".portfolio-hero {\n    margin-bottom: 12rem;\n    padding-top: 22.2rem;\n    padding-bottom: 19.7rem;\n    user-select: none;\n    @media (max-width: 48em) {\n        margin-bottom: 10rem;\n        padding-top: 22rem;\n        padding-bottom: 0;\n    }\n\n    // .portfolio-hero__container\n\n    &__container {\n        position: relative;\n        &::before,\n        &::after {\n            content: '';\n            position: absolute;\n            top: -17rem;\n            width: 71rem;\n            height: 71rem;\n            border: 1px solid $gray-darken;\n            border-radius: 50%;\n        }\n        &::before {\n            left: -22rem;\n        }\n        &::after {\n            right: -22rem;\n        }\n        @media (max-width: 48em) {\n            &::before,\n            &::after {\n                width: 62rem;\n                height: 62rem;\n            }\n            &::before {\n                left: -55.6rem;\n            }\n            &::after {\n                right: -55.6rem;\n            }\n        }\n    }\n\n    // .portfolio-hero__grid\n\n    &__grid {\n        display: grid;\n        grid-template-columns: repeat(2, 1fr);\n        column-gap: 3.9rem;\n        row-gap: 3.2rem;\n        @media (min-width: 48em) {\n            grid-template: repeat(2, auto) / repeat(2, auto);\n            row-gap: 5.6rem;\n        }\n    }\n\n    // .portfolio-hero__group\n\n    &__group {\n        position: relative;\n        display: flex;\n        align-items: flex-end;\n        column-gap: 1.6rem;\n        &:nth-child(1),\n        &:nth-child(2),\n        &:nth-child(3) {\n            &::after {\n                content: '';\n                position: absolute;\n                top: calc(100% + 2.8rem);\n                left: 0;\n                width: 100%;\n                height: 1px;\n                background-color: rgba(201, 251, 64, 0.5);\n            }\n        }\n        &:nth-child(1),\n        &:nth-child(3) {\n            &::before {\n                content: '';\n                position: absolute;\n                top: 2rem;\n                right: -2rem;\n                width: 1px;\n                height: 10.4rem;\n                background-color: rgba(201, 251, 64, 0.5);\n            }\n        }\n        &:nth-child(1) {\n            &::before {\n                top: auto;\n                bottom: -1rem;\n            }\n        }\n        &:nth-child(3) {\n            &::after {\n                content: none;\n            }\n        }\n        &:nth-child(2),\n        &:nth-child(4) {\n            padding-left: 2rem;\n        }\n        &:nth-child(3),\n        &:nth-child(4) {\n            padding-top: 2rem;\n        }\n        @media (min-width: 48em) {\n            flex-direction: column;\n            align-items: stretch;\n            &:nth-child(1),\n            &:nth-child(3) {\n                &::after {\n                    width: 12.4rem;\n                }\n                &::before {\n                    content: none;\n                }\n            }\n            &:nth-child(3) {\n                &::after {\n                    content: '';\n                    left: auto;\n                    right: 0;\n                }\n            }\n            &:nth-child(2) {\n                grid-column: 1/2;\n                grid-row: 2/3;\n                &::after {\n                    content: none;\n                }\n            }\n            &_align-right {\n                align-items: flex-end;\n                text-align: right;\n            }\n        }\n    }\n\n    // .portfolio-hero__subtitle\n\n    &__subtitle {\n        margin-bottom: 1rem;\n        @media (max-width: 48em) {\n            margin-bottom: 0;\n            font-size: 10rem;\n            line-height: 1;\n        }\n    }\n\n    // .portfolio-hero__title\n\n    &__title {\n        position: relative;\n        z-index: 2;\n        margin-bottom: 2rem;\n        @media (max-width: 48em) {\n            margin-bottom: 5rem;\n        }\n    }\n\n    // .portfolio-hero__text\n\n    &__text {\n        max-width: 12.4rem;\n        color: rgba(255, 255, 255, 0.8);\n        @media (max-width: 48em) {\n            max-width: 18.6rem;\n        }\n    }\n\n    // .portfolio-hero__content\n\n    &__content {\n        position: relative;\n        margin-bottom: 23.8rem;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        text-align: center;\n        @media (min-width: 48em) {\n            position: absolute;\n            z-index: 2;\n            top: 50%;\n            left: 50%;\n            margin-bottom: 0;\n            width: 100%;\n            height: 100%;\n            transform: translate(-50%, -50%);\n        }\n    }\n\n    // .portfolio-hero__btn\n\n    &__btn {\n        position: relative;\n        z-index: 2;\n    }\n\n    // .portfolio-hero__ellipse\n\n    &__ellipse {\n        position: absolute;\n        top: 50%;\n        left: 50%;\n        width: 71rem;\n        height: 71rem;\n        border-radius: 50%;\n        overflow: hidden;\n        transform-origin: center top;\n        transform: translate(-50%, -50%);\n        background-image: url(./assets/images/picture/ellipse.svg);\n        background-size: cover;\n        background-repeat: no-repeat;\n        @media (max-width: 48em) {\n            width: 62rem;\n            height: 62rem;\n            transform-origin: center;\n        }\n    }\n\n    // .portfolio-hero__ellipse-img\n\n    &__ellipse-img {\n        display: block;\n        height: 100%;\n        object-fit: cover;\n    }\n}\n",".filters {\n    position: fixed;\n    z-index: 2001;\n    left: 50%;\n    bottom: 4rem;\n    color: $black;\n    transform: translateX(-50%);\n    @media (max-width: 48em) {\n        top: 0;\n        left: 0;\n        right: 0;\n        bottom: 0;\n        border-radius: 0;\n        overflow: auto;\n        transform: none;\n        opacity: 0;\n        visibility: 0;\n        transform: translateX(110vh);\n        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\n        ._show-filters-menu & {\n            opacity: 1;\n            visibility: visible;\n            transform: translateX(0);\n        }\n    }\n\n    // .filters__head\n\n    &__head {\n        margin-bottom: 8rem;\n        display: grid;\n        grid-template-columns: 6.4rem 1fr 6.4rem;\n        align-items: center;\n        @media (min-width: 48em) {\n            display: none;\n        }\n    }\n\n    // .filters__options\n\n    &__options {\n        display: flex;\n        flex-direction: column;\n        row-gap: 4rem;\n        .option__text {\n            column-gap: 2.4rem;\n        }\n    }\n\n    // .filters__title\n\n    &__title {\n        justify-self: center;\n    }\n\n    // .filters__subtitle\n\n    &__subtitle {\n        @media (min-width: 48em) {\n            display: none;\n        }\n    }\n\n    // .filters__group\n\n    &__group {\n        &_sort {\n            display: none;\n        }\n        @media (max-width: 48em) {\n            margin-bottom: 8rem;\n            display: flex;\n            flex-direction: column;\n            row-gap: 4rem;\n            &_sort {\n                margin-bottom: auto;\n                display: flex;\n            }\n        }\n    }\n\n    // .filters__tabs\n\n    &__tabs {\n        margin-right: 2.7rem;\n        display: flex;\n        gap: 1.6rem;\n        @media (max-width: 48em) {\n            margin-right: 0;\n            flex-wrap: wrap;\n            column-gap: 1rem;\n            row-gap: 1.4rem;\n        }\n    }\n\n    // .filters__btn\n\n    &__btn {\n        margin-top: 4rem;\n        @media (min-width: 48em) {\n            display: none;\n        }\n    }\n\n    // .filters__inner\n\n    &__inner {\n        padding: 3rem 2rem 6.4rem 2rem;\n        display: flex;\n        flex-direction: column;\n        min-height: 100%;\n        background-color: $white;\n        @media (min-width: 48em) {\n            padding: 1.4rem;\n            flex-direction: row;\n            min-height: auto;\n            border-radius: 5.2rem;\n        }\n    }\n\n    // .filters__badge\n\n    &__badge {\n        @media (min-width: 48em) {\n            padding: 1.3rem 3.3rem 1.3rem 3.3rem;\n        }\n    }\n\n    // .filters__dropdown\n\n    &__dropdown {\n        display: none;\n        @media (min-width: 48em) {\n            display: block;\n            .select {\n                min-width: auto;\n                width: 15rem;\n                &__options {\n                    top: auto;\n                    left: auto;\n                    right: 0;\n                    bottom: calc(100% + 3rem);\n                    padding: 1.2rem 1.8rem 1.2rem 1.2rem;\n                    width: 20.4rem;\n                }\n            }\n        }\n    }\n}\n.filters-btn {\n    position: fixed;\n    z-index: 100;\n    left: 50%;\n    bottom: 4rem;\n    padding: 1.6rem 4rem;\n    display: flex;\n    align-items: center;\n    column-gap: 2.4rem;\n    border-radius: 8rem;\n    color: $black;\n    background-color: $white;\n    transform: translateX(-50%);\n    &::after {\n        content: '';\n        flex: 0 0 5rem;\n        width: 5rem;\n        height: 5rem;\n        background-image: url(./assets/images/icons/filter.svg);\n        background-size: contain;\n        background-repeat: no-repeat;\n    }\n    @media (min-width: 48em) {\n        display: none;\n    }\n}\n",".portfolio {\n    position: relative;\n    z-index: 2;\n    margin-bottom: 16rem;\n    @media (max-width: 48em) {\n        margin-bottom: 24rem;\n    }\n\n    // .portfolio__container\n\n    &__container {\n        display: flex;\n        flex-direction: column;\n        @media (max-width: 48em) {\n            .portfolio__card,\n            .grid-sizer {\n                width: 48%;\n            }\n        }\n    }\n\n    // .portfolio__cards\n\n    &__cards {\n        margin-bottom: 10rem;\n        max-width: 100vw;\n        @media (min-width: 48em) {\n            margin-bottom: 8rem;\n            display: grid;\n            grid-template-columns: repeat(2, 1fr);\n            gap: 10rem;\n        }\n    }\n\n    // .portfolio__card\n\n    &__card {\n    }\n\n    // .portfolio__link\n\n    &__link {\n        align-self: center;\n    }\n}\n\n.project-card {\n    position: relative;\n    display: flex;\n    flex-direction: column;\n    align-self: start;\n    &:last-child {\n        .project-card__image-wrap {\n            height: 42rem;\n        }\n    }\n    @media (any-hover: hover) {\n        &:hover {\n            transform: rotate(-2deg);\n            &:nth-child(2n + 2) {\n                transform: rotate(2deg);\n            }\n            .project-card__content {\n                &::after {\n                    opacity: 1;\n                }\n                .project-card__title,\n                .project-card__subtitle {\n                    opacity: 1;\n                    visibility: visible;\n                }\n            }\n        }\n    }\n    @media (min-width: 48em) {\n        flex-direction: row;\n        width: 75.8rem;\n        height: 63.6rem;\n        border-radius: 4rem;\n        overflow: hidden;\n        transition: transform 0.4s ease;\n        &:last-child {\n            .project-card__image-wrap {\n                height: 100%;\n            }\n        }\n        &_large {\n            width: 86.3rem;\n            height: 63.5rem;\n        }\n        &_small {\n            width: 60.6rem;\n            height: 50rem;\n            justify-self: center;\n            align-self: center;\n        }\n    }\n\n    // .project-card__content\n\n    &__content {\n        position: relative;\n        padding: 2.4rem;\n        display: flex;\n        flex-direction: column;\n        row-gap: 1rem;\n        border-radius: 3rem;\n        &::after {\n            content: '';\n            position: absolute;\n            top: 0;\n            left: 0;\n            row-gap: 0.5rem;\n            width: 100%;\n            height: 100%;\n            border-radius: 3rem;\n            background-color: rgba(255, 255, 255, 0.3);\n            backdrop-filter: blur(3rem);\n        }\n        @media (min-width: 48em) {\n            position: absolute;\n            left: 3.5rem;\n            bottom: 3.5rem;\n            padding: 3rem 5rem;\n            &::after {\n                opacity: 0;\n                transition: opacity 0.3s ease;\n            }\n            .project-card__title,\n            .project-card__subtitle {\n                opacity: 0;\n                visibility: hidden;\n                transition: opacity 0.3s ease, visibility 0.3s ease;\n            }\n        }\n    }\n\n    // .project-card__title\n\n    &__title {\n        position: relative;\n        z-index: 2;\n    }\n\n    // .project-card__subtitle\n\n    &__subtitle {\n        position: relative;\n        z-index: 2;\n        color: rgba(255, 255, 255, 0.8);\n        @media (max-width: 48em) {\n            font-size: 2.4rem;\n        }\n    }\n\n    // .project-card__image-wrap\n\n    &__image-wrap {\n        height: 100%;\n        width: 100%;\n        @media (max-width: 48em) {\n            height: 29rem;\n            transform: translateY(-1.2rem);\n            .project-card_large & {\n                height: 42rem;\n            }\n            .project-card_small & {\n                height: 35rem;\n            }\n        }\n    }\n\n    // .project-card__image\n\n    &__image {\n        display: block;\n        height: 100%;\n        object-fit: cover;\n        @media (max-width: 48em) {\n            border-radius: 3rem;\n        }\n    }\n}\n\n@media (min-width: 48em) {\n    .grid-sizer,\n    .gutter-sizer {\n        display: none;\n    }\n}\n\n.gutter-sizer {\n    width: 2rem;\n}\n",".services {\n    position: relative;\n    background: #171717;\n    margin-bottom: 16rem;\n\n    @include small-tablet{\n        margin-bottom: 28rem;\n    }\n\n    &__content {\n        min-height: 78rem;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n\n        @include small-tablet {\n            min-height: 107rem;\n        }\n    }\n\n    &__sentences {\n        position: absolute;\n        inset: 0;\n        top: 5rem;\n        display: flex;\n        gap: 20rem;\n\n        @include small-tablet{\n            top: 10rem;\n        }\n\n        &-list {\n            width: 100%;\n            height: 100%;\n            position: relative;\n        }\n\n        &-item {\n            max-width: 57.3rem;\n            width: 100%;\n            position: absolute;\n            user-select: none;\n\n            @include small-tablet {\n                max-width: 54rem;\n            }\n\n            &:nth-child(1) {\n                left: -12rem;\n                top: 0;\n\n                @include small-tablet{\n                    left: 2rem;\n                    white-space: nowrap;\n                }\n            }\n\n            &:nth-child(2) {\n                left: 50%;\n                transform: translate(-50%);\n                top: 0;\n\n                @include small-tablet{\n                    top: 13rem;\n                    white-space: nowrap;\n                }\n            }\n\n            &:nth-child(3) {\n                right: -8.3rem;\n                top: 0;\n\n                @include small-tablet{\n                    right: auto;\n                    top: 26rem;\n                    left: -19rem;\n                }\n            }\n\n            &:nth-child(4) {\n                left: 0;\n                top: 30.7rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n\n            &:nth-child(5) {\n                right: 2.7rem;\n                top: 30.7rem;\n\n                @include small-tablet{\n                    right: -21.3rem;\n                    top: 26.7rem;\n                }\n            }\n\n            &:nth-child(6) {\n                left: -18.6rem;\n                bottom: 0.6rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n\n            &:nth-child(7) {\n                right: -15.9rem;\n                bottom: 0.6rem;\n\n                @include small-tablet{\n                    display: none;\n                }\n            }\n        }\n\n        &-text {\n            color: $gray-darken;\n            font-family: $font-druk;\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            text-align: center;\n            width: 100%;\n\n            @include small-tablet {\n                font-size: 10rem;\n            }\n        }\n    }\n\n    &__circular {\n        @include sizes(80rem, 52.8rem);\n        position: relative;\n\n        @include small-tablet {\n            @include sizes(100%, 46.8rem);\n        }\n\n        &-text-image {\n            width: 100%;\n            height: 100%;\n\n            img {\n                width: 100%;\n                height: 100%;\n            }\n        }\n\n        &-image {\n            position: absolute;\n            bottom: -3.7rem;\n            left: 50%;\n            transform: translateX(-50%);\n            @include sizes(26.3rem, 32.6rem);\n            border-radius: 1.5rem;\n            border: 0.1rem solid rgba(255, 255, 255, 0.3);\n            z-index: 5;\n\n            @include small-tablet {\n                @include sizes(23.4rem, 29.2rem);\n                border-radius: 3rem;\n                border-width: 0.2rem;\n            }\n\n            img {\n                height: 100%;\n                border-radius: inherit;\n            }\n        }\n    }\n}\n",".collections {\n    margin-bottom: 13rem;\n\n    @include small-tablet {\n        margin-bottom: 24rem;\n    }\n\n    &__articles {\n        &-list {\n            display: flex;\n            flex-direction: column;\n        }\n\n        &-item {\n            position: relative;\n\n            &.--active {\n                .--masking {\n                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);\n                }\n            }\n\n            &:first-child {\n                border-top: 0.1rem solid rgba(201, 251, 64, 0.5);\n            }\n\n            border-bottom: 0.1rem solid rgba(201, 251, 64, 0.5);\n\n            &-wrapper {\n                padding: 4rem 10rem;\n                display: flex;\n                align-items: center;\n\n                @include small-tablet {\n                    padding: 2.3rem 2.2rem;\n                }\n\n                &.--masking {\n                    position: absolute;\n                    inset: 0;\n                    width: 100%;\n                    z-index: 1;\n                    background-color: $pink;\n                    clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);\n                    transform-origin: center;\n                    transition: clip-path cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;\n\n                    figcaption {\n                        color: #0d0d0d;\n                    }\n                }\n            }\n\n            &-number {\n                color: $white;\n                font-family: $font-druk;\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                display: block;\n                width: 14rem;\n\n                @include small-tablet {\n                    display: none;\n                }\n            }\n\n            figure {\n                display: flex;\n                align-items: flex-end;\n                gap: 6rem;\n                margin-left: 16rem;\n\n                @include small-tablet {\n                    margin-left: 0;\n                    width: 100%;\n                    align-items: center;\n                    justify-content: center;\n                }\n            }\n\n            &-image {\n                border-radius: 1.5rem;\n                @include sizes(25rem, 14rem);\n\n                @include small-tablet {\n                    display: none;\n                }\n\n                img {\n                    height: 100%;\n                    border-radius: inherit;\n                }\n            }\n\n            &-text {\n                font-family: $font-druk;\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                color: transparent;\n                background: linear-gradient(to right, $white, $white) no-repeat;\n                -webkit-background-clip: text;\n                background-clip: text;\n                background-size: 0;\n                transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;\n\n                @include small-tablet {\n                    font-size: 10rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-link {\n                margin-left: auto;\n                display: flex;\n                align-items: center;\n                gap: 1.6rem;\n\n                @include small-tablet {\n                    display: none;\n                }\n\n                svg {\n                    @include sizes(5.2rem, 5.2rem);\n                }\n\n                span {\n                    color: $bodyColor;\n                    font-family: $font-druk;\n                    font-size: 2.2rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 2.4rem;\n                    letter-spacing: 0.176rem;\n                    text-transform: uppercase;\n                }\n            }\n        }\n    }\n}\n",".feedback {\n    @include small-tablet {\n        margin-bottom: 3.2rem;\n    }\n\n    a {\n        display: block;\n        width: 100%;\n        color: #fff;\n        font-family: $font-druk;\n        font-size: 19.9646rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 23.387rem;\n        text-align: center;\n        transition:\n            background 0.3s linear,\n            color 0.3s linear;\n\n        @include small-tablet {\n            font-size: 11rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n        }\n\n        &:hover {\n            transition:\n                background 0.3s linear,\n                color 0.3s linear;\n            background-color: $yellow;\n            color: $main;\n        }\n    }\n}\n",".article {\n    margin-top: 6.8rem;\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        margin-top: 9.6rem;\n        margin-bottom: 24rem;\n    }\n\n    &__heading {\n        padding-bottom: 8rem;\n        margin-bottom: 4rem;\n\n        position: relative;\n\n        display: flex;\n        align-items: flex-start;\n        justify-content: space-between;\n        gap: 2rem;\n\n        @include small-tablet {\n            padding-bottom: 9.6rem;\n            margin-bottom: 4.8rem;\n            flex-direction: column;\n            gap: 11.2rem;\n        }\n\n        &::after {\n            @include pseudo {\n                width: calc(100% + 20rem);\n                height: 0.1rem;\n\n                left: -10rem;\n                bottom: 0;\n\n                background: rgba(201, 251, 64, 0.5);\n            }\n        }\n\n        &-info {\n            max-width: 70.5rem;\n            width: 100%;\n            margin-top: 11.9rem;\n\n            @include small-tablet {\n                max-width: 100%;\n                margin-top: 0;\n            }\n        }\n\n        &-subtitle {\n            display: inline-block;\n            position: relative;\n            margin-bottom: 1.2rem;\n            color: var(--purple, #ed89fb);\n            font-family: $font-druk;\n            font-size: 2.2rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 2.4rem;\n            letter-spacing: 0.176rem;\n            text-transform: uppercase;\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                margin-bottom: 2.4rem;\n            }\n\n            &::after {\n                @include pseudo {\n                    right: -5.6rem;\n                    width: 4rem;\n                    height: 0.1rem;\n                    top: 50%;\n                    transform: translateY(-50%);\n                    background: $pink;\n\n                    @include small-tablet {\n                        width: 4.8rem;\n                        right: -8rem;\n                        height: 0.2rem;\n                    }\n                }\n            }\n        }\n\n        &-title {\n            color: $white;\n            font-family: $font-druk;\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            margin-bottom: 2rem;\n\n            @include small-tablet {\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                margin-bottom: 4rem;\n            }\n        }\n\n        &-description {\n            color: $white;\n            font-size: 2rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%;\n            padding-right: 3.1rem;\n\n            @include small-tablet {\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n                padding-right: 0;\n            }\n        }\n\n        &-poster {\n            @include sizes(99.5rem, 50.7rem);\n            position: relative;\n\n            @include small-tablet {\n                @include sizes(100%, 49.2rem);\n            }\n\n            &-image {\n                width: 100%;\n                height: 100%;\n                border-radius: 4rem;\n\n                img {\n                    height: 100%;\n                    border-radius: inherit;\n                    object-fit: cover;\n                }\n            }\n\n            &-icon {\n                @include sizes(16rem, 16rem);\n                position: absolute;\n                top: -2rem;\n                left: -3.5rem;\n\n                @include small-tablet {\n                    @include sizes(23rem, 23rem);\n                    right: 0;\n                    top: -4.8rem;\n                    left: auto;\n                }\n            }\n        }\n    }\n\n    &__content {\n        display: flex;\n        justify-content: space-between;\n        padding-right: 14.5rem;\n\n        @include small-tablet {\n            padding-right: 0;\n            flex-direction: column;\n            gap: 8rem;\n        }\n\n        &-block {\n            display: flex;\n            flex-direction: column;\n            max-width: 85rem;\n            width: 100%;\n        }\n    }\n\n    &__shares {\n        max-width: 39rem;\n        width: 100%;\n        display: flex;\n        flex-direction: column;\n        position: relative;\n\n        @include small-tablet {\n            max-width: 100%;\n            flex-direction: row;\n            justify-content: space-between;\n        }\n\n        &::before {\n            @include pseudo {\n                right: 0;\n                top: 0;\n                width: 0.1rem;\n                height: 100%;\n                transform-origin: left top;\n                transform: scaleY(var(--scale));\n                background: rgba(201, 251, 64, 0.5);\n\n                @include small-tablet {\n                    display: none;\n                }\n            }\n        }\n\n        &-date {\n            font-size: 2.8rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: normal;\n            display: block;\n            margin-bottom: 6.4rem;\n\n            @include small-tablet {\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n                margin-bottom: 0;\n            }\n        }\n\n        &-socials {\n            &-list {\n                display: flex;\n                flex-direction: column;\n                gap: 1.6rem;\n\n                @include small-tablet {\n                    flex-direction: row;\n                    gap: 2.4rem;\n                }\n            }\n\n            &-item {\n                @include sizes(4.8rem, 4.8rem);\n\n                @include small-tablet {\n                    @include sizes(8rem, 8rem);\n                }\n\n                a {\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    padding: 1.2rem;\n                    transition:\n                        0.3s background ease,\n                        0.3s border ease;\n                    border: 0.1rem solid $white;\n                    border-radius: 50%;\n\n                    @include small-tablet {\n                        padding: 1.6rem;\n                    }\n\n                    &:hover {\n                        background: $yellow;\n                        border-color: transparent;\n                    }\n\n                    img {\n                        height: 100%;\n                    }\n                }\n            }\n        }\n\n        &-link {\n            margin-top: auto;\n            width: fit-content;\n            display: flex;\n            align-items: center;\n            gap: 2.2rem;\n\n            @include small-tablet {\n                &.desktop {\n                    display: none;\n                }\n\n                gap: 3.2rem;\n                margin-top: 8rem;\n            }\n\n            &.mobile {\n                display: none;\n\n                @include small-tablet {\n                    display: flex;\n                }\n            }\n\n            span {\n                font-family: $font-druk;\n                font-size: 2.2rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 2.4rem;\n                letter-spacing: 0.176rem;\n                text-transform: uppercase;\n\n                @include small-tablet {\n                    font-size: 4rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    letter-spacing: 0.32rem;\n                    text-transform: uppercase;\n                }\n            }\n        }\n    }\n\n    &__title {\n        margin-bottom: 3.2rem;\n        font-size: 2.8rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: normal;\n\n        @include small-tablet {\n            margin-bottom: 4.8rem;\n            font-size: 3.6rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: normal;\n        }\n    }\n\n    &__description {\n        margin-bottom: 2.2rem;\n        font-size: 2rem;\n        font-style: normal;\n        font-weight: 400;\n        line-height: 140%;\n\n        @include small-tablet {\n            font-size: 2.8rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: normal;\n            margin-bottom: 4.8rem;\n        }\n    }\n\n    &__block {\n        &-image {\n            display: flex;\n            flex-direction: column;\n            gap: 1.6rem;\n            margin-bottom: 3.2rem;\n\n            @include small-tablet {\n                margin-bottom: 4.8rem;\n                gap: 3.2rem;\n            }\n\n            img {\n                border-radius: 4rem;\n                height: 52.4rem;\n                object-fit: cover;\n\n                @include small-tablet {\n                    height: 48.4rem;\n                }\n            }\n\n            &-description {\n                color: $gray;\n                font-size: 2rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n\n                @include small-tablet {\n                    font-size: 3rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: 140%;\n                }\n            }\n        }\n    }\n\n    &__list {\n        display: flex;\n        flex-direction: column;\n        gap: 3.2rem;\n\n        @include small-tablet {\n            gap: 4.8rem;\n        }\n    }\n\n    &__item {\n        &-text {\n            font-size: 2rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%;\n\n            @include small-tablet {\n                font-size: 2.8rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: normal;\n            }\n        }\n    }\n}\n",".team {\n    background: $violet;\n    padding: 16rem 0;\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        padding: 12.8rem 0;\n        margin-bottom: 24rem;\n    }\n\n    &__content {\n        display: flex;\n        justify-content: space-between;\n\n        @include small-tablet {\n            flex-direction: column;\n            gap: 6.4rem;\n        }\n    }\n\n    &__text {\n        max-width: 72.5rem;\n        width: 100%;\n        display: flex;\n        flex-direction: column;\n        gap: 9rem;\n\n        @include small-tablet {\n            max-width: 100%;\n            gap: 6.4rem;\n        }\n\n        &-image {\n            @include sizes(100%, 58.5rem);\n            border-radius: 4rem;\n\n            @include small-tablet {\n                @include sizes(100%, 35.6rem);\n            }\n\n            img {\n                border-radius: inherit;\n                height: 100%;\n                object-fit: cover;\n            }\n        }\n    }\n\n    &__title {\n        color: $bodyColor;\n        font-family: $font-druk;\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 110%;\n        text-transform: uppercase;\n\n        @include small-tablet {\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n        }\n    }\n\n    &__info {\n        max-width: 85rem;\n        width: 100%;\n        padding-top: 0.9rem;\n\n        @include small-tablet {\n            padding-top: 0;\n            max-width: 100%;\n        }\n\n        &-title {\n            margin-bottom: 6rem;\n            color: $bodyColor;\n            font-family: $font-druk;\n            font-size: 6rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                text-transform: uppercase;\n                margin-bottom: 2.4rem;\n            }\n        }\n\n        &-description {\n            max-width: 55.9rem;\n            width: 100%;\n            color: $gray;\n            font-size: 2.8rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: normal;\n            margin-bottom: 12rem;\n\n            @include small-tablet {\n                margin-bottom: 6.4rem;\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n            }\n        }\n\n        &-figures {\n            display: flex;\n            align-items: flex-end;\n            justify-content: space-between;\n        }\n\n        &-figure {\n            &-icon {\n                @include sizes(10rem, 10rem);\n\n                @include small-tablet {\n                    @include sizes(11.2rem, 11.2rem);\n                }\n            }\n\n            &-image {\n                @include sizes(41.3rem, 29rem);\n                border-radius: 4rem;\n\n                @include small-tablet {\n                    @include sizes(33.4rem, 21.6rem);\n                }\n\n                img {\n                    height: 100%;\n                    border-radius: inherit;\n                    object-fit: cover;\n                }\n            }\n        }\n    }\n}\n",".achievements {\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        margin-bottom: 24rem;\n    }\n\n    &__title {\n        font-family: $font-druk;\n        margin-bottom: 2rem;\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 110%;\n        text-transform: uppercase;\n\n        @include small-tablet {\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            margin-bottom: 4.4rem;\n        }\n    }\n\n    &__heading {\n        display: flex;\n        align-items: flex-start;\n        justify-content: space-between;\n        margin-bottom: 16rem;\n\n        @include small-tablet {\n            margin-bottom: 24rem;\n            flex-direction: column;\n            gap: 8rem;\n        }\n\n        &-list {\n            display: flex;\n            align-items: flex-start;\n            gap: 5.6rem;\n\n            @include small-tablet {\n                display: grid;\n                grid-template-columns: repeat(2, minmax(30.4rem, 1fr));\n                gap: 6.4rem;\n            }\n        }\n\n        &-item {\n            display: flex;\n            flex-direction: column;\n            gap: 1rem;\n            position: relative;\n            max-width: 17rem;\n\n            @include small-tablet {\n                max-width: 100%;\n                flex-direction: row;\n                gap: 1.6rem;\n                align-items: flex-end;\n            }\n\n            @media (min-width: 48em) {\n                &:not(:last-child) {\n                    &::after {\n                        @include pseudo {\n                            height: calc(100% - 4.2rem);\n                            right: -2.8rem;\n                            width: 0.1rem;\n                            background: rgba(201, 251, 64, 0.5);\n                        }\n                    }\n                }\n            }\n\n            @include small-tablet {\n                &:nth-child(odd) {\n                    &::before {\n                        @include pseudo {\n                            height: 100%;\n                            right: -3.2rem;\n                            width: 0.1rem;\n                            background: rgba(201, 251, 64, 0.5);\n                        }\n                    }\n                }\n\n                &:not(:nth-last-child(-n+2)) {\n                    &::after {\n                        @include pseudo {\n                            width: 100%;\n                            height: 0.1rem;\n                            bottom: -3.2rem;\n                            background: rgba(201, 251, 64, 0.5);\n                        }\n                    }\n                }\n            }\n\n            &-digit {\n                font-family: $font-druk;\n                font-size: 10rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n\n                @include small-tablet {\n                    font-size: 10rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-description {\n                color: rgba(255, 255, 255, 0.8);\n                font-size: 2.8rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: normal;\n\n                @include small-tablet {\n                    font-size: 3rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: 140%;\n                }\n            }\n        }\n    }\n\n    &__description {\n        color: rgba(255, 255, 255, 0.8);\n        font-size: 2.8rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: normal;\n        max-width: 72rem;\n        width: 100%;\n        margin-top: 2rem;\n\n        @include small-tablet {\n            color: rgba(255, 255, 255, 0.8);\n            font-size: 3rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: 140%;\n        }\n    }\n\n    &__banner {\n        @include sizes(100%, 67.2rem);\n        border-radius: 4rem;\n\n        @include small-tablet {\n            @include sizes(100%, 34.2rem);\n        }\n\n        img {\n            border-radius: inherit;\n            height: 100%;\n            object-fit: cover;\n        }\n    }\n}\n",".location {\n    position: relative;\n    margin-bottom: 16rem;\n\n    @include small-tablet{\n        margin-bottom: 24rem;\n    }\n\n    #location-map {\n        width: 100%;\n        height: 100%;\n    }\n\n    [class*='ground-pane'] {\n        mix-blend-mode: difference;\n        filter: grayscale(1) contrast(0.85);\n    }\n\n    [class*='map-copyrights-promo'] {\n        display: none;\n    }\n\n    [class*='copyright__layout'] {\n        display: none;\n    }\n\n    &__map {\n        position: absolute;\n        inset: 0;\n    }\n\n    &__content {\n        display: flex;\n        flex-direction: column;\n        align-items: flex-start;\n        justify-content: flex-end;\n        height: 93rem;\n\n        @include small-tablet {\n            height: 126rem;\n        }\n    }\n\n    &__info {\n        width: 100%;\n        margin-left: 33rem;\n        margin-bottom: 13.2rem;\n        position: relative;\n        z-index: 2;\n\n        @include small-tablet {\n            margin-left: 0;\n            margin-bottom: 7.6rem;\n            max-width: 60rem;\n        }\n    }\n\n    &__title {\n        color: $white;\n        font-family: $font-druk;\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 110%;\n        text-transform: uppercase;\n        margin-bottom: 2.4rem;\n\n        @include small-tablet {\n            font-size: 10rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n            margin-bottom: 6.4rem;\n        }\n    }\n\n    &__contacts {\n        display: flex;\n        align-items: flex-start;\n        gap: 10.4rem;\n\n        @include small-tablet {\n            gap: 6.4rem;\n            flex-direction: column;\n        }\n\n        &-address {\n            color: $white;\n            font-size: 3.2rem;\n            font-style: normal;\n            font-weight: 400;\n            line-height: normal;\n            max-width: 65.4rem;\n            width: 100%;\n\n            @include small-tablet {\n                max-width: 100%;\n                font-size: 3rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n            }\n        }\n\n        &-list {\n            display: flex;\n            flex-direction: column;\n            gap: 1.2rem;\n        }\n\n        &-item {\n            a {\n                display: block;\n                color: $white;\n                font-size: 3.2rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: normal;\n                transition: 0.3s color ease;\n\n                @include small-tablet {\n                    font-size: 3rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: 140%;\n                }\n\n                &:hover {\n                    color: $yellow;\n                }\n            }\n        }\n    }\n}\n",".articles {\n    position: relative;\n    z-index: 2;\n    margin-top: 7.2rem;\n    margin-bottom: 16rem;\n\n    @include small-tablet {\n        margin-bottom: 24rem;\n    }\n\n    &__content {\n        display: flex;\n        gap: 2rem;\n        align-items: flex-start;\n        justify-content: space-between;\n\n        @include small-tablet {\n            flex-direction: column;\n            gap: 6.4rem;\n        }\n    }\n\n    &__filters {\n        max-width: 27rem;\n        width: 100%;\n        display: inline-flex;\n        padding: 2.4rem 2.4rem 3.2rem 2.4rem;\n        flex-direction: column;\n        align-items: flex-start;\n        gap: 2.4rem;\n        border-radius: 4rem;\n        background: $white;\n\n        @include small-tablet {\n            max-width: 100%;\n            padding: 3.2rem 3.2rem 6.4rem;\n            border-radius: 4rem;\n            gap: 3.2rem;\n        }\n\n        &-title {\n            color: $bodyColor;\n            font-family: $font-druk;\n            font-size: 6rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 110%;\n            text-transform: uppercase;\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                text-transform: uppercase;\n            }\n        }\n\n        &-field {\n            display: flex;\n            flex-direction: column;\n            gap: 1.2rem;\n            position: relative;\n\n            @include small-tablet {\n                gap: 1.6rem;\n                width: 100%;\n            }\n\n            &-title {\n                display: block;\n                color: $bodyColor;\n                font-size: 1.6rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: normal;\n\n                @include small-tablet {\n                    font-size: 2.8rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: normal;\n                }\n            }\n\n            &-options {\n                display: none;\n\n                @include small-tablet {\n                    display: flex;\n                    flex-direction: column;\n                    position: absolute;\n                    top: 14rem;\n                    max-width: 64rem;\n                    width: 100%;\n                    border-radius: 4rem;\n                    background: $white;\n                    padding: 3.2rem;\n                    z-index: 5;\n                    transition: 0.3s opacity ease;\n                    opacity: 0;\n                }\n\n                &-icon {\n                    @include sizes(3.2rem, 3.2rem);\n                    position: absolute;\n                    right: 3.2rem;\n                    top: 3.2rem;\n\n                    svg {\n                        width: 100%;\n                        height: 100%;\n                    }\n                }\n\n                &-title {\n                    @include small-tablet {\n                        color: $bodyColor;\n                        font-family: $font-druk;\n                        font-size: 4rem;\n                        font-style: normal;\n                        font-weight: 500;\n                        line-height: 110%;\n                        letter-spacing: 0.32rem;\n                        text-transform: uppercase;\n                        margin-bottom: 3.2rem;\n                    }\n                }\n\n                &-list {\n                    @include small-tablet {\n                        display: flex;\n                        flex-direction: column;\n                        max-height: 34.4rem;\n                        overflow-x: auto;\n                        gap: 1.4rem;\n\n                        &::-webkit-scrollbar {\n                            width: 0.4rem; /* width of the entire scrollbar */\n                        }\n\n                        &::-webkit-scrollbar-track {\n                            background: transparent; /* color of the tracking area */\n                        }\n\n                        &::-webkit-scrollbar-thumb {\n                            background: rgba(#cad2f466, 0.5);\n                            border-radius: 4rem;\n                        }\n                    }\n                }\n\n                &-item {\n                    &.--selected {\n                        background: $violet;\n                    }\n\n                    @include small-tablet {\n                        padding: 1.8rem 4rem;\n                        border-radius: 4rem;\n                        color: $bodyColor;\n                        font-family: $font-druk;\n                        font-size: 4rem;\n                        font-style: normal;\n                        font-weight: 500;\n                        line-height: 110%;\n                        letter-spacing: 0.32rem;\n                        text-transform: uppercase;\n                        margin-right: 1rem;\n                        transition: 0.3s background ease;\n                    }\n                }\n            }\n        }\n    }\n\n    &__list {\n        display: grid;\n        grid-template-columns: repeat(2, minmax(71rem, 1fr));\n        gap: 1rem;\n        max-width: 143rem;\n        width: 100%;\n        margin-bottom: 6rem;\n\n        @include small-tablet {\n            display: flex;\n            flex-direction: column;\n            gap: 2.4rem;\n            max-width: 100%;\n            margin-bottom: 12rem;\n        }\n\n        &-item {\n            border-radius: 4rem;\n            position: relative;\n            background: $gray-darken;\n            transition: 0.3s background ease;\n            display: flex;\n\n            &:hover {\n                background: $pink;\n\n                .articles__list-item-heading {\n                    color: $white;\n                }\n            }\n\n            a {\n                display: flex;\n                flex-direction: column;\n                padding: 4rem 3.3rem;\n\n                @include small-tablet {\n                    padding: 3.2rem;\n                }\n            }\n\n            &-heading {\n                display: flex;\n                align-items: center;\n                margin-bottom: 2.4rem;\n                padding-right: 1.3rem;\n                color: $bodyColor;\n\n                @include small-tablet {\n                    margin-bottom: 4.8rem;\n                    padding-right: 0;\n                }\n            }\n\n            &-category {\n                font-size: 2.2rem;\n                font-style: normal;\n                font-family: $font-druk;\n                font-weight: 500;\n                line-height: 2.4rem;\n                letter-spacing: 0.176rem;\n                text-transform: uppercase;\n                padding: 1.7rem 3.2rem;\n                background: $violet;\n                border-radius: 3rem;\n                transition: 0.3s color ease;\n\n                @include small-tablet {\n                    padding: 1.8rem 4rem;\n                    border-radius: 6rem;\n                    font-size: 4rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    letter-spacing: 0.32rem;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-icon {\n                @include sizes(5.2rem, 5.2rem);\n                padding: 1.4rem;\n                border-radius: 50%;\n                background: $violet;\n\n                @include small-tablet {\n                    @include sizes(8rem, 8rem);\n                    padding: 1.6rem;\n                }\n\n                svg {\n                    width: 100%;\n                    height: 100%;\n\n                    path {\n                        fill: currentColor;\n                        transition: 0.3s all ease;\n                    }\n                }\n            }\n\n            &-date {\n                margin-left: auto;\n                padding: 1.7rem 3.2rem;\n                border-radius: 3rem;\n                background: $violet;\n                font-family: $font-druk;\n                font-size: 2.2rem;\n                font-style: normal;\n                font-weight: 500;\n                transition: 0.3s color ease;\n                line-height: 2.4rem;\n                letter-spacing: 0.176rem;\n                text-transform: uppercase;\n\n                @include small-tablet {\n                    padding: 1.8rem 4rem;\n                    border-radius: 6rem;\n                    font-size: 4rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    letter-spacing: 0.32rem;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-title {\n                color: $white;\n                font-family: $font-druk;\n                font-size: 6rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                text-transform: uppercase;\n                display: block;\n                margin-bottom: 2.4rem;\n\n                @include small-tablet {\n                    margin-bottom: 6.4rem;\n                    font-size: 4rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    letter-spacing: 0.32rem;\n                    text-transform: uppercase;\n                }\n            }\n\n            &-description {\n                margin-bottom: 4rem;\n                color: $white;\n                font-size: 2rem;\n                font-style: normal;\n                font-weight: 400;\n                line-height: 140%;\n                display: -webkit-box;\n                -webkit-line-clamp: 4;\n                -webkit-box-orient: vertical;\n                overflow: hidden;\n                padding-right: 1.7rem;\n\n                @include small-tablet {\n                    -webkit-line-clamp: 5;\n                    font-size: 3rem;\n                    font-style: normal;\n                    font-weight: 400;\n                    line-height: 140%;\n                }\n            }\n\n            &-image {\n                @include sizes(45.1rem, 24.8rem);\n                border-radius: 4rem;\n                margin-top: auto;\n\n                @include small-tablet {\n                    @include sizes(30.8rem, 21.6rem);\n                }\n\n                img {\n                    border-radius: inherit;\n                    height: 100%;\n                    object-fit: cover;\n                }\n            }\n\n            &-link {\n                color: $white;\n                font-family: $font-druk;\n                font-size: 2.2rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 2.4rem;\n                letter-spacing: 0.176rem;\n                text-transform: uppercase;\n                padding-bottom: 0.6rem;\n                border-bottom: 0.2rem solid $white;\n                position: absolute;\n                right: 4rem;\n                bottom: 3.8rem;\n\n                @include small-tablet {\n                    right: 3.2rem;\n                    bottom: 3.2rem;\n                    padding-bottom: 1.2rem;\n                    border-width: 0.4rem;\n                    font-size: 4rem;\n                    font-style: normal;\n                    font-weight: 500;\n                    line-height: 110%;\n                    letter-spacing: 0.32rem;\n                    text-transform: uppercase;\n                }\n            }\n        }\n\n        &-button {\n            margin: 0 auto;\n            display: block;\n            font-family: $font-druk;\n            font-size: 2.2rem;\n            font-style: normal;\n            font-weight: 500;\n            line-height: 2.4rem;\n            letter-spacing: 0.176rem;\n            text-transform: uppercase;\n            padding-bottom: 0.8rem;\n            border-bottom: 0.2rem solid $white;\n            transition: 0.3s color ease, 0.3s border ease;\n\n            &:hover {\n                color: $yellow;\n                border-color: $yellow;\n            }\n\n            @include small-tablet {\n                font-size: 4rem;\n                font-style: normal;\n                font-weight: 500;\n                line-height: 110%;\n                letter-spacing: 0.32rem;\n                text-transform: uppercase;\n                padding-bottom: 1.2rem;\n                border-width: 0.4rem;\n            }\n        }\n    }\n}\n","@import '../sections/services';\n@import '../sections/collections';\n@import '../sections/feedback';\n@import '../sections/article';\n@import '../sections/our-team';\n@import '../sections/achievements';\n@import '../sections/contacts-map';\n@import '../sections/articles';\n\nfigure {\n    margin: 0;\n}\n",".main-collection {\n    background-color: #cad2f4;\n    padding: 16rem 0;\n    margin-bottom: 16rem;\n    // .main-collection__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        gap: 8rem;\n    }\n    // .main-collection__cards\n    &__cards.swiper {\n        position: relative;\n        width: 83.6rem;\n        height: 73.3rem;\n        margin: 0;\n    }\n    &__cards-item.swiper-slide {\n        display: flex;\n\n        width: 51.5rem;\n        height: 51.5rem;\n        border-radius: 4rem;\n        position: absolute;\n        padding: 1.2rem;\n        overflow: hidden;\n    }\n    // .main-collection__title\n    &__title {\n        margin-bottom: 2rem;\n\n        width: 69.5rem;\n    }\n    // .main-collection__description\n    &__description {\n        margin-bottom: 5rem;\n        width: 61.8rem;\n        color: $gray;\n    }\n    // .main-collection__info\n    &__info {\n        color: $black;\n    }\n}\n.collection-item {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n\n    &--rat {\n        top: 0;\n        left: 0;\n        z-index: 2;\n\n        background: linear-gradient(223deg, #8792ed 1.18%, #5f6eda 34.96%, #6778df 68.58%, #8792ed 100%);\n    }\n    &--snail {\n        right: -2rem;\n        bottom: 0;\n        z-index: 1;\n\n        background: linear-gradient(226deg, #455265 0%, #11161e 40.66%, #11161e 60.6%, #455265 103.07%);\n    }\n\n    // .collection-item__header\n    &__header {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n    }\n    // .collection-item__title\n    &__title {\n        display: flex;\n        flex-direction: column;\n        padding-left: 1.2rem;\n        .txt20 {\n            opacity: 0.7;\n        }\n\n        strong {\n            text-align: left;\n        }\n\n        span {\n            text-align: left;\n        }\n    }\n    // .collection-item__icons\n    &__icons {\n        display: flex;\n        align-items: center;\n        gap: 0.7rem;\n        &-item {\n            width: 8rem;\n            height: 8rem;\n            border-radius: 50%;\n            background: rgba(255, 255, 255, 0.3);\n            backdrop-filter: blur(13px);\n\n            display: flex;\n            align-items: center;\n            justify-content: center;\n\n            svg {\n                display: block;\n                width: 4.4rem;\n                height: 4.4rem;\n            }\n        }\n    }\n    // .collection-item__footer\n    &__footer {\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        &-item {\n            display: flex;\n            width: 24.1rem;\n            height: 6.8rem;\n            padding: 1.6rem;\n            justify-content: center;\n            align-items: center;\n            border-radius: 5.2rem;\n\n            &--left {\n                background: rgba(255, 255, 255, 0.3);\n                backdrop-filter: blur(30px);\n            }\n            &--right {\n                background: $white;\n                backdrop-filter: blur(11.5px);\n                align-self: flex-end;\n                color: $black;\n\n                strong {\n                    margin: 0 0.5rem;\n                    align-self: center;\n                }\n                span {\n                    align-self: flex-end;\n                    margin-bottom: 0.2rem;\n                }\n                sup {\n                    align-self: flex-start;\n                }\n            }\n        }\n    }\n    // .collection-item__backdrop\n    &__backdrop {\n        position: absolute;\n        top: 0;\n        left: 0;\n        z-index: -1;\n        width: 100%;\n        height: 100%;\n        padding: 3.2rem;\n\n        img {\n            width: 100%;\n            height: auto;\n            object-fit: contain;\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .main-collection {\n        padding: 12.8rem 0;\n        margin-bottom: 12.8rem;\n        &__container {\n            padding: 0;\n        }\n        // .main-collection__inner\n        &__inner {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n            justify-content: space-between;\n            gap: 6.4rem;\n        }\n        // .main-collection__cards\n        &__cards.swiper {\n            order: 2;\n            position: relative;\n            width: 100%;\n            height: auto;\n            margin: 0;\n            padding: 0 2rem;\n        }\n\n        &__cards-item.swiper-slide {\n            width: 65.8rem;\n            height: 67rem;\n            border-radius: 4rem;\n            position: static;\n            padding: 2.4rem;\n            overflow: hidden;\n        }\n\n        // .main-collection__info\n        &__info {\n            order: 1;\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            padding: 0 2rem;\n        }\n        // .main-collection__title\n        &__title {\n            width: 90%;\n            text-align: center;\n            margin-bottom: 2.4rem;\n        }\n        // .main-collection__description\n        &__description {\n            font-size: 2.8rem;\n            text-align: center;\n            margin-bottom: 6.4rem;\n            width: 93%;\n        }\n    }\n    .collection-item {\n        &--snail {\n            right: 0;\n        }\n        // .collection-item__title\n        &__title {\n            padding-left: 0;\n\n            strong {\n                margin-bottom: 1rem;\n            }\n        }\n        // .collection-item__icons\n        &__icons {\n            gap: 1rem;\n            &-item {\n                svg {\n                    width: 4.6rem;\n                    height: 4.6rem;\n                }\n            }\n        }\n        // .collection-item__footer\n        &__footer {\n            &-item {\n                display: flex;\n                width: 30rem;\n                height: 8.8rem;\n                padding: 2.4rem;\n                border-radius: 4rem;\n                &--right {\n                    strong {\n                        margin: 0 0.5rem;\n                        align-self: center;\n                    }\n                    span {\n                        margin-bottom: 0;\n                    }\n                }\n            }\n        }\n    }\n}\n",".main-advantages {\n    margin-bottom: 17.8rem;\n    // .main-advantages__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        gap: 2.5rem;\n    }\n    // .main-advantages__info\n    &__info {\n        display: flex;\n        flex-direction: column;\n        max-width: 55.3rem;\n    }\n    // .main-advantages__title\n    &__title {\n        margin-bottom: 2rem;\n    }\n    // .main-advantages__description\n    &__description {\n        margin-bottom: 3rem;\n    }\n    // .main-advantages__cards\n    &__cards {\n        overflow: hidden;\n        height: 140.9rem;\n        width: 100%;\n    }\n    // .main-advantages__cards-wrapper\n    &__cards-wrapper.swiper-wrapper {\n        position: relative;\n        display: flex;\n        align-items: center;\n\n        width: 100%;\n        height: 100%;\n    }\n    // .main-advantages__cards-slide\n    &__cards-slide.swiper-slide {\n        position: absolute;\n        width: 56rem;\n        height: 63.4rem;\n        border-radius: 4rem;\n    }\n}\n.advantages-card {\n    background-color: $bodyColor;\n    overflow: hidden;\n    &.tl {\n        top: 0;\n        left: 0;\n        border: 0.3rem solid $green;\n\n        .advantages-card__icon {\n            background: $green;\n        }\n    }\n    &.tr {\n        top: 12.2rem;\n        right: 0;\n        border: 0.3rem solid $pink;\n\n        .advantages-card__icon {\n            background: $pink;\n        }\n    }\n    &.bl {\n        left: 0;\n        bottom: 12.2rem;\n        border: 0.3rem solid $violet;\n\n        .advantages-card__icon {\n            background: $violet;\n        }\n    }\n    &.br {\n        bottom: 0;\n        right: 0;\n        border: 0.3rem solid $yellow;\n\n        .advantages-card__icon {\n            background: $yellow;\n        }\n    }\n    // .advantages-card__inner\n    &__inner {\n        display: flex;\n        flex-direction: column;\n        position: relative;\n        padding: 6rem;\n        width: 100%;\n        height: 100%;\n        overflow: hidden;\n    }\n    // .advantages-card__info\n    &__info {\n        display: flex;\n        flex-direction: column;\n    }\n    // .advantages-card__small-icon\n    &__small-icon {\n        width: 3.4rem;\n        height: 3.4rem;\n        margin-bottom: 1.2rem;\n    }\n    // .advantages-card__icon\n    &__icon {\n        position: absolute;\n        left: 50%;\n        bottom: 15rem;\n        transform: translateX(-50%);\n        width: 10rem;\n        height: 10rem;\n\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        border-radius: 50%;\n\n        span {\n            display: block;\n            width: 3.4rem;\n            height: 3.4rem;\n\n            svg path {\n                fill: $white;\n            }\n        }\n    }\n    // .main-advantages__title\n    &__title {\n        margin-bottom: 1.6rem;\n    }\n    &__range {\n        position: absolute;\n        left: 50%;\n        transform: translateX(-50%);\n        bottom: 11.5rem;\n    }\n    // .main-advantages__description\n    &__description {\n        color: rgba(255, 255, 255, 0.8);\n    }\n    // .advantages-card__bg\n    &__bg {\n        position: absolute;\n        bottom: 0;\n        left: 0;\n        width: 90%;\n        height: auto;\n        z-index: -1;\n    }\n}\n\n@media (max-width: 48em) {\n    .main-advantages {\n        margin-bottom: 24rem;\n        // .main-advantages__inner\n        &__inner {\n            display: flex;\n            flex-direction: column;\n            align-items: flex-start;\n            gap: 6.4rem;\n        }\n        // .main-advantages__info\n        &__info {\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            text-align: center;\n            max-width: 100%;\n        }\n        // .main-advantages__title\n        &__title {\n            margin-bottom: 2.4rem;\n        }\n        // .main-advantages__description\n        &__description {\n            margin-bottom: 6.4rem;\n        }\n        // .main-advantages__cards\n        &__cards {\n            overflow: hidden;\n            height: 75.8rem;\n            width: 100%;\n        }\n        // .main-advantages__cards-wrapper\n        &__cards-wrapper.swiper-wrapper {\n            position: relative;\n            display: flex;\n            align-items: center;\n\n            width: 100%;\n            height: 100%;\n        }\n        // .main-advantages__cards-slide\n        &__cards-slide.swiper-slide {\n            position: static;\n            width: 65.8rem;\n            height: 100%;\n            border-radius: 4rem;\n        }\n    }\n    .advantages-card {\n        // .advantages-card__inner\n        &__inner {\n            padding: 4rem;\n        }\n        // .advantages-card__small-icon\n        &__small-icon {\n            width: 4.8rem;\n            height: 4.8rem;\n            margin-bottom: 0.8rem;\n        }\n        // .advantages-card__icon\n        &__icon {\n            bottom: 17.8rem;\n\n            width: 12rem;\n            height: 12rem;\n            span {\n                width: 4.8rem;\n                height: 4.8rem;\n            }\n        }\n        &__range {\n            position: absolute;\n            left: 50%;\n            transform: translateX(-50%);\n            bottom: 13rem;\n            width: 35rem;\n        }\n        // .main-advantages__description\n        &__description {\n            color: rgba(255, 255, 255, 0.8);\n        }\n        // .advantages-card__bg\n        &__bg {\n            position: absolute;\n            bottom: 0;\n            left: 0;\n            width: 90%;\n            height: auto;\n            z-index: -1;\n        }\n    }\n}\n",".main-concept {\n    transition: background 0.2s ease-in-out;\n    // .main-concept__inner\n    &__inner {\n        padding: 34rem 0 42.2rem;\n        margin: -34rem 0 -33.2rem;\n    }\n    // .main-concept__header\n    &__header {\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        text-align: center;\n        gap: 2.1rem;\n        margin-bottom: 8.43rem;\n    }\n    // .main-concept__content\n    &__content {\n        display: flex;\n        position: relative;\n    }\n    &__divider {\n        position: absolute;\n        width: 100%;\n        height: 0.1rem;\n        background-color: $bodyColor;\n        left: 50%;\n        transform: translateX(-50%);\n        bottom: 7.2rem;\n    }\n    // .main-concept__left\n    &__left.swiper-slide {\n        flex-shrink: 1;\n        width: 100%;\n\n        .main-concept__image {\n            transition: transform 0.3s ease-in-out;\n            transform: rotate(-6deg);\n            top: 20rem;\n            right: 14rem;\n        }\n\n        &.hover {\n            .main-concept__image {\n                transform: translateY(-15rem) rotate(-6deg);\n                transition: transform 0.3s ease-in-out;\n            }\n\n            .main-concept__link {\n                opacity: 1;\n                visibility: visible;\n                transition: visibility 0.1s linear, opacity 0.2s linear 0.1s;\n            }\n        }\n    }\n    // .main-concept__wrapper\n    &__wrapper {\n        height: 48.7rem;\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n    }\n    // .main-concept__box\n    &__box {\n        overflow: hidden;\n        height: 41.4rem;\n        display: block;\n        position: relative;\n\n        padding: 0 10rem;\n        margin: 0 -10rem;\n    }\n    // .main-concept__image\n    &__image {\n        position: absolute;\n        width: 81.2rem;\n        height: 45.4rem;\n        border-radius: 2rem;\n        overflow: hidden;\n    }\n    // .main-concept__link\n    &__link {\n        opacity: 0;\n        visibility: hidden;\n\n        transition: visibility 0.1s linear 0.2s, opacity 0.2s linear;\n\n        color: $bodyColor;\n        font-family: 'Druk Cyr';\n        font-size: 2.2rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: 2.4rem; /* 109.091% */\n        letter-spacing: 0.176rem;\n        text-transform: uppercase;\n\n        padding-bottom: 1rem;\n\n        a {\n            position: relative;\n            &::after {\n                content: '';\n                width: 100%;\n                height: 0.2rem;\n                background-color: $bodyColor;\n\n                position: absolute;\n                bottom: -0.5rem;\n                left: 50%;\n                transition: width 0.2s linear;\n                transform: translateX(-50%);\n            }\n\n            &:hover::after {\n                transition: width 0.3s linear;\n                width: 0;\n            }\n        }\n    }\n    // .main-concept__right\n    &__right.swiper-slide {\n        width: 100%;\n        flex-shrink: 1;\n\n        .main-concept__image {\n            transition: transform 0.3s ease-in-out;\n            transform: rotate(6deg);\n            top: 20rem;\n            right: 14rem;\n        }\n\n        &.hover {\n            .main-concept__image {\n                transform: translateY(-15rem) rotate(6deg);\n                transition: transform 0.3s ease-in-out;\n            }\n\n            .main-concept__link {\n                opacity: 1;\n                visibility: visible;\n                transition: visibility 0.1s linear, opacity 0.2s linear 0.1s;\n            }\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .main-concept {\n        transition: none;\n        margin-bottom: 24rem;\n        // .main-concept__inner\n        &__inner {\n            padding: 0;\n            margin: 0;\n        }\n        &__container {\n            padding: 0;\n        }\n        // .main-concept__header\n        &__header {\n            gap: 2.4rem;\n            margin-bottom: 9.6rem;\n            padding: 0 2rem;\n        }\n        &__subtitle {\n            font-size: 2.8rem;\n            font-weight: 400;\n\n            max-width: 60%;\n        }\n        // .main-concept__content\n        &__content {\n            display: flex;\n            position: relative;\n            padding: 0 2rem;\n        }\n        &__divider {\n            display: none;\n        }\n        &__slider-wrapper {\n            align-items: center;\n        }\n        // .main-concept__left\n        &__left.swiper-slide {\n            flex-shrink: 0;\n            width: 50.2rem;\n            height: 82.4rem;\n\n            &.swiper-slide-active {\n                .main-concept__link {\n                    opacity: 1;\n                    visibility: visible;\n                    transition: visibility 0.1s linear, opacity 0.2s linear 0.1s;\n                }\n            }\n\n            &.swiper-slide-next,\n            &.swiper-slide-prev {\n                .main-concept__box {\n                    transition: height 0.5s ease-in-out, margin 0.5s ease-in-out;\n                    height: 64.2rem;\n                    margin-top: 5rem;\n                }\n            }\n\n            .main-concept__image {\n                transform: none;\n            }\n\n            &.hover {\n                .main-concept__image {\n                    transform: none;\n                }\n            }\n        }\n        // .main-concept__wrapper\n        &__wrapper {\n            align-items: center;\n            height: 100%;\n        }\n        // .main-concept__box\n        &__box {\n            height: 72.6rem;\n            padding: 0;\n            margin: 0;\n            transition: height 0.5s ease-in-out, margin 0.5s ease-in-out;\n        }\n        // .main-concept__image\n        &__image {\n            position: static;\n            width: 100%;\n            height: 100%;\n            border-radius: 4rem;\n            transform: none;\n\n            img {\n                height: 100%;\n                object-fit: cover;\n            }\n        }\n        // .main-concept__link\n        &__link {\n            color: $white;\n            font-size: 4rem;\n            line-height: 110%; /* 109.091% */\n            letter-spacing: 0.32rem;\n\n            padding-bottom: 1rem;\n\n            a::after {\n                height: 0.4rem;\n                background-color: $white;\n            }\n        }\n        // .main-concept__right\n        &__right.swiper-slide {\n            width: 50.2rem;\n            flex-shrink: 0;\n            height: 82.4rem;\n\n            &.swiper-slide-active {\n                .main-concept__link {\n                    opacity: 1;\n                    visibility: visible;\n                    transition: visibility 0.1s linear, opacity 0.2s linear 0.1s;\n                }\n            }\n\n            &.swiper-slide-next,\n            &.swiper-slide-prev {\n                .main-concept__box {\n                    transition: height 0.5s ease-in-out, margin 0.5s ease-in-out;\n                    height: 64.2rem;\n                    margin-top: 5rem;\n                }\n            }\n\n            .main-concept__image {\n                transform: none;\n            }\n\n            &.hover {\n                .main-concept__image {\n                    transform: none;\n                }\n            }\n        }\n    }\n}\n",".main-links {\n    margin-top: 5.2rem;\n    margin-bottom: 0;\n    // .main-links__list\n    &__list {\n        display: flex;\n        align-items: center;\n        flex-direction: column;\n    }\n    // .main-links__item\n    &__item {\n        width: 100%;\n        text-align: center;\n        color: $white;\n        font-family: 'DrukCyr';\n        font-size: 10rem;\n        font-style: normal;\n        font-weight: 500;\n        line-height: normal;\n        transition:\n            background 0.3s linear,\n            color 0.3s linear;\n\n        border-top: 0.1rem solid rgba(201, 243, 43, 0.5);\n\n      &:last-child{\n        border-bottom: 0.1rem solid rgba(201, 243, 43, 0.5);\n      }\n\n        &:hover {\n            transition:\n                background 0.3s linear,\n                color 0.3s linear;\n            background-color: $yellow;\n            color: $main;\n        }\n        a {\n            display: block;\n            width: 100%;\n            padding: 0.6rem 0;\n        }\n        &--big {\n            font-size: 19.9646rem;\n            line-height: 23.387rem; /* 117.143% */\n\n            a {\n                padding: 1.8rem 0 3.4rem;\n            }\n        }\n    }\n}\n\n@media (max-width: 48em) {\n    .main-links {\n        margin-top: 0;\n        margin-bottom: 7.6rem;\n        // .main-links__list\n        &__list {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n        }\n        // .main-links__item\n        &__item {\n            line-height: 110%;\n            border-top: 0.2rem solid rgba(201, 243, 43, 0.5);\n            a {\n                padding: 2.4rem 0;\n            }\n            &--big {\n                font-size: 11rem;\n                line-height: 110%; /* 117.143% */\n\n                a {\n                    padding: 2.4rem 0;\n                }\n            }\n        }\n    }\n}\n",".main-rates {\n    margin-bottom: 21.7rem;\n    // .main-rates__inner\n    &__inner {\n        display: flex;\n        align-items: center;\n        flex-direction: column;\n        gap: 9rem;\n    }\n    // .main-rates__title\n    &__title {\n        color: $white;\n    }\n    // .main-rates__wrapper\n    &__wrapper {\n        display: flex;\n        flex-direction: column;\n        gap: 4rem;\n        width: 100%;\n    }\n    // .main-rates__item\n    &__item {\n        height: 18rem;\n        display: flex;\n        align-items: center;\n        border-radius: 3rem;\n    }\n}\n.rates-item {\n    position: relative;\n\n    &::before,\n    &::after {\n        content: '';\n        width: 5.1rem;\n        height: 5.1rem;\n        border-radius: 50%;\n        background: #1f1f22;\n\n        position: absolute;\n        z-index: 1;\n        top: 50%;\n        transform: translateY(-50%);\n    }\n\n    &::after {\n        right: -2.5rem;\n    }\n    &::before {\n        left: -2.5rem;\n    }\n    &--bg--pink {\n        background: #ff69c2;\n    }\n    &--bg--blue {\n        background: #cad2f4;\n    }\n    &--bg--green {\n        background: $green;\n    }\n    // .rates-item__left\n    &__left {\n        padding: 3.6rem 3.6rem 3.6rem 8.6rem;\n        height: 100%;\n        width: 57.8rem;\n        display: flex;\n        align-items: center;\n        border-right: 0.3rem dashed $main;\n    }\n    // .rates-item__title\n    &__title {\n        color: #1f1f22;\n    }\n    // .rates-item__right\n    &__right {\n        display: flex;\n        align-items: center;\n        gap: 20.2rem;\n        height: 100%;\n        padding-left: 9.3rem;\n    }\n    // .rates-item__price\n    &__price {\n        &-top {\n            color: #1f1f22;\n\n            strong {\n                color: #1f1f22;\n                margin: 0 0.5rem;\n                align-self: center;\n            }\n            span {\n                align-self: flex-end;\n                margin-bottom: 0.2rem;\n            }\n            sup {\n                align-self: flex-start;\n            }\n        }\n        &-bottom {\n            color: $main;\n        }\n    }\n    // .rates-item__options\n    &__options {\n        width: 16rem;\n        color: $main;\n    }\n    // .rates-item__icon\n    &__icon {\n        position: absolute;\n    }\n}\n.rates-icon {\n    &--sunny {\n        top: -5rem;\n        left: 14.3rem;\n        width: 9.7rem;\n        height: 8rem;\n        transform: rotate(-7.376deg);\n    }\n    &--shapes {\n        right: 35.6rem;\n        top: -4.3rem;\n        width: 9.2rem;\n        height: 9rem;\n        transform: rotate(-15deg);\n    }\n    &--megafon {\n        width: 8.7rem;\n        height: 7rem;\n        transform: rotate(-12.401deg);\n        right: 68.6rem;\n        bottom: -3.5rem;\n    }\n}\n\n@media (max-width: 48em) {\n    .main-rates {\n        margin-bottom: 24rem;\n        // .main-rates__inner\n        &__inner {\n            gap: 10rem;\n        }\n        // .main-rates__item\n        &__item {\n            height: 56rem;\n            border-radius: 4rem;\n            flex-direction: column;\n        }\n    }\n    .rates-item {\n        &::before,\n        &::after {\n            width: 9rem;\n            height: 9rem;\n        }\n        &::after {\n            right: -4.5rem;\n        }\n        &::before {\n            left: -4.5rem;\n        }\n        // .rates-item__left\n        &__left {\n            padding: 4.8rem;\n            height: 13.4rem;\n            width: 100%;\n            justify-content: center;\n            border-right: 0;\n            border-bottom: 0.3rem dashed $main;\n        }\n        // .rates-item__title\n        &__title {\n            font-size: 3rem;\n        }\n        // .rates-item__right\n        &__right {\n            flex-direction: column;\n            width: 100%;\n            gap: 4rem;\n            height: auto;\n            padding-left: 0;\n            padding-top: 2.4rem;\n        }\n        // .rates-item__price\n        &__price {\n            &-top {\n                strong {\n                    margin: 0 1rem;\n                }\n                span {\n                    align-self: flex-end;\n                    margin-bottom: 0;\n                }\n                sup {\n                    align-self: flex-start;\n                }\n            }\n            &-bottom {\n                color: $main;\n            }\n        }\n        // .rates-item__options\n        &__options {\n            width: 80%;\n            text-align: center;\n\n            display: flex;\n            justify-content: center;\n            margin-bottom: 2.8rem;\n        }\n        // .rates-item__icon\n        &__icon {\n            display: none;\n        }\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
@@ -10124,6 +10366,642 @@ module.exports = function (item) {
   }
   return [content].join("\n");
 };
+
+/***/ }),
+
+/***/ "./node_modules/desandro-matches-selector/matches-selector.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/desandro-matches-selector/matches-selector.js ***!
+  \********************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * matchesSelector v2.0.2
+ * matchesSelector( element, '.selector' )
+ * MIT license
+ */
+
+/*jshint browser: true, strict: true, undef: true, unused: true */
+
+( function( window, factory ) {
+  /*global define: false, module: false */
+  'use strict';
+  // universal module definition
+  if ( true ) {
+    // AMD
+    !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+		(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+		__WEBPACK_AMD_DEFINE_FACTORY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else {}
+
+}( window, function factory() {
+  'use strict';
+
+  var matchesMethod = ( function() {
+    var ElemProto = window.Element.prototype;
+    // check for the standard method name first
+    if ( ElemProto.matches ) {
+      return 'matches';
+    }
+    // check un-prefixed
+    if ( ElemProto.matchesSelector ) {
+      return 'matchesSelector';
+    }
+    // check vendor prefixes
+    var prefixes = [ 'webkit', 'moz', 'ms', 'o' ];
+
+    for ( var i=0; i < prefixes.length; i++ ) {
+      var prefix = prefixes[i];
+      var method = prefix + 'MatchesSelector';
+      if ( ElemProto[ method ] ) {
+        return method;
+      }
+    }
+  })();
+
+  return function matchesSelector( elem, selector ) {
+    return elem[ matchesMethod ]( selector );
+  };
+
+}));
+
+
+/***/ }),
+
+/***/ "./node_modules/ev-emitter/ev-emitter.js":
+/*!***********************************************!*\
+  !*** ./node_modules/ev-emitter/ev-emitter.js ***!
+  \***********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * EvEmitter v1.1.0
+ * Lil' event emitter
+ * MIT License
+ */
+
+/* jshint unused: true, undef: true, strict: true */
+
+( function( global, factory ) {
+  // universal module definition
+  /* jshint strict: false */ /* globals define, module, window */
+  if ( true ) {
+    // AMD - RequireJS
+    !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+		(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+		__WEBPACK_AMD_DEFINE_FACTORY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else {}
+
+}( typeof window != 'undefined' ? window : this, function() {
+
+"use strict";
+
+function EvEmitter() {}
+
+var proto = EvEmitter.prototype;
+
+proto.on = function( eventName, listener ) {
+  if ( !eventName || !listener ) {
+    return;
+  }
+  // set events hash
+  var events = this._events = this._events || {};
+  // set listeners array
+  var listeners = events[ eventName ] = events[ eventName ] || [];
+  // only add once
+  if ( listeners.indexOf( listener ) == -1 ) {
+    listeners.push( listener );
+  }
+
+  return this;
+};
+
+proto.once = function( eventName, listener ) {
+  if ( !eventName || !listener ) {
+    return;
+  }
+  // add event
+  this.on( eventName, listener );
+  // set once flag
+  // set onceEvents hash
+  var onceEvents = this._onceEvents = this._onceEvents || {};
+  // set onceListeners object
+  var onceListeners = onceEvents[ eventName ] = onceEvents[ eventName ] || {};
+  // set flag
+  onceListeners[ listener ] = true;
+
+  return this;
+};
+
+proto.off = function( eventName, listener ) {
+  var listeners = this._events && this._events[ eventName ];
+  if ( !listeners || !listeners.length ) {
+    return;
+  }
+  var index = listeners.indexOf( listener );
+  if ( index != -1 ) {
+    listeners.splice( index, 1 );
+  }
+
+  return this;
+};
+
+proto.emitEvent = function( eventName, args ) {
+  var listeners = this._events && this._events[ eventName ];
+  if ( !listeners || !listeners.length ) {
+    return;
+  }
+  // copy over to avoid interference if .off() in listener
+  listeners = listeners.slice(0);
+  args = args || [];
+  // once stuff
+  var onceListeners = this._onceEvents && this._onceEvents[ eventName ];
+
+  for ( var i=0; i < listeners.length; i++ ) {
+    var listener = listeners[i]
+    var isOnce = onceListeners && onceListeners[ listener ];
+    if ( isOnce ) {
+      // remove listener
+      // remove before trigger to prevent recursion
+      this.off( eventName, listener );
+      // unset once flag
+      delete onceListeners[ listener ];
+    }
+    // trigger listener
+    listener.apply( this, args );
+  }
+
+  return this;
+};
+
+proto.allOff = function() {
+  delete this._events;
+  delete this._onceEvents;
+};
+
+return EvEmitter;
+
+}));
+
+
+/***/ }),
+
+/***/ "./node_modules/fizzy-ui-utils/utils.js":
+/*!**********************************************!*\
+  !*** ./node_modules/fizzy-ui-utils/utils.js ***!
+  \**********************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * Fizzy UI utils v2.0.7
+ * MIT license
+ */
+
+/*jshint browser: true, undef: true, unused: true, strict: true */
+
+( function( window, factory ) {
+  // universal module definition
+  /*jshint strict: false */ /*globals define, module, require */
+
+  if ( true ) {
+    // AMD
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+      __webpack_require__(/*! desandro-matches-selector/matches-selector */ "./node_modules/desandro-matches-selector/matches-selector.js")
+    ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( matchesSelector ) {
+      return factory( window, matchesSelector );
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else {}
+
+}( window, function factory( window, matchesSelector ) {
+
+'use strict';
+
+var utils = {};
+
+// ----- extend ----- //
+
+// extends objects
+utils.extend = function( a, b ) {
+  for ( var prop in b ) {
+    a[ prop ] = b[ prop ];
+  }
+  return a;
+};
+
+// ----- modulo ----- //
+
+utils.modulo = function( num, div ) {
+  return ( ( num % div ) + div ) % div;
+};
+
+// ----- makeArray ----- //
+
+var arraySlice = Array.prototype.slice;
+
+// turn element or nodeList into an array
+utils.makeArray = function( obj ) {
+  if ( Array.isArray( obj ) ) {
+    // use object if already an array
+    return obj;
+  }
+  // return empty array if undefined or null. #6
+  if ( obj === null || obj === undefined ) {
+    return [];
+  }
+
+  var isArrayLike = typeof obj == 'object' && typeof obj.length == 'number';
+  if ( isArrayLike ) {
+    // convert nodeList to array
+    return arraySlice.call( obj );
+  }
+
+  // array of single index
+  return [ obj ];
+};
+
+// ----- removeFrom ----- //
+
+utils.removeFrom = function( ary, obj ) {
+  var index = ary.indexOf( obj );
+  if ( index != -1 ) {
+    ary.splice( index, 1 );
+  }
+};
+
+// ----- getParent ----- //
+
+utils.getParent = function( elem, selector ) {
+  while ( elem.parentNode && elem != document.body ) {
+    elem = elem.parentNode;
+    if ( matchesSelector( elem, selector ) ) {
+      return elem;
+    }
+  }
+};
+
+// ----- getQueryElement ----- //
+
+// use element as selector string
+utils.getQueryElement = function( elem ) {
+  if ( typeof elem == 'string' ) {
+    return document.querySelector( elem );
+  }
+  return elem;
+};
+
+// ----- handleEvent ----- //
+
+// enable .ontype to trigger from .addEventListener( elem, 'type' )
+utils.handleEvent = function( event ) {
+  var method = 'on' + event.type;
+  if ( this[ method ] ) {
+    this[ method ]( event );
+  }
+};
+
+// ----- filterFindElements ----- //
+
+utils.filterFindElements = function( elems, selector ) {
+  // make array of elems
+  elems = utils.makeArray( elems );
+  var ffElems = [];
+
+  elems.forEach( function( elem ) {
+    // check that elem is an actual element
+    if ( !( elem instanceof HTMLElement ) ) {
+      return;
+    }
+    // add elem if no selector
+    if ( !selector ) {
+      ffElems.push( elem );
+      return;
+    }
+    // filter & find items if we have a selector
+    // filter
+    if ( matchesSelector( elem, selector ) ) {
+      ffElems.push( elem );
+    }
+    // find children
+    var childElems = elem.querySelectorAll( selector );
+    // concat childElems to filterFound array
+    for ( var i=0; i < childElems.length; i++ ) {
+      ffElems.push( childElems[i] );
+    }
+  });
+
+  return ffElems;
+};
+
+// ----- debounceMethod ----- //
+
+utils.debounceMethod = function( _class, methodName, threshold ) {
+  threshold = threshold || 100;
+  // original method
+  var method = _class.prototype[ methodName ];
+  var timeoutName = methodName + 'Timeout';
+
+  _class.prototype[ methodName ] = function() {
+    var timeout = this[ timeoutName ];
+    clearTimeout( timeout );
+
+    var args = arguments;
+    var _this = this;
+    this[ timeoutName ] = setTimeout( function() {
+      method.apply( _this, args );
+      delete _this[ timeoutName ];
+    }, threshold );
+  };
+};
+
+// ----- docReady ----- //
+
+utils.docReady = function( callback ) {
+  var readyState = document.readyState;
+  if ( readyState == 'complete' || readyState == 'interactive' ) {
+    // do async to allow for other scripts to run. metafizzy/flickity#441
+    setTimeout( callback );
+  } else {
+    document.addEventListener( 'DOMContentLoaded', callback );
+  }
+};
+
+// ----- htmlInit ----- //
+
+// http://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/
+utils.toDashed = function( str ) {
+  return str.replace( /(.)([A-Z])/g, function( match, $1, $2 ) {
+    return $1 + '-' + $2;
+  }).toLowerCase();
+};
+
+var console = window.console;
+/**
+ * allow user to initialize classes via [data-namespace] or .js-namespace class
+ * htmlInit( Widget, 'widgetName' )
+ * options are parsed from data-namespace-options
+ */
+utils.htmlInit = function( WidgetClass, namespace ) {
+  utils.docReady( function() {
+    var dashedNamespace = utils.toDashed( namespace );
+    var dataAttr = 'data-' + dashedNamespace;
+    var dataAttrElems = document.querySelectorAll( '[' + dataAttr + ']' );
+    var jsDashElems = document.querySelectorAll( '.js-' + dashedNamespace );
+    var elems = utils.makeArray( dataAttrElems )
+      .concat( utils.makeArray( jsDashElems ) );
+    var dataOptionsAttr = dataAttr + '-options';
+    var jQuery = window.jQuery;
+
+    elems.forEach( function( elem ) {
+      var attr = elem.getAttribute( dataAttr ) ||
+        elem.getAttribute( dataOptionsAttr );
+      var options;
+      try {
+        options = attr && JSON.parse( attr );
+      } catch ( error ) {
+        // log error, do not initialize
+        if ( console ) {
+          console.error( 'Error parsing ' + dataAttr + ' on ' + elem.className +
+          ': ' + error );
+        }
+        return;
+      }
+      // initialize
+      var instance = new WidgetClass( elem, options );
+      // make available via $().data('namespace')
+      if ( jQuery ) {
+        jQuery.data( elem, namespace, instance );
+      }
+    });
+
+  });
+};
+
+// -----  ----- //
+
+return utils;
+
+}));
+
+
+/***/ }),
+
+/***/ "./node_modules/get-size/get-size.js":
+/*!*******************************************!*\
+  !*** ./node_modules/get-size/get-size.js ***!
+  \*******************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * getSize v2.0.3
+ * measure size of elements
+ * MIT license
+ */
+
+/* jshint browser: true, strict: true, undef: true, unused: true */
+/* globals console: false */
+
+( function( window, factory ) {
+  /* jshint strict: false */ /* globals define, module */
+  if ( true ) {
+    // AMD
+    !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+		(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+		__WEBPACK_AMD_DEFINE_FACTORY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else {}
+
+})( window, function factory() {
+'use strict';
+
+// -------------------------- helpers -------------------------- //
+
+// get a number from a string, not a percentage
+function getStyleSize( value ) {
+  var num = parseFloat( value );
+  // not a percent like '100%', and a number
+  var isValid = value.indexOf('%') == -1 && !isNaN( num );
+  return isValid && num;
+}
+
+function noop() {}
+
+var logError = typeof console == 'undefined' ? noop :
+  function( message ) {
+    console.error( message );
+  };
+
+// -------------------------- measurements -------------------------- //
+
+var measurements = [
+  'paddingLeft',
+  'paddingRight',
+  'paddingTop',
+  'paddingBottom',
+  'marginLeft',
+  'marginRight',
+  'marginTop',
+  'marginBottom',
+  'borderLeftWidth',
+  'borderRightWidth',
+  'borderTopWidth',
+  'borderBottomWidth'
+];
+
+var measurementsLength = measurements.length;
+
+function getZeroSize() {
+  var size = {
+    width: 0,
+    height: 0,
+    innerWidth: 0,
+    innerHeight: 0,
+    outerWidth: 0,
+    outerHeight: 0
+  };
+  for ( var i=0; i < measurementsLength; i++ ) {
+    var measurement = measurements[i];
+    size[ measurement ] = 0;
+  }
+  return size;
+}
+
+// -------------------------- getStyle -------------------------- //
+
+/**
+ * getStyle, get style of element, check for Firefox bug
+ * https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+ */
+function getStyle( elem ) {
+  var style = getComputedStyle( elem );
+  if ( !style ) {
+    logError( 'Style returned ' + style +
+      '. Are you running this code in a hidden iframe on Firefox? ' +
+      'See https://bit.ly/getsizebug1' );
+  }
+  return style;
+}
+
+// -------------------------- setup -------------------------- //
+
+var isSetup = false;
+
+var isBoxSizeOuter;
+
+/**
+ * setup
+ * check isBoxSizerOuter
+ * do on first getSize() rather than on page load for Firefox bug
+ */
+function setup() {
+  // setup once
+  if ( isSetup ) {
+    return;
+  }
+  isSetup = true;
+
+  // -------------------------- box sizing -------------------------- //
+
+  /**
+   * Chrome & Safari measure the outer-width on style.width on border-box elems
+   * IE11 & Firefox<29 measures the inner-width
+   */
+  var div = document.createElement('div');
+  div.style.width = '200px';
+  div.style.padding = '1px 2px 3px 4px';
+  div.style.borderStyle = 'solid';
+  div.style.borderWidth = '1px 2px 3px 4px';
+  div.style.boxSizing = 'border-box';
+
+  var body = document.body || document.documentElement;
+  body.appendChild( div );
+  var style = getStyle( div );
+  // round value for browser zoom. desandro/masonry#928
+  isBoxSizeOuter = Math.round( getStyleSize( style.width ) ) == 200;
+  getSize.isBoxSizeOuter = isBoxSizeOuter;
+
+  body.removeChild( div );
+}
+
+// -------------------------- getSize -------------------------- //
+
+function getSize( elem ) {
+  setup();
+
+  // use querySeletor if elem is string
+  if ( typeof elem == 'string' ) {
+    elem = document.querySelector( elem );
+  }
+
+  // do not proceed on non-objects
+  if ( !elem || typeof elem != 'object' || !elem.nodeType ) {
+    return;
+  }
+
+  var style = getStyle( elem );
+
+  // if hidden, everything is 0
+  if ( style.display == 'none' ) {
+    return getZeroSize();
+  }
+
+  var size = {};
+  size.width = elem.offsetWidth;
+  size.height = elem.offsetHeight;
+
+  var isBorderBox = size.isBorderBox = style.boxSizing == 'border-box';
+
+  // get all measurements
+  for ( var i=0; i < measurementsLength; i++ ) {
+    var measurement = measurements[i];
+    var value = style[ measurement ];
+    var num = parseFloat( value );
+    // any 'auto', 'medium' value will be 0
+    size[ measurement ] = !isNaN( num ) ? num : 0;
+  }
+
+  var paddingWidth = size.paddingLeft + size.paddingRight;
+  var paddingHeight = size.paddingTop + size.paddingBottom;
+  var marginWidth = size.marginLeft + size.marginRight;
+  var marginHeight = size.marginTop + size.marginBottom;
+  var borderWidth = size.borderLeftWidth + size.borderRightWidth;
+  var borderHeight = size.borderTopWidth + size.borderBottomWidth;
+
+  var isBorderBoxSizeOuter = isBorderBox && isBoxSizeOuter;
+
+  // overwrite width and height if we can get it from style
+  var styleWidth = getStyleSize( style.width );
+  if ( styleWidth !== false ) {
+    size.width = styleWidth +
+      // add padding and border unless it's already including it
+      ( isBorderBoxSizeOuter ? 0 : paddingWidth + borderWidth );
+  }
+
+  var styleHeight = getStyleSize( style.height );
+  if ( styleHeight !== false ) {
+    size.height = styleHeight +
+      // add padding and border unless it's already including it
+      ( isBorderBoxSizeOuter ? 0 : paddingHeight + borderHeight );
+  }
+
+  size.innerWidth = size.width - ( paddingWidth + borderWidth );
+  size.innerHeight = size.height - ( paddingHeight + borderHeight );
+
+  size.outerWidth = size.width + marginWidth;
+  size.outerHeight = size.height + marginHeight;
+
+  return size;
+}
+
+return getSize;
+
+});
+
 
 /***/ }),
 
@@ -33867,6 +34745,1727 @@ return jQuery;
 
 /***/ }),
 
+/***/ "./node_modules/masonry-layout/masonry.js":
+/*!************************************************!*\
+  !*** ./node_modules/masonry-layout/masonry.js ***!
+  \************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * Masonry v4.2.2
+ * Cascading grid layout library
+ * https://masonry.desandro.com
+ * MIT License
+ * by David DeSandro
+ */
+
+( function( window, factory ) {
+  // universal module definition
+  /* jshint strict: false */ /*globals define, module, require */
+  if ( true ) {
+    // AMD
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+        __webpack_require__(/*! outlayer/outlayer */ "./node_modules/outlayer/outlayer.js"),
+        __webpack_require__(/*! get-size/get-size */ "./node_modules/get-size/get-size.js")
+      ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+		(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else {}
+
+}( window, function factory( Outlayer, getSize ) {
+
+'use strict';
+
+// -------------------------- masonryDefinition -------------------------- //
+
+  // create an Outlayer layout class
+  var Masonry = Outlayer.create('masonry');
+  // isFitWidth -> fitWidth
+  Masonry.compatOptions.fitWidth = 'isFitWidth';
+
+  var proto = Masonry.prototype;
+
+  proto._resetLayout = function() {
+    this.getSize();
+    this._getMeasurement( 'columnWidth', 'outerWidth' );
+    this._getMeasurement( 'gutter', 'outerWidth' );
+    this.measureColumns();
+
+    // reset column Y
+    this.colYs = [];
+    for ( var i=0; i < this.cols; i++ ) {
+      this.colYs.push( 0 );
+    }
+
+    this.maxY = 0;
+    this.horizontalColIndex = 0;
+  };
+
+  proto.measureColumns = function() {
+    this.getContainerWidth();
+    // if columnWidth is 0, default to outerWidth of first item
+    if ( !this.columnWidth ) {
+      var firstItem = this.items[0];
+      var firstItemElem = firstItem && firstItem.element;
+      // columnWidth fall back to item of first element
+      this.columnWidth = firstItemElem && getSize( firstItemElem ).outerWidth ||
+        // if first elem has no width, default to size of container
+        this.containerWidth;
+    }
+
+    var columnWidth = this.columnWidth += this.gutter;
+
+    // calculate columns
+    var containerWidth = this.containerWidth + this.gutter;
+    var cols = containerWidth / columnWidth;
+    // fix rounding errors, typically with gutters
+    var excess = columnWidth - containerWidth % columnWidth;
+    // if overshoot is less than a pixel, round up, otherwise floor it
+    var mathMethod = excess && excess < 1 ? 'round' : 'floor';
+    cols = Math[ mathMethod ]( cols );
+    this.cols = Math.max( cols, 1 );
+  };
+
+  proto.getContainerWidth = function() {
+    // container is parent if fit width
+    var isFitWidth = this._getOption('fitWidth');
+    var container = isFitWidth ? this.element.parentNode : this.element;
+    // check that this.size and size are there
+    // IE8 triggers resize on body size change, so they might not be
+    var size = getSize( container );
+    this.containerWidth = size && size.innerWidth;
+  };
+
+  proto._getItemLayoutPosition = function( item ) {
+    item.getSize();
+    // how many columns does this brick span
+    var remainder = item.size.outerWidth % this.columnWidth;
+    var mathMethod = remainder && remainder < 1 ? 'round' : 'ceil';
+    // round if off by 1 pixel, otherwise use ceil
+    var colSpan = Math[ mathMethod ]( item.size.outerWidth / this.columnWidth );
+    colSpan = Math.min( colSpan, this.cols );
+    // use horizontal or top column position
+    var colPosMethod = this.options.horizontalOrder ?
+      '_getHorizontalColPosition' : '_getTopColPosition';
+    var colPosition = this[ colPosMethod ]( colSpan, item );
+    // position the brick
+    var position = {
+      x: this.columnWidth * colPosition.col,
+      y: colPosition.y
+    };
+    // apply setHeight to necessary columns
+    var setHeight = colPosition.y + item.size.outerHeight;
+    var setMax = colSpan + colPosition.col;
+    for ( var i = colPosition.col; i < setMax; i++ ) {
+      this.colYs[i] = setHeight;
+    }
+
+    return position;
+  };
+
+  proto._getTopColPosition = function( colSpan ) {
+    var colGroup = this._getTopColGroup( colSpan );
+    // get the minimum Y value from the columns
+    var minimumY = Math.min.apply( Math, colGroup );
+
+    return {
+      col: colGroup.indexOf( minimumY ),
+      y: minimumY,
+    };
+  };
+
+  /**
+   * @param {Number} colSpan - number of columns the element spans
+   * @returns {Array} colGroup
+   */
+  proto._getTopColGroup = function( colSpan ) {
+    if ( colSpan < 2 ) {
+      // if brick spans only one column, use all the column Ys
+      return this.colYs;
+    }
+
+    var colGroup = [];
+    // how many different places could this brick fit horizontally
+    var groupCount = this.cols + 1 - colSpan;
+    // for each group potential horizontal position
+    for ( var i = 0; i < groupCount; i++ ) {
+      colGroup[i] = this._getColGroupY( i, colSpan );
+    }
+    return colGroup;
+  };
+
+  proto._getColGroupY = function( col, colSpan ) {
+    if ( colSpan < 2 ) {
+      return this.colYs[ col ];
+    }
+    // make an array of colY values for that one group
+    var groupColYs = this.colYs.slice( col, col + colSpan );
+    // and get the max value of the array
+    return Math.max.apply( Math, groupColYs );
+  };
+
+  // get column position based on horizontal index. #873
+  proto._getHorizontalColPosition = function( colSpan, item ) {
+    var col = this.horizontalColIndex % this.cols;
+    var isOver = colSpan > 1 && col + colSpan > this.cols;
+    // shift to next row if item can't fit on current row
+    col = isOver ? 0 : col;
+    // don't let zero-size items take up space
+    var hasSize = item.size.outerWidth && item.size.outerHeight;
+    this.horizontalColIndex = hasSize ? col + colSpan : this.horizontalColIndex;
+
+    return {
+      col: col,
+      y: this._getColGroupY( col, colSpan ),
+    };
+  };
+
+  proto._manageStamp = function( stamp ) {
+    var stampSize = getSize( stamp );
+    var offset = this._getElementOffset( stamp );
+    // get the columns that this stamp affects
+    var isOriginLeft = this._getOption('originLeft');
+    var firstX = isOriginLeft ? offset.left : offset.right;
+    var lastX = firstX + stampSize.outerWidth;
+    var firstCol = Math.floor( firstX / this.columnWidth );
+    firstCol = Math.max( 0, firstCol );
+    var lastCol = Math.floor( lastX / this.columnWidth );
+    // lastCol should not go over if multiple of columnWidth #425
+    lastCol -= lastX % this.columnWidth ? 0 : 1;
+    lastCol = Math.min( this.cols - 1, lastCol );
+    // set colYs to bottom of the stamp
+
+    var isOriginTop = this._getOption('originTop');
+    var stampMaxY = ( isOriginTop ? offset.top : offset.bottom ) +
+      stampSize.outerHeight;
+    for ( var i = firstCol; i <= lastCol; i++ ) {
+      this.colYs[i] = Math.max( stampMaxY, this.colYs[i] );
+    }
+  };
+
+  proto._getContainerSize = function() {
+    this.maxY = Math.max.apply( Math, this.colYs );
+    var size = {
+      height: this.maxY
+    };
+
+    if ( this._getOption('fitWidth') ) {
+      size.width = this._getContainerFitWidth();
+    }
+
+    return size;
+  };
+
+  proto._getContainerFitWidth = function() {
+    var unusedCols = 0;
+    // count unused columns
+    var i = this.cols;
+    while ( --i ) {
+      if ( this.colYs[i] !== 0 ) {
+        break;
+      }
+      unusedCols++;
+    }
+    // fit container to columns that have been used
+    return ( this.cols - unusedCols ) * this.columnWidth - this.gutter;
+  };
+
+  proto.needsResizeLayout = function() {
+    var previousWidth = this.containerWidth;
+    this.getContainerWidth();
+    return previousWidth != this.containerWidth;
+  };
+
+  return Masonry;
+
+}));
+
+
+/***/ }),
+
+/***/ "./node_modules/outlayer/item.js":
+/*!***************************************!*\
+  !*** ./node_modules/outlayer/item.js ***!
+  \***************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * Outlayer Item
+ */
+
+( function( window, factory ) {
+  // universal module definition
+  /* jshint strict: false */ /* globals define, module, require */
+  if ( true ) {
+    // AMD - RequireJS
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+        __webpack_require__(/*! ev-emitter/ev-emitter */ "./node_modules/ev-emitter/ev-emitter.js"),
+        __webpack_require__(/*! get-size/get-size */ "./node_modules/get-size/get-size.js")
+      ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+		(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else {}
+
+}( window, function factory( EvEmitter, getSize ) {
+'use strict';
+
+// ----- helpers ----- //
+
+function isEmptyObj( obj ) {
+  for ( var prop in obj ) {
+    return false;
+  }
+  prop = null;
+  return true;
+}
+
+// -------------------------- CSS3 support -------------------------- //
+
+
+var docElemStyle = document.documentElement.style;
+
+var transitionProperty = typeof docElemStyle.transition == 'string' ?
+  'transition' : 'WebkitTransition';
+var transformProperty = typeof docElemStyle.transform == 'string' ?
+  'transform' : 'WebkitTransform';
+
+var transitionEndEvent = {
+  WebkitTransition: 'webkitTransitionEnd',
+  transition: 'transitionend'
+}[ transitionProperty ];
+
+// cache all vendor properties that could have vendor prefix
+var vendorProperties = {
+  transform: transformProperty,
+  transition: transitionProperty,
+  transitionDuration: transitionProperty + 'Duration',
+  transitionProperty: transitionProperty + 'Property',
+  transitionDelay: transitionProperty + 'Delay'
+};
+
+// -------------------------- Item -------------------------- //
+
+function Item( element, layout ) {
+  if ( !element ) {
+    return;
+  }
+
+  this.element = element;
+  // parent layout class, i.e. Masonry, Isotope, or Packery
+  this.layout = layout;
+  this.position = {
+    x: 0,
+    y: 0
+  };
+
+  this._create();
+}
+
+// inherit EvEmitter
+var proto = Item.prototype = Object.create( EvEmitter.prototype );
+proto.constructor = Item;
+
+proto._create = function() {
+  // transition objects
+  this._transn = {
+    ingProperties: {},
+    clean: {},
+    onEnd: {}
+  };
+
+  this.css({
+    position: 'absolute'
+  });
+};
+
+// trigger specified handler for event type
+proto.handleEvent = function( event ) {
+  var method = 'on' + event.type;
+  if ( this[ method ] ) {
+    this[ method ]( event );
+  }
+};
+
+proto.getSize = function() {
+  this.size = getSize( this.element );
+};
+
+/**
+ * apply CSS styles to element
+ * @param {Object} style
+ */
+proto.css = function( style ) {
+  var elemStyle = this.element.style;
+
+  for ( var prop in style ) {
+    // use vendor property if available
+    var supportedProp = vendorProperties[ prop ] || prop;
+    elemStyle[ supportedProp ] = style[ prop ];
+  }
+};
+
+ // measure position, and sets it
+proto.getPosition = function() {
+  var style = getComputedStyle( this.element );
+  var isOriginLeft = this.layout._getOption('originLeft');
+  var isOriginTop = this.layout._getOption('originTop');
+  var xValue = style[ isOriginLeft ? 'left' : 'right' ];
+  var yValue = style[ isOriginTop ? 'top' : 'bottom' ];
+  var x = parseFloat( xValue );
+  var y = parseFloat( yValue );
+  // convert percent to pixels
+  var layoutSize = this.layout.size;
+  if ( xValue.indexOf('%') != -1 ) {
+    x = ( x / 100 ) * layoutSize.width;
+  }
+  if ( yValue.indexOf('%') != -1 ) {
+    y = ( y / 100 ) * layoutSize.height;
+  }
+  // clean up 'auto' or other non-integer values
+  x = isNaN( x ) ? 0 : x;
+  y = isNaN( y ) ? 0 : y;
+  // remove padding from measurement
+  x -= isOriginLeft ? layoutSize.paddingLeft : layoutSize.paddingRight;
+  y -= isOriginTop ? layoutSize.paddingTop : layoutSize.paddingBottom;
+
+  this.position.x = x;
+  this.position.y = y;
+};
+
+// set settled position, apply padding
+proto.layoutPosition = function() {
+  var layoutSize = this.layout.size;
+  var style = {};
+  var isOriginLeft = this.layout._getOption('originLeft');
+  var isOriginTop = this.layout._getOption('originTop');
+
+  // x
+  var xPadding = isOriginLeft ? 'paddingLeft' : 'paddingRight';
+  var xProperty = isOriginLeft ? 'left' : 'right';
+  var xResetProperty = isOriginLeft ? 'right' : 'left';
+
+  var x = this.position.x + layoutSize[ xPadding ];
+  // set in percentage or pixels
+  style[ xProperty ] = this.getXValue( x );
+  // reset other property
+  style[ xResetProperty ] = '';
+
+  // y
+  var yPadding = isOriginTop ? 'paddingTop' : 'paddingBottom';
+  var yProperty = isOriginTop ? 'top' : 'bottom';
+  var yResetProperty = isOriginTop ? 'bottom' : 'top';
+
+  var y = this.position.y + layoutSize[ yPadding ];
+  // set in percentage or pixels
+  style[ yProperty ] = this.getYValue( y );
+  // reset other property
+  style[ yResetProperty ] = '';
+
+  this.css( style );
+  this.emitEvent( 'layout', [ this ] );
+};
+
+proto.getXValue = function( x ) {
+  var isHorizontal = this.layout._getOption('horizontal');
+  return this.layout.options.percentPosition && !isHorizontal ?
+    ( ( x / this.layout.size.width ) * 100 ) + '%' : x + 'px';
+};
+
+proto.getYValue = function( y ) {
+  var isHorizontal = this.layout._getOption('horizontal');
+  return this.layout.options.percentPosition && isHorizontal ?
+    ( ( y / this.layout.size.height ) * 100 ) + '%' : y + 'px';
+};
+
+proto._transitionTo = function( x, y ) {
+  this.getPosition();
+  // get current x & y from top/left
+  var curX = this.position.x;
+  var curY = this.position.y;
+
+  var didNotMove = x == this.position.x && y == this.position.y;
+
+  // save end position
+  this.setPosition( x, y );
+
+  // if did not move and not transitioning, just go to layout
+  if ( didNotMove && !this.isTransitioning ) {
+    this.layoutPosition();
+    return;
+  }
+
+  var transX = x - curX;
+  var transY = y - curY;
+  var transitionStyle = {};
+  transitionStyle.transform = this.getTranslate( transX, transY );
+
+  this.transition({
+    to: transitionStyle,
+    onTransitionEnd: {
+      transform: this.layoutPosition
+    },
+    isCleaning: true
+  });
+};
+
+proto.getTranslate = function( x, y ) {
+  // flip cooridinates if origin on right or bottom
+  var isOriginLeft = this.layout._getOption('originLeft');
+  var isOriginTop = this.layout._getOption('originTop');
+  x = isOriginLeft ? x : -x;
+  y = isOriginTop ? y : -y;
+  return 'translate3d(' + x + 'px, ' + y + 'px, 0)';
+};
+
+// non transition + transform support
+proto.goTo = function( x, y ) {
+  this.setPosition( x, y );
+  this.layoutPosition();
+};
+
+proto.moveTo = proto._transitionTo;
+
+proto.setPosition = function( x, y ) {
+  this.position.x = parseFloat( x );
+  this.position.y = parseFloat( y );
+};
+
+// ----- transition ----- //
+
+/**
+ * @param {Object} style - CSS
+ * @param {Function} onTransitionEnd
+ */
+
+// non transition, just trigger callback
+proto._nonTransition = function( args ) {
+  this.css( args.to );
+  if ( args.isCleaning ) {
+    this._removeStyles( args.to );
+  }
+  for ( var prop in args.onTransitionEnd ) {
+    args.onTransitionEnd[ prop ].call( this );
+  }
+};
+
+/**
+ * proper transition
+ * @param {Object} args - arguments
+ *   @param {Object} to - style to transition to
+ *   @param {Object} from - style to start transition from
+ *   @param {Boolean} isCleaning - removes transition styles after transition
+ *   @param {Function} onTransitionEnd - callback
+ */
+proto.transition = function( args ) {
+  // redirect to nonTransition if no transition duration
+  if ( !parseFloat( this.layout.options.transitionDuration ) ) {
+    this._nonTransition( args );
+    return;
+  }
+
+  var _transition = this._transn;
+  // keep track of onTransitionEnd callback by css property
+  for ( var prop in args.onTransitionEnd ) {
+    _transition.onEnd[ prop ] = args.onTransitionEnd[ prop ];
+  }
+  // keep track of properties that are transitioning
+  for ( prop in args.to ) {
+    _transition.ingProperties[ prop ] = true;
+    // keep track of properties to clean up when transition is done
+    if ( args.isCleaning ) {
+      _transition.clean[ prop ] = true;
+    }
+  }
+
+  // set from styles
+  if ( args.from ) {
+    this.css( args.from );
+    // force redraw. http://blog.alexmaccaw.com/css-transitions
+    var h = this.element.offsetHeight;
+    // hack for JSHint to hush about unused var
+    h = null;
+  }
+  // enable transition
+  this.enableTransition( args.to );
+  // set styles that are transitioning
+  this.css( args.to );
+
+  this.isTransitioning = true;
+
+};
+
+// dash before all cap letters, including first for
+// WebkitTransform => -webkit-transform
+function toDashedAll( str ) {
+  return str.replace( /([A-Z])/g, function( $1 ) {
+    return '-' + $1.toLowerCase();
+  });
+}
+
+var transitionProps = 'opacity,' + toDashedAll( transformProperty );
+
+proto.enableTransition = function(/* style */) {
+  // HACK changing transitionProperty during a transition
+  // will cause transition to jump
+  if ( this.isTransitioning ) {
+    return;
+  }
+
+  // make `transition: foo, bar, baz` from style object
+  // HACK un-comment this when enableTransition can work
+  // while a transition is happening
+  // var transitionValues = [];
+  // for ( var prop in style ) {
+  //   // dash-ify camelCased properties like WebkitTransition
+  //   prop = vendorProperties[ prop ] || prop;
+  //   transitionValues.push( toDashedAll( prop ) );
+  // }
+  // munge number to millisecond, to match stagger
+  var duration = this.layout.options.transitionDuration;
+  duration = typeof duration == 'number' ? duration + 'ms' : duration;
+  // enable transition styles
+  this.css({
+    transitionProperty: transitionProps,
+    transitionDuration: duration,
+    transitionDelay: this.staggerDelay || 0
+  });
+  // listen for transition end event
+  this.element.addEventListener( transitionEndEvent, this, false );
+};
+
+// ----- events ----- //
+
+proto.onwebkitTransitionEnd = function( event ) {
+  this.ontransitionend( event );
+};
+
+proto.onotransitionend = function( event ) {
+  this.ontransitionend( event );
+};
+
+// properties that I munge to make my life easier
+var dashedVendorProperties = {
+  '-webkit-transform': 'transform'
+};
+
+proto.ontransitionend = function( event ) {
+  // disregard bubbled events from children
+  if ( event.target !== this.element ) {
+    return;
+  }
+  var _transition = this._transn;
+  // get property name of transitioned property, convert to prefix-free
+  var propertyName = dashedVendorProperties[ event.propertyName ] || event.propertyName;
+
+  // remove property that has completed transitioning
+  delete _transition.ingProperties[ propertyName ];
+  // check if any properties are still transitioning
+  if ( isEmptyObj( _transition.ingProperties ) ) {
+    // all properties have completed transitioning
+    this.disableTransition();
+  }
+  // clean style
+  if ( propertyName in _transition.clean ) {
+    // clean up style
+    this.element.style[ event.propertyName ] = '';
+    delete _transition.clean[ propertyName ];
+  }
+  // trigger onTransitionEnd callback
+  if ( propertyName in _transition.onEnd ) {
+    var onTransitionEnd = _transition.onEnd[ propertyName ];
+    onTransitionEnd.call( this );
+    delete _transition.onEnd[ propertyName ];
+  }
+
+  this.emitEvent( 'transitionEnd', [ this ] );
+};
+
+proto.disableTransition = function() {
+  this.removeTransitionStyles();
+  this.element.removeEventListener( transitionEndEvent, this, false );
+  this.isTransitioning = false;
+};
+
+/**
+ * removes style property from element
+ * @param {Object} style
+**/
+proto._removeStyles = function( style ) {
+  // clean up transition styles
+  var cleanStyle = {};
+  for ( var prop in style ) {
+    cleanStyle[ prop ] = '';
+  }
+  this.css( cleanStyle );
+};
+
+var cleanTransitionStyle = {
+  transitionProperty: '',
+  transitionDuration: '',
+  transitionDelay: ''
+};
+
+proto.removeTransitionStyles = function() {
+  // remove transition
+  this.css( cleanTransitionStyle );
+};
+
+// ----- stagger ----- //
+
+proto.stagger = function( delay ) {
+  delay = isNaN( delay ) ? 0 : delay;
+  this.staggerDelay = delay + 'ms';
+};
+
+// ----- show/hide/remove ----- //
+
+// remove element from DOM
+proto.removeElem = function() {
+  this.element.parentNode.removeChild( this.element );
+  // remove display: none
+  this.css({ display: '' });
+  this.emitEvent( 'remove', [ this ] );
+};
+
+proto.remove = function() {
+  // just remove element if no transition support or no transition
+  if ( !transitionProperty || !parseFloat( this.layout.options.transitionDuration ) ) {
+    this.removeElem();
+    return;
+  }
+
+  // start transition
+  this.once( 'transitionEnd', function() {
+    this.removeElem();
+  });
+  this.hide();
+};
+
+proto.reveal = function() {
+  delete this.isHidden;
+  // remove display: none
+  this.css({ display: '' });
+
+  var options = this.layout.options;
+
+  var onTransitionEnd = {};
+  var transitionEndProperty = this.getHideRevealTransitionEndProperty('visibleStyle');
+  onTransitionEnd[ transitionEndProperty ] = this.onRevealTransitionEnd;
+
+  this.transition({
+    from: options.hiddenStyle,
+    to: options.visibleStyle,
+    isCleaning: true,
+    onTransitionEnd: onTransitionEnd
+  });
+};
+
+proto.onRevealTransitionEnd = function() {
+  // check if still visible
+  // during transition, item may have been hidden
+  if ( !this.isHidden ) {
+    this.emitEvent('reveal');
+  }
+};
+
+/**
+ * get style property use for hide/reveal transition end
+ * @param {String} styleProperty - hiddenStyle/visibleStyle
+ * @returns {String}
+ */
+proto.getHideRevealTransitionEndProperty = function( styleProperty ) {
+  var optionStyle = this.layout.options[ styleProperty ];
+  // use opacity
+  if ( optionStyle.opacity ) {
+    return 'opacity';
+  }
+  // get first property
+  for ( var prop in optionStyle ) {
+    return prop;
+  }
+};
+
+proto.hide = function() {
+  // set flag
+  this.isHidden = true;
+  // remove display: none
+  this.css({ display: '' });
+
+  var options = this.layout.options;
+
+  var onTransitionEnd = {};
+  var transitionEndProperty = this.getHideRevealTransitionEndProperty('hiddenStyle');
+  onTransitionEnd[ transitionEndProperty ] = this.onHideTransitionEnd;
+
+  this.transition({
+    from: options.visibleStyle,
+    to: options.hiddenStyle,
+    // keep hidden stuff hidden
+    isCleaning: true,
+    onTransitionEnd: onTransitionEnd
+  });
+};
+
+proto.onHideTransitionEnd = function() {
+  // check if still hidden
+  // during transition, item may have been un-hidden
+  if ( this.isHidden ) {
+    this.css({ display: 'none' });
+    this.emitEvent('hide');
+  }
+};
+
+proto.destroy = function() {
+  this.css({
+    position: '',
+    left: '',
+    right: '',
+    top: '',
+    bottom: '',
+    transition: '',
+    transform: ''
+  });
+};
+
+return Item;
+
+}));
+
+
+/***/ }),
+
+/***/ "./node_modules/outlayer/outlayer.js":
+/*!*******************************************!*\
+  !*** ./node_modules/outlayer/outlayer.js ***!
+  \*******************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * Outlayer v2.1.1
+ * the brains and guts of a layout library
+ * MIT license
+ */
+
+( function( window, factory ) {
+  'use strict';
+  // universal module definition
+  /* jshint strict: false */ /* globals define, module, require */
+  if ( true ) {
+    // AMD - RequireJS
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+        __webpack_require__(/*! ev-emitter/ev-emitter */ "./node_modules/ev-emitter/ev-emitter.js"),
+        __webpack_require__(/*! get-size/get-size */ "./node_modules/get-size/get-size.js"),
+        __webpack_require__(/*! fizzy-ui-utils/utils */ "./node_modules/fizzy-ui-utils/utils.js"),
+        __webpack_require__(/*! ./item */ "./node_modules/outlayer/item.js")
+      ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( EvEmitter, getSize, utils, Item ) {
+        return factory( window, EvEmitter, getSize, utils, Item);
+      }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else {}
+
+}( window, function factory( window, EvEmitter, getSize, utils, Item ) {
+'use strict';
+
+// ----- vars ----- //
+
+var console = window.console;
+var jQuery = window.jQuery;
+var noop = function() {};
+
+// -------------------------- Outlayer -------------------------- //
+
+// globally unique identifiers
+var GUID = 0;
+// internal store of all Outlayer intances
+var instances = {};
+
+
+/**
+ * @param {Element, String} element
+ * @param {Object} options
+ * @constructor
+ */
+function Outlayer( element, options ) {
+  var queryElement = utils.getQueryElement( element );
+  if ( !queryElement ) {
+    if ( console ) {
+      console.error( 'Bad element for ' + this.constructor.namespace +
+        ': ' + ( queryElement || element ) );
+    }
+    return;
+  }
+  this.element = queryElement;
+  // add jQuery
+  if ( jQuery ) {
+    this.$element = jQuery( this.element );
+  }
+
+  // options
+  this.options = utils.extend( {}, this.constructor.defaults );
+  this.option( options );
+
+  // add id for Outlayer.getFromElement
+  var id = ++GUID;
+  this.element.outlayerGUID = id; // expando
+  instances[ id ] = this; // associate via id
+
+  // kick it off
+  this._create();
+
+  var isInitLayout = this._getOption('initLayout');
+  if ( isInitLayout ) {
+    this.layout();
+  }
+}
+
+// settings are for internal use only
+Outlayer.namespace = 'outlayer';
+Outlayer.Item = Item;
+
+// default options
+Outlayer.defaults = {
+  containerStyle: {
+    position: 'relative'
+  },
+  initLayout: true,
+  originLeft: true,
+  originTop: true,
+  resize: true,
+  resizeContainer: true,
+  // item options
+  transitionDuration: '0.4s',
+  hiddenStyle: {
+    opacity: 0,
+    transform: 'scale(0.001)'
+  },
+  visibleStyle: {
+    opacity: 1,
+    transform: 'scale(1)'
+  }
+};
+
+var proto = Outlayer.prototype;
+// inherit EvEmitter
+utils.extend( proto, EvEmitter.prototype );
+
+/**
+ * set options
+ * @param {Object} opts
+ */
+proto.option = function( opts ) {
+  utils.extend( this.options, opts );
+};
+
+/**
+ * get backwards compatible option value, check old name
+ */
+proto._getOption = function( option ) {
+  var oldOption = this.constructor.compatOptions[ option ];
+  return oldOption && this.options[ oldOption ] !== undefined ?
+    this.options[ oldOption ] : this.options[ option ];
+};
+
+Outlayer.compatOptions = {
+  // currentName: oldName
+  initLayout: 'isInitLayout',
+  horizontal: 'isHorizontal',
+  layoutInstant: 'isLayoutInstant',
+  originLeft: 'isOriginLeft',
+  originTop: 'isOriginTop',
+  resize: 'isResizeBound',
+  resizeContainer: 'isResizingContainer'
+};
+
+proto._create = function() {
+  // get items from children
+  this.reloadItems();
+  // elements that affect layout, but are not laid out
+  this.stamps = [];
+  this.stamp( this.options.stamp );
+  // set container style
+  utils.extend( this.element.style, this.options.containerStyle );
+
+  // bind resize method
+  var canBindResize = this._getOption('resize');
+  if ( canBindResize ) {
+    this.bindResize();
+  }
+};
+
+// goes through all children again and gets bricks in proper order
+proto.reloadItems = function() {
+  // collection of item elements
+  this.items = this._itemize( this.element.children );
+};
+
+
+/**
+ * turn elements into Outlayer.Items to be used in layout
+ * @param {Array or NodeList or HTMLElement} elems
+ * @returns {Array} items - collection of new Outlayer Items
+ */
+proto._itemize = function( elems ) {
+
+  var itemElems = this._filterFindItemElements( elems );
+  var Item = this.constructor.Item;
+
+  // create new Outlayer Items for collection
+  var items = [];
+  for ( var i=0; i < itemElems.length; i++ ) {
+    var elem = itemElems[i];
+    var item = new Item( elem, this );
+    items.push( item );
+  }
+
+  return items;
+};
+
+/**
+ * get item elements to be used in layout
+ * @param {Array or NodeList or HTMLElement} elems
+ * @returns {Array} items - item elements
+ */
+proto._filterFindItemElements = function( elems ) {
+  return utils.filterFindElements( elems, this.options.itemSelector );
+};
+
+/**
+ * getter method for getting item elements
+ * @returns {Array} elems - collection of item elements
+ */
+proto.getItemElements = function() {
+  return this.items.map( function( item ) {
+    return item.element;
+  });
+};
+
+// ----- init & layout ----- //
+
+/**
+ * lays out all items
+ */
+proto.layout = function() {
+  this._resetLayout();
+  this._manageStamps();
+
+  // don't animate first layout
+  var layoutInstant = this._getOption('layoutInstant');
+  var isInstant = layoutInstant !== undefined ?
+    layoutInstant : !this._isLayoutInited;
+  this.layoutItems( this.items, isInstant );
+
+  // flag for initalized
+  this._isLayoutInited = true;
+};
+
+// _init is alias for layout
+proto._init = proto.layout;
+
+/**
+ * logic before any new layout
+ */
+proto._resetLayout = function() {
+  this.getSize();
+};
+
+
+proto.getSize = function() {
+  this.size = getSize( this.element );
+};
+
+/**
+ * get measurement from option, for columnWidth, rowHeight, gutter
+ * if option is String -> get element from selector string, & get size of element
+ * if option is Element -> get size of element
+ * else use option as a number
+ *
+ * @param {String} measurement
+ * @param {String} size - width or height
+ * @private
+ */
+proto._getMeasurement = function( measurement, size ) {
+  var option = this.options[ measurement ];
+  var elem;
+  if ( !option ) {
+    // default to 0
+    this[ measurement ] = 0;
+  } else {
+    // use option as an element
+    if ( typeof option == 'string' ) {
+      elem = this.element.querySelector( option );
+    } else if ( option instanceof HTMLElement ) {
+      elem = option;
+    }
+    // use size of element, if element
+    this[ measurement ] = elem ? getSize( elem )[ size ] : option;
+  }
+};
+
+/**
+ * layout a collection of item elements
+ * @api public
+ */
+proto.layoutItems = function( items, isInstant ) {
+  items = this._getItemsForLayout( items );
+
+  this._layoutItems( items, isInstant );
+
+  this._postLayout();
+};
+
+/**
+ * get the items to be laid out
+ * you may want to skip over some items
+ * @param {Array} items
+ * @returns {Array} items
+ */
+proto._getItemsForLayout = function( items ) {
+  return items.filter( function( item ) {
+    return !item.isIgnored;
+  });
+};
+
+/**
+ * layout items
+ * @param {Array} items
+ * @param {Boolean} isInstant
+ */
+proto._layoutItems = function( items, isInstant ) {
+  this._emitCompleteOnItems( 'layout', items );
+
+  if ( !items || !items.length ) {
+    // no items, emit event with empty array
+    return;
+  }
+
+  var queue = [];
+
+  items.forEach( function( item ) {
+    // get x/y object from method
+    var position = this._getItemLayoutPosition( item );
+    // enqueue
+    position.item = item;
+    position.isInstant = isInstant || item.isLayoutInstant;
+    queue.push( position );
+  }, this );
+
+  this._processLayoutQueue( queue );
+};
+
+/**
+ * get item layout position
+ * @param {Outlayer.Item} item
+ * @returns {Object} x and y position
+ */
+proto._getItemLayoutPosition = function( /* item */ ) {
+  return {
+    x: 0,
+    y: 0
+  };
+};
+
+/**
+ * iterate over array and position each item
+ * Reason being - separating this logic prevents 'layout invalidation'
+ * thx @paul_irish
+ * @param {Array} queue
+ */
+proto._processLayoutQueue = function( queue ) {
+  this.updateStagger();
+  queue.forEach( function( obj, i ) {
+    this._positionItem( obj.item, obj.x, obj.y, obj.isInstant, i );
+  }, this );
+};
+
+// set stagger from option in milliseconds number
+proto.updateStagger = function() {
+  var stagger = this.options.stagger;
+  if ( stagger === null || stagger === undefined ) {
+    this.stagger = 0;
+    return;
+  }
+  this.stagger = getMilliseconds( stagger );
+  return this.stagger;
+};
+
+/**
+ * Sets position of item in DOM
+ * @param {Outlayer.Item} item
+ * @param {Number} x - horizontal position
+ * @param {Number} y - vertical position
+ * @param {Boolean} isInstant - disables transitions
+ */
+proto._positionItem = function( item, x, y, isInstant, i ) {
+  if ( isInstant ) {
+    // if not transition, just set CSS
+    item.goTo( x, y );
+  } else {
+    item.stagger( i * this.stagger );
+    item.moveTo( x, y );
+  }
+};
+
+/**
+ * Any logic you want to do after each layout,
+ * i.e. size the container
+ */
+proto._postLayout = function() {
+  this.resizeContainer();
+};
+
+proto.resizeContainer = function() {
+  var isResizingContainer = this._getOption('resizeContainer');
+  if ( !isResizingContainer ) {
+    return;
+  }
+  var size = this._getContainerSize();
+  if ( size ) {
+    this._setContainerMeasure( size.width, true );
+    this._setContainerMeasure( size.height, false );
+  }
+};
+
+/**
+ * Sets width or height of container if returned
+ * @returns {Object} size
+ *   @param {Number} width
+ *   @param {Number} height
+ */
+proto._getContainerSize = noop;
+
+/**
+ * @param {Number} measure - size of width or height
+ * @param {Boolean} isWidth
+ */
+proto._setContainerMeasure = function( measure, isWidth ) {
+  if ( measure === undefined ) {
+    return;
+  }
+
+  var elemSize = this.size;
+  // add padding and border width if border box
+  if ( elemSize.isBorderBox ) {
+    measure += isWidth ? elemSize.paddingLeft + elemSize.paddingRight +
+      elemSize.borderLeftWidth + elemSize.borderRightWidth :
+      elemSize.paddingBottom + elemSize.paddingTop +
+      elemSize.borderTopWidth + elemSize.borderBottomWidth;
+  }
+
+  measure = Math.max( measure, 0 );
+  this.element.style[ isWidth ? 'width' : 'height' ] = measure + 'px';
+};
+
+/**
+ * emit eventComplete on a collection of items events
+ * @param {String} eventName
+ * @param {Array} items - Outlayer.Items
+ */
+proto._emitCompleteOnItems = function( eventName, items ) {
+  var _this = this;
+  function onComplete() {
+    _this.dispatchEvent( eventName + 'Complete', null, [ items ] );
+  }
+
+  var count = items.length;
+  if ( !items || !count ) {
+    onComplete();
+    return;
+  }
+
+  var doneCount = 0;
+  function tick() {
+    doneCount++;
+    if ( doneCount == count ) {
+      onComplete();
+    }
+  }
+
+  // bind callback
+  items.forEach( function( item ) {
+    item.once( eventName, tick );
+  });
+};
+
+/**
+ * emits events via EvEmitter and jQuery events
+ * @param {String} type - name of event
+ * @param {Event} event - original event
+ * @param {Array} args - extra arguments
+ */
+proto.dispatchEvent = function( type, event, args ) {
+  // add original event to arguments
+  var emitArgs = event ? [ event ].concat( args ) : args;
+  this.emitEvent( type, emitArgs );
+
+  if ( jQuery ) {
+    // set this.$element
+    this.$element = this.$element || jQuery( this.element );
+    if ( event ) {
+      // create jQuery event
+      var $event = jQuery.Event( event );
+      $event.type = type;
+      this.$element.trigger( $event, args );
+    } else {
+      // just trigger with type if no event available
+      this.$element.trigger( type, args );
+    }
+  }
+};
+
+// -------------------------- ignore & stamps -------------------------- //
+
+
+/**
+ * keep item in collection, but do not lay it out
+ * ignored items do not get skipped in layout
+ * @param {Element} elem
+ */
+proto.ignore = function( elem ) {
+  var item = this.getItem( elem );
+  if ( item ) {
+    item.isIgnored = true;
+  }
+};
+
+/**
+ * return item to layout collection
+ * @param {Element} elem
+ */
+proto.unignore = function( elem ) {
+  var item = this.getItem( elem );
+  if ( item ) {
+    delete item.isIgnored;
+  }
+};
+
+/**
+ * adds elements to stamps
+ * @param {NodeList, Array, Element, or String} elems
+ */
+proto.stamp = function( elems ) {
+  elems = this._find( elems );
+  if ( !elems ) {
+    return;
+  }
+
+  this.stamps = this.stamps.concat( elems );
+  // ignore
+  elems.forEach( this.ignore, this );
+};
+
+/**
+ * removes elements to stamps
+ * @param {NodeList, Array, or Element} elems
+ */
+proto.unstamp = function( elems ) {
+  elems = this._find( elems );
+  if ( !elems ){
+    return;
+  }
+
+  elems.forEach( function( elem ) {
+    // filter out removed stamp elements
+    utils.removeFrom( this.stamps, elem );
+    this.unignore( elem );
+  }, this );
+};
+
+/**
+ * finds child elements
+ * @param {NodeList, Array, Element, or String} elems
+ * @returns {Array} elems
+ */
+proto._find = function( elems ) {
+  if ( !elems ) {
+    return;
+  }
+  // if string, use argument as selector string
+  if ( typeof elems == 'string' ) {
+    elems = this.element.querySelectorAll( elems );
+  }
+  elems = utils.makeArray( elems );
+  return elems;
+};
+
+proto._manageStamps = function() {
+  if ( !this.stamps || !this.stamps.length ) {
+    return;
+  }
+
+  this._getBoundingRect();
+
+  this.stamps.forEach( this._manageStamp, this );
+};
+
+// update boundingLeft / Top
+proto._getBoundingRect = function() {
+  // get bounding rect for container element
+  var boundingRect = this.element.getBoundingClientRect();
+  var size = this.size;
+  this._boundingRect = {
+    left: boundingRect.left + size.paddingLeft + size.borderLeftWidth,
+    top: boundingRect.top + size.paddingTop + size.borderTopWidth,
+    right: boundingRect.right - ( size.paddingRight + size.borderRightWidth ),
+    bottom: boundingRect.bottom - ( size.paddingBottom + size.borderBottomWidth )
+  };
+};
+
+/**
+ * @param {Element} stamp
+**/
+proto._manageStamp = noop;
+
+/**
+ * get x/y position of element relative to container element
+ * @param {Element} elem
+ * @returns {Object} offset - has left, top, right, bottom
+ */
+proto._getElementOffset = function( elem ) {
+  var boundingRect = elem.getBoundingClientRect();
+  var thisRect = this._boundingRect;
+  var size = getSize( elem );
+  var offset = {
+    left: boundingRect.left - thisRect.left - size.marginLeft,
+    top: boundingRect.top - thisRect.top - size.marginTop,
+    right: thisRect.right - boundingRect.right - size.marginRight,
+    bottom: thisRect.bottom - boundingRect.bottom - size.marginBottom
+  };
+  return offset;
+};
+
+// -------------------------- resize -------------------------- //
+
+// enable event handlers for listeners
+// i.e. resize -> onresize
+proto.handleEvent = utils.handleEvent;
+
+/**
+ * Bind layout to window resizing
+ */
+proto.bindResize = function() {
+  window.addEventListener( 'resize', this );
+  this.isResizeBound = true;
+};
+
+/**
+ * Unbind layout to window resizing
+ */
+proto.unbindResize = function() {
+  window.removeEventListener( 'resize', this );
+  this.isResizeBound = false;
+};
+
+proto.onresize = function() {
+  this.resize();
+};
+
+utils.debounceMethod( Outlayer, 'onresize', 100 );
+
+proto.resize = function() {
+  // don't trigger if size did not change
+  // or if resize was unbound. See #9
+  if ( !this.isResizeBound || !this.needsResizeLayout() ) {
+    return;
+  }
+
+  this.layout();
+};
+
+/**
+ * check if layout is needed post layout
+ * @returns Boolean
+ */
+proto.needsResizeLayout = function() {
+  var size = getSize( this.element );
+  // check that this.size and size are there
+  // IE8 triggers resize on body size change, so they might not be
+  var hasSizes = this.size && size;
+  return hasSizes && size.innerWidth !== this.size.innerWidth;
+};
+
+// -------------------------- methods -------------------------- //
+
+/**
+ * add items to Outlayer instance
+ * @param {Array or NodeList or Element} elems
+ * @returns {Array} items - Outlayer.Items
+**/
+proto.addItems = function( elems ) {
+  var items = this._itemize( elems );
+  // add items to collection
+  if ( items.length ) {
+    this.items = this.items.concat( items );
+  }
+  return items;
+};
+
+/**
+ * Layout newly-appended item elements
+ * @param {Array or NodeList or Element} elems
+ */
+proto.appended = function( elems ) {
+  var items = this.addItems( elems );
+  if ( !items.length ) {
+    return;
+  }
+  // layout and reveal just the new items
+  this.layoutItems( items, true );
+  this.reveal( items );
+};
+
+/**
+ * Layout prepended elements
+ * @param {Array or NodeList or Element} elems
+ */
+proto.prepended = function( elems ) {
+  var items = this._itemize( elems );
+  if ( !items.length ) {
+    return;
+  }
+  // add items to beginning of collection
+  var previousItems = this.items.slice(0);
+  this.items = items.concat( previousItems );
+  // start new layout
+  this._resetLayout();
+  this._manageStamps();
+  // layout new stuff without transition
+  this.layoutItems( items, true );
+  this.reveal( items );
+  // layout previous items
+  this.layoutItems( previousItems );
+};
+
+/**
+ * reveal a collection of items
+ * @param {Array of Outlayer.Items} items
+ */
+proto.reveal = function( items ) {
+  this._emitCompleteOnItems( 'reveal', items );
+  if ( !items || !items.length ) {
+    return;
+  }
+  var stagger = this.updateStagger();
+  items.forEach( function( item, i ) {
+    item.stagger( i * stagger );
+    item.reveal();
+  });
+};
+
+/**
+ * hide a collection of items
+ * @param {Array of Outlayer.Items} items
+ */
+proto.hide = function( items ) {
+  this._emitCompleteOnItems( 'hide', items );
+  if ( !items || !items.length ) {
+    return;
+  }
+  var stagger = this.updateStagger();
+  items.forEach( function( item, i ) {
+    item.stagger( i * stagger );
+    item.hide();
+  });
+};
+
+/**
+ * reveal item elements
+ * @param {Array}, {Element}, {NodeList} items
+ */
+proto.revealItemElements = function( elems ) {
+  var items = this.getItems( elems );
+  this.reveal( items );
+};
+
+/**
+ * hide item elements
+ * @param {Array}, {Element}, {NodeList} items
+ */
+proto.hideItemElements = function( elems ) {
+  var items = this.getItems( elems );
+  this.hide( items );
+};
+
+/**
+ * get Outlayer.Item, given an Element
+ * @param {Element} elem
+ * @param {Function} callback
+ * @returns {Outlayer.Item} item
+ */
+proto.getItem = function( elem ) {
+  // loop through items to get the one that matches
+  for ( var i=0; i < this.items.length; i++ ) {
+    var item = this.items[i];
+    if ( item.element == elem ) {
+      // return item
+      return item;
+    }
+  }
+};
+
+/**
+ * get collection of Outlayer.Items, given Elements
+ * @param {Array} elems
+ * @returns {Array} items - Outlayer.Items
+ */
+proto.getItems = function( elems ) {
+  elems = utils.makeArray( elems );
+  var items = [];
+  elems.forEach( function( elem ) {
+    var item = this.getItem( elem );
+    if ( item ) {
+      items.push( item );
+    }
+  }, this );
+
+  return items;
+};
+
+/**
+ * remove element(s) from instance and DOM
+ * @param {Array or NodeList or Element} elems
+ */
+proto.remove = function( elems ) {
+  var removeItems = this.getItems( elems );
+
+  this._emitCompleteOnItems( 'remove', removeItems );
+
+  // bail if no items to remove
+  if ( !removeItems || !removeItems.length ) {
+    return;
+  }
+
+  removeItems.forEach( function( item ) {
+    item.remove();
+    // remove item from collection
+    utils.removeFrom( this.items, item );
+  }, this );
+};
+
+// ----- destroy ----- //
+
+// remove and disable Outlayer instance
+proto.destroy = function() {
+  // clean up dynamic styles
+  var style = this.element.style;
+  style.height = '';
+  style.position = '';
+  style.width = '';
+  // destroy items
+  this.items.forEach( function( item ) {
+    item.destroy();
+  });
+
+  this.unbindResize();
+
+  var id = this.element.outlayerGUID;
+  delete instances[ id ]; // remove reference to instance by id
+  delete this.element.outlayerGUID;
+  // remove data for jQuery
+  if ( jQuery ) {
+    jQuery.removeData( this.element, this.constructor.namespace );
+  }
+
+};
+
+// -------------------------- data -------------------------- //
+
+/**
+ * get Outlayer instance from element
+ * @param {Element} elem
+ * @returns {Outlayer}
+ */
+Outlayer.data = function( elem ) {
+  elem = utils.getQueryElement( elem );
+  var id = elem && elem.outlayerGUID;
+  return id && instances[ id ];
+};
+
+
+// -------------------------- create Outlayer class -------------------------- //
+
+/**
+ * create a layout class
+ * @param {String} namespace
+ */
+Outlayer.create = function( namespace, options ) {
+  // sub-class Outlayer
+  var Layout = subclass( Outlayer );
+  // apply new options and compatOptions
+  Layout.defaults = utils.extend( {}, Outlayer.defaults );
+  utils.extend( Layout.defaults, options );
+  Layout.compatOptions = utils.extend( {}, Outlayer.compatOptions  );
+
+  Layout.namespace = namespace;
+
+  Layout.data = Outlayer.data;
+
+  // sub-class Item
+  Layout.Item = subclass( Item );
+
+  // -------------------------- declarative -------------------------- //
+
+  utils.htmlInit( Layout, namespace );
+
+  // -------------------------- jQuery bridge -------------------------- //
+
+  // make into jQuery plugin
+  if ( jQuery && jQuery.bridget ) {
+    jQuery.bridget( namespace, Layout );
+  }
+
+  return Layout;
+};
+
+function subclass( Parent ) {
+  function SubClass() {
+    Parent.apply( this, arguments );
+  }
+
+  SubClass.prototype = Object.create( Parent.prototype );
+  SubClass.prototype.constructor = SubClass;
+
+  return SubClass;
+}
+
+// ----- helpers ----- //
+
+// how many milliseconds are in each unit
+var msUnits = {
+  ms: 1,
+  s: 1000
+};
+
+// munge time-like parameter into millisecond number
+// '0.4s' -> 40
+function getMilliseconds( time ) {
+  if ( typeof time == 'number' ) {
+    return time;
+  }
+  var matches = time.match( /(^\d*\.?\d*)(\w*)/ );
+  var num = matches && matches[1];
+  var unit = matches && matches[2];
+  if ( !num.length ) {
+    return 0;
+  }
+  num = parseFloat( num );
+  var mult = msUnits[ unit ] || 1;
+  return num * mult;
+}
+
+// ----- fin ----- //
+
+// back in global
+Outlayer.Item = Item;
+
+return Outlayer;
+
+}));
+
+
+/***/ }),
+
 /***/ "./node_modules/swiper/swiper.css":
 /*!****************************************!*\
   !*** ./node_modules/swiper/swiper.css ***!
@@ -49022,4 +51621,4 @@ _utils_forms_js__WEBPACK_IMPORTED_MODULE_1__.formSubmit();
 
 /******/ })()
 ;
-//# sourceMappingURL=index2a494056213583d9b4bf.js.map
+//# sourceMappingURL=articlesfeb49c3ae78ebc35b727.js.map
