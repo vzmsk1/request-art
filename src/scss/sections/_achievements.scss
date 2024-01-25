@@ -1,8 +1,9 @@
 .achievements {
-    margin-bottom: 16rem;
+    padding-bottom: 16rem;
 
     @include small-tablet {
         margin-bottom: 24rem;
+        padding-bottom: 0;
     }
 
     &__title {
@@ -87,7 +88,7 @@
                     }
                 }
 
-                &:not(:nth-last-child(-n+2)) {
+                &:not(:nth-last-child(-n + 2)) {
                     &::after {
                         @include pseudo {
                             width: 100%;

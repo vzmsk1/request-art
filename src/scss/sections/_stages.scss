@@ -1,7 +1,8 @@
 .stages {
-    margin-bottom: 16rem;
+    padding-bottom: 16rem;
     @media (max-width: 48em) {
         margin-bottom: 24rem;
+        padding-bottom: 0;
     }
 
     // .stages__container

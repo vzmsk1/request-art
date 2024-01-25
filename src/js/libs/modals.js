@@ -222,7 +222,13 @@ class Modal {
                 document.documentElement.classList.add(this.options.classes.bodyActive);
 
                 if (!this._reopen) {
-                    !this.bodyLock ? bodyLock() : null;
+                    const m = document.querySelector(this.hash);
+                    setTimeout(() => {
+                        (!this.bodyLock && !m.hasAttribute('data-bl-mobile')) ||
+                        (!this.bodyLock && window.innerWidth <= 768 && m.hasAttribute('data-bl-mobile'))
+                            ? bodyLock()
+                            : null;
+                    }, 0);
                 } else this._reopen = false;
 
                 this.targetOpen.element.setAttribute('aria-hidden', 'false');
