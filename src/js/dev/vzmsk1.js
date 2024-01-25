@@ -267,15 +267,14 @@ window.addEventListener('resize', function () {
     changeScrollableHeight();
     animateEllipse();
     toggleFiltersMenu();
-    if (document.querySelector('.portfolio__cards') && window.innerWidth > 768) {
-        msnry.destroy();
-        setTimeout(() => {
-            removeAttribute(document.querySelector('.portfolio__cards'), 'style');
-            removeAttribute(document.querySelectorAll('.portfolio__card'), 'style');
-        }, 0);
-    } else {
-        msnry.initLayout = true;
-        msnry.reloadItems();
-        msnry.layout();
+    if (msnry) {
+        if (document.querySelector('.portfolio__cards') && window.innerWidth > 768) {
+            msnry.initLayout = false;
+            msnry.destroy();
+        } else {
+            msnry.initLayout = true;
+            msnry.reloadItems();
+            msnry.layout();
+        }
     }
 });
