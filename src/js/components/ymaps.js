@@ -34,6 +34,7 @@ function initContactsMap() {
     );
 
     contactsMap.geoObjects.add(contactsPlacemark);
+    contactsMap.behaviors.disable('scrollZoom');
 
     removeControls(contactsMap);
 }

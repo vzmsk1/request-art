@@ -90,7 +90,10 @@ if (document.getElementById('gallerySection')) {
                 // window
                 // gsap.to(window, { scrollTo: 0 });
                 // plane section
-                gsap.to(this.gallerySection, { paddingTop: 0, marginTop: 0 });
+                gsap.to(this.gallerySection, {
+                    paddingTop: window.innerWidth > 768 ? 0 : '4rem',
+                    marginTop: 0
+                });
                 // plane body
                 gsap.to(planeBody, { height: window.innerWidth > 768 ? '63rem' : '73rem' });
                 // plane wrapper
