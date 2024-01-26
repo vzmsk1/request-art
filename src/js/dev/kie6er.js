@@ -96,4 +96,19 @@ $(document).ready(function () {
             $('.main-concept').css('background', 'none');
         });
     }
+
+    $('.services-dev__btn button').on('click', function () {
+        let el = $('.services-dev__text');
+
+        if (el.hasClass('active')) {
+            el.removeClass('active');
+            el.css('max-height', 196);
+            el.css('display', '-webkit-box');
+        } else {
+            el.css('display', 'block');
+            el.css('max-height', el[0].scrollHeight + 'px');
+            el.addClass('active');
+            $(this).hide();
+        }
+    });
 });

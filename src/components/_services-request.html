@@ -1,143 +1,12 @@
-<html lang="ru">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>вёрстка «request art»</title>
-    <script defer src="index5ac3509fba62f4b49cc4.js"></script></head>
-    <body>
-        <div class="root">
-            <h1>вёрстка «request art»</h1>
-            <h2>готовые страницы:</h2>
-            <ol>
-                <li>
-                    <a target="_blank" href="./home.html">главная</a>
-                </li>
-                <li>
-                    <a target="_blank" href="./services.html">Услуги</a>
-                </li>
-                <li>
-                    <a target="_blank" href="./services-detailed.html">Детальная услуги</a>
-                </li>
-                <li>
-                    <a target="_blank" href="./articles.html">статьи</a>
-                </li>
-                <li>
-                    <a target="_blank" href="./article-detailed.html">Детальная статьи</a>
-                </li>
-                <li>
-                    <a target="_blank" href="./about.html">О нас</a>
-                </li>
-                <li>
-                    <a target="_blank" href="./contacts.html">контакты</a>
-                </li>
-                <li>
-                    <a target="_blank" href="./portfolio.html">портфолио</a>
-                </li>
-            </ol>
-            <h2>модалки:</h2>
-            <ol>
-                <li>
-                    <button type="button" data-modal="#applicationModal">оставить заявку</button>
-                </li>
-                <li>
-                    <button type="button" data-modal="#applicationSentModal">заявка отправлена</button>
-                </li>
-            </ol>
-        </div>
-        <style>
-            @charset "UTF-8";
-            @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200&display=swap');
-            * {
-                padding: 0;
-                margin: 0;
-                border: 0;
-                box-sizing: border-box;
-            }
-            html,
-            body {
-                margin: 0;
-                padding: 0;
-                height: 100%;
-                width: 100%;
-                min-width: 32rem;
-                background-color: #ffffff;
-                color: #202020;
-            }
-            html {
-                font-size: 0.5208335vw;
-            }
-            body {
-                padding: 5rem 0;
-                font-size: 100%;
-                line-height: 1;
-                font-size: 2.5rem;
-                user-select: none;
-            }
-            .root {
-                font-family: 'Source Code Pro';
-            }
-            ul,
-            ol {
-                margin-bottom: 10rem;
-            }
-            ul li,
-            ol li {
-                font-size: 2.3rem;
-            }
-            li {
-                margin-bottom: 2rem;
-                font-size: 2rem;
-                text-transform: lowercase;
-            }
-            a {
-                text-decoration: none;
-            }
-            a {
-                color: #202020;
-                transition: color 0.5s ease;
-            }
-            a:visited {
-                text-decoration: none;
-                color: #202020;
-            }
-            a:hover {
-                color: #202020;
-                text-decoration: underline;
-            }
-            h1 {
-                margin-bottom: 5rem;
-                font-size: 5rem;
-                font-weight: 300;
-                text-align: center;
-            }
-            h2 {
-                margin-bottom: 2.5rem;
-                font-size: 2.5rem;
-                font-weight: 300;
-            }
-            .root {
-                padding: 5rem;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            @media (max-width: 48em) {
-                html {
-                    font-size: 1.5625vw;
-                }
-            }
-        </style>
-        <!-- заполнить заявку -->
-<div id="applicationModal" data-bl-mobile aria-hidden="true" class="modal modal_fs application-modal">
-    <div class="modal__wrapper">
-        <div class="modal__content">
-            <div class="modal__body">
-                <div class="application-modal__inner">
-                    <button data-close type="button" class="modal__close">
-                        <img src="./assets/images/icons/cross.svg" alt="" class="modal__close-icon" />
-                    </button>
-                    <span class="application-modal__title tl2">ЗАПОЛНИТЕ ЗАЯВКУ</span>
-                    <p class="application-modal__text txt20">Заполните заявку и мы вам перезвоним</p>
+<section class="services-request">
+    <div class="container">
+        <div class="services-request__inner">
+            <div class="services-request__left">
+                <div class="services-request__header">
+                    <div class="services-request__title tl2">ЗАПОЛНИТЕ ЗАЯВКУ</div>
+                    <div class="services-request__subtitle text-20">Заполните заявку и мы вам перезвоним</div>
+                </div>
+                <div class="services-request__form">
                     <form data-dev action="#" class="application-modal__form">
                         <div class="application-modal__options">
                             <div class="application-modal__option badge badge_white">
@@ -284,7 +153,7 @@
                             </div>
                         </div>
                         <div class="application-modal__footer">
-                            <button type="submit" class="application-modal__btn btn btn_black">
+                            <button type="submit" class="application-modal__btn btn">
                                 <span class="btn__text txt20 txt20_caps">отправить</span>
                                 <svg
                                     class="btn__icon"
@@ -307,28 +176,27 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- заявка отправлена -->
-<div id="applicationSentModal" data-bl-mobile aria-hidden="true" class="modal modal_fs application-modal">
-    <div class="modal__wrapper">
-        <div class="modal__content">
-            <div class="modal__body">
-                <div class="application-modal__inner">
-                    <button data-close type="button" class="modal__close">
-                        <img src="./assets/images/icons/cross.svg" alt="" class="modal__close-icon" />
-                    </button>
-                    <span class="application-modal__title tl2">заявка отправлена</span>
-                    <p class="application-modal__text txt20">
-                        Ваша заявка успешно отправлена. Наш менеджер свяжется с вами в ближайшее время.
-                    </p>
+            <div class="services-request__right">
+                <div class="services-request__image">
+                    <img src="../assets/images/services/services-request.jpg" alt="" />
+                </div>
+                <div class="services-request__icon">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="268"
+                        height="273"
+                        viewBox="0 0 268 273"
+                        fill="none"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M115.39 0.847168C111.278 0.847168 107.945 4.18016 107.945 8.29161V93.9027C107.945 98.0142 111.278 101.347 115.39 101.347C119.501 101.347 122.834 98.0142 122.834 93.9027V8.29161C122.834 4.18016 119.501 0.847168 115.39 0.847168ZM214.053 28.4433C211.146 25.5361 206.432 25.5361 203.525 28.4433L142.989 88.9795C140.082 91.8868 140.082 96.6003 142.989 99.5076C145.896 102.415 150.61 102.415 153.517 99.5076L214.053 38.9714C216.96 36.0641 216.96 31.3506 214.053 28.4433ZM260.556 112.515C264.667 112.515 268 115.848 268 119.96C268 124.071 264.667 127.404 260.556 127.404L174.944 127.404C170.833 127.404 167.5 124.071 167.5 119.96C167.5 115.848 170.833 112.515 174.944 112.515L260.556 112.515ZM243.83 218.621C246.737 215.713 246.737 211 243.83 208.093L183.294 147.556C180.386 144.649 175.673 144.649 172.766 147.556C169.858 150.464 169.858 155.177 172.765 158.084L233.302 218.621C236.209 221.528 240.923 221.528 243.83 218.621ZM160.055 265.125C160.055 269.236 156.722 272.569 152.61 272.569C148.499 272.569 145.166 269.236 145.166 265.125V179.514C145.166 175.402 148.499 172.069 152.61 172.069C156.722 172.069 160.055 175.402 160.055 179.514L160.055 265.125ZM53.6522 244.676C56.5595 247.583 61.273 247.583 64.1803 244.676L124.716 184.14C127.624 181.233 127.624 176.519 124.716 173.612C121.809 170.705 117.096 170.705 114.188 173.612L53.6522 234.148C50.745 237.055 50.745 241.769 53.6522 244.676ZM7.44444 164.624C3.33299 164.624 0 161.291 0 157.179C0 153.068 3.33299 149.735 7.44445 149.735L93.0556 149.735C97.167 149.735 100.5 153.068 100.5 157.179C100.5 161.291 97.167 164.624 93.0556 164.624L7.44444 164.624ZM23.8735 58.2207C20.9663 61.128 20.9663 65.8415 23.8735 68.7488L84.4098 129.285C87.317 132.192 92.0305 132.192 94.9378 129.285C97.845 126.378 97.845 121.664 94.9378 118.757L34.4016 58.2207C31.4943 55.3135 26.7808 55.3135 23.8735 58.2207Z"
+                            fill="white"
+                        />
+                    </svg>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-    </body>
-</html>
+</section>
