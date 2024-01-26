@@ -7,6 +7,16 @@
         padding-bottom: 0;
     }
 
+    // .portfolio__title
+
+    &__title {
+        margin-bottom: 9rem;
+        align-self: center;
+        .portfolio-page & {
+            display: none;
+        }
+    }
+
     // .portfolio__container
 
     &__container {
@@ -23,7 +33,7 @@
     // .portfolio__cards
 
     &__cards {
-        margin-bottom: 10rem;
+        margin-bottom: 5rem;
         max-width: 100vw;
         @media (min-width: 48em) {
             margin-bottom: 8rem;

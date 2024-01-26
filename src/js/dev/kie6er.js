@@ -3,23 +3,24 @@ import Swiper from 'swiper';
 import 'swiper/css';
 import { Navigation, Pagination, EffectFade, Thumbs } from 'swiper/modules';
 import { remToPx } from '../utils/utils';
+import { bodyLockToggle, bodyUnlock, bodyLockStatus } from '../utils/utils';
 
 $(document).ready(function () {
     // HEADER
     $('.burger-btn').on('click', function () {
         $(this).toggleClass('open');
         $('.burger-menu').toggleClass('show');
-        $('body').toggleClass('lock');
         $('header').toggleClass('show');
+        if (bodyLockStatus) bodyLockToggle();
     });
 
     scrollHeader();
     $(window).resize(function () {
         if ($(this).innerWidth() >= 769) {
-            $('body').removeClass('lock');
             $('.burger-btn').removeClass('open');
             $('.burger-menu').removeClass('show');
             $('header').removeClass('show');
+            if (bodyLockStatus) bodyUnlock();
         }
         scrollHeader();
     });
@@ -97,7 +98,7 @@ $(document).ready(function () {
         });
     }
 
-    $('.services-dev__btn button').on('click', function () {
+    $('.services-dev__btn').on('click', function () {
         let el = $('.services-dev__text');
 
         if (el.hasClass('active')) {

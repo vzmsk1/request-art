@@ -192,6 +192,11 @@
             margin-bottom: 12rem;
         }
 
+        &-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
         &-item {
             border-radius: 4rem;
             position: relative;
@@ -202,8 +207,10 @@
             &:hover {
                 background: $pink;
 
-                .articles__list-item-heading {
-                    color: $white;
+                .articles__list-item-category,
+                .articles__list-item-icon,
+                .articles__list-item-date {
+                    background-color: $white;
                 }
             }
 
@@ -239,9 +246,9 @@
                 letter-spacing: 0.176rem;
                 text-transform: uppercase;
                 padding: 1.7rem 3.2rem;
-                background: $violet;
+                background-color: $violet;
                 border-radius: 3rem;
-                transition: 0.3s color ease;
+                transition: background-color 0.3s ease;
 
                 @include small-tablet {
                     padding: 1.8rem 4rem;
@@ -259,7 +266,8 @@
                 @include sizes(5.2rem, 5.2rem);
                 padding: 1.4rem;
                 border-radius: 50%;
-                background: $violet;
+                background-color: $violet;
+                transition: background-color 0.3s ease;
 
                 @include small-tablet {
                     @include sizes(8rem, 8rem);
@@ -286,7 +294,7 @@
                 font-size: 2.2rem;
                 font-style: normal;
                 font-weight: 500;
-                transition: 0.3s color ease;
+                transition: background-color 0.3s ease;
                 line-height: 2.4rem;
                 letter-spacing: 0.176rem;
                 text-transform: uppercase;
@@ -394,34 +402,7 @@
         }
 
         &-button {
-            margin: 0 auto;
-            display: block;
-            font-family: $font-druk;
-            font-size: 2.2rem;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 2.4rem;
-            letter-spacing: 0.176rem;
-            text-transform: uppercase;
-            padding-bottom: 0.8rem;
-            border-bottom: 0.2rem solid $white;
-            transition: 0.3s color ease, 0.3s border ease;
-
-            &:hover {
-                color: $yellow;
-                border-color: $yellow;
-            }
-
-            @include small-tablet {
-                font-size: 4rem;
-                font-style: normal;
-                font-weight: 500;
-                line-height: 110%;
-                letter-spacing: 0.32rem;
-                text-transform: uppercase;
-                padding-bottom: 1.2rem;
-                border-width: 0.4rem;
-            }
+            align-self: center;
         }
     }
 }

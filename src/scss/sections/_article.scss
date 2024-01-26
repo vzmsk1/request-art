@@ -151,6 +151,7 @@
                 position: absolute;
                 top: -2rem;
                 left: -3.5rem;
+                animation: rotateCrcl 15s linear 0s infinite;
 
                 @include small-tablet {
                     @include sizes(23rem, 23rem);
@@ -411,5 +412,11 @@
                 line-height: normal;
             }
         }
+    }
+}
+
+@keyframes rotateCrcl {
+    100% {
+        transform: rotate(360deg);
     }
 }

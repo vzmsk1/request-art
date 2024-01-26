@@ -171,6 +171,12 @@
         transform: scaleX(1);
         transition: transform 0.3s ease;
     }
+    &_black {
+        color: $black;
+        &::after {
+            background-color: $black;
+        }
+    }
     @media (any-hover: hover) {
         &:hover {
             &::after {
@@ -188,6 +194,7 @@
 
     &__text {
         font-family: 'DrukCyr';
+        text-transform: uppercase;
     }
 }
 // <a href="#" class="link"
