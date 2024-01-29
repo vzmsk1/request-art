@@ -1,0 +1,67 @@
+.portfolio-d-ab {
+    margin-bottom: 16rem;
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__title {
+        width: 41.5rem;
+        padding-top: 1.7rem;
+        h2 {
+            margin-bottom: 2rem;
+        }
+        span {
+            color: rgba(255, 255, 255, 0.70);
+        }
+    }
+
+    &__content {
+        &-title {
+            margin-bottom: 3.2rem;
+        }
+    }
+
+    &__process {
+        padding: 0;
+    }
+
+    &__process-item {
+        padding: 1.6rem 0;
+        width: 41.5rem;
+        border-top: 1px solid rgba(201, 251, 64, 0.50);
+    }
+
+    &__process-item:last-child {
+        border-bottom: 1px solid rgba(201, 251, 64, 0.50);
+    }
+
+    
+}
+
+
+@media (max-width: 48em) {
+
+    .portfolio-d-ab  {
+        margin-bottom: 24rem;
+        &__wrapper {
+            flex-direction: column;
+        }
+
+        &__title {
+            padding-top: 0;
+            width: 100%;
+            margin-bottom: 4.8rem;
+        }
+
+        &__content-title {
+            margin-bottom: 4rem;
+        }
+
+        &__process-item {
+            width: 100%;
+            padding: 2.4rem 1rem;
+        }
+    }
+}

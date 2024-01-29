@@ -1,0 +1,54 @@
+.error404 {
+    padding-top: 12rem;
+    margin-bottom: 16rem;
+    &__wrapper {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        flex-direction: column;
+    }
+    &__image {
+        width: 83.9rem;
+        height: 60.3rem;
+    }
+
+    &__block {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items:center;
+    }
+
+    &__text {
+        margin-bottom: 4rem;
+    }
+}
+
+
+@media (max-width: 48em) { 
+
+    .error404 {
+
+        &__wrapper {
+            flex-direction: column;
+        }
+        &__image {
+            width: 71rem;
+            height: 51rem;
+            margin-bottom: 9.6rem;
+        }
+
+        &__block {
+            position: initial;
+        }
+
+        &__text {
+            text-align: center;
+            font-size: 10rem;
+            margin-bottom: 6.4rem;
+            max-width: 44rem
+        }
+    }
+}
