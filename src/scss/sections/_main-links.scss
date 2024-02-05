@@ -21,6 +21,19 @@
 
         border-top: 0.1rem solid rgba(201, 243, 43, 0.5);
 
+        &:nth-child(2):hover {
+            background-color: $violet;
+        }
+        &:nth-child(3):hover {
+            background-color: $pink;
+        }
+        &:nth-child(4):hover {
+            background-color: $green;
+        }
+        &:nth-child(5):hover {
+            background-color: $white;
+        }
+
         &:last-child {
             border-bottom: 0.1rem solid rgba(201, 243, 43, 0.5);
         }

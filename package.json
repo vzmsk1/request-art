@@ -46,6 +46,7 @@
         "gsap": "^3.12.4",
         "imask": "^7.3.0",
         "jquery": "^3.7.1",
+        "jquery.marquee": "^1.6.0",
         "jsdom": "^23.2.0",
         "masonry-layout": "^4.2.2",
         "swiper": "^11.0.5",
