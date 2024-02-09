@@ -211,7 +211,15 @@
 
     // .service-hero__btn
 
-    &__btn {
+    &__btn.btn {
+        &:hover {
+            span {
+                color: $bodyColor;
+            }
+            svg path {
+                fill: $bodyColor;
+            }
+        }
     }
 }
 

@@ -44,6 +44,17 @@
                 color: $white;
             }
         }
+        .application-modal__btn {
+            &:hover {
+                span {
+                    color: $bodyColor;
+                }
+
+                svg path {
+                    fill: $bodyColor;
+                }
+            }
+        }
 
         .file-input__icon-wrap {
             background-color: $green;
