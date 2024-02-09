@@ -132,26 +132,42 @@ let formValidate = {
                     const removeBtn = parent.querySelector('[data-remove-file-btn]');
                     const data = {
                         name: file.name.split('.').slice(0, -1).join(''),
-                        size: file.size / 1000000,
+                        size: file.size,
                         extension: file.name.split('.').pop()
                     };
+                    const extensions = ['jpeg', 'jpg', 'png', 'webp', 'pdf'];
 
-                    img ? (img.src = e.target.result) : null;
-                    text ? (text.innerHTML = `Максимальный размер файла - ${maxSize} мб`) : null;
-                    name ? (name.innerHTML = data.name) : null;
-                    extension ? (extension.innerHTML = data.extension) : null;
-                    size ? (size.innerHTML = data.size.toFixed(1)) : null;
-
-                    if (data.size > maxSize) {
+                    const formatBytes = (bytes) => {
+                        if (bytes >= 1000) {
+                            return `${(bytes / 1048576).toFixed(2)} mб`;
+                        }
+                        return `${bytes} б`;
+                    };
+                    const addErr = () => {
                         parent.classList.add('_error');
                         parent.classList.remove('_filled');
-                        text.innerHTML = 'Большой размер файла';
                         ths.addError(formRequiredItem);
+                    };
+
+                    size ? (size.innerHTML = formatBytes(data.size)) : null;
+                    img ? (img.src = e.target.result) : null;
+                    text ? (text.innerHTML = `Формат: jpeg,jpg,png,webp,pdf до ${maxSize} мб`) : null;
+                    name ? (name.innerHTML = data.name) : null;
+                    extension ? (extension.innerHTML = data.extension) : null;
+
+                    if ((data.size / 1048576).toFixed(2) > maxSize) {
+                        text.innerHTML = 'Большой размер файла';
+                        addErr();
+                    } else if (!extensions.includes(data.extension)) {
+                        text.innerHTML = ' Файл должен иметь формат jpeg,jpg,png,webp, или pdf';
+                        addErr();
                     } else {
                         parent.classList.remove('_error');
                         parent.classList.add('_filled');
                         ths.removeError(formRequiredItem);
                     }
+
+                    console.log(formatBytes(data.size), maxSize);
 
                     if (removeBtn) {
                         removeBtn.addEventListener('click', function () {

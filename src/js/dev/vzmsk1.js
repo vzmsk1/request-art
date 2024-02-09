@@ -5,9 +5,10 @@ import { Navigation } from 'swiper/modules';
 import { remToPx, bodyLockStatus, bodyLock, bodyUnlock, removeClasses } from '../utils/utils';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-gsap.registerPlugin(ScrollTrigger);
 
 // --------------------------------------------------------------------------
+
+gsap.registerPlugin(ScrollTrigger);
 
 /**
  * changes properties (desk / mobile) for wave svg element
@@ -259,22 +260,31 @@ import '../components/hero-gallery.js';
 
 import '../components/masonry.js';
 
+// ---------------------------- change body cover ---------------------------
+
+import '../components/change-body-color.js';
+
 // --------------------------------- events ---------------------------------
 
 window.addEventListener('resize', function () {
+    const resizeEvent = new Event('resize');
+    msnry.dispatchEvent(resizeEvent);
+
     setWaveSvgProps();
     initSelectModal();
     changeScrollableHeight();
     animateEllipse();
     toggleFiltersMenu();
     if (msnry) {
-        if (document.querySelector('.portfolio__cards') && window.innerWidth > 768) {
+        if (window.innerWidth > 768) {
             msnry.initLayout = false;
             msnry.destroy();
         } else {
-            msnry.initLayout = true;
-            msnry.reloadItems();
-            msnry.layout();
+            setTimeout(() => {
+                msnry.layout();
+                msnry.initLayout = true;
+                msnry.reloadItems();
+            }, 500);
         }
     }
 });

@@ -218,11 +218,12 @@ if (document.getElementById('gallerySection')) {
             // show popup
             const showPopup = (item) => {
                 const title = item.dataset.title;
-                const color = item.dataset.color;
+                // const color = item.dataset.color;
+                const colors = ['#ed89fb', '#c9fb40', '#cad2f4', 'fad85d'];
 
-                if (title.length && color.length) {
+                if (title.length) {
                     popupTitle.innerHTML = title;
-                    popup.style.backgroundColor = color;
+                    popup.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                     popup.classList.add('_active');
                 }
 
