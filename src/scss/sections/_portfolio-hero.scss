@@ -1,11 +1,9 @@
 .portfolio-hero {
     margin-bottom: 12rem;
-    padding-top: 22.2rem;
     padding-bottom: 19.7rem;
     user-select: none;
     @media (max-width: 48em) {
         margin-bottom: 10rem;
-        padding-top: 22rem;
         padding-bottom: 0;
     }
 
@@ -13,33 +11,23 @@
 
     &__container {
         position: relative;
-        &::before,
-        &::after {
-            content: '';
-            position: absolute;
-            top: -17rem;
-            width: 71rem;
-            height: 71rem;
-            border: 1px solid $gray-darken;
-            border-radius: 50%;
-        }
-        &::before {
-            left: -22rem;
-        }
-        &::after {
-            right: -22rem;
-        }
-        @media (max-width: 48em) {
+
+        @media (min-width: 48em) {
             &::before,
             &::after {
-                width: 62rem;
-                height: 62rem;
+                content: '';
+                position: absolute;
+                top: -17rem;
+                width: 71rem;
+                height: 71rem;
+                border: 1px solid $gray-darken;
+                border-radius: 50%;
             }
             &::before {
-                left: -55.6rem;
+                left: -22rem;
             }
             &::after {
-                right: -55.6rem;
+                right: -22rem;
             }
         }
     }
@@ -152,17 +140,6 @@
         }
     }
 
-    // .portfolio-hero__title
-
-    &__title {
-        position: relative;
-        z-index: 2;
-        margin-bottom: 2rem;
-        @media (max-width: 48em) {
-            margin-bottom: 5rem;
-        }
-    }
-
     // .portfolio-hero__text
 
     &__text {
@@ -171,63 +148,5 @@
         @media (max-width: 48em) {
             max-width: 18.6rem;
         }
-    }
-
-    // .portfolio-hero__content
-
-    &__content {
-        position: relative;
-        margin-bottom: 23.8rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        @media (min-width: 48em) {
-            position: absolute;
-            z-index: 2;
-            top: 50%;
-            left: 50%;
-            margin-bottom: 0;
-            width: 100%;
-            height: 100%;
-            transform: translate(-50%, -50%);
-        }
-    }
-
-    // .portfolio-hero__btn
-
-    &__btn {
-        position: relative;
-        z-index: 2;
-    }
-
-    // .portfolio-hero__ellipse
-
-    &__ellipse {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 71rem;
-        height: 71rem;
-        border-radius: 50%;
-        overflow: hidden;
-        transform-origin: center top;
-        transform: translate(-50%, -50%);
-        background-image: url(./assets/images/picture/ellipse.svg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        @media (max-width: 48em) {
-            width: 62rem;
-            height: 62rem;
-            transform-origin: center;
-        }
-    }
-
-    // .portfolio-hero__ellipse-img
-
-    &__ellipse-img {
-        display: block;
-        height: 100%;
-        object-fit: cover;
     }
 }

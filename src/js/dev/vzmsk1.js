@@ -10,6 +10,39 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const hidePortfolioBtn = () => {
+    const mm = gsap.matchMedia();
+    const content = document.querySelector('.portfolio-hero-content');
+    const btn = content?.querySelector('.btn');
+
+    if (content) {
+        mm.add('(min-width: 768px)', () => {
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.portfolio',
+                    scrub: true,
+                    toggleClass: '_is-active',
+                    start: () => '-20% top',
+                    onToggle: () => {
+                        content.classList.toggle('_is-active');
+                        btn.classList.remove('_is-hidden');
+                    },
+                    onLeave: () => btn.classList.add('_is-hidden')
+                }
+            }).fromTo(
+                content,
+                {
+                    marginBottom: 0
+                },
+                {
+                    marginBottom: '70rem'
+                }
+            );
+        });
+    }
+};
+hidePortfolioBtn();
+
 /**
  * changes properties (desk / mobile) for wave svg element
  */
@@ -172,37 +205,37 @@ changeScrollableHeight();
 /**
  * animated portfolio hero ellipse on scroll
  */
-const animateEllipse = () => {
-    if (document.getElementById('PHEllipse')) {
-        const mm = gsap.matchMedia();
+// const animateEllipse = () => {
+//     if (document.getElementById('PHEllipse')) {
+//         const mm = gsap.matchMedia();
 
-        mm.add('(min-width: 768px)', () => {
-            const tl = gsap
-                .timeline({
-                    scrollTrigger: {
-                        trigger: '#portfolioHero',
-                        scrub: !0,
-                        start: () => 'top top',
-                        end: () => 'bottom top',
-                        invalidateOnRefresh: !0,
-                        overwrite: 'auto'
-                    }
-                })
-                .fromTo(
-                    '#PHEllipse',
-                    {
-                        scale: 1
-                    },
-                    {
-                        scale: 1.88
-                    }
-                );
-        });
+//         mm.add('(min-width: 768px)', () => {
+//             const tl = gsap
+//                 .timeline({
+//                     scrollTrigger: {
+//                         trigger: '#portfolioHero',
+//                         scrub: !0,
+//                         start: () => 'top top',
+//                         end: () => 'bottom top',
+//                         invalidateOnRefresh: !0,
+//                         overwrite: 'auto'
+//                     }
+//                 })
+//                 .fromTo(
+//                     '#PHEllipse',
+//                     {
+//                         scale: 1
+//                     },
+//                     {
+//                         scale: 1.88
+//                     }
+//                 );
+//         });
 
-        // mm.revert();
-    }
-};
-animateEllipse();
+//         // mm.revert();
+//     }
+// };
+// animateEllipse();
 
 /**
  * toggles filters menu
@@ -273,7 +306,7 @@ window.addEventListener('resize', function () {
     setWaveSvgProps();
     initSelectModal();
     changeScrollableHeight();
-    animateEllipse();
+    // animateEllipse();
     toggleFiltersMenu();
     if (msnry) {
         if (window.innerWidth > 768) {
