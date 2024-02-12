@@ -204,13 +204,15 @@
             transition: 0.3s background ease;
             display: flex;
 
-            &:hover {
-                background: $pink;
+            @media (min-width: 48em) {
+                &:hover {
+                    background: $pink;
 
-                .articles__list-item-category,
-                .articles__list-item-icon,
-                .articles__list-item-date {
-                    background-color: $white;
+                    .articles__list-item-category,
+                    .articles__list-item-icon,
+                    .articles__list-item-date {
+                        background-color: $white;
+                    }
                 }
             }
 

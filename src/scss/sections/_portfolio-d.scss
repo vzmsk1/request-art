@@ -1,9 +1,20 @@
 .portfolio-d {
     margin-bottom: 16rem;
     position: relative;
+    .portfolio-swiper .swiper-slide {
+        width: auto !important;
+    }
+    @media (min-width: 48em) {
+        .portfolio-d__swiper .swiper-slide {
+            width: auto !important;
+        }
+    }
+    .swiper-wrapper {
+        transition-timing-function: linear !important;
+    }
     &::after {
         position: absolute;
-        content: "";
+        content: '';
         width: 100%;
         height: 57.5rem;
         left: 0;
@@ -19,17 +30,16 @@
     &__title {
         display: flex;
         width: 100%;
-        overflow: hidden;
         white-space: nowrap;
-        padding-left: 10rem;
         margin-bottom: 11.2rem;
+
         span {
             position: relative;
             padding-right: 10.5rem;
             margin-right: 3.2rem;
             &::before {
                 position: absolute;
-                content: "";
+                content: '';
                 width: 7.5rem;
                 height: 7.5rem;
                 background-image: url(./assets/images/portfolio-d/Union.svg);
@@ -69,30 +79,33 @@
             position: absolute;
             z-index: 2;
             border-radius: 5.2rem;
-            background: rgba(255, 255, 255, 0.30);
+            background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(30px);
             padding: 3rem;
             bottom: 2rem;
             left: 2rem;
             gap: 1rem;
             display: block;
+            transition: 0.3s opacity ease;
         }
     }
 
     .swiper-slide-active {
         .portfolio-d__slide-title {
-            display: none;
+            opacity: 0;
+
+            @include small-tablet {
+                opacity: 1;
+            }
         }
     }
 }
 
-
-@media (max-width: 48em) { 
+@media (max-width: 48em) {
     .portfolio-d {
-
         .container {
             width: 100%;
-            padding: 0 ;
+            padding: 0;
             padding-left: 2rem;
         }
         &__title {
@@ -140,7 +153,5 @@
                 display: block;
             }
         }
-
-       
     }
 }

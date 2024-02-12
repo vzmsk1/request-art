@@ -3,6 +3,17 @@
     background: #171717;
     margin-bottom: 16rem;
 
+    .swiper {
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+
+        &-wrapper {
+            transition-timing-function: linear !important;
+        }
+    }
+
+
     @include small-tablet {
         margin-bottom: 28rem;
     }

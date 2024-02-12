@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 const hidePortfolioBtn = () => {
     const mm = gsap.matchMedia();
     const content = document.querySelector('.portfolio-hero-content');
-    const btn = content.querySelector('.btn');
+    const btn = content?.querySelector('.btn');
 
     if (content) {
         mm.add('(min-width: 768px)', () => {
