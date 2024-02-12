@@ -1,0 +1,93 @@
+.portfolio-hero-content {
+    position: relative;
+    margin-top: 22rem;
+    margin-bottom: 23.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    user-select: none;
+
+    &._is-active {
+        .btn {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+
+    @media (max-width: 48em) {
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            top: -17rem;
+            width: 62rem;
+            height: 62rem;
+            border: 1px solid $gray-darken;
+            border-radius: 50%;
+        }
+        &::before {
+            left: -55.6rem;
+        }
+        &::after {
+            right: -55.6rem;
+        }
+    }
+
+    @media (min-width: 48em) {
+        position: sticky;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        width: 100%;
+        transform: translateY(30rem);
+    }
+
+    // .portfolio-hero-content__title
+
+    &__title {
+        position: relative;
+        z-index: 2;
+        margin-bottom: 2rem;
+        @media (max-width: 48em) {
+            margin-bottom: 5rem;
+        }
+    }
+
+    // .portfolio-hero-content__btn
+
+    &__btn {
+        position: relative;
+        z-index: 2;
+        transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+
+        &._is-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+
+    // .portfolio-hero-content__ellipse
+
+    &__ellipse {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 71rem;
+        height: 71rem;
+        border-radius: 50%;
+        overflow: hidden;
+        transform-origin: center top;
+        transform: translate(-50%, -50%);
+        background-image: url(./assets/images/picture/ellipse.svg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        @media (max-width: 48em) {
+            width: 62rem;
+            height: 62rem;
+            transform-origin: center;
+        }
+    }
+}
